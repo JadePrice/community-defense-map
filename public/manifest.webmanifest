@@ -1,6 +1,6 @@
 {
-  "name": "Cortège par @neru",
-  "short_name": "Cortège",
+  "name": "Community Defense Map",
+  "short_name": "DefMap",
   "description": "Carte collaborative en temps réel pour se protéger en manifestation.",
   "start_url": "/",
   "display": "standalone",

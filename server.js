@@ -13,9 +13,9 @@ const path = require('path');
 const crypto = require('crypto');
 
 const PORT = Number(process.env.PORT) || 8080;
-const EVENT_NAME = process.env.EVENT_NAME || 'Carte des mobilisations';
-const CENTER = (process.env.CENTER || '46.6,2.4').split(',').map(Number); // France entière par défaut
-const ZOOM = Number(process.env.ZOOM) || 6;
+const EVENT_NAME = process.env.EVENT_NAME || 'Community Defense Map';
+const CENTER = (process.env.CENTER || '39.8283,-98.5795').split(',').map(Number);
+const ZOOM = Number(process.env.ZOOM) || 4;
 // Accès admin ; vide = admin désactivé. Une clé trop courte est refusée (elle se devinerait).
 const ADMIN_KEY = (k => {
   if (k && k.length < 12) { console.error('ADMIN_KEY trop courte (12 caractères minimum) : administration désactivée.'); return ''; }

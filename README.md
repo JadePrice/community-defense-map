@@ -1,52 +1,48 @@
-# Cortège US Port
+# Community Defense Map
 
-Purpose: Localize rights to the US, prioritize EN-US and Latino Spanish
+**Community Defense Map** is a real-time, crowd-sourced map for tracking police activity, surveillance infrastructure, and potential threats to civil liberties across the United States. Forked from [Cortège](https://github.com/n-e-r-u/cortege) (originally a French protest mapping tool).
 
-[![Tests](https://github.com/JadePrice/cortege/actions/workflows/tests.yml/badge.svg)](https://github.com/JadePrice/cortege/actions/workflows/tests.yml)
+## Features
 
-**The live protest map, made by those who are there.**  
-*Fork of [Cortège](https://github.com/n-e-r-u/cortege) by [@neru](https://www.instagram.com/neru/).*
+- **Real-time tracking** – Crowd-sourced reports of police presence, units, roadblocks, and other enforcement activity
+- **Surveillance mapping** – Camera locations (public and private) with direction/facing information when known
+- **Privacy-first** – No accounts required, minimal data collection. Reports are ephemeral by design
+- **US-focused** – Centered on the continental United States with state/county geographic data from US Census TIGER/Line
+- **Offline-capable** – Progressive web app that works in areas with limited connectivity
+- **Multilingual** – English (default) with Spanish priority, plus French and Arabic support
+- **Know your rights** – US-focused legal information aligned with ACLU/NLG guidance
 
-Cortège is a free and open-source web app: during a protest, anyone can report what they see (kettling, tear gas, charges, street medics, legal team, safe zones, etc.) and everyone sees it on the map within seconds. No account, no ads, no tracking.
+## Focus
 
-## What it does
+This fork emphasizes **police and surveillance tracking for community defense** rather than broad protest coordination. The goal is to help communities monitor law enforcement activity and surveillance infrastructure while respecting privacy.
 
-- 📍 **Report in two taps**: aim, pick a type, send. Others can confirm ("Still there") or say it's gone ("Gone"), and each point fades away on its own after a few minutes.
-- 📳 **Live Warnings**: different vibrations for different nearby dangers, and notifications even when the app is closed (urgent announcements, dangers in your area).
-- ⚖️ **Know your rights**: US-focused rights info (ACLU-aligned), National Lawyers Guild Mass Defense hotline, guidance for police encounters and arrests, and a pre-filled SMS alert for a trusted contact.
-- 📅 **Calendar**: protests, blockades, gatherings, and general assemblies, with routes shown on the map.
-- 🏛 **Landmarks**: police stations, courts, hospitals, pharmacies, and water points.
-- 📶 **Works when networks are overloaded**: lightweight mode, reports queued until connection returns, last known situation shown offline, map cached on your phone.
-- 📣 **For organizers and legal teams**: location-based announcements, verification and removal of false reports, access via QR code with no password.
-
-## Privacy
-
-- Your location never leaves your phone: only reports are sent, rounded to about 10 meters.
-- No account, no cookies, no trackers. Reports are deleted when they expire.
-- The map can be served by the server itself (no requests to third-party tile providers), and the app is accessible over Tor.
-- The code is public: anyone can verify that the online app matches this repository.
-
-Details: [what the server knows and doesn't know](docs/FONCTIONNEMENT.md#what-the-server-knows-and-doesnt-know) and [SECURITY.md](SECURITY.md).
-
-## Host your own map
-
-Cortège runs on a small server (Node 22.13+, no dependencies to install) or on shared hosting with cPanel:
+## Running
 
 ```bash
-node server.js   # then open http://localhost:8080
+npm install
+npm start
 ```
 
-- [Installation and configuration](docs/INSTALLATION.md): environment variables, VPS, cPanel, Docker, backups, self-hosted maps, .onion address.
-- [How it works](docs/FONCTIONNEMENT.md): reports, anti-abuse, administration, digest.
-- [Changelog](CHANGELOG.md).
+Configuration via environment variables:
+- `PORT` (default: 8080)
+- `HOST` 
+- `DATA_DIR` (default: `~/.cortege-data`)
+- `EVENT_NAME` (default: "Community Defense Map")
+- `CENTER` (default: "39.8283,-98.5795" for US center)
+- `ZOOM` (default: 4)
+- `ADMIN_KEY` for admin functions
 
-## Contribute
+## Data Sources
 
-Bug, idea, or translation: open an [issue](../../issues) or read [CONTRIBUTING.md](CONTRIBUTING.md). To report a security vulnerability: see [SECURITY.md](SECURITY.md), do not publish it publicly.
+- **Geography**: US Census Bureau TIGER/Line Shapefiles (states)
+- **Places/Cities**: GeoNames database (US cities with population ≥50k)
+- **Surveillance/POIs**: OpenStreetMap (via Overpass API or PMTiles)
+- **Road routing**: OSRM
 
-## License and credits
+## Live Instance
 
-License [AGPL-3.0](LICENSE): any modified version made available online must publish its source code.
+Running on the tailnet at http://100.76.50.38:8082/
 
-Map data © [OpenStreetMap](https://www.openstreetmap.org/copyright) contributors (ODbL). City names and locations for the digest: [GeoNames](https://www.geonames.org/) (CC BY 4.0), file `places.json`.  
-Story fonts: Inter and JetBrains Mono (SIL Open Font License), in `public/vendor/fonts/`. Vector map rendering: [protomaps-leaflet](https://github.com/protomaps/protomaps-leaflet) (BSD-3-Clause). Story map background: Natural Earth via world-atlas (public domain).
+## License
+
+AGPL-3.0-or-later
