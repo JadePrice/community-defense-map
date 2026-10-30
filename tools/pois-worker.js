@@ -1,7 +1,7 @@
 'use strict';
 // Fil séparé : lit les lieux dans la carte PMTiles sans bloquer le serveur, et renvoie les lieux utiles par paquets.
 const { parentPort, workerData } = require('worker_threads');
-const { pois, countTiles } = require('./pmtiles-pois.js');
+const { pois } = require('./pmtiles-pois.js');
 
 // Type Protomaps (+ nom) → type de lieu de Cortège
 function kindOf(p) {
@@ -20,14 +20,17 @@ function kindOf(p) {
 
 const { file, zones } = workerData;
 const inZones = (lat, lng) => !zones.length || zones.some(([s, n, w, e]) => lat >= s && lat <= n && lng >= w && lng <= e);
-const total = countTiles(file);
-parentPort.postMessage({ type: 'start', total });
+parentPort.postMessage({ type: 'start', total: 0 });
 let batch = [];
-for (const p of pois(file, { onProgress: done => parentPort.postMessage({ type: 'progress', done, total }) })) {
-  const kind = kindOf(p.props);
-  if (!kind || !inZones(p.lat, p.lng)) continue;
-  batch.push({ kind, lat: p.lat, lng: p.lng, name: String(p.props['name:fr'] || p.props.name || '').slice(0, 80) });
-  if (batch.length >= 2000) { parentPort.postMessage({ type: 'batch', rows: batch }); batch = []; }
+try {
+  for (const p of pois(file, { onProgress: done => parentPort.postMessage({ type: 'progress', done, total: 0 }) })) {
+    if (!inZones(p.lat, p.lng)) continue;
+    const kind = kindOf(p.props);
+    if (!kind) continue;
+    batch.push({ kind, lat: p.lat, lng: p.lng, name: String(p.props['name:fr'] || p.props.name || '').slice(0, 80) });
+    if (batch.length >= 2000) { parentPort.postMessage({ type: 'batch', rows: batch }); batch = []; }
+  }
+} finally {
+  if (batch.length) parentPort.postMessage({ type: 'batch', rows: batch });
 }
-parentPort.postMessage({ type: 'batch', rows: batch });
 parentPort.postMessage({ type: 'done' });
