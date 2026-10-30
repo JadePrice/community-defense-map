@@ -85,7 +85,7 @@
   { const at = atParam(location.search); if (at) { savedView = { c: at, z: 17 }; history.replaceState(null, '', location.pathname); } }
   // Mention obligatoire de la licence OpenStreetMap (ODbL), toujours visible sur la carte
   const OSM_ATTR = `© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">${t('contributeurs OpenStreetMap')}</a>`;
-  const map = L.map('map', { zoomControl: false, attributionControl: true, maxZoom: 19 })
+  const map = L.map('map', { zoomControl: false, attributionControl: true, maxZoom: 19, fadeAnimation: true, markerZoomAnimation: true, preferCanvas: true })
     .setView(savedView ? savedView.c : cfg.center, savedView ? savedView.z : (cfg.zoom || 6));
   map.attributionControl.setPrefix(false); // mention courte : rien ne passe sous le bouton Signaler
   // Regroupement des points quand on dézoome (bulle = nombre de signalements, couleur = le plus grave)
@@ -103,7 +103,7 @@
   // Fond de carte : tuiles vectorielles hébergées sur le serveur (PMTiles) si l'instance en a, sinon OpenStreetMap via le proxy
   function rasterMap() {
     document.body.classList.add('raster');
-    L.tileLayer('/tiles/{z}/{x}/{y}.png', { maxZoom: 19, attribution: OSM_ATTR }).addTo(map);
+    L.tileLayer('/tiles/{z}/{x}/{y}.png', { maxZoom: 19, attribution: OSM_ATTR, updateWhenIdle: true, updateWhenZooming: false, keepBuffer: 4 }).addTo(map);
   }
   if (cfg.vector) {
     const sc = document.createElement('script');
@@ -118,7 +118,7 @@
             const b = this._tileCoordsToBounds(c);
             return !zones.some(([so, no, we, ea]) => b.getSouth() >= so && b.getNorth() <= no && b.getWest() >= we && b.getEast() <= ea);
           } });
-          new Fallback('/tiles/{z}/{x}/{y}.png', { maxZoom: 19, className: 'osm-fallback' }).addTo(map);
+          new Fallback('/tiles/{z}/{x}/{y}.png', { maxZoom: 19, className: 'osm-fallback', updateWhenIdle: true, updateWhenZooming: false, keepBuffer: 4 }).addTo(map);
         }
         const vlang = (window.I18N && window.I18N.lang === 'fr') ? 'fr' : (window.I18N && window.I18N.lang === 'es') ? 'es' : 'en';
         const opts = { url: cfg.vector.url, lang: vlang, maxDataZoom: cfg.vector.maxzoom,
