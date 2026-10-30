@@ -31,7 +31,9 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Cortège","alternateName":"Cortège, la carte en direct des manifs","url":"https://cortege.neru.tv/","description":"La carte en direct des manifs : CRS, lacrymo, nasses, street medics, legal team. Signalements anonymes, sans compte et sans pistage, partout en France.","applicationCategory":"UtilitiesApplication","operatingSystem":"Web, Android, iOS","browserRequirements":"Navigateur récent","inLanguage":["fr","en","es","ar"],"isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"image":"https://cortege.neru.tv/og.png","author":{"@type":"Person","name":"Neru","url":"https://neru.tv","sameAs":["https://www.instagram.com/neru/","https://github.com/n-e-r-u"]}}</script>
 </head>
 <body>
-<div id="map" aria-label="Carte de la manifestation"></div>
+<a href="#map" class="skip-link">Skip to content</a>
+<main id="main">
+<div id="map" aria-label="Carte communautaire de défense"></div>
 <div class="bk-banner" id="bkBanner" hidden role="status">
   <span class="bk-dot" aria-hidden="true"></span><span id="bkBannerTxt">Position partagée en direct</span>
   <button type="button" id="bkYes" hidden>Oui, je continue</button>
@@ -43,7 +45,7 @@
     <img class="logo-img" src="/brand/logo.png" alt="" width="38" height="38">
     <span class="logo" aria-hidden="true" hidden></span>
     <div class="brand-txt">
-      <div class="name">Cortège <span class="by">fork of <b class="handle">@neru</b>'s project</span></div>
+      <h1 class="name">Community Defense Map <span class="by">based on <b class="handle">Cortège</b></span></h1>
       <div class="event" id="eventName">—</div>
     </div>
   </a>
@@ -907,5 +909,6 @@
 <script src="/vendor/qrcode.js"></script>
 <script src="/map-style.js"></script>
 <script src="/app.js"></script>
+</main>
 </body>
 </html>

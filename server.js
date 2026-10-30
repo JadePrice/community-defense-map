@@ -978,7 +978,7 @@ function communeOf(lat, lng) {
   return hit;
 }
 // En France ou non : départements (contours IGN), outre-mer (boîtes), commune française connue, ou ville française à moins de 6 km
-const FR_CC = new Set(['FR', 'GP', 'MQ', 'GF', 'RE', 'YT', 'PM', 'BL', 'MF', 'NC', 'PF', 'WF']);
+const FR_CC = new Set(['US', 'PR', 'VI', 'GU', 'AS']);
 const OUTRE_MER = [[15.8, -61.9, 16.55, -60.95], [14.35, -61.25, 14.9, -60.8], [2.1, -54.65, 5.8, -51.6], [-21.4, 55.2, -20.85, 55.85], [-13.05, 44.95, -12.6, 45.35],
   [46.7, -56.45, 47.15, -56.1], [17.85, -63.17, 18.13, -62.78], [-22.8, 163.5, -19.5, 168.2], [-28, -155, -7, -134], [-14.4, -178.3, -13.1, -176]];
 const frCache = new Map();
@@ -1709,14 +1709,17 @@ db.exec(`CREATE TABLE IF NOT EXISTS pois(id TEXT PRIMARY KEY, kind TEXT, lat REA
   CREATE INDEX IF NOT EXISTS pois_rg ON pois(rg);`);
 const PLACES_IMPORT = process.env.PLACES_IMPORT !== '0';
 // overpass.private.coffee d'abord : overpass-api.de met parfois les requêtes en attente jusqu'au délai (et refuse l'IPv6 de certains hébergeurs)
-const OVERPASS_URL = process.env.OVERPASS_URL || 'https://overpass.private.coffee/api/interpreter,https://overpass-api.de/api/interpreter';
+const OVERPASS_URL = process.env.OVERPASS_URL || 'https://overpass-api.de/api/interpreter,https://overpass.kumi.systems/api/interpreter,https://overpass.openstreetmap.ru/api/interpreter';
 const PLACES_EVERY = 30 * 24 * 60 * MIN;
 const wait = ms => new Promise(go => setTimeout(go, ms));
 const poiRg = (lat, lng) => `${Math.floor(lat)}_${Math.floor(lng)}`;
 function poiKind(t) {
   const name = t.name || '';
   // Caméras qui filment la rue (publiques, ou privées tournées vers l'extérieur) ; pas les caméras intérieures ni les vigiles
-  if (t.man_made === 'surveillance') return t.surveillance === 'indoor' || /^(guard|mobile)$/.test(t['surveillance:type'] || '') ? null : 'cam';
+  if (t.man_made === 'surveillance') {
+    if (t.surveillance === 'indoor' || /^(guard|mobile)$/.test(t['surveillance:type'] || '')) return null;
+    return 'cam';
+  }
   if (/r[ée]tention administrative/i.test(name)) return 'cra';
   if (t.office === 'government' && t.government === 'prefecture') return /sous[- ]pr[ée]fecture/i.test(name) ? 'spref' : 'pref';
   if (t.amenity === 'townhall') return /^(village_hall|community_centre)$/.test(t['townhall:type'] || '') ? null : 'mairie';
@@ -1800,7 +1803,7 @@ let placesRunning = null;
 // ---- Source principale : copie complète d'OpenStreetMap chez Geofabrik (simple fichier, ni API ni quota) ----
 // Une fois par mois : téléchargement (~4,5 Go pour la France), extraction des lieux et des caméras avec osmium,
 // puis suppression du gros fichier. Donne aussi les horaires, téléphones et services d'urgences.
-const GEOFABRIK = (process.env.GEOFABRIK_URLS || 'https://download.geofabrik.de/europe/france-latest.osm.pbf').split(',').map(x => x.trim()).filter(Boolean);
+const GEOFABRIK = (process.env.GEOFABRIK_URLS || 'https://download.geofabrik.de/north-america/us-latest.osm.pbf').split(',').map(x => x.trim()).filter(Boolean);
 const hasOsmium = (() => { try { return require('child_process').spawnSync('osmium', ['--version'], { timeout: 5000 }).status === 0; } catch { return false; } })();
 const placesSource = () => process.env.PLACES_SOURCE || (hasOsmium ? 'osm' : PMTILES && fs.existsSync(PMTILES) ? 'carte' : 'overpass');
 function download(url, file, onProgress, hops = 0) {
