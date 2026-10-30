@@ -24,10 +24,13 @@ function writePmtiles(tiles, { minz = 0, maxz = 15, bounds = [-5, 41, 10, 51.5] 
   const dir = zlib.gzipSync(Buffer.from(dirBytes)), data = Buffer.concat(parts);
   const h = Buffer.alloc(127); h.write('PMTiles', 0, 'latin1'); h[7] = 3;
   const u = (o, v) => h.writeBigUInt64LE(BigInt(v), o);
-  u(8, 127); u(16, dir.length); u(24, 127 + dir.length); u(32, 0); u(40, 127 + dir.length); u(48, 0);
+  u(8, 127); u(16, dir.length); u(24, 0); u(32, 0); u(40, 127 + dir.length); u(48, 0);
   u(56, 127 + dir.length); u(64, data.length); u(72, list.length); u(80, list.length); u(88, list.length);
   h[96] = 1; h[97] = 2; h[98] = 2; h[99] = 1; h[100] = minz; h[101] = maxz;
   [bounds[0], bounds[1], bounds[2], bounds[3]].forEach((v, i) => h.writeInt32LE(Math.round(v * 1e7), 102 + i * 4));
+  h[118] = Math.min(Math.max(minz, 0), maxz);
+  const cx = Math.round(((bounds[0] + bounds[2]) / 2) * 1e7), cy = Math.round(((bounds[1] + bounds[3]) / 2) * 1e7);
+  h.writeInt32LE(cx, 119); h.writeInt32LE(cy, 123);
   return Buffer.concat([h, dir, data]);
 }
 module.exports = { writePmtiles, zxyToTileId };
