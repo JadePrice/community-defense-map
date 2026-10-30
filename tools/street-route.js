@@ -31,13 +31,17 @@ function layerLines(tile, name) {
   while (t.pos < t.end) {
     const [f, wt] = t.field();
     if (f !== 3) { t.skip(wt); continue; }
-    const l = pbf(t.bytes());
+    const layerBuf = t.bytes();
+    const l = pbf(layerBuf);
     let lname = null, extent = 4096; const keys = [], vals = [], feats = [];
     while (l.pos < l.end) {
       const [lf, lt] = l.field();
-      if (lf === 1) { lname = l.bytes().toString('utf8'); if (lname !== name) break; }
-      else if (lf === 2) feats.push(l.bytes()); else if (lf === 3) keys.push(l.bytes().toString('utf8'));
-      else if (lf === 4) vals.push(decodeValue(l.bytes())); else if (lf === 5) extent = l.varint(); else l.skip(lt);
+      if (lf === 1) lname = l.bytes().toString('utf8');
+      else if (lf === 2) feats.push(l.bytes());
+      else if (lf === 3) keys.push(l.bytes().toString('utf8'));
+      else if (lf === 4) vals.push(decodeValue(l.bytes()));
+      else if (lf === 5) extent = l.varint();
+      else l.skip(lt);
     }
     if (lname !== name) continue;
     for (const fb of feats) {
@@ -58,7 +62,11 @@ function layerLines(tile, name) {
           if (cmd === 1) { cur = [[cx, cy]]; lines.push(cur); } else if (cur) cur.push([cx, cy]);
         }
       }
-      const props = {}; for (let k = 0; k + 1 < tags.length; k += 2) props[keys[tags[k]]] = vals[tags[k + 1]];
+      const props = {};
+      for (let k = 0; k + 1 < tags.length; k += 2) {
+        const ki = tags[k];
+        if (keys[ki] !== undefined && vals[tags[k + 1]] !== undefined) props[keys[ki]] = vals[tags[k + 1]];
+      }
       out.push({ props, extent, lines: lines.filter(x => x.length > 1) });
     }
   }
@@ -90,7 +98,9 @@ class Heap {
 
 // getTile(z, x, y) → tuile décompressée (Buffer) ou null. a, b : [lat, lng]. Résultat : { path: [[lat, lng], …], len } ou null
 async function streetRoute(getTile, z, a, b, { margin = 400, snap = 250, maxTiles = 64 } = {}) {
-  const dLat = margin / 110540, dLng = margin / (111320 * Math.cos(a[0] * Math.PI / 180));
+  const dLat = margin / 110540;
+  const latMax = Math.max(Math.abs(a[0]), Math.abs(b[0]));
+  const dLng = margin / (111320 * Math.cos(latMax * Math.PI / 180));
   const s = Math.min(a[0], b[0]) - dLat, nn = Math.max(a[0], b[0]) + dLat, w = Math.min(a[1], b[1]) - dLng, e = Math.max(a[1], b[1]) + dLng;
   const [x0, y0] = tileOf(nn, w, z), [x1, y1] = tileOf(s, e, z);
   if ((x1 - x0 + 1) * (y1 - y0 + 1) > maxTiles) return null;
@@ -119,8 +129,14 @@ async function streetRoute(getTile, z, a, b, { margin = 400, snap = 250, maxTile
   const G = 0.0001, grid = new Map(), gk = p => Math.floor(p[0] / G) + '_' + Math.floor(p[1] / G);
   for (const [k, p] of nodes) { const c = gk(p); if (!grid.has(c)) grid.set(c, []); grid.get(c).push(k); }
   const near = (p, max) => {
-    let best = null, bd = max; const gi = Math.floor(p[0] / G), gj = Math.floor(p[1] / G), r = Math.ceil(max / 11 / 1) || 1;
-    for (let i = gi - r; i <= gi + r; i++) for (let j = gj - r; j <= gj + r; j++) for (const k of grid.get(i + '_' + j) || []) { const d = meters(p, nodes.get(k)); if (d < bd) { bd = d; best = k; } }
+    let best = null, bd = max;
+    const gi = Math.floor(p[0] / G), gj = Math.floor(p[1] / G);
+    const cosLat = Math.cos(p[0] * Math.PI / 180) || 1e-18;
+    const rLat = Math.ceil(max / 110540 / G) || 1;
+    const rLng = Math.ceil(max / (111320 * cosLat) / G) || 1;
+    for (let i = gi - rLat; i <= gi + rLat; i++)
+      for (let j = gj - rLng; j <= gj + rLng; j++)
+        for (const k of grid.get(i + '_' + j) || []) { const d = meters(p, nodes.get(k)); if (d < bd) { bd = d; best = k; } }
     return best ? [best, bd] : null;
   };
   for (const k of new Set(ends)) {
