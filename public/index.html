@@ -425,7 +425,7 @@
   <div class="legal-box" id="legalBox">
     <div class="legal-title" id="legalTitle">Legal team</div>
     <div id="legalList"></div>
-    <p class="legal-none" id="legalNone">No legal team numbers known yet. Ask the organizers at your protest.</p>
+    <p class="legal-none" id="legalNone" style="display:none"></p>
     <p class="legal-tip">Write the number in pen on your arm: if you're arrested, your phone may be taken.</p>
     <details class="legal-other" id="legalOther" hidden>
       <summary id="legalOtherSum">Other cities</summary>
@@ -596,7 +596,7 @@
       <label class="note-label" for="annCity">Ville</label>
       <input id="annCity" maxlength="40" autocomplete="address-level2" placeholder="ex. : Montpellier">
       <label class="note-label" for="annPhone">Numéro de téléphone</label>
-      <input id="annPhone" type="tel" inputmode="tel" maxlength="20" placeholder="06 00 00 00 00">
+      <input id="annPhone" type="tel" inputmode="tel" maxlength="20" placeholder="(555) 123-4567">
       <label class="note-label" for="annLegalText">Précision (facultatif)</label>
       <input id="annLegalText" maxlength="120" placeholder="ex. : permanence jusqu’à 22 h">
     </div>
@@ -873,7 +873,7 @@
           <input id="sosName" maxlength="30" placeholder="ex. : Sam">
         </label>
         <label class="note-label" for="sosPhone">Son numéro
-          <input id="sosPhone" type="tel" inputmode="tel" maxlength="20" required placeholder="06 00 00 00 00">
+          <input id="sosPhone" type="tel" inputmode="tel" maxlength="20" required placeholder="(555) 123-4567">
         </label>
       </div>
       <button class="install" type="submit">Enregistrer</button>
