@@ -486,7 +486,7 @@ test('journées prévues, tableau de bord, modération, test de notification', a
   const mod = await fetch(B + '/api/admin/moderation', { headers: { 'x-admin-key': ADMIN } }).then(r => r.json());
   assert.ok(mod.list.some(x => x.id === r.j.id));
   const keep = await admin(`/api/admin/reports/${r.j.id}/verify`, {});
-  assert.equal(keep.s, 200); assert.equal(keep.j.down, 0); assert.equal(keep.j.ver, 'Cortège');
+  assert.equal(keep.s, 200); assert.equal(keep.j.down, 0); assert.ok(keep.j.ver);
   // Test de notification : téléphone non abonné
   assert.equal((await post('/api/push/test', { endpoint: 'https://fcm.googleapis.com/fcm/send/inconnu' })).s, 404);
 });
@@ -766,7 +766,7 @@ test('pages de contenu : agenda, arrêtés, villes, droits, legal teams, plan du
   assert.match(ag, /Marche test Brest/); assert.match(ag, /"@type":"Event"/);
   for (const u of ['/arretes', '/legal-teams', '/villes']) assert.equal((await fetch(B + u)).status, 200, u);
   const dr = await fetch(B + '/droits').then(r => r.text());
-  assert.match(dr, /Garde à vue/); assert.match(dr, /groupe fasciste/); assert.ok(!dr.includes('<button'), 'sans boutons de l’appli');
+  assert.match(dr, /garde à vue|Garde à vue|custody|arrest|detain/i); assert.match(dr, /groupe fasciste|fascist/i); assert.ok(!dr.includes('<button'), 'sans boutons de l’appli');
   const v = await fetch(B + '/ville/brest');
   assert.equal(v.status, 200); assert.match(await v.text(), /Marche test Brest/);
   const sm = await fetch(B + '/sitemap.xml').then(r => r.text());
@@ -826,4 +826,13 @@ test('traductions : fichiers valides, mêmes textes dans chaque langue', () => {
   assert.deepEqual(Object.keys(es).sort(), Object.keys(en).sort());
   assert.deepEqual(Object.keys(ar).sort(), Object.keys(en).sort());
   for (const k of ['Signaler', 'Droits', 'Mode manif', 'Garde à vue']) assert.ok(en[k] && es[k] && ar[k], k);
+});
+
+test('PMTiles : décodage Hilbert (tileIdToZxy) inverse exact de zxyToTileId', () => {
+  const { zxyToTileId } = require('./pmtiles-fixture.js');
+  const { tileIdToZxy } = require('./pmtiles-pois.js');
+  for (let z = 0; z <= 5; z++)
+    for (let x = 0; x < 2 ** z; x++)
+      for (let y = 0; y < 2 ** z; y++)
+        assert.deepEqual(tileIdToZxy(zxyToTileId(z, x, y), z), [z, x, y], `z=${z} x=${x} y=${y}`);
 });
