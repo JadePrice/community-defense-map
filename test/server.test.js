@@ -830,7 +830,7 @@ test('traductions : fichiers valides, mêmes textes dans chaque langue', () => {
 
 test('PMTiles : décodage Hilbert (tileIdToZxy) inverse exact de zxyToTileId', () => {
   const { zxyToTileId } = require('./pmtiles-fixture.js');
-  const { tileIdToZxy } = require('./pmtiles-pois.js');
+  const { tileIdToZxy } = require('../tools/pmtiles-pois.js');
   for (let z = 0; z <= 5; z++)
     for (let x = 0; x < 2 ** z; x++)
       for (let y = 0; y < 2 ** z; y++)
