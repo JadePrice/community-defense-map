@@ -16,32 +16,12 @@
 
 This fork emphasizes **police and surveillance tracking for community defense** rather than broad protest coordination. The goal is to help communities monitor law enforcement activity and surveillance infrastructure while respecting privacy.
 
-## Running
-
-```bash
-npm install
-npm start
-```
-
-Configuration via environment variables:
-- `PORT` (default: 8080)
-- `HOST` 
-- `DATA_DIR` (default: `~/.cortege-data`)
-- `EVENT_NAME` (default: "Community Defense Map")
-- `CENTER` (default: "39.8283,-98.5795" for US center)
-- `ZOOM` (default: 4)
-- `ADMIN_KEY` for admin functions
-
 ## Data Sources
 
 - **Geography**: US Census Bureau TIGER/Line Shapefiles (states)
 - **Places/Cities**: GeoNames database (US cities with population ≥50k)
 - **Surveillance/POIs**: OpenStreetMap (via Overpass API or PMTiles)
 - **Road routing**: OSRM
-
-## Live Instance
-
-Running on the tailnet at http://100.76.50.38:8082/
 
 ## License
 
