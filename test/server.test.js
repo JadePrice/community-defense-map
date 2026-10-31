@@ -10,6 +10,7 @@ const path = require('node:path');
 const { DatabaseSync } = require('node:sqlite');
 
 const ADMIN = 'admin-key-for-tests-123';
+const TZ = 'America/Chicago'; // passed to the server as TIMEZONE
 const ROOT = path.join(__dirname, '..');
 let srv, B, DIR, db, n = 0, geo;
 const B_URL = p => B + p;
@@ -18,18 +19,18 @@ before(async () => {
   DIR = fs.mkdtempSync(path.join(os.tmpdir(), 'cortege-'));
   fs.writeFileSync(DIR + '/carte.pmtiles', require('./pmtiles-fixture').writePmtiles([
     { z: 13, x: 4182, y: 2994, data: Buffer.from('tuile-montpellier') }, { z: 0, x: 0, y: 0, data: Buffer.from('monde') }]));
-  // Faux service de contours des communes (API Géo)
-  const mtp = { nom: 'Montpellier', code: '34172', codeDepartement: '34', population: 300000, contour: { type: 'Polygon', coordinates: [[[3.80, 43.56], [3.94, 43.56], [3.94, 43.66], [3.80, 43.66], [3.80, 43.56]]] } };
+  // Fake city-outline service (GEO_API interface)
+  const mtp = { nom: 'Madison', code: '48000', codeDepartement: 'WI', population: 280000, contour: { type: 'Polygon', coordinates: [[[-89.50, 43.00], [-89.25, 43.00], [-89.25, 43.15], [-89.50, 43.15], [-89.50, 43.00]]] } };
   geo = require('node:http').createServer((req, res) => {
     const u = new URL(req.url, 'http://x'); res.setHeader('content-type', 'application/json');
-    if (u.pathname === '/communes') return res.end(JSON.stringify(/montpellier/i.test(u.searchParams.get('nom')) && u.searchParams.get('codeDepartement') === '34' ? [mtp] : []));
+    if (u.pathname === '/communes') return res.end(JSON.stringify(/madison/i.test(u.searchParams.get('nom')) && u.searchParams.get('codeDepartement') === 'WI' ? [mtp] : []));
     res.statusCode = 404; res.end('{}');
   }).listen(0);
   await new Promise(r => geo.on('listening', r));
   const port = 20000 + Math.floor(Math.random() * 20000);
   B = 'http://127.0.0.1:' + port;
   srv = spawn(process.execPath, [path.join(ROOT, 'server.js')], {
-    env: { ...process.env, PORT: String(port), DATA_DIR: DIR + '/d', LIVE_DIR: DIR + '/l', TILE_DIR: DIR + '/t', ADMIN_KEY: ADMIN, TRUST_PROXY: '1', IMPORT_17OCT: '0', PLACES_IMPORT: '0', ORDER_PUSH_WAIT_MS: '200', FETCH_ALLOW_PRIVATE: '1', TILE_PMTILES: DIR + '/carte.pmtiles', GEO_API: 'http://127.0.0.1:' + geo.address().port },
+    env: { ...process.env, PORT: String(port), DATA_DIR: DIR + '/d', LIVE_DIR: DIR + '/l', TILE_DIR: DIR + '/t', ADMIN_KEY: ADMIN, TIMEZONE: TZ, TRUST_PROXY: '1', IMPORT_17OCT: '0', PLACES_IMPORT: '0', ORDER_PUSH_WAIT_MS: '200', FETCH_ALLOW_PRIVATE: '1', TILE_PMTILES: DIR + '/carte.pmtiles', GEO_API: 'http://127.0.0.1:' + geo.address().port },
     stdio: 'ignore',
   });
   for (let i = 0; i < 100; i++) { try { if ((await fetch(B + '/api/health')).ok) break; } catch {} await new Promise(r => setTimeout(r, 100)); }
@@ -47,7 +48,7 @@ const admin = (p, body) => post(p, body, phone(), { 'x-admin-key': ADMIN });
 const row = id => db.prepare('SELECT * FROM reports WHERE id=?').get(id);
 // Les téléphones déjà vus deviennent « anciens » (plus de 10 min)
 const ageAll = () => db.prepare('UPDATE devices SET first = first - 3600000').run();
-let spot = 0; const place = () => ({ lat: 43.5 + (++spot) * 0.01, lng: 3.8 });
+let spot = 0; const place = () => ({ lat: 43.0 + (++spot) * 0.01, lng: -89.4 });
 
 test('sécurité : en-têtes et requêtes venues d’un autre site', async () => {
   const r = await fetch(B + '/');
@@ -231,7 +232,7 @@ test('annuaire legal teams : publié après validation, veille qui prévient san
   const getA = p => fetch(B + p, { headers: { 'x-admin-key': ADMIN } }).then(r => r.json());
   // Liste de départ : rien n'est publié tant que l'admin n'a pas validé
   const seed = await getA('/api/admin/legal');
-  assert.ok(seed.list.length >= 5 && seed.list.every(e => !e.ok), 'liste de départ non validée');
+  assert.ok(seed.list.every(e => !e.ok), 'liste de départ non validée');
   await new Promise(x => setTimeout(x, 1200));
   assert.deepEqual(await fetch(B + '/live/legal.json').then(r => r.json()), { l: [] });
   const add = await admin('/api/admin/legal', { city: 'Testville', name: 'LT Test', phone: '06 12 34 56 78', src: url, lat: 44.1, lng: 4.1 });
@@ -288,23 +289,23 @@ test('temps réel : un nouveau signalement prévient les téléphones abonnés �
 });
 
 test('digest : villes regroupées par agglomération, sans service extérieur', async () => {
-  await post('/api/reports', { cat: 'lacrymo', lat: 48.8867, lng: 2.3066 }); // 17e arrondissement, près de Clichy
-  await post('/api/reports', { cat: 'lacrymo', lat: 43.6108, lng: 3.8767 });
+  await post('/api/reports', { cat: 'lacrymo', lat: 41.8456, lng: -87.7539 }); // Cicero, next to Chicago
+  await post('/api/reports', { cat: 'lacrymo', lat: 43.0731, lng: -89.4012 });
   const d = await fetch(B + '/api/digest', { headers: { 'x-admin-key': ADMIN } }).then(x => x.json());
   const names = Object.values(d.zones).map(z => z.name);
-  assert.ok(names.includes('Paris') && names.includes('Montpellier'), names.join(', '));
-  assert.ok(!names.includes('Clichy'));
+  assert.ok(names.includes('Chicago') && names.includes('Madison'), names.join(', '));
+  assert.ok(!names.includes('Cicero'));
 });
 
-test('bilans : seulement la France, les points d’ailleurs sont comptés à part', async () => {
+test('bilans : seulement la zone desservie (États-Unis), les points d’ailleurs sont comptés à part', async () => {
   await post('/api/reports', { cat: 'police', lat: 40.4168, lng: -3.7038 }); // Madrid
-  await post('/api/reports', { cat: 'police', lat: 46.2044, lng: 6.1432 }); // Genève (frontière)
-  await post('/api/reports', { cat: 'police', lat: 47.2184, lng: -1.5536 }); // Nantes
-  await post('/api/reports', { cat: 'police', lat: 16.2411, lng: -61.5331 }); // Guadeloupe
+  await post('/api/reports', { cat: 'police', lat: 43.6532, lng: -79.3832 }); // Toronto (border)
+  await post('/api/reports', { cat: 'police', lat: 43.0389, lng: -87.9065 }); // Milwaukee
+  await post('/api/reports', { cat: 'police', lat: 18.2341, lng: -66.0485 }); // Caguas, Puerto Rico
   const d = await fetch(B + '/api/digest', { headers: { 'x-admin-key': ADMIN } }).then(x => x.json());
-  assert.ok(d.abroad >= 2, 'Madrid et Genève à part');
-  assert.ok(!d.rows.some(r => (r.lat > 40 && r.lat < 41 && r.lng < -3) || (r.lat > 46.1 && r.lat < 46.3 && r.lng > 6.1)), 'aucun point étranger dans les lignes');
-  assert.ok(d.rows.some(r => r.lat > 47.2 && r.lat < 47.3) && d.rows.some(r => r.lat > 16 && r.lat < 17), 'Nantes et l’outre-mer comptés');
+  assert.ok(d.abroad >= 2, 'Madrid and Toronto counted apart');
+  assert.ok(!d.rows.some(r => (r.lat > 40 && r.lat < 41 && r.lng < -3) || (r.lat > 43.6 && r.lat < 43.7 && r.lng > -79.5 && r.lng < -79.3)), 'no foreign point in the rows');
+  assert.ok(d.rows.some(r => r.lat > 43 && r.lat < 43.1 && r.lng > -88 && r.lng < -87.8) && d.rows.some(r => r.lat > 18 && r.lat < 18.5), 'Milwaukee and Puerto Rico counted');
 });
 
 test('modération : le plus urgent d’abord, simples « pas encore confirmé » à part, points isolés signalés', async () => {
@@ -382,15 +383,15 @@ test('demandes d’accès orga : formulaire public, liste admin, suppression', a
 });
 
 test('pages publiques par manif : publiées par l’admin, sans position de signalement', async () => {
-  const day = new Date().toLocaleDateString('sv-SE', { timeZone: 'Europe/Paris' });
-  await post('/api/reports', { cat: 'nasse', lat: 45.7601, lng: 4.8401 });
+  const day = new Date().toLocaleDateString('sv-SE', { timeZone: TZ });
+  await post('/api/reports', { cat: 'nasse', lat: 43.0389, lng: -87.9065 });
   assert.equal((await fetch(B + '/manif/' + day)).status, 404);
   const pub = await fetch(B + '/api/admin/publish/' + day, { method: 'POST', headers: { 'x-admin-key': ADMIN, 'content-type': 'application/json' }, body: '{}' });
   assert.equal(pub.status, 200);
   const r = await fetch(B + '/manif/' + day), html = await r.text();
   assert.equal(r.status, 200);
   assert.match(r.headers.get('content-security-policy'), /default-src 'none'/);
-  assert.match(html, /Lyon/); assert.match(html, /og:title/);
+  assert.match(html, /Milwaukee/); assert.match(html, /og:title/);
 
   assert.match(await fetch(B + '/manif').then(x => x.text()), new RegExp('/manif/' + day));
   // Carte d'un créneau : page ouverte, points arrondis à ~100 m, sans les signalements retirés
@@ -399,7 +400,7 @@ test('pages publiques par manif : publiées par l’admin, sans position de sign
   assert.equal(cp.status, 200); assert.match(await cp.text(), /creneau\.js/);
   const pts = await fetch(B + '/manif/' + day + '/points.json').then(r => r.json());
   assert.equal(pts.ps, 1e4, 'précision au dix-millième de degré (~11 m)');
-  const mine = pts.pts.find(x => x[0] === 'nasse' && x[3] === 457601 && x[4] === 48401);
+  const mine = pts.pts.find(x => x[0] === 'nasse' && x[3] === 430389 && x[4] === -879065);
   assert.ok(mine, 'point présent, arrondi au dix-millième');
   assert.ok(pts.pts.every(x => (x.length === 7 || x.length === 8) && Number.isInteger(x[3])), 'format compact, rien d’autre');
   assert.equal((await fetch(B + '/manif/2001-01-01/points.json')).status, 404);
@@ -449,7 +450,7 @@ test('orga confirmée : signalement vérifié d’office, deux fois plus long, p
 });
 
 test('réglages de l’admin : bandeau daté, vue, catégorie désactivée, durée, seuils', async () => {
-  const day = new Date().toLocaleDateString('sv-SE', { timeZone: 'Europe/Paris' });
+  const day = new Date().toLocaleDateString('sv-SE', { timeZone: TZ });
   const s = await admin('/api/admin/settings', { banner: { text: 'Grève générale', from: day, to: day }, view: { lat: 45.76, lng: 4.84, zoom: 12 },
     cats: { presse: { off: true }, eau: { ttl: 120 } }, alertRadius: 500, nearKm: 15 });
   assert.equal(s.s, 200);
@@ -470,7 +471,7 @@ test('réglages de l’admin : bandeau daté, vue, catégorie désactivée, dur�
 });
 
 test('journées prévues, tableau de bord, modération, test de notification', async () => {
-  const tomorrow = new Date(Date.now() + 86400e3).toLocaleDateString('sv-SE', { timeZone: 'Europe/Paris' });
+  const tomorrow = new Date(Date.now() + 86400e3).toLocaleDateString('sv-SE', { timeZone: TZ });
   assert.equal((await admin('/api/admin/mobs', { date: '2020-01-01', title: 'Vieux' })).s, 400);
   const m = await admin('/api/admin/mobs', { date: tomorrow, title: 'Journée test' });
   assert.equal(m.s, 201);
@@ -496,15 +497,15 @@ test('lieux permanents : import OpenStreetMap, fichiers par région, correction 
   const fake = http.createServer((req, res) => {
     let body = ''; req.on('data', c => (body += c)); req.on('end', () => {
       const q = decodeURIComponent(body.replace(/^data=/, '').replace(/\+/g, ' '));
-      const inLyon = /\(45(\.\d+)?,4/.test(q);
+      const bb = q.match(/\((-?[\d.]+),(-?[\d.]+),(-?[\d.]+),(-?[\d.]+)\)/), inMadison = !!bb && +bb[1] <= 43.07 && +bb[3] >= 43.07 && +bb[2] <= -89.38 && +bb[4] >= -89.38;
       res.writeHead(200, { 'content-type': 'application/json' });
-      res.end(JSON.stringify({ elements: inLyon && !fake.done ? (fake.done = true, [
-        { type: 'node', id: 1, lat: 45.7578, lon: 4.8320, tags: { amenity: 'townhall', name: 'Hôtel de ville de Lyon' } },
-        { type: 'way', id: 2, center: { lat: 45.7590, lon: 4.8290 }, tags: { office: 'government', government: 'prefecture', name: 'Préfecture du Rhône' } },
-        { type: 'node', id: 3, lat: 45.75, lon: 4.85, tags: { amenity: 'police', name: 'Gendarmerie de Lyon' } },
-        { type: 'node', id: 4, lat: 45.751, lon: 4.851, tags: { amenity: 'pharmacy', name: 'Pharmacie du Centre', opening_hours: 'Mo-Sa 09:00-19:00', phone: '+33 4 00 00 00 00' } },
-        { type: 'node', id: 5, lat: 45.752, lon: 4.852, tags: { amenity: 'drinking_water', access: 'private' } },
-        { type: 'node', id: 6, lat: 45.753, lon: 4.853, tags: { amenity: 'hospital', name: 'Hôpital Test', emergency: 'yes' } },
+      res.end(JSON.stringify({ elements: inMadison && !fake.done ? (fake.done = true, [
+        { type: 'node', id: 1, lat: 43.0747, lon: -89.3841, tags: { amenity: 'townhall', name: 'Hôtel de ville de Lyon' } },
+        { type: 'way', id: 2, center: { lat: 43.0750, lon: -89.3850 }, tags: { office: 'government', government: 'prefecture', name: 'Préfecture du Rhône' } },
+        { type: 'node', id: 3, lat: 43.07, lon: -89.38, tags: { amenity: 'police', name: 'Gendarmerie de Lyon' } },
+        { type: 'node', id: 4, lat: 43.071, lon: -89.381, tags: { amenity: 'pharmacy', name: 'Pharmacie du Centre', opening_hours: 'Mo-Sa 09:00-19:00', phone: '+33 4 00 00 00 00' } },
+        { type: 'node', id: 5, lat: 43.072, lon: -89.382, tags: { amenity: 'drinking_water', access: 'private' } },
+        { type: 'node', id: 6, lat: 43.073, lon: -89.383, tags: { amenity: 'hospital', name: 'Hôpital Test', emergency: 'yes' } },
       ]) : [] }));
     });
   }).listen(0);
@@ -517,10 +518,10 @@ test('lieux permanents : import OpenStreetMap, fichiers par région, correction 
     for (let i = 0; i < 100; i++) { try { if ((await fetch(B2 + '/api/health')).ok) break; } catch {} await new Promise(r => setTimeout(r, 100)); }
     const A = (p, body, method = 'POST') => fetch(B2 + p, { method, headers: { 'x-admin-key': ADMIN, 'content-type': 'application/json' }, body: body && JSON.stringify(body) }).then(async r => ({ s: r.status, j: await r.json() }));
     assert.equal((await A('/api/admin/places/import', {})).s, 202);
-    let st; for (let i = 0; i < 100; i++) { st = (await A('/api/admin/places?q=lyon', undefined, 'GET')).j; if (!st.running && st.last) break; await new Promise(r => setTimeout(r, 100)); }
+    let st; for (let i = 0; i < 100; i++) { st = (await A('/api/admin/places?q=madison', undefined, 'GET')).j; if (!st.running && st.last) break; await new Promise(r => setTimeout(r, 100)); }
     assert.equal(st.last.n, 5, 'eau privée ignorée');
     assert.equal(st.counts.pref, 1); assert.equal(st.counts.gend, 1); assert.equal(st.counts.mairie, 1);
-    const main = JSON.parse(fs.readFileSync(D2 + '/l/l/45_4.json', 'utf8')).p, street = JSON.parse(fs.readFileSync(D2 + '/l/l/45_4-s.json', 'utf8')).p;
+    const main = JSON.parse(fs.readFileSync(D2 + '/l/l/43_-90.json', 'utf8')).p, street = JSON.parse(fs.readFileSync(D2 + '/l/l/43_-90-s.json', 'utf8')).p;
     assert.equal(main.length, 4); assert.equal(street.length, 1);
     assert.equal(street[0][1], 'pharma'); assert.equal(street[0][5], 'Mo-Sa 09:00-19:00');
     assert.equal(main.find(x => x[1] === 'hopital')[7], 1, 'urgences');
@@ -528,27 +529,27 @@ test('lieux permanents : import OpenStreetMap, fichiers par région, correction 
     const ed = await A('/api/admin/places/n1', { n: 'Mairie centrale' });
     assert.equal(ed.j.n, 'Mairie centrale'); assert.equal(ed.j.ed, true);
     await A('/api/admin/places/n3', { hid: true });
-    const add = await A('/api/admin/places', { kind: 'cra', lat: 45.72, lng: 4.9, n: 'CRA de test' });
+    const add = await A('/api/admin/places', { kind: 'cra', lat: 43.05, lng: -89.35, n: 'CRA de test' });
     assert.equal(add.s, 201);
-    const main2 = JSON.parse(fs.readFileSync(D2 + '/l/l/45_4.json', 'utf8')).p;
+    const main2 = JSON.parse(fs.readFileSync(D2 + '/l/l/43_-90.json', 'utf8')).p;
     assert.ok(main2.some(x => x[4] === 'Mairie centrale')); assert.ok(!main2.some(x => x[0] === 'n3')); assert.ok(main2.some(x => x[1] === 'cra'));
     // Nouvel import vide : les lieux corrigés ou ajoutés restent, les autres d'OSM disparaissent
     assert.equal((await A('/api/admin/places/import', {})).s, 202);
     for (let i = 0; i < 100; i++) { st = (await A('/api/admin/places?filter=edited', undefined, 'GET')).j; if (!st.running && st.last.n === 0) break; await new Promise(r => setTimeout(r, 100)); }
-    const main3 = JSON.parse(fs.readFileSync(D2 + '/l/l/45_4.json', 'utf8')).p;
+    const main3 = JSON.parse(fs.readFileSync(D2 + '/l/l/43_-90.json', 'utf8')).p;
     assert.deepEqual(main3.map(x => x[1]).sort(), ['cra', 'mairie']);
     assert.ok(JSON.parse(fs.readFileSync(D2 + '/l/g.json', 'utf8')).pois);
   } finally { s2.kill(); fake.close(); fs.rmSync(D2, { recursive: true, force: true }); }
 });
 
 test('arrêtés : proposition avec source, validation par l’admin, zone officielle, import', async () => {
-  const day = d => new Date(Date.now() + d * 864e5).toLocaleDateString('sv-SE', { timeZone: 'Europe/Paris' });
-  const base = { dep: '34', commune: 'Montpellier', start: day(1) + ' 22:00', end: day(3) + ' 06:00', items: [['manif', 'La manifestation de samedi est interdite.'], ['couvre', 'Couvre-feu des mineurs dès 22 h.']], src: 'https://www.herault.gouv.fr/arrete' };
+  const day = d => new Date(Date.now() + d * 864e5).toLocaleDateString('sv-SE', { timeZone: TZ });
+  const base = { dep: 'WI', commune: 'Madison', start: day(1) + ' 22:00', end: day(3) + ' 06:00', items: [['manif', 'La manifestation de samedi est interdite.'], ['couvre', 'Couvre-feu des mineurs dès 22 h.']], src: 'https://www.cityofmadison.com/order' };
   assert.equal((await post('/api/orders', { ...base, src: 'pas un lien' })).s, 400, 'source obligatoire');
   assert.equal((await post('/api/orders', { ...base, dep: '99' })).s, 400, 'département inconnu');
   // Abonné·e à Montpellier, appli en espagnol : prévenu·e quand l'arrêté est validé
   const sub = { endpoint: 'https://fcm.googleapis.com/fcm/send/ord-' + Date.now(), keys: { p256dh: require('node:crypto').createECDH('prime256v1').generateKeys().toString('base64url'), auth: require('node:crypto').randomBytes(16).toString('base64url') } };
-  assert.equal((await post('/api/push/subscribe', { sub, lat: 43.6, lng: 3.9, urgent: true, lang: 'es' })).s, 200);
+  assert.equal((await post('/api/push/subscribe', { sub, lat: 43.07, lng: -89.40, urgent: true, lang: 'es' })).s, 200);
   assert.deepEqual({ ...db.prepare('SELECT lang, ord FROM push WHERE e=?').get(sub.endpoint) }, { lang: 'es', ord: 1 });
   const p = await post('/api/orders', base);
   assert.equal(p.s, 201); assert.equal(p.j.status, 'pending');
@@ -556,22 +557,22 @@ test('arrêtés : proposition avec source, validation par l’admin, zone offici
   await new Promise(r => setTimeout(r, 1300));
   assert.ok(!fs.existsSync(DIR + '/l/ord.json') || !ord().length, 'rien avant validation');
   const ok = await admin('/api/admin/orders/' + p.j.id + '/approve', {});
-  assert.equal(ok.s, 200); assert.equal(ok.j.zone.name, 'Montpellier'); assert.equal(ok.j.zone.insee, '34172');
+  assert.equal(ok.s, 200); assert.equal(ok.j.zone.name, 'Madison'); assert.equal(ok.j.zone.insee, '48000');
   let sent; for (let i = 0; i < 60 && !sent; i++) { await new Promise(r => setTimeout(r, 250)); sent = (await fetch(B + '/api/admin/live', { headers: { 'x-admin-key': ADMIN } }).then(r => r.json())).push.batches.find(x => x.kind === 'arrêté'); }
   assert.ok(sent && sent.n >= 1, 'une notification « nouvel arrêté » envoyée à l’abonné·e de la zone');
-  // Import : département entier (contour livré avec l'appli), commune introuvable refusée, outre-mer sans commune refusé
-  const blk = [{ departement: '34', debut: day(1) + ' 06:00', fin: day(1) + ' 23:00', source: 'https://x.fr/a', mesures: [{ type: 'transport', texte: 'Pas de tram samedi.' }] },
-    { departement: '34', commune: 'Inconnue', debut: day(1) + ' 06:00', fin: day(1) + ' 23:00', source: 'https://x.fr/a', mesures: [{ type: 'autre', texte: 'Test' }] },
-    { departement: '971', debut: day(1) + ' 06:00', fin: day(1) + ' 23:00', source: 'https://x.fr/a', mesures: [{ type: 'autre', texte: 'Test' }] }];
+  // Import: whole state (outline shipped with the app), unknown city refused, unknown state refused
+  const blk = [{ departement: 'WI', debut: day(1) + ' 06:00', fin: day(1) + ' 23:00', source: 'https://x.fr/a', mesures: [{ type: 'transport', texte: 'Pas de tram samedi.' }] },
+    { departement: 'WI', commune: 'Inconnue', debut: day(1) + ' 06:00', fin: day(1) + ' 23:00', source: 'https://x.fr/a', mesures: [{ type: 'autre', texte: 'Test' }] },
+    { departement: 'XX', debut: day(1) + ' 06:00', fin: day(1) + ' 23:00', source: 'https://x.fr/a', mesures: [{ type: 'autre', texte: 'Test' }] }];
   const imp = await admin('/api/admin/orders/import', { text: JSON.stringify(blk) });
   assert.deepEqual(imp.j.results.map(r => r.ok), [true, false, false]);
   await new Promise(r => setTimeout(r, 1300));
   const live = ord();
-  assert.deepEqual(live.map(o => o.name).sort(), ['Hérault', 'Montpellier']);
-  const m = live.find(o => o.name === 'Montpellier');
-  assert.equal(m.scope, 'commune'); assert.deepEqual(m.b, [43.56, 3.8, 43.66, 3.94]); assert.equal(m.host, 'herault.gouv.fr');
+  assert.deepEqual(live.map(o => o.name).sort(), ['Madison', 'Wisconsin']);
+  const m = live.find(o => o.name === 'Madison');
+  assert.equal(m.scope, 'commune'); assert.deepEqual(m.b, [43, -89.5, 43.15, -89.25]); assert.equal(m.host, 'cityofmadison.com');
   assert.ok(JSON.parse(fs.readFileSync(DIR + '/l/g.json', 'utf8')).ord, 'empreinte dans g.json');
-  const h = live.find(o => o.name === 'Hérault'); assert.equal(h.scope, 'dep'); assert.ok(h.p[0][0].length > 20, 'contour du département');
+  const h = live.find(o => o.name === 'Wisconsin'); assert.equal(h.scope, 'dep'); assert.ok(h.p[0][0].length > 20, 'outline of the state');
   assert.equal((await fetch(B + '/api/admin/orders/' + m.id, { method: 'DELETE', headers: { 'x-admin-key': ADMIN, 'content-type': 'application/json' } })).status, 200);
 });
 
@@ -620,7 +621,7 @@ test('lieux et caméras : copie Geofabrik triée par osmium', { skip: require('c
     await fetch(B2 + '/api/reports', { method: 'POST', headers: { 'content-type': 'application/json', 'x-device': 'dev-commune'.padEnd(24, 'x') }, body: JSON.stringify({ cat: 'nasse', lat: 48.866, lng: 2.36 }) });
     const dg = (await A('/api/digest', undefined, 'GET')).j;
     assert.equal(dg.zones['75056'].name, 'Paris');
-    const day = new Date().toLocaleDateString('sv-SE', { timeZone: 'Europe/Paris' });
+    const day = new Date().toLocaleDateString('sv-SE', { timeZone: TZ });
     assert.equal((await A('/api/admin/publish/' + day, {})).s, 200);
     const page = await fetch(B2 + '/manif/' + day).then(r => r.text());
     assert.match(page, />Paris</); assert.ok(!page.includes('75056'), 'pas de code INSEE dans le bilan');
@@ -737,40 +738,40 @@ test('tracé du cortège par les rues : plus court chemin piéton, sans autorout
 });
 
 test('bilans détaillés : moments clés, durées, parcours, page de ville, données ouvertes', async () => {
-  const day = new Date().toLocaleDateString('sv-SE', { timeZone: 'Europe/Paris' }), now = Date.now();
-  // Rennes : 22 signalements, une nasse, et une tête de cortège qui avance
-  for (let i = 0; i < 20; i++) await post('/api/reports', { cat: i % 2 ? 'police' : 'crs', lat: 48.105 + i * 0.0006, lng: -1.68 + (i % 5) * 0.0011 });
-  await post('/api/reports', { cat: 'nasse', lat: 48.112, lng: -1.676 });
-  await post('/api/reports', { cat: 'cortege', lat: 48.1040, lng: -1.6850, t: now - 9 * 60e3 });
-  await post('/api/reports', { cat: 'cortege', lat: 48.1100, lng: -1.6780, t: now - 60e3 });
+  const day = new Date().toLocaleDateString('sv-SE', { timeZone: TZ }), now = Date.now();
+  // Denver: 22 reports, a kettle, and a march head that moves
+  for (let i = 0; i < 20; i++) await post('/api/reports', { cat: i % 2 ? 'police' : 'crs', lat: 39.735 + i * 0.0006, lng: -104.99 + (i % 5) * 0.0011 });
+  await post('/api/reports', { cat: 'nasse', lat: 39.742, lng: -104.986 });
+  await post('/api/reports', { cat: 'cortege', lat: 39.7340, lng: -104.9950, t: now - 9 * 60e3 });
+  await post('/api/reports', { cat: 'cortege', lat: 39.7400, lng: -104.9880, t: now - 60e3 });
   const pub = await admin('/api/admin/publish/' + day, {});
   assert.equal(pub.s, 200);
   const html = await fetch(B + '/manif/' + day).then(r => r.text());
-  for (const x of ['Moments clés', 'Combien de temps', 'Parcours des cortèges', 'Données ouvertes', 'CC BY 4.0', '/manif/' + day + '/rennes']) assert.ok(html.includes(x), x);
-  const city = await fetch(B + '/manif/' + day + '/rennes');
+  for (const x of ['Moments clés', 'Combien de temps', 'Parcours des cortèges', 'Données ouvertes', 'CC BY 4.0', '/manif/' + day + '/denver']) assert.ok(html.includes(x), x);
+  const city = await fetch(B + '/manif/' + day + '/denver');
   assert.equal(city.status, 200);
   const ch = await city.text();
   assert.match(ch, /Parcours du cortège/); assert.match(ch, /<svg/); assert.match(ch, /carte\?c=/);
   const csv = await fetch(B + '/manif/' + day + '/donnees.csv');
   assert.match(csv.headers.get('content-type'), /text\/csv/);
   const lines = (await csv.text()).trim().split('\n');
-  assert.ok(lines[0].includes('latitude;longitude;commune') && lines.some(l => l.includes('Rennes')), 'CSV avec communes');
-  assert.ok(lines.some(l => /;48\.1\d{2,4};/.test(l)), 'positions au dix-millième');
+  assert.ok(lines[0].includes('latitude;longitude;commune') && lines.some(l => l.includes('Denver')), 'CSV avec communes');
+  assert.ok(lines.some(l => /;39\.7\d{2,4};/.test(l)), 'positions au dix-millième');
   await fetch(B + '/api/admin/publish/' + day, { method: 'DELETE', headers: { 'x-admin-key': ADMIN, 'content-type': 'application/json' } });
 });
 
 test('pages de contenu : agenda, arrêtés, villes, droits, legal teams, plan du site', async () => {
-  const B2 = await asOrgaAdmin('/api/events', { type: 'manif', title: 'Marche test Brest', place: 'Place de la Liberté', start: Date.now() + 864e5, lat: 48.3904, lng: -4.4861 });
+  const B2 = await asOrgaAdmin('/api/events', { type: 'manif', title: 'Marche test Denver', place: 'Civic Center Park', start: Date.now() + 864e5, lat: 39.7392, lng: -104.9903 });
   assert.equal(B2.s, 201);
   const ag = await fetch(B + '/agenda').then(r => r.text());
-  assert.match(ag, /Marche test Brest/); assert.match(ag, /"@type":"Event"/);
+  assert.match(ag, /Marche test Denver/); assert.match(ag, /"@type":"Event"/);
   for (const u of ['/arretes', '/legal-teams', '/villes']) assert.equal((await fetch(B + u)).status, 200, u);
   const dr = await fetch(B + '/droits').then(r => r.text());
   assert.match(dr, /garde à vue|Garde à vue|custody|arrest|detain/i); assert.match(dr, /groupe fasciste|fascist/i); assert.ok(!dr.includes('<button'), 'sans boutons de l’appli');
-  const v = await fetch(B + '/ville/brest');
-  assert.equal(v.status, 200); assert.match(await v.text(), /Marche test Brest/);
+  const v = await fetch(B + '/ville/denver');
+  assert.equal(v.status, 200); assert.match(await v.text(), /Marche test Denver/);
   const sm = await fetch(B + '/sitemap.xml').then(r => r.text());
-  for (const u of ['/agenda', '/arretes', '/droits', '/legal-teams', '/ville/brest']) assert.ok(sm.includes(u + '</loc>'), u);
+  for (const u of ['/agenda', '/arretes', '/droits', '/legal-teams', '/ville/denver']) assert.ok(sm.includes(u + '</loc>'), u);
 });
 
 test('admin : nom affiché choisi, réservé, et point en direct avec son logo', async () => {
@@ -799,8 +800,8 @@ test('sécurité : CF-Connecting-IP ignoré sans CLOUDFLARE=1 (impossible de cha
 
 test('effacement d’urgence : confirmation obligatoire, puis plus aucune trace', async () => {
   assert.equal((await admin('/api/admin/wipe', {})).s, 400);
-  const day = d => new Date(Date.now() + d * 864e5).toLocaleDateString('sv-SE', { timeZone: 'Europe/Paris' });
-  assert.equal((await post('/api/orders', { dep: '34', commune: 'Montpellier', start: day(1) + ' 10:00', end: day(2) + ' 10:00', items: [['manif', 'Test effacement']], src: 'https://x.fr/a' })).s, 201);
+  const day = d => new Date(Date.now() + d * 864e5).toLocaleDateString('sv-SE', { timeZone: TZ });
+  assert.equal((await post('/api/orders', { dep: 'WI', commune: 'Madison', start: day(1) + ' 10:00', end: day(2) + ' 10:00', items: [['manif', 'Test effacement']], src: 'https://x.fr/a' })).s, 201);
   const keys = () => fs.readdirSync(DIR + '/d/keys').map(f => fs.readFileSync(DIR + '/d/keys/' + f, 'utf8'));
   const before = keys();
   assert.ok(before.length >= 1, 'clés par période sur le disque');

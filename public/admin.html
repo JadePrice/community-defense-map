@@ -621,6 +621,7 @@ textarea { padding: 10px 12px; border-radius: 10px; border: 1px solid var(--line
   </div>
 </main>
 <link rel="stylesheet" href="/vendor/leaflet.css">
+<script src="/tz.js"></script>
 <script src="/vendor/leaflet.js"></script>
 <script src="/vendor/protomaps-leaflet.js"></script>
 <script src="/map-style.js"></script>
@@ -632,7 +633,7 @@ textarea { padding: 10px 12px; border-radius: 10px; border: 1px solid var(--line
 'use strict';
 const $ = s => document.querySelector(s);
 const COLORS = { fdo: 'var(--fdo)', danger: 'var(--danger)', soutien: 'var(--soutien)', info: 'var(--info)' };
-const hhmm = t => new Date(t).toLocaleTimeString('fr-FR', { timeZone: 'Europe/Paris', hour: '2-digit', minute: '2-digit' });
+const hhmm = t => new Date(t).toLocaleTimeString('fr-FR', { timeZone: window.CDM_TZ || 'America/Chicago', hour: '2-digit', minute: '2-digit' });
 const longDate = d => new Date(d + 'T12:00:00Z').toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
 let KEY = '';
 try { KEY = localStorage.getItem('cortege-admin') || ''; $('#key').value = KEY; } catch {}
@@ -714,7 +715,7 @@ function renderJournal() {
   for (const x of rows.slice(0, 200)) {
     const c = x.cat ? (JCATS[x.cat] || { glyph: '•', label: x.cat }) : null;
     const where = x.lat != null ? ` · ${x.lat.toFixed(3)}, ${x.lng.toFixed(3)}` : '';
-    const day = new Date(x.t).toLocaleDateString('fr-FR', { timeZone: 'Europe/Paris', day: 'numeric', month: 'short' });
+    const day = new Date(x.t).toLocaleDateString('fr-FR', { timeZone: window.CDM_TZ || 'America/Chicago', day: 'numeric', month: 'short' });
     ul.append(li(`${x.orga} : ${x.action}${c ? ' ' + c.glyph + ' ' + c.label : ''}`, `${day} ${hhmm(x.t)}${where}${x.detail ? ' · ' + x.detail : ''}`));
   }
 }
@@ -759,7 +760,7 @@ $('#natForm').addEventListener('submit', async e => {
 // ---- Agenda : validation des propositions ----
 const EVT = {};
 fetch('/api/config').then(r => r.json()).then(c => (c.eventTypes || []).forEach(t => (EVT[t.id] = t)));
-const when = t => new Date(t).toLocaleString('fr-FR', { timeZone: 'Europe/Paris', weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
+const when = t => new Date(t).toLocaleString('fr-FR', { timeZone: window.CDM_TZ || 'America/Chicago', weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
 async function loadAgenda() {
   let d; try { d = await api('/api/admin/events'); } catch (e) { alertMsg(e.message); return; }
   const pending = d.events.filter(e => e.status === 'pending'), ok = d.events.filter(e => e.status === 'ok');
@@ -995,7 +996,7 @@ $('#copyLink').onclick = async () => {
   setTimeout(() => ($('#copyLink').textContent = 'Copier le lien'), 2000);
 };
 $('#shareLink').onclick = () => navigator.share?.({ title: 'Invitation orga Cortège', text: 'Ton invitation orga Cortège (usage unique, ne la transfère pas) :', url: $('#newUrl').textContent }).catch(() => {});
-$('#date').value = new Date().toLocaleDateString('sv-SE', { timeZone: 'Europe/Paris' });
+$('#date').value = new Date().toLocaleDateString('sv-SE', { timeZone: window.CDM_TZ || 'America/Chicago' });
 
 function bar(label, n, max, color, extra) {
   const row = document.createElement('div'); row.className = 'bar';
@@ -1098,7 +1099,7 @@ function renderDigest() {
 
   // Par heure, empilé par famille
   const byHour = Array.from({ length: 24 }, () => ({}));
-  for (const r of rows) { const h = +new Date(r.t).toLocaleString('en-GB', { timeZone: 'Europe/Paris', hour: '2-digit', hour12: false }) % 24; byHour[h][groupOf(r)] = (byHour[h][groupOf(r)] || 0) + 1; }
+  for (const r of rows) { const h = +new Date(r.t).toLocaleString('en-GB', { timeZone: window.CDM_TZ || 'America/Chicago', hour: '2-digit', hour12: false }) % 24; byHour[h][groupOf(r)] = (byHour[h][groupOf(r)] || 0) + 1; }
   const totH = byHour.map(o => Object.values(o).reduce((a, b) => a + b, 0)), maxH = Math.max(1, ...totH);
   $('#hours').textContent = ''; $('#hourLabels').textContent = '';
   byHour.forEach((o, h) => {
@@ -1181,7 +1182,7 @@ $('#csv').addEventListener('click', () => {
   const cat = Object.fromEntries(dg.categories.map(c => [c.id, c]));
   const head = ['categorie', 'famille', 'debut', 'fin', 'latitude', 'longitude', 'ville', 'confirmations', 'plus_la', 'precisions', 'verifie', 'fiabilite', 'devenir'];
   const esc = v => /[",;\n]/.test(String(v)) ? '"' + String(v).replace(/"/g, '""') + '"' : String(v);
-  const iso = t => t ? new Date(t).toLocaleString('sv-SE', { timeZone: 'Europe/Paris' }) : '';
+  const iso = t => t ? new Date(t).toLocaleString('sv-SE', { timeZone: window.CDM_TZ || 'America/Chicago' }) : '';
   const lines = [head.join(';'), ...dg.rows.filter(r => cat[r.c]).map(r => [cat[r.c].label, cat[r.c].group, iso(r.t), iso(r.e), r.lat, r.lng, dg.zones[r.z]?.name || '', r.up, r.dn ?? '', r.n ?? '', r.v ? 'oui' : 'non',
     r.f === 1 ? 'fiable' : r.f === -1 ? 'non fiable' : '', OUTCOME[r.o] || r.o].map(esc).join(';'))];
   const a = document.createElement('a');
@@ -1205,7 +1206,7 @@ async function loadBadges() {
 }
 setInterval(() => { if (!$('#app').hidden) loadBadges(); }, 120000);
 const WATCH = { ok: '✓ source relue, numéro présent', missing: '⚠ numéro ABSENT de la source', changed: '⚠ la source affiche d’autres numéros', error: '⚠ source illisible', new: 'source pas encore relue' };
-const dayFr = t => new Date(t).toLocaleDateString('fr-FR', { timeZone: 'Europe/Paris', day: 'numeric', month: 'short', year: 'numeric' });
+const dayFr = t => new Date(t).toLocaleDateString('fr-FR', { timeZone: window.CDM_TZ || 'America/Chicago', day: 'numeric', month: 'short', year: 'numeric' });
 let lgPos = null;
 async function loadLegal() {
   let d; try { d = await api('/api/admin/legal'); } catch (e) { alertMsg(e.message); return; }
@@ -1615,7 +1616,7 @@ $('#slotForm').addEventListener('submit', async e => {
 });
 $('#slotCsv').onclick = () => {
   if (!slotData) return;
-  const iso = t => new Date(t).toLocaleString('sv-SE', { timeZone: 'Europe/Paris' }).slice(0, 16);
+  const iso = t => new Date(t).toLocaleString('sv-SE', { timeZone: window.CDM_TZ || 'America/Chicago' }).slice(0, 16);
   const esc = v => /[;"\n]/.test(String(v)) ? '"' + String(v).replace(/"/g, '""') + '"' : String(v);
   const lines = ['debut;fin;type;famille;latitude;longitude;distance_m;confirmations;plus_la;verifie;devenir',
     ...slotData.rows.map(r => [iso(r.t), iso(r.end), r.cat.label, SLOT_FAM[r.cat.group] || r.cat.group, r.lat, r.lng, Math.round(r.dist / 10) * 10, r.up, r.dn ?? '', r.v ? 'oui' : 'non', OUTCOME[r.o] || r.o].map(esc).join(';'))];

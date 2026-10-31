@@ -30,25 +30,36 @@ const ORGAS = (process.env.ORGA_KEYS || '').split(',').map(x => x.trim()).filter
   const i = x.lastIndexOf(':'); return { label: x.slice(0, i).trim(), key: x.slice(i + 1).trim() };
 }).filter(o => o.label && o.key.length >= 12);
 const TILE_URL = process.env.TILE_URL || 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
-const TILE_UA = process.env.TILE_UA || 'Cortege/1.0 (+https://cortege.neru.tv)';
+const SOURCE_URL = process.env.SOURCE_URL || 'https://github.com/JadePrice/community-defense-map'; // AGPL §13: link to this instance's source
+const TILE_UA = process.env.TILE_UA || `CommunityDefenseMap/1.0 (+${SOURCE_URL})`;
+// Instance time zone (IANA): day boundaries, event and order times, archive days, rotation of device-hash keys.
+const TIMEZONE = (z => { try { new Intl.DateTimeFormat('en', { timeZone: z }); return z; } catch { console.error(`TIMEZONE ${z} invalid: using America/Chicago`); return 'America/Chicago'; } })(process.env.TIMEZONE || 'America/Chicago');
+const TZ_FMT = new Intl.DateTimeFormat('sv-SE', { timeZone: TIMEZONE, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hourCycle: 'h23' });
+// Offset of TIMEZONE from UTC at a given instant, in ms (handles daylight saving time)
+function tzOffset(t) {
+  const p = TZ_FMT.format(new Date(t));
+  return Date.UTC(+p.slice(0, 4), +p.slice(5, 7) - 1, +p.slice(8, 10), +p.slice(11, 13), +p.slice(14, 16), +p.slice(17, 19)) - Math.floor(t / 1000) * 1000;
+}
 // Derrière Passenger/Apache, l'IP réelle arrive dans un en-tête : activé par défaut sous Passenger.
 const UNDER_PASSENGER = typeof PhusionPassenger !== 'undefined';
 const TRUST_PROXY = process.env.TRUST_PROXY ? process.env.TRUST_PROXY === '1' : UNDER_PASSENGER;
 // Hors du dossier web, pour qu'Apache ne serve jamais ce fichier.
 const DATA_DIR = process.env.DATA_DIR || path.join(os.homedir(), '.cortege-data');
 // Lien « Signaler une violence policière » (plateforme de la LDH par défaut ; remplaçable par une variable)
-const VIOLENCE_URL = process.env.VIOLENCE_URL || 'https://www.ldh-france.org/stop-violences-policieres/';
+const VIOLENCE_URL = process.env.VIOLENCE_URL || ''; // empty: the page keeps its built-in link
 const CONTACT_EMAIL = process.env.CONTACT_EMAIL || '';
 const HOST_INFO = process.env.HOST_INFO || '';   // ex. « o2switch, 222 boulevard …, 63000 Clermont-Ferrand — 04 … »
-const SOURCE_URL = process.env.SOURCE_URL || 'https://github.com/n-e-r-u/cortege'; // lien du dépôt GitHub
 const BRAND = {
   handle: process.env.BRAND_HANDLE || 'neru',
   instagram: process.env.BRAND_INSTAGRAM || 'https://www.instagram.com/neru/',
   site: process.env.BRAND_SITE || 'https://neru.tv',
-  kofi: process.env.BRAND_KOFI || 'https://ko-fi.com/neru', // soutien : faire durer l'appli, renforcer le serveur
+  kofi: process.env.BRAND_KOFI || '', // donation link; empty hides the donation buttons (upstream's Ko-fi does not fund this instance)
 };
 
 // ---- Catégories (source unique, envoyée au client) — ttl en minutes ----
+// DISABLED_CATS: comma-separated category ids this instance does not accept (e.g. "cortege,queue,contact" to stop
+// mapping the position of marches and organizers). Reports and live positions in those categories are refused.
+const DISABLED_CATS = new Set((process.env.DISABLED_CATS || '').split(',').map(x => x.trim()).filter(Boolean));
 const CATEGORIES = [
   { id: 'crs',            group: 'fdo',     label: 'CRS / Gendarmes mobiles', glyph: '🛡️', ttl: 20 },
   { id: 'police',         group: 'fdo',     label: 'Police',                  glyph: '🚓', ttl: 20 },
@@ -79,7 +90,7 @@ const CATEGORIES = [
   { id: 'contact',        group: 'info',    label: 'Point de rencontre orga', glyph: '★', ttl: 3, beaconOnly: true },
   { id: 'bloque',         group: 'info',    label: 'Rue bloquée',             glyph: '⛔', ttl: 30 },
   { id: 'blocus',         group: 'info',    label: 'Blocus (lycée / fac)',    glyph: '🚧', ttl: 180 },
-];
+].filter(c => !DISABLED_CATS.has(c.id));
 // Agenda : types d'événements publiés par les orgas (ou proposés puis validés par l'admin)
 const EVENT_TYPES = [
   { id: 'manif',         label: 'Manifestation',        glyph: '✊' },
@@ -97,7 +108,7 @@ const SOSIES = { 'а': 'a', 'е': 'e', 'о': 'o', 'р': 'p', 'с': 'c', 'у': 'y
   'α': 'a', 'ε': 'e', 'ι': 'i', 'κ': 'k', 'ν': 'v', 'ο': 'o', 'ρ': 'p', 'τ': 't', 'υ': 'u', 'χ': 'x', '0': 'o', '1': 'l' };
 const labelKey = l => String(l || '').normalize('NFKD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/./gu, c => SOSIES[c] || c).replace(/[^a-z0-9]/g, '');
 const IMPORT_NAMES = ['17octobregiletjaune.net'];
-const PUBLIC_URL = process.env.PUBLIC_URL || 'https://cortege.neru.tv';
+const PUBLIC_URL = (process.env.PUBLIC_URL || '').replace(/\/$/, ''); // e.g. https://map.example.org; empty: derived from the Host header where a request is at hand
 const CAT = Object.fromEntries(CATEGORIES.map(c => [c.id, c]));
 // Fusion : un signalement du même type dans ce rayon (m) confirme le point existant au lieu d'en créer un.
 // « move » : le point glisse vers le signalement le plus récent (unités qui se déplacent).
@@ -244,8 +255,8 @@ function clientHash(req) {
   return crypto.createHmac('sha256', periodKey('ip', bucket)).update(bucket + '|' + ip).digest('base64url').slice(0, 16);
 }
 // Empreinte du téléphone : l'identifiant brut n'est jamais stocké, seulement son HMAC.
-// Elle change chaque jour à 4 h (heure de Paris en été) : impossible de relier deux journées entre elles.
-function dayBucket(now = Date.now()) { return Math.floor((now - 2 * 60 * MIN) / (24 * 60 * MIN)); }
+// It changes every day at 04:00 in TIMEZONE: two days cannot be linked together.
+function dayBucket(now = Date.now()) { return Math.floor((now + tzOffset(now) - 4 * 60 * MIN) / (24 * 60 * MIN)); }
 function ipBucket(now = Date.now()) { return Math.floor(now / (6 * 60 * MIN)); }
 function deviceHash(req) {
   const d = String(req.headers['x-device'] || '');
@@ -423,11 +434,11 @@ function cleanSettings(b) {
 function saveSettings(s) { setMeta('settings', JSON.stringify(s)); SET.at = 0; settings(); dirty.global = true; scheduleFlush(); }
 // Journées de mobilisation prévues : notification la veille au soir, bandeau et mode renforcé le jour J, bilan proposé le lendemain
 const mobsAll = () => { try { return JSON.parse(getMeta('mobs') || '[]'); } catch { return []; } };
-const mobToday = (now = Date.now()) => { const d = new Date(now).toLocaleDateString('sv-SE', { timeZone: 'Europe/Paris' }); return mobsAll().find(m => m.date === d) || null; };
+const mobToday = (now = Date.now()) => { const d = new Date(now).toLocaleDateString('sv-SE', { timeZone: TIMEZONE }); return mobsAll().find(m => m.date === d) || null; };
 // Bandeau affiché en haut de la carte : journée de mobilisation du jour, sinon bandeau des réglages (dans ses dates), sinon le nom par défaut
 function bannerNow(now = Date.now()) {
   const m = mobToday(now); if (m) return m.title;
-  const b = settings().banner, d = new Date(now).toLocaleDateString('sv-SE', { timeZone: 'Europe/Paris' });
+  const b = settings().banner, d = new Date(now).toLocaleDateString('sv-SE', { timeZone: TIMEZONE });
   if (b && b.text && (!b.from || d >= b.from) && (!b.to || d <= b.to)) return b.text;
   return null;
 }
@@ -508,7 +519,7 @@ function orgaStats(oid) {
 const parseNotes = r => { let n = []; try { n = JSON.parse(r.notes || '[]'); } catch {} return n.length || !r.note ? n : [{ x: r.note, t: r.t }]; };
 const parseTrail = r => { if (Array.isArray(r.trail)) return r.trail; try { return JSON.parse(r.trail || '[]'); } catch { return []; } };
 const toReport = r => r && ({ id: r.id, cat: r.cat, lat: r.lat, lng: r.lng, note: r.note, notes: parseNotes(r), t: r.t, exp: r.exp, up: r.up, down: r.down,
-  dw: r.dw || 0, ct: r.ct || 0, fl: r.fl || 0, ver: r.ver || null, voters: JSON.parse(r.voters || '[]'), downIps: JSON.parse(r.down_ips || '[]'), last: r.last || r.t, cell: r.cell, oid: (r && r.oid != null ? r.oid : (r && r.rowid != null ? r.rowid : null)),
+  dw: r.dw || 0, ct: r.ct || 0, fl: r.fl || 0, ver: r.ver || null, voters: JSON.parse(r.voters || '[]'), downIps: JSON.parse(r.down_ips || '[]'), last: r.last || r.t, cell: r.cell, oid: r.oid || null,
   trail: parseTrail(r), bk: r.bk || 0, bkla: r.bkla ?? null, bklo: r.bklo ?? null });
 // Trace d'un point qui suit le cortège : on garde l'ancienne position (si elle a bougé d'au moins 20 m), 30 min et 30 points au plus
 // Tête : 60 min de trace (le tracé du cortège suit le chemin réel de la tête jusqu'à la queue) ; queue : 30 min
@@ -534,13 +545,8 @@ function addTrail(r, now) {
   if (!lastP || distM({ lat: lastP[0], lng: lastP[1] }, r) >= 20) tr.push([r.lat, r.lng, r.last || r.t]);
   r.trail = tr.slice(-TRAIL_MAX[r.cat]);
 }
-const getReport = (id, now) => {
-  let r = q('SELECT reports.*, reports.rowid as oid FROM reports WHERE id=? AND exp>?').get(id, now);
-  if (!r) { r = q('SELECT *, rowid as oid FROM reports WHERE id=? AND exp>?').get(id, now); }
-  if (!r) return null;
-  if (r.oid === undefined && r.rowid !== undefined) r.oid = r.rowid;
-  return toReport(r);
-};
+// oid is the reporting orga's id (a TEXT column), never SQLite's rowid
+const getReport = (id, now) => toReport(q('SELECT * FROM reports WHERE id=? AND exp>?').get(id, now));
 const activeReports = (now, limit = 2000) => q('SELECT * FROM reports WHERE exp>? ORDER BY t DESC LIMIT ?').all(now, limit);
 function saveReport(r) {
   const cell = cellId(r.lat, r.lng);
@@ -700,7 +706,7 @@ function modQueue(now = Date.now()) {
       series = danger && nearby('calme', x.lat, x.lng, CALM_KILL_M, now).some(c => !c.r.ct);
       why.push(series ? 'series' : 'new');
     }
-    const abroad = !inFrance(x.lat, x.lng), iso = isolated(x);
+    const abroad = !inArea(x.lat, x.lng), iso = isolated(x);
     if (iso) why.push('isolated');
     if (abroad) why.push('abroad');
     if (!why.length) continue;
@@ -1015,16 +1021,15 @@ function communeOf(lat, lng) {
   return hit;
 }
 // En France ou non : départements (contours IGN), outre-mer (boîtes), commune française connue, ou ville française à moins de 6 km
-const FR_CC = new Set(['US', 'PR', 'VI', 'GU', 'AS']);
-const OUTRE_MER = [[15.8, -61.9, 16.55, -60.95], [14.35, -61.25, 14.9, -60.8], [2.1, -54.65, 5.8, -51.6], [-21.4, 55.2, -20.85, 55.85], [-13.05, 44.95, -12.6, 45.35],
-  [46.7, -56.45, 47.15, -56.1], [17.85, -63.17, 18.13, -62.78], [-22.8, 163.5, -19.5, 168.2], [-28, -155, -7, -134], [-14.4, -178.3, -13.1, -176]];
+// Service area: inside a region outline, inside an imported OSM boundary that has an official code,
+// or within 6 km of a listed city (places.json) whose country code is in AREA_CC.
+const AREA_CC = new Set((process.env.AREA_CC || 'US,PR,VI,GU,AS,MP').split(',').map(x => x.trim().toUpperCase()).filter(Boolean));
 const frCache = new Map();
-function inFrance(lat, lng) {
+function inArea(lat, lng) {
   const key = lat.toFixed(3) + ',' + lng.toFixed(3);
   let v = frCache.get(key);
   if (v !== undefined) return v;
-  v = OUTRE_MER.some(([a, b, c, d]) => lat >= a && lat <= c && lng >= b && lng <= d)
-    || DEPS.some(d => d.p && d.b && lat >= d.b[0] - 0.01 && lat <= d.b[2] + 0.01 && lng >= d.b[1] - 0.01 && lng <= d.b[3] + 0.01 && polyHas(d.p, lat, lng));
+  v = DEPS.some(d => d.p && d.b && lat >= d.b[0] - 0.01 && lat <= d.b[2] + 0.01 && lng >= d.b[1] - 0.01 && lng <= d.b[3] + 0.01 && polyHas(d.p, lat, lng));
   if (!v) { const c = communeOf(lat, lng); if (c && c.fr) v = true; }
   if (!v) {
     const k = Math.cos(lat * Math.PI / 180); let best = Infinity, cc = null;
@@ -1032,7 +1037,7 @@ function inFrance(lat, lng) {
       const dy = (la - lat) * 111; if (dy > 6 || dy < -6) continue;
       const dd = Math.hypot(dy, (lo - lng) * 111 * k); if (dd < best) { best = dd; cc = c; }
     }
-    v = best <= 6 && FR_CC.has(cc);
+    v = best <= 6 && AREA_CC.has(cc);
   }
   if (frCache.size > 50000) frCache.clear();
   frCache.set(key, v);
@@ -1051,11 +1056,11 @@ const dedupeRows = list => { const m = new Map(); list.forEach((r, i) => m.set(r
 function dayRows(date) {
   // Lignes sans heure de fin (anciens formats, imports) : fin = début + durée normale du type
   const rows = dedupeRows(readArchiveDay(date)).map(r => ({ ...r, o: r.o || (r.d ? 'old' : 'exp'), e: r.e || r.t + ((CAT[r.c] && BASE_TTL[r.c]) || 20) * MIN }));
-  for (const r of activeReports(Date.now(), 5000)) if (parisDay(r.t) === date) rows.push({ ...archLine(r, 'active'), e: null });
+  for (const r of activeReports(Date.now(), 5000)) if (zoneDay(r.t) === date) rows.push({ ...archLine(r, 'active'), e: null });
   // Les bilans ne comptent que la France (métropole et outre-mer) : les points envoyés d'ailleurs restent sur la carte en direct,
   // mais ne faussent ni les totaux ni les cartes. On garde seulement leur nombre.
   const fr = [], abroad = [];
-  for (const r of rows) (inFrance(r.lat, r.lng) ? fr : abroad).push(r);
+  for (const r of rows) (inArea(r.lat, r.lng) ? fr : abroad).push(r);
   // Villes : chaque point est rattaché à sa commune (contours OSM) ou, à défaut, à sa ville ou à son agglomération
   const zones = {}, names = {};
   for (const r of fr) {
@@ -1068,7 +1073,7 @@ function dayRows(date) {
   return { rows: fr, zones, abroad: abroad.length };
 }
 // Nombre de signalements en France d'un jour archivé (comparaison sur 14 jours)
-const dayCountFr = d => dedupeRows(readArchiveDay(d)).filter(r => inFrance(r.lat, r.lng)).length;
+const dayCountFr = d => dedupeRows(readArchiveDay(d)).filter(r => inArea(r.lat, r.lng)).length;
 
 // ---- Pages publiques par manif (/manif/AAAA-MM-JJ) ----
 // Publiées à la main par l'admin. On fige alors un résumé agrégé (la page n'affiche que le centre de chaque ville et des totaux),
@@ -1085,7 +1090,7 @@ function pubSnapshot(date) {
   if (!rows.length) return null;
   const cats = {}, fam = {}, hours = Array(24).fill(0), cities = {};
   for (const r of rows) {
-    cats[r.c] = (cats[r.c] || 0) + 1; const g = CAT[r.c].group; fam[g] = (fam[g] || 0) + 1; hours[parisHour(r.t) % 24]++;
+    cats[r.c] = (cats[r.c] || 0) + 1; const g = CAT[r.c].group; fam[g] = (fam[g] || 0) + 1; hours[zoneHour(r.t) % 24]++;
     const c = (cities[r.z] ||= { name: zones[r.z] ? zones[r.z].name : r.z, n: 0, lat: 0, lng: 0 }); c.n++; c.lat += r.lat; c.lng += r.lng;
   }
   const ts = rows.map(r => r.t);
@@ -1127,7 +1132,7 @@ function marchOf(heads) {
 }
 // Arrêtés en vigueur pendant la journée (même terminés depuis, ils sont gardés 8 jours)
 function ordersOfDay(date) {
-  const a = parisMs(date, '00:00'), b = a + 24 * 60 * MIN;
+  const a = zoneMs(date, '00:00'), b = a + 24 * 60 * MIN;
   return ordersAll().filter(o => o.status === 'ok' && o.zone && o.start < b && o.end > a).map(o => ({ name: o.zone.name, dep: o.zone.dep, scope: o.zone.scope, start: o.start, end: o.end,
     items: (o.items || []).map(x => ({ k: x.k, text: x.text })), src: o.src, host: srcHost(o.src) }));
 }
@@ -1148,7 +1153,7 @@ function pubExtras(date, rows, zones) {
     if (march) marches.push({ city: name(z), len: march.len, from: march.from, to: march.to, kmh: march.kmh });
     if (list.length >= CITY_PAGE_MIN) {
       const cats = {}, hours = Array(24).fill(0);
-      for (const r of list) { cats[r.c] = (cats[r.c] || 0) + 1; hours[parisHour(r.t) % 24]++; }
+      for (const r of list) { cats[r.c] = (cats[r.c] || 0) + 1; hours[zoneHour(r.t) % 24]++; }
       const ts = list.map(r => r.t), lat = list.reduce((t, r) => t + r.lat, 0) / list.length, lng = list.reduce((t, r) => t + r.lng, 0) / list.length;
       cityPages.push({ slug: slugOf(name(z)), name: name(z), n: list.length, cats: Object.entries(cats).sort((a, b) => b[1] - a[1]), hours, first: Math.min(...ts), last: Math.max(...ts),
         lat: Math.round(lat * 1e4) / 1e4, lng: Math.round(lng * 1e4) / 1e4, confirmed: list.filter(r => r.up > 0).length, verified: list.filter(r => r.v).length,
@@ -1204,7 +1209,7 @@ const htmlEsc = v => String(v).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&
 const GROUP_COL = { fdo: '#e5484d', danger: '#f5a524', soutien: '#30a46c', info: '#8e8cd8' };
 const GROUP_FR = { fdo: 'Forces de l’ordre', danger: 'Danger', info: 'Info', soutien: 'Soutien' };
 const frDay = d => new Date(d + 'T12:00:00Z').toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
-const frHour = t => new Date(t).toLocaleTimeString('fr-FR', { timeZone: 'Europe/Paris', hour: '2-digit', minute: '2-digit' }).replace(':', ' h ');
+const frHour = t => new Date(t).toLocaleTimeString('fr-FR', { timeZone: TIMEZONE, hour: '2-digit', minute: '2-digit' }).replace(':', ' h ');
 const PUB_CSS = `*{box-sizing:border-box}body{margin:0;background:#121214;color:#f2f1f4;font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
 main{max-width:760px;margin:0 auto;padding:24px 16px 48px}a{color:#ec9fa4}.top{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit}.top img{width:44px;height:44px;border-radius:10px}
 .top b{display:block;font-size:18px}.top span{color:#a3a1ad;font-size:13px}h1{font-size:clamp(28px,6vw,42px);line-height:1.1;margin:28px 0 6px}.lead{color:#c9c7d1;margin:0 0 20px}
@@ -1262,7 +1267,7 @@ function ordersHtml(list) {
   return list.map(o => `<li><b>${htmlEsc(o.name)}</b>${o.scope === 'dep' ? ' (département)' : ''} · du ${htmlEsc(frWhen(o.start))} au ${htmlEsc(frWhen(o.end))}
 <ul>${o.items.map(x => `<li>${htmlEsc(ORDER_GLYPH(x.k))} : ${htmlEsc(x.text)}</li>`).join('')}</ul><span class="fine">Source : <a href="${htmlEsc(o.src)}" rel="noopener nofollow">${htmlEsc(o.host || 'lien')}</a></span></li>`).join('');
 }
-const frWhen = t => new Date(t).toLocaleString('fr-FR', { timeZone: 'Europe/Paris', day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' }).replace(':', ' h ');
+const frWhen = t => new Date(t).toLocaleString('fr-FR', { timeZone: TIMEZONE, day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' }).replace(':', ' h ');
 const momentsHtml = (list, withCity) => `<ul class="tl">${list.map(m => `<li><time>${frHour(m.t)}</time> ${htmlEsc(catTxt(m.c))}${withCity ? ' · ' + htmlEsc(m.city) : ''}${m.up ? ` <span class="fine">(confirmé ${m.up}×)</span>` : ''}${m.v ? ' <span class="fine">✓ vérifié</span>' : ''}</li>`).join('')}</ul>`;
 
 function pubPage(req, d) {
@@ -1326,7 +1331,7 @@ function cityDayPage(req, d, c) {
   const day = frDay(d.date), title = `${c.name}, ${day} : ${c.n} signalements sur Cortège`;
   const desc = `${c.n} signalements de manifestant·es à ${c.name} le ${day}, de ${frHour(c.first)} à ${frHour(c.last)}. Moments clés, durées, parcours du cortège.`;
   const maxH = Math.max(...c.hours), peak = c.hours.indexOf(maxH), maxC = c.cats[0][1];
-  const pad = n => String(n).padStart(2, '0'), h0 = parisHour(c.first) % 24, h1 = parisHour(c.last) % 24;
+  const pad = n => String(n).padStart(2, '0'), h0 = zoneHour(c.first) % 24, h1 = zoneHour(c.last) % 24;
   const slot = h1 >= h0 && h1 - h0 < 6 ? `${pad(h0)}:00-${pad(h1)}:59` : `${pad(peak)}:00-${pad(Math.min(23, peak + 2))}:59`;
   const ordersHere = (d.orders || []).filter(o => o.name === c.name || o.scope === 'dep');
   const body = `<p class="fine"><a href="/manif/${d.date}">← Bilan national du ${htmlEsc(day)}</a></p><h1>${htmlEsc(c.name)}</h1><p class="lead">${htmlEsc(cap(day))} : ce que les manifestant·es ont signalé sur Cortège.</p>
@@ -1351,7 +1356,7 @@ function pubCsv(d) {
   const key = d.date + ':' + (d.pts || []).length;
   if (csvCache.has(key)) return csvCache.get(key);
   const OUT = ['', 'contesté', 'retiré par une orga', 'retiré par l’admin', 'évincé (zone saturée)', 'effacé (purge)', 'retiré', 'retiré'];
-  const sc = d.ptsS || 1e3, iso = m => new Date(m * MIN).toLocaleString('sv-SE', { timeZone: 'Europe/Paris' });
+  const sc = d.ptsS || 1e3, iso = m => new Date(m * MIN).toLocaleString('sv-SE', { timeZone: TIMEZONE });
   const esc = v => /[",;\n]/.test(String(v)) ? '"' + String(v).replace(/"/g, '""') + '"' : String(v);
   const lines = ['type;categorie;famille;debut;fin;latitude;longitude;commune;confirmations;verifie_par_orga;devenir'];
   for (const [c, t, e, la, lo, up, v, o] of d.pts || []) {
@@ -1364,7 +1369,7 @@ function pubCsv(d) {
 }
 
 // ---- Pages de contenu (référencement) : agenda, arrêtés, villes, droits, legal teams ----
-const whenLong = t => new Date(t).toLocaleString('fr-FR', { timeZone: 'Europe/Paris', weekday: 'long', day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' }).replace(':', ' h ');
+const whenLong = t => new Date(t).toLocaleString('fr-FR', { timeZone: TIMEZONE, weekday: 'long', day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' }).replace(':', ' h ');
 const upcoming = (now = Date.now()) => listEvents().filter(e => e.status !== 'pending' && e.lat != null && e.start > now - 2 * 3600e3).sort((a, b) => a.start - b.start);
 // Données structurées des événements (schema.org Event) : gratuit, organisé par l'orga qui l'a publié, fin estimée à 3 h après le début
 const eventLd = (req, list) => {
@@ -1474,8 +1479,8 @@ function sendPage(res, html) {
 // Jamais gardé : la précision écrite, les empreintes d'IP ou de téléphone.
 const ARCHIVE_DIR = path.join(DATA_DIR, 'archive');
 fs.mkdirSync(ARCHIVE_DIR, { recursive: true, mode: 0o700 });
-const parisDay = t => new Date(t).toLocaleDateString('sv-SE', { timeZone: 'Europe/Paris' }); // AAAA-MM-JJ
-const parisHour = t => Number(new Date(t).toLocaleString('en-GB', { timeZone: 'Europe/Paris', hour: '2-digit', hour12: false }));
+const zoneDay = t => new Date(t).toLocaleDateString('sv-SE', { timeZone: TIMEZONE }); // AAAA-MM-JJ
+const zoneHour = t => Number(new Date(t).toLocaleString('en-GB', { timeZone: TIMEZONE, hour: '2-digit', hour12: false }));
 // Tête et queue de cortège : leur chemin (positions à ~11 m, heures à la minute), pour le parcours réel du cortège dans les bilans
 function archTrail(r) {
   if (!TRAIL_CATS.has(r.cat)) return {};
@@ -1490,7 +1495,7 @@ const archLine = (r, o) => {
 };
 function archive(r, outcome) {
   const line = JSON.stringify(archLine(r, outcome)) + '\n';
-  try { fs.appendFileSync(path.join(ARCHIVE_DIR, parisDay(r.t) + '.jsonl'), line, { mode: 0o600 }); } catch {}
+  try { fs.appendFileSync(path.join(ARCHIVE_DIR, zoneDay(r.t) + '.jsonl'), line, { mode: 0o600 }); } catch {}
 }
 function pruneArchive() {
   const limit = Date.now() - ARCHIVE_DAYS * 24 * 60 * MIN;
@@ -1505,6 +1510,7 @@ pruneArchive(); setInterval(pruneArchive, 6 * 60 * MIN).unref();
 const geoCache = new Map();
 let geoChain = Promise.resolve(), geoLast = 0;
 let geoPending = 0;
+const GEOCODE_CC = encodeURIComponent(process.env.GEOCODE_CC || 'us,pr,vi,gu,as,mp'); // Nominatim country filter
 const GEO_QUEUE_MAX = 20; // au-delà, on répond « réessaie » plutôt que d'empiler (1 requête/s chez Nominatim)
 function nominatim(pathAndQuery) {
   if (geoCache.has(pathAndQuery)) return Promise.resolve(geoCache.get(pathAndQuery));
@@ -1515,7 +1521,7 @@ function nominatim(pathAndQuery) {
     const wait = Math.max(0, geoLast + 1100 - Date.now());
     setTimeout(() => {
       geoLast = Date.now();
-      const rq = https.get('https://nominatim.openstreetmap.org' + pathAndQuery, { headers: { 'User-Agent': TILE_UA, 'Accept-Language': 'fr' }, timeout: 8000 }, up => {
+      const rq = https.get('https://nominatim.openstreetmap.org' + pathAndQuery, { headers: { 'User-Agent': TILE_UA, 'Accept-Language': 'en' }, timeout: 8000 }, up => {
         const chunks = []; up.on('data', c => chunks.push(c));
         up.on('end', () => {
           let data = null; try { data = JSON.parse(Buffer.concat(chunks).toString('utf8')); } catch {}
@@ -1604,7 +1610,7 @@ function vapidAuth(endpoint) {
   if (hit && now - hit.at < 30 * 60_000) return hit.h;
   const exp = Math.floor(now / 1000) + 3600;
   const enc = o => Buffer.from(JSON.stringify(o)).toString('base64url');
-  const data = enc({ typ: 'JWT', alg: 'ES256' }) + '.' + enc({ aud, exp, sub: CONTACT_EMAIL ? 'mailto:' + CONTACT_EMAIL : PUBLIC_URL });
+  const data = enc({ typ: 'JWT', alg: 'ES256' }) + '.' + enc({ aud, exp, sub: CONTACT_EMAIL ? 'mailto:' + CONTACT_EMAIL : (PUBLIC_URL || SOURCE_URL) });
   const sig = crypto.sign('sha256', Buffer.from(data), { key: VAPID_KEY, dsaEncoding: 'ieee-p1363' }).toString('base64url');
   const h = `vapid t=${data}.${sig}, k=${VAPID.pub}`;
   jwtCache.set(aud, { h, at: now });
@@ -2099,7 +2105,7 @@ const poiView = x => { const d = JSON.parse(x.data || '{}'); return { id: x.id, 
 // ---- Journées de mobilisation prévues ----
 // La veille à 20 h : notification à tous les abonné·es aux annonces urgentes. Le jour J dès 7 h : mode renforcé jusqu'à 2 h du matin
 // et titre de la journée en bandeau. Le lendemain : l'admin est invité·e à publier le bilan public.
-const nextDay = d => parisDay(parisMs(d, '12:00') + 24 * 60 * MIN);
+const nextDay = d => zoneDay(zoneMs(d, '12:00') + 24 * 60 * MIN);
 function cleanMob(b, old = {}) {
   const str = (x, n) => String(x || '').replace(/[\u0000-\u001f]/g, ' ').trim().slice(0, n);
   const date = String(b.date || old.date || '');
@@ -2113,18 +2119,18 @@ async function mobEve(m) {
   const targets = pushAll().filter(s => s.urg !== 0);
   if (!targets.length) return;
   // Le titre et le texte de la journée sont écrits par l'admin (en français) ; le reste suit la langue du téléphone
-  const day = l => new Date(parisMs(m.date, '12:00')).toLocaleDateString(LOCALE[l], { weekday: 'long', day: 'numeric', month: 'long', timeZone: 'Europe/Paris' });
+  const day = l => new Date(zoneMs(m.date, '12:00')).toLocaleDateString(LOCALE[l], { weekday: 'long', day: 'numeric', month: 'long', timeZone: TIMEZONE });
   const payload = l => JSON.stringify({ title: '📣 ' + tr(l, 'Demain : {t}', { t: m.title }),
     body: m.eve || tr(l, 'Journée de mobilisation {d}. Ouvre Cortège pour voir l’agenda et les numéros utiles.', { d: day(l) }),
     tag: 'mob-' + m.id, url: '/', vibrate: [300, 100, 300] });
   await pushSendAll(targets, payload, true, 'veille de mobilisation');
 }
 function mobTick() {
-  const now = Date.now(), today = parisDay(now), h = parisHour(now) % 24;
+  const now = Date.now(), today = zoneDay(now), h = zoneHour(now) % 24;
   if (mobTick.day !== today) { mobTick.day = today; dirty.global = true; scheduleFlush(); } // bandeau du jour
   let list = mobsAll();
   if (!list.length) return;
-  const old = parisDay(now - 30 * 24 * 60 * MIN), kept = list.filter(m => m.date >= old);
+  const old = zoneDay(now - 30 * 24 * 60 * MIN), kept = list.filter(m => m.date >= old);
   if (kept.length !== list.length) { setMeta('mobs', JSON.stringify(kept)); list = kept; }
   for (const m of list) {
     if (m.push && m.date === nextDay(today) && h >= 20 && h < 23 && !getMeta('mob:eve:' + m.id)) {
@@ -2133,20 +2139,20 @@ function mobTick() {
     }
     if (m.strict && m.date === today && h >= 7 && !getMeta('mob:strict:' + m.id)) {
       setMeta('mob:strict:' + m.id, now);
-      const until = parisMs(nextDay(today), '02:00');
+      const until = zoneMs(nextDay(today), '02:00');
       if (strictUntil(now) < until) { setMeta('strict', until); orgaLog({ id: 'admin', label: adminLabel() }, 'mode manif renforcé (journée prévue)', { detail: m.title }); }
     }
   }
 }
 setInterval(() => { try { mobTick(); } catch (e) { console.error('journées', e.message); } }, 60_000).unref();
 // Bilans à publier : journées passées depuis moins de 7 jours, pas encore publiées
-const mobsToPublish = (now = Date.now()) => { const today = parisDay(now), from = parisDay(now - 7 * 24 * 60 * MIN);
+const mobsToPublish = (now = Date.now()) => { const today = zoneDay(now), from = zoneDay(now - 7 * 24 * 60 * MIN);
   return mobsAll().filter(m => m.date < today && m.date >= from && !getPub(m.date)).map(m => ({ date: m.date, title: m.title })); };
 
 // ---- Import : manifestations de la carte participative du 17 octobre (réutilisation autorisée) ----
 // On importe les actions « manifestation » (où qu'elles soient) et les « rassemblements » des lieux de manif.
 // Les blocages de stations, raffineries, péages… ne sont pas importés.
-const IMPORT_17 = process.env.IMPORT_17OCT !== '0';
+const IMPORT_17 = process.env.IMPORT_17OCT === '1'; // French source: off unless explicitly enabled
 const IMPORT_BASE = (process.env.IMPORT_17OCT_URL || 'https://www.17octobregiletjaune.net').replace(/\/$/, '');
 const IMPORT_UNTIL = Date.parse(process.env.IMPORT_17OCT_UNTIL || '2026-11-01');
 const IMPORT_EVERY = 15 * MIN;
@@ -2162,13 +2168,13 @@ function getJson(url, timeout = 30_000) {
     req.on('error', reject);
   });
 }
-// « 2026-10-17 » + « 14:00 », heure de Paris → horodatage (gère l'heure d'été)
-function parisMs(date, hhmm) {
+// "2026-10-17" + "14:00" in TIMEZONE → timestamp (handles daylight saving time)
+function zoneMs(date, hhmm) {
   const [y, m, d] = String(date).split('-').map(Number), [h, mi] = String(hhmm || '12:00').split(':').map(Number);
   const want = Date.UTC(y, m - 1, d, h, mi);
   let t = want;
   for (let i = 0; i < 2; i++) {
-    const p = new Date(t).toLocaleString('sv-SE', { timeZone: 'Europe/Paris' });
+    const p = new Date(t).toLocaleString('sv-SE', { timeZone: TIMEZONE });
     t += want - Date.UTC(+p.slice(0, 4), +p.slice(5, 7) - 1, +p.slice(8, 10), +p.slice(11, 13), +p.slice(14, 16));
   }
   return t;
@@ -2194,7 +2200,7 @@ async function import17() {
   for (const k of keep) {
     const p = places.get(k.id) || stationCache.map.get(k.id);
     if (!p || !validLatLng(p.lat, p.lng) || !/^\d{4}-\d{2}-\d{2}$/.test(k.date) || !/^\d{1,2}:\d{2}$/.test(k.time || '')) continue;
-    const start = parisMs(k.date, k.time);
+    const start = zoneMs(k.date, k.time);
     if (!(start + EVENT_KEEP > now)) continue;
     const city = clean(p.city, 60), name = clean(p.name, 80);
     const id = 'g' + sha('17oct|' + k.id + '|' + k.i).slice(0, 11);
@@ -2268,14 +2274,16 @@ const ORDER_KINDS = [
   { id: 'consigne', glyph: '⚠', label: 'Consigne' }, { id: 'autre', glyph: 'ℹ', label: 'Information' },
 ];
 const ORDER_KIND = Object.fromEntries(ORDER_KINDS.map(k => [k.id, k]));
-// Départements : contours simplifiés (≈ 400 m) d'après france-geojson (IGN, licence ouverte) ; outre-mer : par commune seulement
+// Regions (US states and territories): code, name, bounding box, simplified outline. Built by tools/build-states.js;
+// see docs/US_GEODATA.md for the source and how to rebuild. GEO_REGIONS points to another file built the same way.
 const DEPS = (() => {
-  let list = []; try { list = JSON.parse(fs.readFileSync(path.join(__dirname, 'geo', 'departements.json'), 'utf8')); } catch (e) { console.error('départements', e.message); }
-  for (const [c, n] of [['971', 'Guadeloupe'], ['972', 'Martinique'], ['973', 'Guyane'], ['974', 'La Réunion'], ['976', 'Mayotte']]) if (!list.some(d => d.c === c)) list.push({ c, n, b: null, p: null });
-  return list;
+  const f = process.env.GEO_REGIONS || path.join(__dirname, 'geo', 'states.json');
+  try { return JSON.parse(fs.readFileSync(f, 'utf8')); } catch (e) { console.error('regions', f, e.message); return []; }
 })();
 const depOf = c => DEPS.find(d => d.c === String(c || '').toUpperCase().padStart(2, '0'));
-const GEO_API = process.env.GEO_API || 'https://geo.api.gouv.fr';
+// City outlines for city-level orders: a service with the geo.api.gouv.fr /communes interface (see docs/US_GEODATA.md).
+// Empty: orders can only cover a whole state.
+const GEO_API = (process.env.GEO_API || '').replace(/\/$/, '');
 const normName = x => String(x || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
 // Simplification d'un contour (Douglas-Peucker), pour garder des fichiers légers
 function simplifyRing(pts, tol) {
@@ -2303,6 +2311,7 @@ function geoPoly(g, tol = 0.0004) {
 }
 // Contour officiel d'une commune (API Géo de l'État, appelée par le serveur seulement, à la validation)
 async function communeZone(dep, name, insee) {
+  if (!GEO_API) throw new Error('city-level zones are not configured on this server (GEO_API); use the whole state');
   const f = 'fields=nom,code,codeDepartement,population,contour&format=json';
   let list;
   if (/^\d[\dAB]\d{3}$/.test(insee || '')) list = [await getJson(`${GEO_API}/communes/${insee}?${f}`, 15_000)];
@@ -2332,7 +2341,7 @@ const ordersLive = now => ordersAll().filter(o => o.status === 'ok' && o.end > n
   .map(o => ({ id: o.id, start: o.start, end: o.end, items: o.items, src: o.src, host: srcHost(o.src), ok: o.ok, scope: o.zone.scope, name: o.zone.name, dep: o.zone.dep, b: o.zone.b, p: o.zone.p }));
 // Heure de Paris : « 2026-10-24 20:00 », « 2026-10-24T20:00 », ou horodatage en millisecondes
 const whenMs = v => typeof v === 'number' ? v : /^\d{4}-\d{2}-\d{2}([ T]\d{1,2}:\d{2})?$/.test(String(v || '').trim())
-  ? parisMs(String(v).trim().slice(0, 10), String(v).trim().slice(11) || '00:00') : NaN;
+  ? zoneMs(String(v).trim().slice(0, 10), String(v).trim().slice(11) || '00:00') : NaN;
 function cleanOrder(b) {
   const d = depOf(b.dep ?? b.departement);
   if (!d) return [null, 'Choisis le département.'];
@@ -2407,7 +2416,7 @@ async function orderPush(ids) {
   }
   for (const { mine, subs } of groups.values()) {
     const o = mine[0], k = ORDER_KIND[o.items[0].k] || ORDER_KIND.autre, z = o.zone;
-    const when = l => new Date(o.start).toLocaleDateString(LOCALE[l], { weekday: 'long', day: 'numeric', month: 'long', timeZone: 'Europe/Paris' });
+    const when = l => new Date(o.start).toLocaleDateString(LOCALE[l], { weekday: 'long', day: 'numeric', month: 'long', timeZone: TIMEZONE });
     const payload = l => JSON.stringify(mine.length === 1
       ? { title: `${k.glyph} ${tr(l, k.label)} · ${z.name}`, body: tr(l, 'Nouvel arrêté à partir du {d}. Ouvre Cortège pour voir la zone et la source.', { d: when(l) }),
           tag: 'ord-' + o.id, url: `/?at=${((z.b[0] + z.b[2]) / 2).toFixed(4)},${((z.b[1] + z.b[3]) / 2).toFixed(4)}`, vibrate: [200, 100, 200] }
@@ -2713,7 +2722,7 @@ function versionInfo() {
   walk(PUBLIC, '');
   files['server.js'] = sha(__filename);
   versionCache = { t: Date.now(), body: { version: APP_VERSION, algorithm: 'sha256', files,
-    verify: 'node verifier.js ' + PUBLIC_URL + '  (depuis une copie du dépôt public)' } };
+    verify: 'node verifier.js ' + (PUBLIC_URL || '<public URL>') + '  (depuis une copie du dépôt public)' } };
   return versionCache.body;
 }
 
@@ -2724,7 +2733,7 @@ const PMTILES = process.env.TILE_PMTILES || '';
 // Zones couvertes par le fichier (rectangles [sud, nord, ouest, est]) : lues dans la région utilisée pour l'extraire
 const PM_ZONES = (() => {
   try {
-    const g = JSON.parse(fs.readFileSync(process.env.TILE_PMTILES_REGION || path.join(__dirname, 'tools', 'france.geojson'), 'utf8'));
+    const g = JSON.parse(fs.readFileSync(process.env.TILE_PMTILES_REGION || path.join(__dirname, 'tools', 'us-region.geojson'), 'utf8'));
     const geom = g.geometry || g;
     const polys = geom.type === 'Polygon' ? [geom.coordinates] : geom.coordinates;
     return polys.map(p => { const xs = p[0].map(c => c[0]), ys = p[0].map(c => c[1]); return [Math.min(...ys), Math.max(...ys), Math.min(...xs), Math.max(...xs)]; });
@@ -2838,11 +2847,19 @@ function pruneTiles() {
 if (TILE_DISK) setInterval(pruneTiles, 6 * 60 * MIN).unref();
 // Protection du proxy de tuiles : sans elle, n'importe qui pourrait faire télécharger des millions de tuiles
 // par le serveur, remplir le disque et faire bannir le serveur par OpenStreetMap (la carte tomberait pour tous).
-//  - zone : France métropolitaine, Corse et outre-mer à partir du zoom 8 (en dessous, le monde entier tient en peu de tuiles) ;
+//  - zone : the service area (TILE_ZONES) from zoom 8 (below that, the whole world fits in few tiles);
 //  - budget par réseau de tuiles NOUVELLES (les tuiles déjà en cache ne comptent pas) ;
 //  - plafond de téléchargements simultanés, et une même tuile demandée par mille personnes n'est téléchargée qu'une fois.
-const TILE_ZONES = [[41, 51.6, -5.8, 10.6], [15.8, 16.6, -61.9, -60.9], [14.3, 14.95, -61.3, -60.75], [2, 6, -54.7, -51.5],
-  [-21.45, -20.85, 55.1, 55.9], [-13.05, -12.6, 44.95, 45.35], [46.7, 47.2, -56.5, -56.05]]; // métropole+Corse, Guadeloupe, Martinique, Guyane, Réunion, Mayotte, St-Pierre
+// Service-area rectangles [south, north, west, east], read from AREA_REGION (default tools/us-region.geojson):
+// tile proxy zone, place-import squares, pre-published empty region files.
+const TILE_ZONES = (() => {
+  const f = process.env.AREA_REGION || path.join(__dirname, 'tools', 'us-region.geojson');
+  try {
+    const g = JSON.parse(fs.readFileSync(f, 'utf8')), geom = g.geometry || g;
+    const polys = geom.type === 'Polygon' ? [geom.coordinates] : geom.coordinates;
+    return polys.map(p => { const xs = p[0].map(c => c[0]), ys = p[0].map(c => c[1]); return [Math.min(...ys), Math.max(...ys), Math.min(...xs), Math.max(...xs)]; });
+  } catch (e) { console.error('AREA_REGION', f, e.message); return []; }
+})();
 // Préchargement de zone (« Garder la zone hors ligne ») : interdit par la politique d'OpenStreetMap,
 // désactivé tant que les tuiles viennent de chez eux. TILE_PREFETCH=1 pour un fournisseur qui l'autorise.
 const TILE_PREFETCH = process.env.TILE_PREFETCH === '1';
@@ -2870,7 +2887,7 @@ function fetchTile(z, x, y) {
   const p = new Promise((resolve, reject) => {
     tileUpstream++;
     const done = () => { tileUpstream--; tileInflight.delete(key); };
-    const rq = (TILE_URL.startsWith('http:') ? http : https).get(TILE_URL.replace('{z}', z).replace('{x}', x).replace('{y}', y), { headers: { 'User-Agent': TILE_UA, Referer: PUBLIC_URL + '/' }, timeout: 10_000 }, up => {
+    const rq = (TILE_URL.startsWith('http:') ? http : https).get(TILE_URL.replace('{z}', z).replace('{x}', x).replace('{y}', y), { headers: { 'User-Agent': TILE_UA, Referer: (PUBLIC_URL || SOURCE_URL) + '/' }, timeout: 10_000 }, up => {
       if (up.statusCode !== 200) { up.resume(); done(); return reject(new Error('upstream ' + up.statusCode)); }
       const chunks = []; let size = 0;
       up.on('data', c => { size += c.length; if (size > 2_000_000) rq.destroy(); else chunks.push(c); });
@@ -2966,6 +2983,9 @@ const server = http.createServer(async (req, res) => {
     if (req.method === 'GET' && pathname === '/api/stream') return streamOpen(req, res, url);
     if (req.method === 'GET' && (pathname === '/presse' || pathname === '/presse/')) return serveStatic(req, res, '/presse.html');
     // Référencement : robots.txt, plan du site, et fichier de validation de Google Search Console (GOOGLE_SITE_VERIFICATION=google0123….html)
+    // Instance time zone for browser pages that format times (admin, slot maps, stories)
+    if (req.method === 'GET' && pathname === '/tz.js')
+      return send(res, 200, `window.CDM_TZ=${JSON.stringify(TIMEZONE)};\n`, { 'Content-Type': 'text/javascript; charset=utf-8', 'Cache-Control': 'public, max-age=3600' });
     if (req.method === 'GET' && pathname === '/robots.txt')
       return send(res, 200, `User-agent: *\nDisallow: /api/\nAllow: /\n\nSitemap: ${PUBLIC_URL_REAL(req)}/sitemap.xml\n`, { 'Cache-Control': 'public, max-age=3600' });
     if (req.method === 'GET' && pathname === '/sitemap.xml') return send(res, 200, sitemapXml(req), { 'Content-Type': 'application/xml; charset=utf-8', 'Cache-Control': 'public, max-age=3600' });
@@ -3129,9 +3149,9 @@ const server = http.createServer(async (req, res) => {
       const q = String(url.searchParams.get('q') || '').trim().slice(0, 80);
       if (q.length < 2) return send(res, 400, { error: 'Tape au moins 2 lettres.' });
       const gk = 'geo:' + clientHash(req);
-      if (!geoCache.has('/search?format=jsonv2&addressdetails=1&limit=6&countrycodes=fr&q=' + encodeURIComponent(q)) && !tx(() => bump(gk, 'vote', 30, Date.now())))
+      if (!geoCache.has('/search?format=jsonv2&addressdetails=1&limit=6&countrycodes=' + GEOCODE_CC + '&q=' + encodeURIComponent(q)) && !tx(() => bump(gk, 'vote', 30, Date.now())))
         return send(res, 429, { error: 'Trop de recherches, patiente un peu.' });
-      const data = await nominatim('/search?format=jsonv2&addressdetails=1&limit=6&countrycodes=fr&q=' + encodeURIComponent(q));
+      const data = await nominatim('/search?format=jsonv2&addressdetails=1&limit=6&countrycodes=' + GEOCODE_CC + '&q=' + encodeURIComponent(q));
       if (!data) return send(res, 502, { error: 'Recherche indisponible pour l’instant.' });
       return send(res, 200, data.map(d => ({ name: d.display_name.split(',').slice(0, 2).join(','), place: placeName(d.address),
         lat: +d.lat, lng: +d.lon, bbox: d.boundingbox && d.boundingbox.map(Number) })), { 'Cache-Control': 'public, max-age=86400' });
@@ -3216,14 +3236,14 @@ const server = http.createServer(async (req, res) => {
       // --- Journées de mobilisation prévues ---
       if (req.method === 'GET' && pathname === '/api/admin/mobs')
         return send(res, 200, { list: mobsAll().sort((a, b) => a.date.localeCompare(b.date)).map(m => ({ ...m, eveSent: !!getMeta('mob:eve:' + m.id), strictSet: !!getMeta('mob:strict:' + m.id), published: !!getPub(m.date) })),
-          toPublish: mobsToPublish(), today: parisDay(Date.now()) });
+          toPublish: mobsToPublish(), today: zoneDay(Date.now()) });
       const mobR = pathname.match(/^\/api\/admin\/mobs(?:\/([\w-]{1,16}))?$/);
       if (mobR && req.method === 'POST') {
         const b = await readJson(req, 4096), list = mobsAll(), i = mobR[1] ? list.findIndex(m => m.id === mobR[1]) : -1;
         if (mobR[1] && i < 0) return send(res, 404, { error: 'Journée introuvable.' });
         const m = cleanMob(b, i >= 0 ? list[i] : {});
         if (m.error) return send(res, 400, m);
-        if (i < 0 && m.date < parisDay(Date.now())) return send(res, 400, { error: 'Cette date est passée.' });
+        if (i < 0 && m.date < zoneDay(Date.now())) return send(res, 400, { error: 'Cette date est passée.' });
         if (list.some((x, j) => j !== i && x.date === m.date)) return send(res, 409, { error: 'Une journée est déjà prévue ce jour-là.' });
         if (i >= 0) list[i] = m; else list.push(m);
         setMeta('mobs', JSON.stringify(list)); dirty.global = true; scheduleFlush();
@@ -3561,23 +3581,23 @@ const server = http.createServer(async (req, res) => {
     if (req.method === 'GET' && pathname === '/api/digest') {
       if (!ADMIN_KEY) return send(res, 404, { error: 'Digest disabled: set ADMIN_KEY in server environment.' });
       if (!isAdmin(req)) return send(res, 403, { error: 'Clé incorrecte.' });
-      const date = String(url.searchParams.get('date') || parisDay(Date.now()));
+      const date = String(url.searchParams.get('date') || zoneDay(Date.now()));
       if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) return send(res, 400, { error: 'Invalid date.' });
       sweep(); // archive ce qui vient d'expirer
       const { rows, zones, abroad } = dayRows(date);
       // Activité des orgas et anti-abus ce jour-là
       const day0 = Date.parse(date + 'T00:00:00+02:00'), lo = day0 - 2 * 3600e3, hi = day0 + 26 * 3600e3;
-      const logs = q('SELECT t, oid, action, detail FROM orga_log WHERE t BETWEEN ? AND ?').all(lo, hi).filter(x => parisDay(x.t) === date);
+      const logs = q('SELECT t, oid, action, detail FROM orga_log WHERE t BETWEEN ? AND ?').all(lo, hi).filter(x => zoneDay(x.t) === date);
       const cnt = f => logs.filter(f).length;
       const orga = { verified: cnt(x => /^vérifié|^confirmé \(parrainée\)/.test(x.action)), removed: cnt(x => x.oid !== 'admin' && /^retiré|^retrait \(essai\)/.test(x.action)), adminRemoved: cnt(x => x.oid === 'admin' && x.action === 'retiré'),
         announcements: cnt(x => x.action === 'annonce'), urgent: cnt(x => x.action === 'annonce' && /\[urgent\]/.test(x.detail || '')),
         legal: cnt(x => /^legal team/.test(x.action)), restored: cnt(x => x.action === 'restauré'), contested: cnt(x => x.action === 'contesté') };
       const abuse = {};
-      for (const x of q('SELECT t, kind FROM abuse WHERE t BETWEEN ? AND ?').all(lo, hi)) if (parisDay(x.t) === date) abuse[x.kind] = (abuse[x.kind] || 0) + 1;
+      for (const x of q('SELECT t, kind FROM abuse WHERE t BETWEEN ? AND ?').all(lo, hi)) if (zoneDay(x.t) === date) abuse[x.kind] = (abuse[x.kind] || 0) + 1;
       // Comparaison : les 14 jours précédents
       const history = [];
-      for (let i = 14; i >= 0; i--) { const d = parisDay(Date.parse(date + 'T12:00:00+02:00') - i * 86400e3); history.push({ date: d, total: i ? dayCountFr(d) : rows.length }); }
-      const events = listEvents().filter(e => parisDay(e.start) === date && e.status !== 'pending').map(e => ({ title: e.title, type: e.type, place: e.place, start: e.start }));
+      for (let i = 14; i >= 0; i--) { const d = zoneDay(Date.parse(date + 'T12:00:00+02:00') - i * 86400e3); history.push({ date: d, total: i ? dayCountFr(d) : rows.length }); }
+      const events = listEvents().filter(e => zoneDay(e.start) === date && e.status !== 'pending').map(e => ({ title: e.title, type: e.type, place: e.place, start: e.start }));
       return send(res, 200, { date, rows, zones, abroad, communes: commIndex().rows.length > 0, orga, abuse, history, events, published: !!getPub(date),
         categories: CATEGORIES.map(({ id, label, glyph, group, ttl }) => ({ id, label, glyph, group, ttl })), groups: GROUPS,
         days: fs.readdirSync(ARCHIVE_DIR).map(f => f.slice(0, 10)).sort().reverse() });
@@ -3629,7 +3649,6 @@ const server = http.createServer(async (req, res) => {
             r.exp = Math.min(r.exp, Math.max(r.t + 4 * base, t0 + ttl));
             if (!r.ver) { repAdd(r.voters[0], 'good', 2); r.ver = orga.label; orgaLog(orga, 'vérifié (signalement)', { r }); }
             if (r.fl === -1) r.fl = 0;
-            if (!r.oid) r.oid = orga.id;
           }
           saveReport(r);
           return [200, { ...publicView(r), merged: true, self }];

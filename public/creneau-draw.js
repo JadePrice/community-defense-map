@@ -4,7 +4,8 @@
 (() => {
 const SLOT_COL = { fdo: '#e5484d', danger: '#f5a524', soutien: '#30a46c', info: '#8e8cd8' };
 const SLOT_FAM = { fdo: 'Forces de l’ordre', danger: 'Danger', soutien: 'Soutien', info: 'Infos cortège' };
-const hm = t => new Date(t).toLocaleTimeString('fr-FR', { timeZone: 'Europe/Paris', hour: '2-digit', minute: '2-digit' });
+const TZ = window.CDM_TZ || 'America/Chicago'; // set by /tz.js
+const hm = t => new Date(t).toLocaleTimeString('fr-FR', { timeZone: TZ, hour: '2-digit', minute: '2-digit' });
 const hmFr = t => hm(t).replace(':', ' h ');
 async function slotGeocode(q) {
   const m = q.match(/^\s*(-?\d{1,2}\.\d+)\s*[,; ]\s*(-?\d{1,3}\.\d+)\s*$/);
@@ -14,9 +15,9 @@ async function slotGeocode(q) {
   return { lat: out[0].lat, lng: out[0].lng, name: out[0].name };
 }
 // rows : [{ t, end, lat, lng, cat: { label, group }, up, v, status? }] ; garde ceux actifs pendant le créneau, à moins de R m
-// Bornes du créneau en vraies heures (heure de Paris) : un signalement qui déborde sur le lendemain reste compté
+// Bornes du créneau en vraies heures (fuseau de l'instance) : un signalement qui déborde sur le lendemain reste compté
 function parisMs(date, hhmm) {
-  const noon = Date.parse(date + 'T12:00:00Z'), h = +new Date(noon).toLocaleString('en-GB', { timeZone: 'Europe/Paris', hour: '2-digit', hour12: false });
+  const noon = Date.parse(date + 'T12:00:00Z'), h = +new Date(noon).toLocaleString('en-GB', { timeZone: TZ, hour: '2-digit', hour12: false });
   return Date.parse(date + 'T' + hhmm + ':00Z') - (h - 12) * 3600e3;
 }
 function slotSelect(rows, c, R, from, to, date) {
