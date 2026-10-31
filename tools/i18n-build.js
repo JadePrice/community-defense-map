@@ -3,6 +3,8 @@
 // Construit public/lang/{en,es,ar}.json à partir des fichiers i18n/*.tsv
 // (une ligne par texte : français<TAB>anglais<TAB>espagnol<TAB>arabe ; # = commentaire).
 // Vérifie que chaque traduction garde les mêmes balises HTML et n'invente pas de {valeur}.
+// Fichiers *.override.tsv : lus en dernier ; chaque ligne remplace la traduction d'un texte déjà défini ailleurs
+// (adaptation U.S.). Une ligne qui ne correspond à aucun texte existant est une erreur (texte source modifié).
 // Usage : node tools/i18n-build.js [clés.json]   (clés.json : liste de textes français à couvrir, pour lister les manques)
 const fs = require('fs'), path = require('path');
 const ROOT = path.join(__dirname, '..'), SRC = path.join(ROOT, 'i18n'), OUT = path.join(ROOT, 'public', 'lang');
@@ -22,7 +24,11 @@ const balanced = s => {
 const dicts = Object.fromEntries(LANGS.map(l => [l, {}]));
 let errors = 0, count = 0;
 const seen = new Set();
-for (const f of fs.readdirSync(SRC).filter(f => f.endsWith('.tsv')).sort()) {
+const isOverride = f => f.endsWith('.override.tsv');
+const files = fs.readdirSync(SRC).filter(f => f.endsWith('.tsv'));
+let overridden = 0;
+for (const f of [...files.filter(f => !isOverride(f)).sort(), ...files.filter(isOverride).sort()]) {
+  const over = isOverride(f), overSeen = new Set();
   fs.readFileSync(path.join(SRC, f), 'utf8').split(/\r?\n/).forEach((line, i) => {
     const tline = line.replace(/\r$/, '');
     if (!tline.trim() || tline.trim().startsWith('#')) return;
@@ -31,8 +37,14 @@ for (const f of fs.readdirSync(SRC).filter(f => f.endsWith('.tsv')).sort()) {
     if (cols.length !== 4) { console.error(`${where} : ${cols.length} colonnes au lieu de 4`); errors++; return; }
     const fr = norm(cols[0]);
     if (!fr) { console.error(`${where} : texte français vide`); errors++; return; }
-    if (seen.has(fr)) { console.error(`${where} : texte en double « ${fr.slice(0, 60)} »`); errors++; return; }
-    seen.add(fr);
+    if (over) {
+      if (!seen.has(fr)) { console.error(`${where} : remplacement d'un texte inconnu « ${fr.slice(0, 60)} »`); errors++; return; }
+      if (overSeen.has(fr)) { console.error(`${where} : remplacement en double « ${fr.slice(0, 60)} »`); errors++; return; }
+      overSeen.add(fr);
+    } else {
+      if (seen.has(fr)) { console.error(`${where} : texte en double « ${fr.slice(0, 60)} »`); errors++; return; }
+      seen.add(fr);
+    }
     LANGS.forEach((l, j) => {
       const tr = norm(cols[j + 1]);
       if (!tr) { console.error(`${where} : traduction ${l} vide`); errors++; return; }
@@ -43,7 +55,7 @@ for (const f of fs.readdirSync(SRC).filter(f => f.endsWith('.tsv')).sort()) {
       for (const v of vf) if (!vt.has(v)) { console.error(`${where} : {${v}} manquant en ${l}`); errors++; }
       dicts[l][fr] = tr;
     });
-    count++;
+    if (over) overridden++; else count++;
   });
 }
 if (process.argv[2]) {
@@ -61,4 +73,4 @@ for (const l of LANGS) {
   fs.writeFileSync(tmp, JSON.stringify(dicts[l]));
   fs.renameSync(tmp, f);
 }
-console.log(`${count} textes traduits en ${LANGS.join(', ')} → public/lang/`);
+console.log(`${count} textes traduits en ${LANGS.join(', ')} (${overridden} adaptés) → public/lang/`);

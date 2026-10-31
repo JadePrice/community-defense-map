@@ -35,18 +35,37 @@ Data limits and the rebuild procedure are in [US_GEODATA.md](US_GEODATA.md).
 
 These are fork-only. Nothing here should be sent upstream as is.
 
+## Translation and U.S. adaptation
+
+The browser app's text lives in `i18n/*.tsv` (French source text as the key, then English, Spanish, Arabic), compiled by `node tools/i18n-build.js` into `public/lang/*.json`. Two files are this project's own:
+
+- `i18n/11-cdm.tsv`: text written for this project. Where the page source was written directly in English (the Rights section), the key is the English text and the English column repeats it.
+- `i18n/us.override.tsv`: replaces the English, Spanish and Arabic of upstream rows without touching upstream's files. Override files load last, and a row whose key no longer exists fails the build, so upstream text changes can't silently drop an adaptation. It holds:
+  - U.S. equivalents rather than literal translations: riot police, plainclothes units, SWAT, National Guard, BearCat/MRAP, rubber bullets/flash-bangs; government offices, sheriff's offices, immigration detention; state instead of département; "whole country" instead of "all of France";
+  - U.S. example places in placeholders;
+  - the mask-law caveat (several states restrict masks at protests);
+  - American spelling, generated for 55 rows whose Spanish and Arabic are unchanged.
+
+Checked in a browser with the app set to English, Spanish and Arabic: no French text remains on the main page, and the Rights section is in Spanish and Arabic. In those two languages, the sentences to say to police ("I am going to remain silent", "Am I free to go?", "I do not consent to a search") are kept in English next to the translation.
+
+Needs a native-speaker review before relying on it:
+
+- **Spanish**: upstream's Spanish is Spain Spanish ("mascarilla", "gafas", "instituto", "de paisano"). Rows added or adapted here use neutral Latin American Spanish, so the two registers are now mixed until the rest is reviewed.
+- **Arabic**: the new and adapted rows are Modern Standard Arabic written without a native reviewer.
+- **Legal claims carried over from earlier fork commits** and now translated as written: "You have the right to make a local phone call" is not a general constitutional right (it depends on state law), and the NLG number below is unconfirmed.
+
 ## Still French or France-specific (not done)
 
 Verified by reading the code:
 
-- **Server-rendered pages** (`/agenda`, `/arretes`, `/villes`, `/ville/*`, `/manif/*`, `/droits`, `/legal-teams`) are in French and say "en France" in titles and descriptions. They have no translation layer; `public/lang/*.json` covers only the browser app.
-- **Report categories** keep French police units as labels and ids: CRS, BAC/BRAV-M, Sentinelle, BRI/RAID/GIGN, Centaure, LBD. They need a U.S. set; changing ids also means migrating stored reports and archives.
-- **Place types** include préfecture, sous-préfecture, gendarmerie and CRA, and the OSM classifier looks for French tags.
-- **"Arrêtés"** (prefectoral orders) is a French legal instrument. The U.S. equivalent (curfews, emergency declarations, permit denials) has a different shape.
-- **The legal page** (`/legal.html`) is French text structured around French publisher obligations. Only the publisher line has been rewritten.
+- **Server-rendered pages** (`/agenda`, `/arretes`, `/villes`, `/ville/*`, `/manif/*`, `/droits`, `/legal-teams`) are in French and say "en France" in titles and descriptions. The server's `tr()` already reads `public/lang/*.json` for push notifications, so these pages can use it with a fixed instance language; that is not done yet.
+- **Report category ids** remain the French ones (`crs`, `bac`, `militaires`, `lbd`…). The labels people see are adapted (above); the ids are internal and stored in reports and archives.
+- **Place classification**: the OSM import looks for French tags (`government=prefecture`, gendarmerie names), so "Government office", "County government office", "Sheriff's office" and "Immigration detention center" are only filled by places an admin adds by hand.
+- **"Arrêtés"** (official orders) keep the French workflow: a state or, with `GEO_API`, a city, plus dates and a source link. Labels are adapted; U.S. orders (curfews, emergency declarations, permit denials) fit the shape but nothing more specific has been done.
+- **The legal page** (`/legal.html`) is French text structured around French publisher obligations, and it doesn't load the translation layer. Only the publisher line has been rewritten. It needs a U.S. privacy policy and terms written for this service, not a translation.
 - **The admin page** and generated images (stories, slot maps, posters) are French-only.
 - **`docs/INSTALLATION.md` and `docs/FONCTIONNEMENT.md`** are upstream's French docs. Only the PMTiles region path has been updated.
-- **GeoNames attribution** (CC BY 4.0, required for `places.json`) appears in the README but not yet on the legal page. Adding it there needs translated text.
+- **GeoNames attribution** (CC BY 4.0, required for `places.json`) appears in the README but not yet on the legal page.
 
 Inferred, not verified:
 

@@ -47,7 +47,9 @@
   function walk(n, out) {
     if (n.nodeType !== 1 || n.matches(SKIP)) return;
     attrs(n, out);
-    for (const c of n.querySelectorAll('[placeholder],[aria-label],[title],[alt]')) if (!c.closest(SKIP)) attrs(c, out);
+    // A textarea's content is never translated, but its placeholder and label are
+    for (const c of n.querySelectorAll('[placeholder],[aria-label],[title],[alt]'))
+      if (!c.closest(SKIP) || (c.tagName === 'TEXTAREA' && !c.parentElement.closest(SKIP))) attrs(c, out);
     walkText(n, out);
   }
   function walkText(n, out) {
