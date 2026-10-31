@@ -14,11 +14,20 @@ source commit, the SHA-256 of every input and of the output, row counts and coun
 import csv, datetime, hashlib, io, json, os, subprocess, sys
 
 try:
+    import pyarrow as pa
     import pyarrow.parquet as pq
 except ImportError:
     sys.exit('pyarrow is needed: python3 -m venv ~/pq-venv && ~/pq-venv/bin/pip install pyarrow, then run this with ~/pq-venv/bin/python')
 
 SOURCE_REPO = 'https://github.com/deportationdata/ice-detention-facilities'
+# Only the columns used are read (a bad value elsewhere in a file can't stop the conversion)
+COLS = {
+    'latest': ['detention_facility_code', 'name', 'address', 'city', 'county', 'state', 'zip', 'latitude', 'longitude', 'field_office'],
+    'attributes': ['detention_facility_code', 'type_detailed', 'male_female', 'over_under_72', 'date'],
+    'counts': ['detention_facility_code', 'days_with_detentions_daily_last_year', 'average_daily_population_last_year', 'max_daily_population_last_year'],
+    'values': ['detention_facility_code', 'variable', 'value', 'date'],
+}
+REPAIRED = []  # text values that were not valid UTF-8: decoded as Windows-1252, listed in the manifest
 FILES = {
     'latest': 'data/facilities-latest.parquet',
     'attributes': 'data/facilities-attributes-cleaned-with-codes.parquet',
@@ -43,7 +52,26 @@ def read(repo, key):
     with open(path, 'rb') as f:
         if f.read(40).startswith(b'version https://git-lfs'):
             sys.exit(f'{FILES[key]} is a Git LFS pointer, not data: run the git lfs pull command in this script\'s header')
-    return pq.read_table(path).to_pylist(), sha256(path)
+    t = pq.read_table(path, columns=COLS[key])
+    cols = {}
+    for name in t.column_names:
+        col = t.column(name)
+        if pa.types.is_string(col.type) or pa.types.is_large_string(col.type):
+            # Read text as bytes: some values in the dataset are not valid UTF-8 (pyarrow refuses the whole column)
+            raw = col.cast(pa.large_binary() if pa.types.is_large_string(col.type) else pa.binary()).to_pylist()
+            out = []
+            for i, b in enumerate(raw):
+                if b is None: out.append(None); continue
+                try: out.append(b.decode('utf-8'))
+                except UnicodeDecodeError:
+                    v = b.decode('cp1252', errors='replace'); out.append(v)
+                    REPAIRED.append({'file': FILES[key], 'column': name, 'row': i, 'raw_hex': b.hex(), 'decoded_cp1252': v})
+            cols[name] = out
+        else: cols[name] = col.to_pylist()
+    n = t.num_rows
+    for r in REPAIRED:
+        if r['file'] == FILES[key] and 'code' not in r: r['code'] = (cols.get('detention_facility_code') or [None] * n)[r['row']]
+    return [{k: cols[k][i] for k in cols} for i in range(n)], sha256(path)
 
 
 def clean(v):
@@ -114,12 +142,14 @@ def main():
         'inputs': {FILES['latest']: h_latest, FILES['attributes']: h_attrs, FILES['counts']: h_counts, FILES['values']: h_values},
         'output': {'file': 'ice-facilities.csv', 'sha256': hashlib.sha256(data).hexdigest(), 'rows': len(rows)},
         'types': dict(sorted(types.items())), 'excluded': excluded,
+        'repaired_text': REPAIRED,
         'generated': datetime.datetime.now(datetime.timezone.utc).replace(microsecond=0).isoformat(),
     }
     with open(man_path, 'w', encoding='utf-8') as f: json.dump(manifest, f, indent=2); f.write('\n')
     print(f'{len(rows)} facilities → {csv_path}')
     print('by type:', ', '.join(f'{k} {v}' for k, v in sorted(types.items(), key=lambda x: -x[1])))
     print('excluded:', excluded)
+    if REPAIRED: print(f'{len(REPAIRED)} text value(s) were not valid UTF-8 and were decoded as Windows-1252 (listed in the manifest):', ', '.join(f"{r['file'].split('/')[-1]}:{r['column']} {r['decoded_cp1252'][:40]!r}" for r in REPAIRED[:5]))
     print('source commit:', commit[0], commit[1])
 
 
