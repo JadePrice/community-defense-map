@@ -1157,7 +1157,9 @@
   // ICE site: [type, days used last year, average daily population, max, field office, address, dataset date]
   const ICE_TYPE = { SPC: 'ICE-owned processing center', CDF: 'Private detention center under contract with ICE', IGSA: 'Local jail or facility holding people for ICE under contract',
     DIGSA: 'Facility dedicated to ICE under a local government contract', 'USMS IGA': 'Jail used by the U.S. Marshals, also holding people for ICE', 'USMS CDF': 'Private facility under U.S. Marshals contract, also used by ICE',
-    BOP: 'Federal prison also used by ICE', FAMILY: 'Family detention center', JUVENILE: 'Youth facility used by ICE', HOLD: 'ICE hold room (short-term processing)', STAGING: 'ICE staging facility' };
+    BOP: 'Federal prison also used by ICE', FAMILY: 'Family detention center', JUVENILE: 'Youth facility used by ICE', HOLD: 'ICE hold room (short-term processing)', STAGING: 'ICE staging facility',
+    COUNTY: 'County jail holding people for ICE', 'LOCAL POLICE DEPARTMENT': 'Local police lockup used by ICE', STATE: 'State facility used by ICE',
+    USBP: 'U.S. Border Patrol facility used by ICE', CBP: 'U.S. Customs and Border Protection facility used by ICE' };
   function iceInfo(root, [type, days, avg, max, office, address, asOf]) {
     root.append(el('p', {}, el('b', {}, t(ICE_TYPE[String(type).toUpperCase()] || 'Site used by ICE to hold people'))));
     if (address) root.append(el('p', {}, address));

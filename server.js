@@ -2176,7 +2176,7 @@ function iceImport() {
     for (const r of list) {
       const lat = +r.lat, lng = +r.lng;
       if (!/^[A-Z0-9]{3,12}$/.test(r.code || '') || !validLatLng(lat, lng)) continue;
-      const d = { n: poiStr(r.name, 80), ty: poiStr(r.type, 20), fo: poiStr(r.field_office, 40), ad: poiStr([r.address, r.city, r.state, r.zip].filter(Boolean).join(', '), 120), as: asOf,
+      const d = { n: poiStr(r.name, 80), ty: poiStr(r.type, 40), fo: poiStr(r.field_office, 40), ad: poiStr([r.address, r.city, r.state, r.zip].filter(Boolean).join(', '), 120), as: asOf,
         du: int(r.days_used), ap: dec(r.avg_daily), mx: int(r.max_daily) };
       for (const k of Object.keys(d)) if (d[k] === undefined || d[k] === '') delete d[k];
       const rg = poiRg(lat, lng); rgs.add(rg);

@@ -36,7 +36,7 @@ FILES = {
 }
 # Medical sites (people in custody treated there) are not detention sites: leaving them out avoids a false label
 EXCLUDE_TYPES = {'HOSPITAL', 'MEDICAL'}
-COLUMNS = ['code', 'name', 'address', 'city', 'state', 'zip', 'county', 'lat', 'lng', 'field_office', 'type',
+COLUMNS = ['code', 'name', 'address', 'city', 'state', 'zip', 'county', 'lat', 'lng', 'field_office', 'type', 'type_source',
            'gender', 'over_72', 'days_used', 'avg_daily', 'max_daily']
 
 
@@ -105,24 +105,27 @@ def main():
             if v and (f not in h or d > h[f][1]): h[f] = (v, d)
     cnt = {r['detention_facility_code']: r for r in counts}
 
-    rows, excluded, types = [], {'no coordinates': 0, 'medical': 0}, {}
+    rows, excluded, types, derived = [], {'no coordinates': [], 'medical': []}, {}, {'hold room from code': 0}
     for r in latest:
         code = clean(r.get('detention_facility_code'))
         lat, lng = r.get('latitude'), r.get('longitude')
         if not code or lat is None or lng is None:
-            excluded['no coordinates'] += 1; continue
+            excluded['no coordinates'].append(code or clean(r.get('name'))); continue
         h = hist.get(code, {})
-        typ = clean((chosen.get(code) or h.get('type_detailed') or ('', ''))[0]).upper()
-        if not typ and code.endswith('HOLD'): typ = 'HOLD'
+        src_type = clean((chosen.get(code) or h.get('type_detailed') or ('', ''))[0]).upper()
+        typ = src_type
+        # ICE hold rooms have codes ending in HOLD; when the dataset gives no specific type, that is what they are
+        if code.endswith('HOLD') and typ in ('', 'OTHER', 'UNKNOWN'):
+            typ = 'HOLD'; derived['hold room from code'] += 1
         if typ in EXCLUDE_TYPES:
-            excluded['medical'] += 1; continue
+            excluded['medical'].append(code); continue
         types[typ or '(unknown)'] = types.get(typ or '(unknown)', 0) + 1
         c = cnt.get(code, {})
         num = lambda v, nd: '' if v is None else (f'{float(v):.{nd}f}' if nd else str(int(v)))
         rows.append({
             'code': code, 'name': clean(r.get('name')), 'address': clean(r.get('address')), 'city': clean(r.get('city')),
             'state': clean(r.get('state')), 'zip': clean(r.get('zip')), 'county': clean(r.get('county')),
-            'lat': f'{float(lat):.6f}', 'lng': f'{float(lng):.6f}', 'field_office': clean(r.get('field_office')), 'type': typ,
+            'lat': f'{float(lat):.6f}', 'lng': f'{float(lng):.6f}', 'field_office': clean(r.get('field_office')), 'type': typ, 'type_source': src_type,
             'gender': clean((h.get('male_female') or ('', ''))[0]), 'over_72': clean((h.get('over_under_72') or ('', ''))[0]),
             'days_used': num(c.get('days_with_detentions_daily_last_year'), 0), 'avg_daily': num(c.get('average_daily_population_last_year'), 1),
             'max_daily': num(c.get('max_daily_population_last_year'), 0),
@@ -141,14 +144,15 @@ def main():
         'citation': 'ICE detention facilities, Deportation Data Project (government data provided by ICE, compiled and verified by the project)',
         'inputs': {FILES['latest']: h_latest, FILES['attributes']: h_attrs, FILES['counts']: h_counts, FILES['values']: h_values},
         'output': {'file': 'ice-facilities.csv', 'sha256': hashlib.sha256(data).hexdigest(), 'rows': len(rows)},
-        'types': dict(sorted(types.items())), 'excluded': excluded,
+        'types': dict(sorted(types.items())), 'derived': derived,
+        'excluded': {k: {'count': len(v), 'codes': sorted(v)} for k, v in excluded.items()},
         'repaired_text': REPAIRED,
         'generated': datetime.datetime.now(datetime.timezone.utc).replace(microsecond=0).isoformat(),
     }
     with open(man_path, 'w', encoding='utf-8') as f: json.dump(manifest, f, indent=2); f.write('\n')
     print(f'{len(rows)} facilities → {csv_path}')
     print('by type:', ', '.join(f'{k} {v}' for k, v in sorted(types.items(), key=lambda x: -x[1])))
-    print('excluded:', excluded)
+    print('excluded:', {k: len(v) for k, v in excluded.items()}, '| derived:', derived)
     if REPAIRED: print(f'{len(REPAIRED)} text value(s) were not valid UTF-8 and were decoded as Windows-1252 (listed in the manifest):', ', '.join(f"{r['file'].split('/')[-1]}:{r['column']} {r['decoded_cp1252'][:40]!r}" for r in REPAIRED[:5]))
     print('source commit:', commit[0], commit[1])
 

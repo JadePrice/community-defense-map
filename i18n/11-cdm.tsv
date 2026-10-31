@@ -98,3 +98,8 @@ Used by ICE on {d} days in the past year · {a} people a day on average · up to
 ICE field office: {o}	ICE field office: {o}	Oficina regional de ICE: {o}	المكتب الميداني لـ ICE: {o}
 Source: ICE data compiled and checked by the Deportation Data Project (CC0){d}.	Source: ICE data compiled and checked by the Deportation Data Project (CC0){d}.	Fuente: datos de ICE recopilados y verificados por el Deportation Data Project (CC0){d}.	المصدر: بيانات ICE جمعها وتحقق منها مشروع Deportation Data Project ‏(CC0){d}.
 dataset of {d}	dataset of {d}	versión del {d}	إصدار {d}
+County jail holding people for ICE	County jail holding people for ICE	Cárcel del condado que retiene personas para ICE	سجن مقاطعة يحتجز أشخاصًا لصالح ICE
+Local police lockup used by ICE	Local police lockup used by ICE	Celdas de policía local usadas por ICE	زنازين شرطة محلية تستخدمها ICE
+State facility used by ICE	State facility used by ICE	Centro estatal usado por ICE	منشأة تابعة للولاية تستخدمها ICE
+U.S. Border Patrol facility used by ICE	U.S. Border Patrol facility used by ICE	Instalación de la Patrulla Fronteriza usada por ICE	منشأة لدوريات الحدود الأمريكية تستخدمها ICE
+U.S. Customs and Border Protection facility used by ICE	U.S. Customs and Border Protection facility used by ICE	Instalación de Aduanas y Protección Fronteriza (CBP) usada por ICE	منشأة للجمارك وحماية الحدود الأمريكية تستخدمها ICE
