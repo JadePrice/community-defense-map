@@ -951,9 +951,9 @@ const orgaRequests = () => { q('DELETE FROM orga_req WHERE t<?').run(Date.now() 
   return q('SELECT id, t, data FROM orga_req ORDER BY t').all().map(x => ({ id: x.id, t: x.t, ...JSON.parse(x.data) })); };
 
 // ---- Villes et agglomérations (digest) ----
-// Liste des villes de plus de 5 000 habitant·es (France, outre-mer, pays voisins francophones), d'après GeoNames (CC BY 4.0).
-// Un point est rattaché à la plus grande ville dont il est assez proche (rayon qui grandit avec la population :
-// environ 14 km pour Paris, 10 km pour Montpellier), sinon à la ville la plus proche.
+// places.json: US places with 50,000+ inhabitants (976 entries), from GeoNames (CC BY 4.0, attribution required).
+// A point is attached to the largest place it is close enough to (radius grows with population: about 14.5 km for
+// Chicago, 10.5 km for Madison), otherwise to the nearest place.
 const PLACES = (() => { try { return JSON.parse(fs.readFileSync(path.join(__dirname, 'places.json'), 'utf8')); } catch { return []; } })();
 const PLACE_POP = new Map();
 for (const [n, , , p, c] of PLACES) PLACE_POP.set(n + '|' + c, (PLACE_POP.get(n + '|' + c) || 0) + p);

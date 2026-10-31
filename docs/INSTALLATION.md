@@ -159,11 +159,11 @@ Sans fournisseur de carte : aucune requête de tes utilisateurices ne part aille
 ```bash
 # Outil pmtiles (binaire unique) : https://github.com/protomaps/go-pmtiles/releases
 install -d -o cortege -g cortege /var/lib/cortege-map
-pmtiles extract https://build.protomaps.com/AAAAMMJJ.pmtiles /var/lib/cortege-map/france.pmtiles \
-  --region=/opt/cortege/app/tools/france.geojson --maxzoom=15
+pmtiles extract https://build.protomaps.com/AAAAMMJJ.pmtiles /var/lib/cortege-map/us.pmtiles \
+  --region=/opt/cortege/app/tools/us-region.geojson --maxzoom=15
 ```
 
-Puis `TILE_PMTILES=/var/lib/cortege-map/france.pmtiles` dans les variables et redémarrage. Hors des zones de `tools/france.geojson`, la carte se replie sur OpenStreetMap (via le proxy du serveur) ; `TILE_PMTILES_REGION` si tu as extrait une autre région. Pour mettre la carte à jour (tous les quelques mois), refaire l'extraction dans un nouveau fichier, puis le renommer à la place de l'ancien et redémarrer.
+Puis `TILE_PMTILES=/var/lib/cortege-map/us.pmtiles` dans les variables et redémarrage. Hors des zones de `tools/us-region.geojson`, la carte se replie sur OpenStreetMap (via le proxy du serveur) ; `TILE_PMTILES_REGION` si tu as extrait une autre région. Pour mettre la carte à jour (tous les quelques mois), refaire l'extraction dans un nouveau fichier, puis le renommer à la place de l'ancien et redémarrer.
 
 ### Adresse .onion (Tor)
 

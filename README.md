@@ -1,48 +1,89 @@
 # Community Defense Map
 
-**Community Defense Map** is a real-time, crowd-sourced map for tracking police activity, surveillance infrastructure, and potential threats to civil liberties across the United States. Forked from [Cortège](https://github.com/n-e-r-u/cortege) (originally a French protest mapping tool).
+A crowd-sourced, real-time map of police activity and surveillance infrastructure in the United States. No accounts, no cookies, no analytics. Reports expire on their own.
 
-## Features
+Community Defense Map is its own project, run by its own operators. It is built on the code of [Cortège](https://github.com/n-e-r-u/cortege), a French protest map, under the AGPL-3.0. The authors of Cortège do not run, maintain or endorse this service. What changed, and what is still inherited and French-specific, is listed in [docs/DIVERGENCE.md](docs/DIVERGENCE.md).
 
-- **Real-time tracking** – Crowd-sourced reports of police presence, units, roadblocks, and other enforcement activity
-- **Surveillance mapping** – Camera locations (public and private) with direction/facing information when known
-- **Privacy-first** – No accounts required, minimal data collection. Reports are ephemeral by design
-- **US-focused** – Centered on the continental United States with state/county geographic data from US Census TIGER/Line
-- **Offline-capable** – Progressive web app that works in areas with limited connectivity
-- **Multilingual** – English (default) with Spanish priority, plus French and Arabic support
-- **Know your rights** – US-focused legal information aligned with ACLU/NLG guidance
+## What it does
 
-## Focus
+- **Live reports** of police presence, units, roadblocks, kettles, arrests and crowd-control weapons, confirmed or contested by other people nearby, and expiring after minutes.
+- **Surveillance infrastructure**: camera locations from OpenStreetMap, with facing direction when tagged.
+- **Know your rights**: U.S. guidance aligned with ACLU and NLG material. General information only, not legal advice.
+- **Offline-capable** progressive web app; English by default, with Spanish, French and Arabic.
 
-This fork emphasizes **police and surveillance tracking for community defense** rather than broad protest coordination. The goal is to help communities monitor law enforcement activity and surveillance infrastructure while respecting privacy.
+## Privacy model
+
+Inherited from Cortège and unchanged here:
+
+- IP addresses and device identifiers are never stored. Only HMACs are kept, with keys that rotate every 6 hours (network) and every day at 04:00 in `TIMEZONE` (device). Old keys are deleted, so two days cannot be linked.
+- Admin and organizer keys are stored as hashes and compared in constant time.
+- An emergency wipe deletes the keys and all live data.
+
+The host, or anyone who controls the server, can still read whatever is live on it at that moment. See the privacy section of `/legal.html`.
 
 ## Running
 
+Requires Node.js 22.13 or later (it uses `node:sqlite`). There are no npm dependencies.
+
 ```bash
-npm install
 npm start
 ```
 
-Configuration via environment variables:
-- `PORT` (default: 8080)
-- `HOST` 
-- `DATA_DIR` (default: `~/.cortege-data`)
-- `EVENT_NAME` (default: "Community Defense Map")
-- `CENTER` (default: "39.8283,-98.5795" for US center)
-- `ZOOM` (default: 4)
-- `ADMIN_KEY` for admin functions
+```bash
+npm test
+```
 
-## Data Sources
+Deployment notes (systemd, reverse proxy, firewall) are in [docs/INSTALLATION.md](docs/INSTALLATION.md). That file is inherited from upstream and is still in French.
 
-- **Geography**: US Census Bureau TIGER/Line Shapefiles (states)
-- **Places/Cities**: GeoNames database (US cities with population ≥50k)
-- **Surveillance/POIs**: OpenStreetMap (via Overpass API or PMTiles)
-- **Road routing**: OSRM
+## Configuration
 
-## Live Instance
+All configuration is through environment variables. The ones that matter for a U.S. instance:
 
-Running on the tailnet at http://100.76.50.38:8082/
+| Variable | Default | Purpose |
+|---|---|---|
+| `PORT`, `HOST` | `8080`, all interfaces | Listen address. Bind to localhost behind a reverse proxy. |
+| `DATA_DIR` | `~/.cortege-data` | Database and keys. The directory name is kept from upstream so existing data is not orphaned. |
+| `ADMIN_KEY` | empty (admin off) | At least 12 characters. |
+| `PUBLIC_URL` | empty | Canonical public URL, e.g. `https://map.example.org`. When empty, derived from the request `Host` header. |
+| `SOURCE_URL` | this repository | Link to the source of the running code (AGPL-3.0 §13). Point it at your fork if you change the code. |
+| `CONTACT_EMAIL`, `HOST_INFO` | empty | Shown on the legal page; `CONTACT_EMAIL` is also the Web Push contact. |
+| `TIMEZONE` | `America/Chicago` | IANA zone for day boundaries, event and order times, archives, and key rotation. |
+| `CENTER`, `ZOOM` | `39.8283,-98.5795`, `4` | Initial map view. |
+| `EVENT_NAME` | `Police & surveillance, live` | Subtitle under the name; a dated admin banner replaces it. |
+| `DISABLED_CATS` | empty | Comma-separated report categories to refuse. See below. |
+| `GEO_REGIONS` | `geo/states.json` | Region outlines (see [docs/US_GEODATA.md](docs/US_GEODATA.md)). |
+| `AREA_REGION` | `tools/us-region.geojson` | Service-area rectangles: tile proxy zone, place-import squares, pre-published region files. |
+| `AREA_CC` | `US,PR,VI,GU,AS,MP` | Country codes in `places.json` that count as inside the service area. |
+| `GEOCODE_CC` | `us,pr,vi,gu,as,mp` | Nominatim country filter for address search. |
+| `GEO_API` | empty | City-outline service for city-level orders. Empty: orders cover whole states only. |
+| `TILE_URL`, `TILE_UA` | OSM, `CommunityDefenseMap/1.0 (+SOURCE_URL)` | Tile source and the User-Agent sent to OSM services. |
+| `TILE_PMTILES`, `TILE_PMTILES_REGION` | empty, `tools/us-region.geojson` | Self-hosted vector tiles and the area they cover. |
+| `BRAND_KOFI` | empty | Donation link. Donation buttons stay hidden while empty. |
+| `BRAND_HANDLE`, `BRAND_INSTAGRAM`, `BRAND_SITE` | empty | Optional social links used on posters and generated images. |
+| `VIOLENCE_URL` | empty | Overrides the "report police violence" link (the page defaults to the ACLU). |
+| `IMPORT_17OCT` | off | Upstream's French event import. Leave off. |
+
+Every other variable is inherited from upstream and documented in comments in `server.js`.
+
+### Protester-location features
+
+Cortège maps the head and tail of marches (`cortege`, `queue`) and lets confirmed organizers share a live position (`contact`, and `medic`/`legal`/`presse` beacons). Those features locate protesters, not police. To refuse them on an instance:
+
+```bash
+DISABLED_CATS=cortege,queue,contact
+```
+
+This is not the default. Deciding it is a policy question for whoever runs the instance.
+
+## Data sources
+
+| Data | Source | License |
+|---|---|---|
+| Base map, places, cameras | © OpenStreetMap contributors | ODbL |
+| State outlines (`geo/states.json`) | interim: `tools/us-states.geojson` (provenance unverified); rebuild from Census cartographic boundary files, see [docs/US_GEODATA.md](docs/US_GEODATA.md) | public domain (Census) |
+| Places of 50,000+ (`places.json`) | GeoNames | CC BY 4.0 |
+| Address search | Nominatim (OSM Foundation), through the server | ODbL, usage policy applies |
 
 ## License
 
-AGPL-3.0-or-later
+AGPL-3.0-or-later, the same as Cortège. If you run a modified version for others, you must offer them its source: set `SOURCE_URL`.
