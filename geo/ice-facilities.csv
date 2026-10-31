@@ -1,0 +1,617 @@
+code,name,address,city,state,zip,county,lat,lng,field_office,type,type_source,gender,over_72,days_used,avg_daily,max_daily
+ABIRJVA,SW Virginia Regional Jail Auth-Abg Facility,15205 Joe Derting Dr,Abingdon,VA,24210,Washington,36.732587,-81.911682,Washington,UNKNOWN,UNKNOWN,,,59,1.1,47
+ABRXSPA,Abraxas Academy,1000 Academy Drive,Morgantown,PA,19543,Berks,40.191814,-75.915805,Philadelphia,IGSA,IGSA,Female/Male,Over 72,44,0.6,5
+ADAMSMS,Adams County Correctional Center,20 Hobo Forks Road,Natchez,MS,39120,Adams,31.557648,-91.221279,New Orleans,DIGSA,DIGSA,Male,Over 72,365,2197.3,2632
+ADDCOVT,Addison County Jail,35 Court Street,Middlebury,VT,05753,Addison,44.011450,-73.163657,Boston,IGSA,IGSA,Female/Male,,2,0.0,1
+ADLNTCA,Adelanto ICE Processing Center,10400 Rancho Road,Adelanto,CA,92301,San Bernardino,34.559937,-117.438874,Los Angeles,CDF,CDF,Male,Over 72,365,1358.6,1981
+AFRC,Artesia Family Residential Center,1300 W. Richey Avenue,Artesia,NM,88210,Eddy,32.857310,-104.412908,El Paso,IGSA,IGSA,Female/Male,Over 72,1,0.0,2
+AGAHOLD,Guam Enforcement and Removal Operations Hold Room,291 Chalan Pasaheru Suite 100,Tamuning,GU,96913,Guam,13.494056,144.798306,San Francisco,HOLD,OTHER,Female/Male,Under 72,6,0.0,4
+AGC,Aguadilla Service Processing Center,Corner Of Belt Rd And Gun Club St.,Aguadilla,PR,00604,Aguadilla,18.495625,-67.143442,Miami,SPC,OTHER,Female/Male,Under 72,113,4.3,60
+AKANVIL,"Anvil Mountain Correctional Institution, Nome",1810 Center Creek,Nome,AK,99762,Nome,64.537612,-165.412196,Seattle,IGSA,IGSA,Female/Male,Under 72,4,0.0,1
+AKCOOKI,"Cook Inlet Pretrial, Anchorage",1400 E 4th Ave,Anchorage,AK,99501,Anchorage,61.218615,-149.855507,Seattle,USMS IGA,USMS IGA,Female/Male,Over 72,0,0.0,0
+AKFAIRB,Fairbanks Correctional Center,1931 Eagan Street,Fairbanks,AK,99701,Fairbanks North Star,64.833520,-147.759475,Seattle,IGSA,IGSA,Female/Male,Under 72,8,0.0,1
+AKHIGHL,Highland Mtn Correctional Center,9101 Hesterberg Road,Eagle River,AK,99577,Anchorage,61.303066,-149.581249,Seattle,USMS IGA,USMS IGA,Female/Male,Over 72,48,0.2,2
+AKKETCH,Ketchikan Regional Correctional Institution,1201 Schoenbar Road,Ketchikan,AK,99901,Ketchikan Gateway,55.348341,-131.649307,Seattle,IGSA,IGSA,Female/Male,Under 72,3,0.0,1
+AKLEMON,"Lemon Creek, Juneau, AK",2000 Lemon Creek Road,Juneau,AK,99801,Juneau,58.362572,-134.484409,Seattle,USMS IGA,USMS IGA,Female/Male,Over 72,16,0.0,1
+AKMATSU,"Matsu Pretrial, Palmer AK",339 E. Dogwood,Palmer,AK,99645,Matanuska-Susitna,61.602338,-149.109455,Seattle,IGSA,IGSA,Female/Male,Under 72,8,0.0,1
+ALAMCNC,Alamance County Detention Center,109 South Maple Street,Graham,NC,27253,Alamance,36.068254,-79.403624,Atlanta,IGSA,IGSA,Male,Over 72,250,26.2,85
+ALAMOTX,Alamo Police Department,423 N Tower Road,Alamo,TX,78516,Hidalgo,26.186846,-98.110782,Harlingen,IGSA,IGSA,,,6,0.1,14
+ALBHOLD,Albany Hold Room,11 Old Stonebreak Road,Ballston Spa,NY,12020,Saratoga,42.965263,-73.788137,Buffalo,HOLD,OTHER,Female/Male,Under 72,164,1.2,16
+ALEXAVA,Alexandria City Jail,2001 Mill Rd,Alexandria,VA,22314,Alexandria,38.797923,-77.064626,Washington,USMS IGA,USMS IGA,Female/Male,Under 72,35,0.1,1
+ALLEGNY,Allegany County Jail,4884 State Route 19,Belmont,NY,14813,Allegany,42.212568,-78.017033,Buffalo,USMS IGA,USMS IGA,Female/Male,Over 72,359,8.6,21
+ALLEGVA,Alleghany County Jail,268 West Main Street,Covington,VA,24426,Covington,37.792724,-79.995780,Washington,COUNTY,,,,3,0.0,1
+ALMHOLD,Alamosa Hold Room,1921 State Street,Alamosa,CO,81101,Alamosa,37.451115,-105.865992,Denver,HOLD,OTHER,Female/Male,Under 72,45,0.2,7
+AMHERVA,Amherst County Jail,219 South Riverview Road,Madison Heights,VA,24572,Amherst,37.408539,-79.093501,Washington,COUNTY,,,,11,0.0,1
+ANCHOAK,Anchorage Correctional Complex,1400 E Fourth Ave,Anchorage,AK,99501,Anchorage,61.218485,-149.856874,Seattle,USMS IGA,USMS IGA,Male,Over 72,296,4.4,43
+ANCHOLD,Anchorage Sub-Office Hold Room,620 East 10th Avenue,Anchorage,AK,99501,Anchorage,61.212367,-149.872287,Seattle,HOLD,OTHER,Female/Male,,6,0.0,5
+ANDERSC,Anderson County Detention Center,1009 David Lee Coffee Place,Anderson,SC,29625,Anderson,34.533521,-82.683106,Atlanta,COUNTY,COUNTY,,,0,0.0,0
+APPSCLA,Allen Parish Public Safety Complex,7340 Highway 26 W,Oberlin,LA,70655,Allen,30.623565,-92.782719,New Orleans,IGSA,IGSA,Male,Over 72,365,154.9,193
+ARAPACO,Arapahoe County Jail,7375 S. Potomac St.,Centennial,CO,80112,Arapahoe,39.581441,-104.832612,Denver,IGSA,IGSA,Female/Male,,2,0.0,1
+ATLANGA,Atlanta Pretrial Detention Center,254 Peachtree Street Southwest,Atlanta,GA,30303,Fulton,33.747285,-84.395429,Atlanta,USMS IGA,USMS IGA,Female/Male,Over 72,5,0.0,3
+ATLHOLD,Atlanta District Hold Room,"180 Ted Turner Drive, SW",Atlanta,GA,30303,Fulton,33.749581,-84.397365,Atlanta,HOLD,OTHER,Female/Male,Under 72,365,74.6,168
+AZSPPER,Perryville State Prison,2105 North Citrus Rd,Goodyear,AZ,85395,Maricopa,33.471375,-112.442172,Phoenix,IGSA,IGSA,Male,,1,0.0,1
+AZSVCPC,Arizona State Prison - Yuma,7125 E Cesar Chavez Blvd,San Luis,AZ,85349,Yuma,32.502435,-114.646575,Phoenix,IGSA,IGSA,,,15,0.0,3
+BAKERFL,Baker County Detention Center,1 Sheriff's Office Drive,Macclenny,FL,32063,Baker,30.295850,-82.121578,Miami,IGSA,IGSA,Female/Male,Over 72,365,276.2,340
+BALDWAL,Baldwin County Correctional Center,200 Hand Ave.,Bay Minette,AL,36507,Baldwin,30.885430,-87.774811,New Orleans,USMS IGA,USMS IGA,Female/Male,Under 72,170,10.9,55
+BALHOLD,Baltimore Hold Room,31 Hopkins Plaza 6th Floor,Baltimore,MD,21201,Baltimore,39.288093,-76.616697,Baltimore,HOLD,OTHER,Female/Male,Under 72,365,71.4,209
+BARRECA,Barrett Honor Camp,21077 Lyons Valley Road,Alpine,CA,91901,San Diego,32.718085,-116.676654,San Diego,IGSA,IGSA,Female/Male,,,,
+BARTOGA,Bartow County Jail,104 Zena Dr,Cartersville,GA,30121,Bartow,34.191155,-84.778178,Atlanta,USMS IGA,USMS IGA,Female/Male,,0,0.0,0
+BASCOTX,Bastrop County Jail,200 Jackson St,Bastrop,TX,78602,Bastrop,30.102082,-97.308531,San Antonio,IGSA,IGSA,Female/Male,Under 72,,,
+BASILLA,South Louisiana ICE Processing Center,3843 Stagg Ave,Basile,LA,70515,Evangeline,30.481713,-92.581217,New Orleans,DIGSA,DIGSA,Female/Male,Over 72,365,944.1,1031
+BAYCOFL,Bay County,5700 Star Lane,Panama City,FL,32404,Bay,30.226080,-85.562108,Miami,IGSA,IGSA,Female/Male,,0,0.0,0
+BEDCITX,Bedford City Jail,2121 L Don Dodson Drive,Bedford,TX,76021,Tarrant,32.842101,-97.131283,Dallas,IGSA,IGSA,Female/Male,Under 72,365,1.0,2
+BEECOTX,Bee County Sheriff,1511 E Toledo St,Beeville,TX,78102,Bee,28.404000,-97.729700,Houston,COUNTY,COUNTY,,,,,
+BELCOTX,Bell County Jail,1201 Huey Rd,Belton,TX,76513,Bell,31.037403,-97.488367,Houston,USMS IGA,USMS IGA,Female/Male,Under 72,156,0.8,6
+BERGENJ,Bergen County Jail,160 S. River St.,Hackensack,NJ,07601,Bergen,40.873798,-74.038964,Newark,USMS IGA,USMS IGA,Female/Male,Over 72,0,0.0,0
+BERNANM,Bernalillo County Detention Center,400 Roma Ave NW,Albuquerque,NM,87102,Bernalillo,35.089247,-106.650944,El Paso,IGSA,IGSA,Female/Male,Over 72,2,0.0,1
+BIINCCO,"BI Incororated, Geo Group Company",3130 Oakland St,Aurora,CO,80010,Adams,39.760873,-104.849180,Denver,UNKNOWN,UNKNOWN,,,38,0.2,6
+BILHOLD,Billings Hold Room,2900 4th Avenue Suite 205,Billings,MT,59101,Yellowstone,45.783875,-108.509561,Salt Lake City,HOLD,OTHER,Female/Male,Under 72,2,0.0,2
+BLBNATX,Bluebonnet Detention Facility,400 2nd Street,Anson,TX,79501,Jones,32.767645,-99.888084,Dallas,DIGSA,DIGSA,Female/Male,Over 72,365,1094.9,1276
+BLOJVTN,Blount County Juvenile Detention Center,329 Court St,Maryville,TN,37804,Blount,35.754595,-83.969300,New Orleans,IGSA,IGSA,Female/Male,,82,0.2,1
+BOIHOLD,Boise Hold Room,1185 S. Vinnell Way,Boise,ID,83709,Ada,43.594236,-116.287106,Salt Lake City,HOLD,OTHER,Female/Male,Under 72,217,2.1,84
+BOONEKY,Boone County Jail,3020 Conrad Lane,Burlington,KY,41005,Boone,39.036478,-84.728460,Chicago,USMS IGA,USMS IGA,Female/Male,Over 72,365,197.9,227
+BOPATL,Federal Correctional Institution Atlanta,601 Mcdonough Blvd SE,Atlanta,GA,30315,Fulton,33.712444,-84.367935,Atlanta,BOP,BOP,Female/Male,,365,130.5,302
+BOPBER,"Federal Correctional Institution - Berlin, NH",1 Success Loop Rd,Berlin,NH,03570,Coos,44.521854,-71.137531,Boston,BOP,BOP,Male,,365,219.3,346
+BOPBRO,MDC Brooklyn,80 29th Street,Brooklyn,NY,11232,Kings,40.660313,-74.003980,New York City,BOP,BOP,Female/Male,,264,85.7,223
+BOPCAA,US Penitentiary Canaan,3057 Eric J. Williams Memorial Dr,Waymart,PA,18472,Wayne,41.567917,-75.412061,Philadelphia,BOP,BOP,Female/Male,,3,0.0,1
+BOPCNV,Nashville Community Correctional,"701 Broadway St, Suite 124",Nashville,TN,37203,Davidson,36.158440,-86.782406,New Orleans,BOP,BOP,Female/Male,,7,0.0,2
+BOPDEV,Devens Federal Medical Center,42 Patton Rd,Devens,MA,01434,Worcester,42.529300,-71.623041,Boston,BOP,BOP,Female/Male,,1,0.0,1
+BOPGUA,Guaynabo MDC (San Juan),652 Carretera 28,Guaynabo,PR,00965,Guaynabo,18.421431,-66.119325,Miami,BOP,BOP,Female/Male,,0,0.0,0
+BOPHON,"Federal Detention Center, Honolulu (Federal Detention Center Honolulu)",351 Elliott Street,Honolulu,HI,96819,Honolulu,21.333629,-157.928314,San Francisco,BOP,BOP,Female/Male,Over 72,365,70.7,116
+BOPLAT,LA Tuna Federal Correctional Institution,8500 Doniphan Rd,Anthony,TX,79821,El Paso,31.982125,-106.591475,El Paso,BOP,,,,1,0.0,1
+BOPLEW,Federal Correctional Institution Lewisburg,2400 Robert F. Miller Drive,Lewisburg,PA,17837,Union,40.986683,-76.914958,Philadelphia,BOP,BOP,Female/Male,,48,21.1,201
+BOPLEX,Lexinton Federal Medical Center,3301 Leestown Road,Lexington,KY,40511,Fayette,38.104631,-84.560130,Chicago,BOP,BOP,Female/Male,,4,0.0,4
+BOPLOS,Los Angeles Metropolitan Detention Center,535 Alameda St,Los Angeles,CA,90012,Los Angeles,34.053473,-118.238204,Los Angeles,BOP,BOP,Female/Male,,6,0.0,1
+BOPLVN,Federal Correctional Institution Leavenworth,1300 Metropolitan,Leavenworth,KS,66048,Leavenworth,39.329850,-94.936350,Chicago,BOP,BOP,Male,Over 72,365,62.9,93
+BOPMCR,McCreary US Penitentiary,330 Federal Way,Pine Knot,KY,42635,McCreary,36.686634,-84.387914,Chicago,BOP,BOP,Female/Male,,1,0.0,2
+BOPMIA,Miami Federal Correctional Institution (Former McC),15801 SW 137th Ave,Miami,FL,33177,Miami-Dade,25.618026,-80.409230,Miami,BOP,BOP,Female/Male,,2,0.0,2
+BOPMIM,Federal Detention Center Miami,33 NE 4th Street,Miami,FL,33132,Miami-Dade,25.778461,-80.193132,Miami,BOP,BOP,Female/Male,Over 72,365,406.5,487
+BOPOAD,Oakdale Federal Detention Center,2105 E. Whatley Rd.,Oakdale,LA,71463,Allen,30.820820,-92.642909,New Orleans,BOP,BOP,Female/Male,,3,0.0,4
+BOPPHL,Federal Detention Center Philadelphia,700 Arch Street,Philadelphia,PA,19106,Philadelphia,39.952541,-75.152048,Philadelphia,BOP,BOP,Female/Male,,365,105.0,151
+BOPPHX,Phoenix Federal Correctional Institution,37900 N 45th Ave,Phoenix,AZ,85086,Maricopa,33.832430,-112.161990,Phoenix,BOP,BOP,Female/Male,Over 72,6,0.0,4
+BOPPOL,Pollock US Penitentiary,1000 Airbase Rd,Pollock,LA,71467,Grant,31.468853,-92.437440,New Orleans,BOP,BOP,Female/Male,,3,0.0,2
+BOPRAE,"McRae Correctional Facility, CCA",112 Jim Hammock Dr,Mcrae-Helena,GA,31055,Telfair,32.050302,-82.871906,Atlanta,BOP,BOP,Female/Male,,1,0.0,1
+BOPSET,Seatac Federal Detention Center,2425 S. 200th Street,Seatac,WA,98198,King,47.421977,-122.301545,Seattle,BOP,BOP,Female/Male,,4,0.0,1
+BOPSPG,Springfield Federal Medical Center,1900 W. Sunshine,Springfield,MO,65807,Greene,37.177637,-93.323189,Chicago,BOP,BOP,Female/Male,,7,0.0,1
+BOPTCN,Tucson Federal Correctional Institution,8901 South Wilmot Road,Tucson,AZ,85706,Pima,32.089387,-110.856664,Phoenix,BOP,BOP,Female/Male,,0,0.0,0
+BOPVIM,Victorville Medical I Federal Correctional Institution,13777 Air Expy,Victorville,CA,92394,San Bernardino,34.565400,-117.364700,Los Angeles,BOP,BOP,Female/Male,,1,0.0,1
+BOSHOLD,Boston Hold Room,1000 District Avenue,Burlington,MA,01803,Middlesex,42.482635,-71.208872,Boston,HOLD,OTHER,Female/Male,Under 72,353,33.7,205
+BOSSRLA,Bossier Parish Correctional Center,2984 Old Plain Dealing Highway,Plain Dealing,LA,71064,Bossier,32.838871,-93.746023,New Orleans,USMS IGA,USMS IGA,Male,Over 72,0,0.0,0
+BOURBKY,Bourbon County Detention Center,101 Legion Rd,Paris,KY,40361,Bourbon,38.224158,-84.245928,Chicago,USMS IGA,USMS IGA,Female/Male,,152,3.4,25
+BPC,Boston Service Processing Center,476-498 Hanover St Exd,Boston,MA,02109,Suffolk,42.367824,-71.052091,Boston,SPC,SPC,Female/Male,,30,0.1,2
+BRDFDFL,Bradford County Jail,945 N Temple Ave,Starke,FL,32091,Bradford,29.954113,-82.109578,Miami,IGSA,IGSA,Female/Male,,2,0.0,1
+BREVDFL,Brevard County Jail Complex,860 Camp Road,Cocoa,FL,32927,Brevard,28.448153,-80.781769,Miami,IGSA,IGSA,Female/Male,,221,1.4,9
+BROJAFL,Broward County Jail,555 SE 1st Avenue,Fort Lauderdale,FL,33301,Broward,26.116142,-80.142094,Miami,IGSA,IGSA,Female/Male,,332,4.8,15
+BROKSTX,Brooks County Detention Center,901 County Road 201,Falfurrias,TX,78355,Brooks,27.247685,-98.126486,Harlingen,USMS IGA,USMS IGA,Female/Male,Over 72,130,10.6,90
+BROMMNY,Broome County Correctional Facility,155 Lt. Vanwinkle Drive,Binghamton,NY,13905,Broome,42.132455,-75.916674,Buffalo,USMS IGA,USMS IGA,Female/Male,Under 72,330,30.8,69
+BROWNWI,Brown County Jail,3030 Curry Ln,Green Bay,WI,54311,Brown,44.522059,-87.931636,Chicago,USMS IGA,USMS IGA,Female/Male,,91,0.8,13
+BRWNSTX,Brownsville Police Department,600 E Jackson St,Brownsville,TX,78520,Cameron,25.907876,-97.498356,Harlingen,IGSA,IGSA,Female/Male,,1,0.0,2
+BRYANGA,Bryan County Jail,95 Public Safety Way,Pembroke,GA,31321,Bryan,32.134516,-81.618418,Atlanta,IGSA,IGSA,Female/Male,,2,0.0,3
+BSAHOLD,Broadview Service Staging,1930 Beach Street,Broadview,IL,60155,Cook,41.868006,-87.866042,Chicago,HOLD,OTHER,Female/Male,Under 72,365,56.7,326
+BTV,Buffalo (Batavia) Service Processing Center,4250 Federal Drive,Batavia,NY,14020,Genesee,43.020448,-78.202122,Buffalo,SPC,SPC,Male,Over 72,365,726.6,962
+BUFHOLD,Buffalo Hold Room,250 Delaware Avenue 7th Floor,Buffalo,NY,14202,Erie,42.891297,-78.876873,Buffalo,HOLD,OTHER,Female/Male,Under 72,111,1.7,45
+BURLEND,Burleigh County Detention Center,4000 Apple Creek Road,Bismarck,ND,58504,Burleigh,46.796330,-100.726379,St Paul,USMS IGA,USMS IGA,Female/Male,Over 72,301,13.5,53
+BURNETX,Burnet County Jail,900 County Ln,Burnet,TX,78611,Burnet,30.741521,-98.253048,San Antonio,USMS IGA,USMS IGA,Male,Under 72,2,0.0,4
+BUTLEOH,Butler County Sheriff’s Office,705 Hanover Street,Hamilton,OH,45011,Butler,39.387909,-84.555727,Detroit,USMS IGA,USMS IGA,Female/Male,Over 72,365,324.6,458
+CACFMES,Mesa Verde ICE Processing Center,425 Golden State Avenue,Bakersfield,CA,93301,Kern,35.379318,-119.006521,San Francisco,CDF,CDF,Male,Over 72,365,278.0,397
+CACHEUT,Cache County Jail,1225 West Valley View (200 North),Logan,UT,84321,Cache,41.737122,-111.865744,Salt Lake City,USMS IGA,USMS IGA,Female/Male,Over 72,73,0.8,13
+CACTYCA,California City Detention Facility,22844 Virginia Boulevard,California City,CA,93505,Kern,35.152903,-117.858998,San Francisco,CDF,CDF,Female/Male,Over 72,196,564.1,1843
+CADESVI,Desert View Annex,10450 Rancho Road,Adelanto,CA,92301,San Bernardino,34.559296,-117.436763,Los Angeles,CDF,CDF,Male,Over 72,365,432.9,495
+CALCALA,Calcasieu Parish Prison,5410 East Broad Street,Lake Charles,LA,70601,Calcasieu,30.227572,-93.140771,New Orleans,IGSA,IGSA,Female/Male,Over 72,,,
+CALHOMI,Calhoun County Correctional Center,185 E. Michigan Street,Battle Creek,MI,49014,Calhoun,42.316410,-85.175787,Detroit,IGSA,IGSA,Female/Male,Over 72,365,174.2,232
+CAMBRPA,"Cambria County Jail, PA",425 Manor Drive,Ebensburg,PA,15931,Cambria,40.484404,-78.701412,Philadelphia,IGSA,IGSA,Male,Over 72,148,17.7,105
+CAMCOWY,Campbell County Jail,600 West Boxelder,Gillette,WY,82718,Campbell,44.277223,-105.512222,Denver,IGSA,IGSA,Female/Male,Under 72,77,0.3,8
+CAMERTX,Cameron County Jail,954 E. Harrison,Olmito,TX,78520,Cameron,25.907789,-97.495191,Harlingen,IGSA,IGSA,Female/Male,Over 72,2,0.0,1
+CARDFVA,Caroline Detention Facility,11093 SW Lewis Memorial Dr,Bowling Green,VA,22427,Caroline,38.111578,-77.267145,Washington,DIGSA,DIGSA,Female/Male,Over 72,365,331.2,395
+CARROMD,Carroll County Detention Center,100 North Court Street,Westminister,MD,21157,Carroll,39.572174,-76.986958,Baltimore,IGSA,IGSA,Female/Male,Over 72,5,0.0,2
+CASCAMT,"Cascade County Jail, MT",3800 Ulm North Frontage Road,Great Falls,MT,59404,Cascade,47.469054,-111.367688,Salt Lake City,USMS IGA,USMS IGA,Male,Over 72,253,2.6,15
+CASPSAC,California State Prison-Sacramento,100 Prison Road,Represa,CA,95671,Sacramento,38.703422,-121.160418,San Francisco,IGSA,IGSA,Female/Male,,1,0.0,1
+CASSCND,Cass County Jail,450 34th Street South,Fargo,ND,58103,Cass,46.869589,-96.833140,St Paul,IGSA,IGSA,Female/Male,,6,0.0,1
+CASSCNE,Cass County Jail,336 Main Street,Plattsmouth,NE,68048,Cass,41.011795,-95.882957,St Paul,USMS IGA,USMS IGA,Female/Male,Over 72,305,14.8,30
+CATAHLA,Catahoula Correctional Center,499 Old Colombia Road,Harrisonburg,LA,71340,Catahoula,31.775010,-91.836953,New Orleans,IGSA,IGSA,Male,Over 72,9,0.0,1
+CBENDTX,Coastal Bend Detention Center,4909 Fm2826,Robstown,TX,78380,Nueces,27.736722,-97.754802,Harlingen,USMS IGA,USMS IGA,Female/Male,Over 72,365,71.2,191
+CBPCAL,Calexico East Poe,1699 Carr Road,Calexico,CA,92231,Imperial,32.684054,-115.388896,San Diego,CBP,,,,,,
+CBPHOLD,Buffalo USBP Hold Room,300 Airborne Pkwy W #300,Cheektowaga,NY,14225,Erie,42.937656,-78.713915,Buffalo,USBP,USBP,,,50,0.8,20
+CBPORIL,CBP O’Hare Airport Terminal 5 BC Ext,1000 Bessie Coleman Drive,Chicago,IL,60666,Cook,41.974733,-87.890892,Chicago,CBP,,,,32,0.2,6
+CBRRSNC,Cabarrus County Jail,30 Corban Avenue SE,Concord,NC,28025,Cabarrus,35.409329,-80.577967,Atlanta,IGSA,IGSA,Female/Male,Under 72,91,0.5,6
+CCAFLAZ,Central Arizona Florence Correctional Center,1100 Bowling Road,Florence,AZ,85132,Pinal,33.044083,-111.371772,Phoenix,USMS CDF,USMS CDF,Male,Over 72,365,524.8,737
+CCAHUTX,T Don Hutto Detention Center,1001 Welch Street,Taylor,TX,76574,Williamson,30.564959,-97.419975,San Antonio,CDF,CDF,Male,Over 72,365,435.5,484
+CCALEKS,Midwest Regional Reception Center,100 Highway Terrace,Leavenworth,KS,66048,Leavenworth,39.273128,-94.892470,Chicago,IGSA,IGSA,Female/Male,,,,
+CCANOOH,Northeast Ohio Correctional Center,2240 Hubbard Road,Youngstown,OH,44505,Mahoning,41.131349,-80.631523,Detroit,USMS IGA,USMS IGA,Male,Over 72,365,210.4,284
+CCASDCA,Otay Mesa Detention Center,7488 Calzada De La Fuente,San Diego,CA,92154,San Diego,32.575837,-116.915591,San Diego,CDF,CDF,Female/Male,Over 72,365,1407.9,1608
+CHARLSC,Charleston County Correct,3841 Leeds Ave,North Charleston,SC,29405,Charleston,32.845451,-80.013544,Atlanta,USMS IGA,USMS IGA,Male,Over 72,54,0.3,5
+CHASEKS,Chase County Jail,301 South Walnut,Cottonwood Falls,KS,66845,Chase,38.367077,-96.538429,Chicago,IGSA,IGSA,Female/Male,Over 72,365,117.2,148
+CHAVENM,Chavez Detention Center,3701 S Atkinson Ave,Roswell,NM,88203,Chaves,33.351267,-104.505564,El Paso,USMS IGA,USMS IGA,Female/Male,Under 72,323,3.2,16
+CHFLDVA,Chesterfield County Jail,6900 Mimms Dr,Chesterfield,VA,23832,Chesterfield,37.378928,-77.507844,Washington,COUNTY,OTHER,Female/Male,,1,0.0,2
+CHIHOLD,Chicago Hold Room,101 Ida B. Wells Drive 4th Floor,Chicago,IL,60605,Cook,41.875346,-87.631005,Chicago,HOLD,OTHER,Female/Male,Under 72,126,1.3,26
+CHIPPMI,Chippewa County Correctional Facility,325 Court Street,Sault Sainte Marie,MI,49783,Chippewa,46.497432,-84.345608,Detroit,IGSA,IGSA,Male,Over 72,365,38.6,49
+CHMCINY,Courthouse Usm Cntl Islip,100 Federal Plaza,Central Islip,NY,11722,Suffolk,40.759886,-73.191495,New York City,OTHER,OTHER,Female/Male,,11,0.0,1
+CHMHOLD,Champlain Hold Room,"237 West Service Road Room Cb 107, Unit 8",Champlain,NY,12919,Clinton,45.006556,-73.453339,Buffalo,HOLD,OTHER,Female/Male,,45,0.4,10
+CHRISKY,Christian County Jail,410 West 7th Street,Hopkinsville,KY,42240,Christian,36.867806,-87.490368,Chicago,USMS IGA,USMS IGA,Female/Male,,169,46.6,137
+CHRISMO,Christian County Sheriff Department,110 West Elm,Ozark,MO,65721,Christian,37.019771,-93.205413,Chicago,IGSA,IGSA,Male,Over 72,,,
+CHRLTFL,Charlotte County Jail,26601 Airport Rd,Punta Gorda,FL,33982,Charlotte,26.914953,-82.006833,Miami,IGSA,IGSA,Female/Male,,18,0.3,13
+CHSPKVA,Chesapeake City Jail,400 Albemarle Dr,Chesapeake,VA,23322,Chesapeake,36.719217,-76.249973,Washington,LOCAL POLICE DEPARTMENT,LOCAL POLICE DEPARTMENT,,,150,1.1,25
+CHTHMGA,Chatham County Jail,1050 Carl Griffin Drive,Savannah,GA,31405,Chatham,32.066690,-81.167630,Atlanta,IGSA,IGSA,Female/Male,Over 72,11,0.1,11
+CIBOCNM,Cibola County Correctional Center,2000 Cibola Loop,Milan,NM,87021,Cibola,35.179948,-107.907323,El Paso,IGSA,IGSA,Male,Over 72,365,249.7,434
+CIBOLNM,Cibola County Detention Center,2000 Cibola Loop,Milan,NM,87021,Cibola,35.179948,-107.907323,El Paso,IGSA,IGSA,Female/Male,Over 72,11,0.1,9
+CIPHOLD,Central Islip Hold Room,100 Federal Plaza,Central Islip,NY,11722,Suffolk,40.759274,-73.190427,New York City,HOLD,OTHER,Female/Male,,266,7.0,45
+CITRUFL,Citrus County Jail,2604 W. Woodland Ridge Dr.,Lecanto,FL,34461,Citrus,28.845128,-82.476939,Miami,IGSA,IGSA,Female/Male,Over 72,3,0.0,1
+CLARKIA,Clarke County Sheriff,220 Townline Rd,Osceola,IA,50213,Clarke,41.044676,-93.763353,St Paul,IGSA,IGSA,Female/Male,,,,
+CLARKID,Clark County Jail (ID),224 W Main St,Dubois,ID,83423,Clark,44.176635,-112.232917,Salt Lake City,IGSA,IGSA,Female/Male,Over 72,,,
+CLARKIN,Clark County Jail,501 E Court Avenue Suite 159,Jeffersonville,IN,47130,Clark,38.277403,-85.737000,Chicago,USMS IGA,USMS IGA,Female/Male,,335,74.0,107
+CLAYCIN,Clay County Jail,611 East Jackson Street,Brazil,IN,47834,Clay,39.523729,-87.119076,Chicago,USMS IGA,USMS IGA,Female/Male,Over 72,365,269.1,361
+CLICONY,Clinton County Jail,25 Mccarthy Drive,Plattsburgh,NY,12901,Clinton,44.720028,-73.466725,Buffalo,USMS IGA,USMS IGA,Female/Male,Under 72,361,5.8,18
+CLINTIN,Clinton County Sheriff’s Office,301 E Walnut Street,Frankfort,IN,46041,Clinton,40.279346,-86.509033,Chicago,USMS IGA,USMS IGA,Female/Male,Over 72,289,22.7,58
+CLINTPA,Clinton County Correctional Facility,58 Pine Mountain Road,Mcelhattan,PA,17748,Clinton,41.151143,-77.349380,Philadelphia,USMS IGA,USMS IGA,Female/Male,Over 72,365,88.8,107
+CLTHOLD,Charlotte Hold Room,6130 Tyvola Centre Drive,Charlotte,NC,28217,Mecklenburg,35.164296,-80.909538,Atlanta,HOLD,OTHER,Female/Male,Under 72,345,22.4,145
+CMDHOLD,Batavia Command Center Hold Room,4250 Federal Drive,Batavia,NY,14020,Genesee,43.020200,-78.202609,Buffalo,HOLD,OTHER,Female/Male,,4,0.0,2
+COAHOLD,"Columbia, SC Hold Room","1835 Assembly Street, Suite 1569",Columbia,SC,29201,Richland,34.009010,-81.040247,Atlanta,HOLD,OTHER,Female/Male,Under 72,218,1.6,31
+COBBJGA,Cobb County Sheriffs Office Adult Detention Center,1825 County Services Parkway,Marietta,GA,30060,Cobb,33.908566,-84.579977,Atlanta,IGSA,IGSA,Female/Male,Under 72,0,0.0,0
+COCONAZ,Coconino County Detention Facility,951 E. Sawmill Rd,Flagstaff,AZ,86001,Coconino,35.187225,-111.641160,Phoenix,USMS IGA,USMS IGA,Female/Male,Under 72,1,0.0,9
+CODCCSP,Colorado Department of Corrections,1250 Academy Park Loop,Colorado Springs,CO,80910,El Paso,38.814754,-104.758611,Denver,IGSA,IGSA,Female/Male,,169,0.8,1
+COLLIFL,Collier County Sheriff,3347 Tamiami Trail E,Naples,FL,34112,Collier,26.129700,-81.763432,Miami,IGSA,IGSA,Female/Male,Over 72,365,37.8,96
+COLUMFL,Columbia County Jail,389 NW Quinten St,Lake City,FL,32025,Columbia,30.220308,-82.643556,Miami,COUNTY,COUNTY,Female/Male,,1,0.0,1
+COOKETX,Cooke County Jail,300 County Road 451,Gainesville,TX,76240,Cooke,33.649100,-97.168400,Dallas,IGSA,IGSA,Female/Male,,,,
+CPBDCKY,Campbell County Detention Center,601 Central Avenue,Newport,KY,41071,Campbell,39.088713,-84.496750,Chicago,USMS IGA,USMS IGA,Female/Male,,362,114.9,162
+CRIHOLD,Cedar Rapids Hold Room,3351 Square D Drive SW,Cedar Rapids,IA,52404,Linn,41.942003,-91.680929,St Paul,HOLD,OTHER,Female/Male,Under 72,43,0.8,17
+CROWGMN,Crow Wing County Jail,313 Laurel Street,Brainerd,MN,56401,Crow Wing,46.356609,-94.205301,St Paul,USMS IGA,USMS IGA,Female/Male,,154,10.5,71
+CRYCCTX,Crystal City Correctional Center,5332 Us-83,Crystal City,TX,78839,Zavala,28.746881,-99.843832,San Antonio,USMS IGA,USMS IGA,Female/Male,Over 72,1,0.0,8
+CSCNWWA,Northwest ICE Processing Center (Nwipc),"1623 E J Street, Suite 2",Tacoma,WA,98421,Pierce,47.249177,-122.421692,Seattle,CDF,CDF,Female/Male,Over 72,365,1364.2,1595
+CULBETX,Culberson County Sheriff’s,300 La Caverna,Van Horn,TX,79855,Culberson,31.042976,-104.830544,El Paso,IGSA,IGSA,Female/Male,Under 72,5,0.0,1
+CULPEVA,Culpeper County Adult Detention Center,131 W. Cameron St.,Culpeper,VA,22701,Culpeper,38.474019,-77.996751,Washington,IGSA,IGSA,Female/Male,,7,0.0,1
+CUMBEME,Cumberland County Jail,50 County Way,Portland,ME,04102,Cumberland,43.651170,-70.281840,Boston,USMS IGA,USMS IGA,Female/Male,Over 72,319,52.9,80
+CURRYNM,Curry County Detention Facility,801 Mitchell Street,Clovis,NM,88101,Curry,34.406286,-103.206275,El Paso,IGSA,IGSA,Female/Male,,1,0.0,1
+CVANXCA,Central Valley Annex,254 Taylor Avenue,Mcfarland,CA,93250,Kern,35.668157,-119.228967,San Francisco,STATE,STATE,,,53,0.1,1
+CVREGVA,Central VA Regional Jail,13021 James Madison Hwy,Orange,VA,22960,Orange,38.227454,-78.116709,Washington,USMS IGA,USMS IGA,Female/Male,Under 72,43,0.1,2
+DAKOTNE,Dakota County Sheriff Office,1601 Broadway,Dakota City,NE,68731,Dakota,42.416071,-96.419792,St Paul,USMS IGA,USMS IGA,Female/Male,Under 72,365,32.6,67
+DALCOTX,Dallas County Jail-Lew Sterrett,111 West Commerce Street,Dallas,TX,75202,Dallas,32.777800,-96.815500,Dallas,USMS IGA,USMS IGA,Female/Male,Under 72,360,6.5,37
+DALHOLD,Dallas FO Hold,8101 N. Stemmons Freeway,Dallas,TX,75247,Dallas,32.823783,-96.872008,Dallas,HOLD,OTHER,Female/Male,Under 72,365,81.5,225
+DAVIDTN,Davidson County Sheriff Department,200 James Robertson Pkwy,Nashville,TN,37201,Davidson,36.167851,-86.779300,New Orleans,IGSA,IGSA,Female/Male,Over 72,2,0.0,1
+DAVISUT,Davis County Jail,800 West State Street,Farmington,UT,84025,Davis,40.980532,-111.904165,Salt Lake City,IGSA,IGSA,Female/Male,Over 72,158,2.7,14
+DEKALAL,Dekalb County Detention Center,2801 Jordan Road,Fort Payne,AL,35968,DeKalb,34.418179,-85.772996,New Orleans,USMS IGA,USMS IGA,Female/Male,Over 72,2,0.0,1
+DELAWPA,Delaware County Jail,500 Cheyney Road,Thornton,PA,19373,Delaware,39.903076,-75.513451,Philadelphia,USMS IGA,USMS IGA,Female/Male,Under 72,,,
+DENHOLD,Denver Hold Room,12445 East Caley Avenue,Centennial,CO,80111,Arapahoe,39.601516,-104.844995,Denver,HOLD,OTHER,Female/Male,Under 72,338,6.3,35
+DENICDF,Denver Contract Detention Facility (Aurora),3130 North Oakland Street,Aurora,CO,80010,Adams,39.760873,-104.849180,Denver,CDF,CDF,Female/Male,Over 72,365,1214.4,1462
+DENVECO,Denver County Jail,10500 East Smith Road,Denver,CO,80239,Denver,39.767977,-104.865172,Denver,USMS IGA,USMS IGA,Female/Male,Over 72,5,0.0,1
+DEPCOGU,Department of Corrections,3 Mashburn Lane Off Dairy Rd,Mangilao,GU,96913,Guam,13.449053,144.786919,San Francisco,IGSA,IGSA,Female/Male,Over 72,26,0.1,1
+DHDFNJ,Delaney Hall Detention Facility,451 Doremus Avenue,Newark,NJ,07105,Essex,40.717997,-74.128339,Newark,CDF,CDF,Female/Male,Over 72,314,661.3,1063
+DILLSAF,Dilley Processing Single Female,300 El Rancho Way,Dilley,TX,78017,Frio,28.658454,-99.200878,San Antonio,,,,,134,93.6,399
+DODGEWI,Dodge Detention Facility,216 W. Center Street,Juneau,WI,53039,Dodge,43.407264,-88.706456,Chicago,USMS IGA,USMS IGA,Female/Male,Over 72,365,104.1,134
+DONAANM,Dona Ana County Detention Center,1850 Copper Loop,Las Cruces,NM,88004,Doña Ana,32.302787,-106.805822,El Paso,USMS IGA,USMS IGA,Female/Male,Under 72,4,0.0,1
+DORCDSC,Dorchester County Detention Center,220 Hodge Road,Summerville,SC,29483,Dorchester,33.057531,-80.220686,Atlanta,USMS IGA,USMS IGA,Female/Male,Under 72,235,2.3,11
+DOUGLCO,Douglas County Detention Center,4000 Justice Way,Castle Rock,CO,80109,Douglas,39.402317,-104.864029,Denver,IGSA,IGSA,Female/Male,Under 72,6,0.0,1
+DOUGLWI,Douglas County Jail,1316 N 14th St,Superior,WI,54880,Douglas,46.721681,-92.098388,Chicago,USMS IGA,USMS IGA,Female/Male,Under 72,305,16.9,41
+DURHOLD,Durango Hold Room,32 Sheppard Drive,Durango,CO,81303,La Plata,37.237147,-107.874250,Denver,HOLD,OTHER,Female/Male,Under 72,35,0.2,6
+DVCSDKY,Daviess County Detention Center,3337 Highway 144,Owensboro,KY,42303,Daviess,37.786754,-87.070857,Chicago,COUNTY,COUNTY,,,155,14.9,86
+DVDHOLD,Dover Hold Room,210 Beiser Boulevard,Dover,DE,19904,Kent,39.155207,-75.542846,Philadelphia,HOLD,OTHER,Female/Male,Under 72,279,1.9,10
+EAZ,Eloy Detention Center,1705 E Hanna Road,Eloy,AZ,85131,Pinal,32.817595,-111.522377,Phoenix,DIGSA,DIGSA,Female/Male,Over 72,365,1375.0,1546
+ECLECTX,Ector County LEC,2500 S Hwy 385,Odessa,TX,79762,Ector,31.820357,-102.358445,El Paso,IGSA,IGSA,Female/Male,,2,0.0,1
+EDNBGTX,Edinburg Police Department,1702 S. Closner Blvd,Edinburg,TX,78539,Hidalgo,26.285684,-98.164557,Harlingen,IGSA,IGSA,,,3,0.0,1
+EDNDCTX,Eden Detention Center,704 E Broadway Street,Eden,TX,76837,Concho,31.216363,-99.834481,Dallas,USMS IGA,USMS IGA,Male,Over 72,365,321.9,707
+EHDLGTX,East Hidalgo Detention Center,1300 E Hwy 107,La Villa,TX,78562,Hidalgo,26.294584,-97.918915,Harlingen,USMS IGA,USMS IGA,Female/Male,Under 72,361,12.4,194
+ELMORID,Elmore County Detention Center (Elmore County Jail),2255 East 8th North,Mountain Home,ID,83647,Elmore,43.136850,-115.673179,Salt Lake City,USMS IGA,USMS IGA,Female/Male,Over 72,282,6.9,40
+ELPCOTX,El Paso County Jail (TX),12501 Montana Ave,El Paso,TX,79938,El Paso,31.810693,-106.254221,El Paso,IGSA,IGSA,Female/Male,Under 72,32,0.1,2
+ELVDFTX,El Valle Detention Facility,1800 Industrial Drive,Raymondville,TX,78580,Willacy,26.467284,-97.761644,Harlingen,DIGSA,DIGSA,Female/Male,Over 72,365,880.0,1039
+ELZICDF,Elizabeth Contract Detention Facility,625 Evans Street,Elizabeth,NJ,07201,Union,40.666223,-74.188802,Newark,CDF,CDF,Female/Male,Over 72,365,314.9,434
+EPC,El Paso Service Processing Center,8915 Montana Avenue,El Paso,TX,79925,El Paso,31.793762,-106.369208,El Paso,SPC,SPC,Female/Male,Over 72,365,875.1,1200
+EPCDFTX,El Paso County Detention Facility,601 E. Overland,El Paso,TX,79901,El Paso,31.758456,-106.483136,El Paso,IGSA,IGSA,Female/Male,Under 72,115,0.7,17
+EPCJUVI,El Paso Service Processing Center Juvenile,8915 Montana St.,El Paso,TX,79925,El Paso,31.793762,-106.369208,El Paso,JUVENILE,OTHER,Female/Male,Under 72,1,0.0,1
+EPCPCTX,EGP CPC Holding,2285 Del Rio Blvd,Eagle Pass,TX,78852,Maverick,28.735323,-100.497064,San Antonio,OTHER,OTHER,Female/Male,,4,0.0,3
+EPSSFTX,El Paso Soft Sided Facility,12501 Gateway Blvd S,El Paso,TX,79934,El Paso,31.970155,-106.372037,El Paso,STAGING,STAGING,Female/Male,,238,239.2,1603
+ERICOPA,"Erie County Jail, PA",1618 Ash Street,Erie,PA,16503,Erie,42.123738,-80.066540,Philadelphia,USMS IGA,USMS IGA,Male,Over 72,364,20.5,45
+EROFCB,Enforcement and Removal Operations El Paso Camp East Montana,6920 Digital Road,El Paso,TX,79936,El Paso,31.811927,-106.298118,El Paso,CDF,CDF,Female/Male,,251,1446.1,4130
+ESSEXMA,"Essex County Jail, Middleton",20 Manning Ave,Middleton,MA,01949,Essex,42.597709,-70.986471,Boston,IGSA,IGSA,Female/Male,Over 72,2,0.0,1
+ESSEXNJ,Essex County Jail,354 Doremus Avenue,Newark,NJ,07105,Essex,40.721041,-74.126878,Newark,IGSA,IGSA,Male,Over 72,12,0.0,1
+ETOWAAL,Etowah County Jail (AL),827 Forrest Avenue,Gadsden,AL,35901,Etowah,34.016395,-86.012488,New Orleans,USMS IGA,USMS IGA,Male,Over 72,365,97.6,183
+ETWHOLD,Etowah Enforcement and Removal Operations Hold Room,827 Forrest Avenue,Gadsden,AL,35901,Etowah,34.015497,-86.012290,New Orleans,HOLD,OTHER,Female/Male,Under 72,8,0.1,6
+EUGHOLD,Eugene Hold Room,211 East 7th Avenue Suite 120,Eugene,OR,97401,Lane,44.052674,-123.089370,Seattle,HOLD,OTHER,Female/Male,Under 72,74,0.4,8
+FAYETKY,Fayette County Detention Center,600 Old Frankford Cr,Lexington,KY,40510,Fayette,38.065632,-84.545141,Chicago,USMS IGA,USMS IGA,Female/Male,Under 72,323,2.9,10
+FCLT8CA,Facility 8 Detention Facility,446 Alta Rd. Suite 5300,San Diego,CA,92158,San Diego,32.591958,-116.924102,San Diego,IGSA,IGSA,,,0,0.0,0
+FDLHOLD,Ferndale Hold Room,5200 Industrial Pl,Ferndale,WA,98248,Whatcom,48.829822,-122.555440,Seattle,HOLD,OTHER,Female/Male,,140,0.7,6
+FINNEKS,Finney County Jail,304 N. 9th Street,Garden City,KS,67846,Finney,37.967505,-100.876101,Chicago,IGSA,IGSA,Female/Male,Under 72,280,2.6,18
+FIPCAGA,Folkston ICE Processing Center (Annex),3424 Hwy 252 E,Folkston,GA,31537,Charlton,30.871257,-81.981077,Atlanta,DIGSA,DIGSA,Male,Over 72,365,288.9,365
+FIPCDGA,Folkston D Ray ICE Processing Center,3026 Hwy 252 E,Folkston,GA,31537,Charlton,30.873622,-81.979344,Atlanta,DIGSA,DIGSA,Male,,218,525.9,1473
+FIPCMGA,Folkston ICE Processing Center (Main),3026 Hwy 252 E,Folkston,GA,31537,Charlton,30.872100,-81.982349,Atlanta,DIGSA,DIGSA,Male,Over 72,365,709.1,1013
+FLBAKCI,Baker CI,20706 Fl-10,Sanderson,FL,32087,Baker,30.217640,-82.367174,Miami,UNKNOWN,UNKNOWN,,,190,412.7,1037
+FLDADCI,Dade Correctional Institution,19000 SW 377th St,Homestead,FL,33034,Miami-Dade,25.415627,-80.499912,Miami,UNKNOWN,UNKNOWN,,,16,0.2,11
+FLDSSFS,Florida Soft Sided Facility South,54575 Tamiami Trail E,Ochopee,FL,34141,Collier,25.865458,-80.898708,Miami,,,,,174,640.5,1727
+FLGLRFL,Flagler County Detention Facility,1002 Justice Ln,Bunnell,FL,32110,Flagler,29.452395,-81.256163,Miami,IGSA,IGSA,,,75,7.0,96
+FLO,Florence Service Processing Center,3250 N. Pinal Parkway,Florence,AZ,85132,Pinal,33.064214,-111.382420,Phoenix,SPC,SPC,Female/Male,Over 72,365,396.9,684
+FLOYDGA,Floyd County Jail,2526 New Calhoun Hwy,Rome,GA,30161,Floyd,34.280025,-85.141541,Atlanta,USMS IGA,USMS IGA,Female/Male,Under 72,294,3.5,42
+FMYHOLD,Fort Myers Enforcement and Removal Operations Hold Room,8860 Salrose Lane,Fort Myers,FL,33912,Lee,26.548469,-81.810941,Miami,HOLD,OTHER,Female/Male,Under 72,353,10.4,36
+FNDDUWI,Fond Du Lac County Sheriff/Jail,63 Western Ave,Fond Du Lac,WI,54935,Fond du Lac,43.773599,-88.448611,Chicago,IGSA,IGSA,Female/Male,,10,0.0,1
+FRANKNC,Franklin County Detention Center,285 T Kemp Rd,Louisburg,NC,27549,Franklin,36.094475,-78.319542,Atlanta,IGSA,IGSA,Female/Male,,27,0.2,6
+FRANKPA,Franklin County Jail,1804 Opportunity Avenue,Chambersburg,PA,17201,Franklin,40.001736,-77.644373,Philadelphia,USMS IGA,USMS IGA,,,154,1.1,13
+FREEBMN,Freeborn County Jail Services,411 S. Broadway Avenue,Albert Lea,MN,56007,Freeborn,43.645997,-93.368103,St Paul,IGSA,IGSA,Male,Over 72,365,78.3,105
+FREHOLD,Fresno Hold Room,733 L Street,Fresno,CA,93721,Fresno,36.732820,-119.785575,San Francisco,HOLD,OTHER,Female/Male,Under 72,336,6.8,33
+FRMVLVA,Farmville Detention Center,508 Waterworks Road,Farmville,VA,23901,Prince Edward,37.320580,-78.440928,Washington,DIGSA,DIGSA,Male,Over 72,365,685.3,774
+FSAHOLD,Fort Smith Hold Room,4991 Old Greenwood Road,Fort Smith,AR,72903,Sebastian,35.335868,-94.388514,New Orleans,HOLD,OTHER,Female/Male,Under 72,11,0.1,4
+FSF,Florence Staging Facility,3250 North Pinal Parkway,Florence,AZ,85132,Pinal,33.064112,-111.380512,Phoenix,STAGING,STAGING,Male,Under 72,365,378.1,750
+FULCJIN,Fulton County Jail Indiana,2006 Sweetgum Rd,Rochester,IN,46975,Fulton,41.051924,-86.232012,Chicago,USMS IGA,USMS IGA,Female/Male,,139,3.7,21
+FXADCVA,Fairfax County Adult Detention Center,10520 Judicial Drive,Fairfax,VA,22030,Fairfax,38.843957,-77.311289,Washington,IGSA,IGSA,Female/Male,Under 72,,,
+GALVETX,Galveston County Sheriff,5700 Avenue H,Galveston,TX,77551,Galveston,29.293134,-94.830640,Houston,COUNTY,COUNTY,,,,,
+GARVIOK,Garvin County Jail,201 West Grant Avenue,Pauls Valley,OK,73075,Garvin,34.740638,-97.222160,Dallas,IGSA,IGSA,Female/Male,Under 72,94,1.1,17
+GASTNNC,Gaston County Jail,425 Dr M.l.k. Jr. Way,Gastonia,NC,28052,Gaston,35.267510,-81.183440,Atlanta,IGSA,IGSA,Female/Male,Under 72,75,0.4,6
+GCLECOK,Grady County Law Enforcement Center,215 N 3rd St.,Chickasha,OK,73018,Grady,35.053190,-97.936380,Dallas,USMS IGA,USMS IGA,Female/Male,Over 72,1,0.0,1
+GCPFCKS,Garden City Processing @ Finney County,304 N. 9th St,Garden City,KS,67846,Finney,37.967505,-100.876101,Chicago,OTHER,OTHER,Female/Male,,6,0.0,3
+GEAUGOH,Geauga County Safety Center,12450 Merritt Road,Chardon,OH,44024,Geauga,41.504654,-81.191591,Detroit,USMS IGA,USMS IGA,Female/Male,Over 72,365,27.5,44
+GFCORND,Grand Forks County Correctional Center,1701 N Washington St,Grand Forks,ND,58203,Grand Forks,47.935488,-97.057643,St Paul,USMS IGA,USMS IGA,Female/Male,Over 72,364,17.2,32
+GFJUVND,Grand Forks County Juvenile,1701 N Washington St,Grand Forks,ND,58203,Grand Forks,47.935488,-97.057643,St Paul,JUVENILE,JUVENILE,Female/Male,Under 72,105,0.3,1
+GLADEFL,Glades County Detention Center,1297 East Sr 78,Moore Haven,FL,33471,Glades,26.838751,-81.124787,Miami,IGSA,IGSA,Female/Male,Over 72,344,353.3,489
+GLDSACA,Golden State Annex,611 Frontage Road,Mcfarland,CA,93250,Kern,35.669900,-119.227809,San Francisco,CDF,CDF,Male,Over 72,365,614.1,672
+GLEPDCA,Glendale Police Department,131 North Isabel Street,Glendale,CA,91206,Los Angeles,34.147493,-118.249203,Los Angeles,IGSA,IGSA,Female/Male,Under 72,51,0.7,22
+GRAYSKY,Grayson County Detention Center,320 Shaw Station Road,Leitchfield,KY,42754,Grayson,37.489151,-86.270209,Chicago,USMS IGA,USMS IGA,Female/Male,Under 72,365,134.4,183
+GREENMA,Franklin House of Corrections,160 Elm Street,Greenfield,MA,01301,Franklin,42.596729,-72.613101,Boston,USMS IGA,USMS IGA,Male,Over 72,1,0.0,1
+GREENMO,Greene County Jail,1199 N Haseltine Road,Springfield,MO,65802,Greene,37.224699,-93.386450,Chicago,USMS IGA,USMS IGA,Female/Male,Over 72,365,256.0,341
+GRIHOLD,Grand Island Hold Room,"703 S Webb Rd, Suite D",Grand Island,NE,68803,Hall,40.912070,-98.377259,St Paul,HOLD,OTHER,Female/Male,Under 72,3,0.0,1
+GSCHOLD,Glenwood Springs Hold Room,100 Midland Avenue Suite 210,Glenwood Springs,CO,81601,Garfield,39.558210,-107.358370,Denver,HOLD,OTHER,Female/Male,Under 72,92,0.4,10
+GTMODCU,Naval Station Guantanamo Bay (Jtf Camp Six and Migrant Operations Center Main A),Avenue C Psc 1005 Box 55,Fpo Ae,CU,09593,,19.911438,-75.222660,Miami,MOC,MOC,Male,,202,11.3,51
+GUDOCHG,"Guam Department of Corrections, Hagatna Detention Facility",211 Aspinall Ave,Hagatna,GU,96910,Guam,13.474378,144.750121,San Francisco,USMS IGA,USMS IGA,Male,Over 72,365,14.5,23
+HAILEID,Dale G Haile Detention Center,219 N 12th Ave,Caldwell,ID,83605,Canyon,43.665757,-116.680999,Salt Lake City,IGSA,IGSA,Female/Male,Over 72,12,0.0,2
+HALLJGA,Hall County Jail,1700 Barber Road,Gainesville,GA,30507,Hall,34.238607,-83.812865,Atlanta,USMS IGA,USMS IGA,Female/Male,Under 72,10,0.1,3
+HAMILTN,Hamilton County Jail (Tenn),1600 East 3rd Street,Chattanooga,TN,37404,Hamilton,35.041730,-85.276399,New Orleans,IGSA,IGSA,Female/Male,Over 72,1,0.0,1
+HARDEFL,Hardee County Jail,900 E Summit St,Wauchula,FL,33873,Hardee,27.542922,-81.802243,Miami,IGSA,IGSA,,,13,0.0,1
+HARDJIA,Hardin County Jail,1116 14th Avenue,Eldora,IA,50627,Hardin,42.360078,-93.097531,St Paul,USMS IGA,USMS IGA,Female/Male,Over 72,327,31.0,58
+HARFOCT,Hartford Correctional Center,177 Weston Street,Hartford,CT,06120,Capitol,41.793721,-72.661317,Boston,IGSA,IGSA,Female/Male,Over 72,8,0.0,1
+HARRIMS,Harrison Detention Center,10451 Larkin Smith Dr,Gulfport,MS,39503,Harrison,30.439202,-89.054680,New Orleans,,,,,3,0.0,1
+HASHENE,Hall County Department of Corrections,110 Public Safety Drive,Grand Island,NE,68801,Hall,40.926634,-98.328414,St Paul,USMS IGA,USMS IGA,Female/Male,Over 72,266,8.3,24
+HASKLTX,Rolling Plains Detention Center,118 County Road 206,Haskell,TX,79521,Haskell,33.176769,-99.721800,Dallas,USMS IGA,USMS IGA,Female/Male,Over 72,276,0.8,1
+HCPSCMS,Hancock County Public Safety Complex,8450 Highway 90,Bay Saint Louis,MS,39520,Hancock,30.303124,-89.476517,New Orleans,IGSA,IGSA,Female/Male,Under 72,365,43.0,138
+HELHOLD,Hel District Custody,2800 Skyway Drive,Helena,MT,59602,Lewis and Clark,46.612286,-111.990621,Salt Lake City,HOLD,OTHER,Female/Male,Under 72,31,0.1,4
+HENDENC,Henderson County Detention Facility,375 1st Avenue East,Hendersonville,NC,28792,Henderson,35.315873,-82.455989,Atlanta,IGSA,IGSA,Female/Male,Over 72,10,0.0,2
+HENDENV,Henderson Detention Center,18 E. Basic Road,Henderson,NV,89015,Clark,36.030591,-114.979471,Salt Lake City,USMS IGA,USMS IGA,Female/Male,Over 72,365,86.9,120
+HENDRFL,Hendry County Jail,101 South Bridge Street,Labelle,FL,33935,Hendry,26.760366,-81.436705,Miami,IGSA,IGSA,Female/Male,,7,0.0,2
+HENRIVA,Henrico County Jail,17320 New Kent Hwy,Barhamsville,VA,23011,New Kent,37.495379,-76.861871,Washington,IGSA,IGSA,Female/Male,,3,0.0,1
+HERNAFL,Hernando County Jail,16425 Spring Hill Drive,Brooksville,FL,34604,Hernando,28.483868,-82.451729,Miami,IGSA,IGSA,Female/Male,Over 72,3,0.0,2
+HHWHOLD,Enforcement and Removal Operations Honolulu Sub-Office Hold Room,595 Ala Moana Boulevard,Honolulu,HI,96813,Honolulu,21.299938,-157.863885,San Francisco,HOLD,OTHER,Female/Male,Under 72,12,0.0,2
+HICOJFL,Hillsborough County Jail,1201 North Orient Road,Tampa,FL,33619,Hillsborough,27.959037,-82.371431,Miami,IGSA,IGSA,Female/Male,Under 72,160,3.7,48
+HIDALNM,Hidalgo County Detention Center,83 Old Highway 70,Lordsburg,NM,88045,Hidalgo,32.337842,-108.666187,El Paso,IGSA,IGSA,Female/Male,Over 72,2,0.0,2
+HIDALTX,Hidalgo County Sheriff’s Jail,701 E El Cibolo Rd,Edinburg,TX,78541,Hidalgo,26.416844,-98.127780,Harlingen,IGSA,IGSA,Female/Male,Under 72,1,0.0,1
+HLFRJVA,BRRJ Halifax,1010 Blue Ridge Lane,Halifax,VA,24558,Halifax,36.764917,-78.929959,Washington,,,,,2,0.0,1
+HOUHOLD,Houston Field Office Hold Room,126 Northpoint Drive,Houston,TX,77060,Harris,29.937575,-95.406394,Houston,HOLD,OTHER,Female/Male,Under 72,336,2.8,85
+HOUICDF,Houston Contract Detention Facility,15850 Export Plaza Drive,Houston,TX,77032,Harris,29.950538,-95.312224,Houston,CDF,CDF,Female/Male,Over 72,365,851.5,997
+HPKNSKY,Hopkins County Jail,2250 Laffoon Trl,Madisonville,KY,42431,Hopkins,37.337596,-87.539934,Chicago,USMS IGA,USMS IGA,Female/Male,,355,128.4,202
+HRLGNTX,Harlingen Police Department,1018 Fair Park Boluverd,Harlingen,TX,78550,Cameron,26.200350,-97.705416,Harlingen,IGSA,IGSA,Female/Male,Under 72,1,0.0,1
+HUDSONJ,Hudson County Jail,35 Hackensack Ave.,Kearny,NJ,07032,Hudson,40.728075,-74.108425,Newark,IGSA,IGSA,Female/Male,Over 72,2,0.0,1
+IAHSFTX,George Bush Intercontinental,2800 N. Terminal Road,Houston,TX,77032,Harris,29.987076,-95.350560,Houston,OTHER,OTHER,Female/Male,Under 72,3,0.0,1
+IBPSMIA,Miami Border Patrol,15700 Fl-820,Pembroke Pines,FL,33027,Broward,26.007204,-80.353940,Miami,IGSA,IGSA,,,2,0.0,1
+IMPCOCA,Imperial County Jail,1115 N Imperial Ave,El Centro,CA,92243,Imperial,32.803124,-115.569002,San Diego,IGSA,IGSA,Female/Male,,2,0.0,1
+IMPHOLD,Imperial Sub Office Hold Room,2051 North Waterman Avenue Suite 101,El Centro,CA,92243,Imperial,32.813195,-115.572837,San Diego,HOLD,OTHER,Female/Male,,262,3.9,62
+INDMPIN,Indianapolis Metropolitan PD,50 Alabama St,Indianapolis,IN,46204,Marion,39.767960,-86.152990,Chicago,LOCAL POLICE DEPARTMENT,UNKNOWN,,,1,0.0,1
+INMIAMI,Miami Correctional Facility (McF),3038 West 850s,Bunker Hill,IN,46914,Miami,40.644284,-86.131479,Chicago,IGSA,IGSA,Male,,161,189.0,560
+IRADFCA,Imperial Regional Detention Facility,1572 Gateway Road,Calexico,CA,92231,Imperial,32.690755,-115.397880,San Diego,CDF,CDF,Female/Male,Over 72,365,659.6,757
+IRONCUT,"Iron County, UT State Correctional",2136 N Main,Cedar City,UT,84721,Iron,37.716209,-113.058634,Salt Lake City,COUNTY,COUNTY,,,,,
+IRWINGA,Irwin County Detention Center,132 Cotton Drive,Ocilla,GA,31774,Irwin,31.579929,-83.255333,Atlanta,USMS IGA,USMS IGA,Female/Male,Over 72,150,68.7,304
+IWAHOLD,AZ Removal Operation Coord Center (Arocc),"6335 South Downwind, Suite 104",Mesa,AZ,85212,Maricopa,33.303394,-111.662740,Phoenix,HOLD,OTHER,Female/Male,Under 72,345,101.7,777
+JAXHOLD,Jacksonville Sub-Office,13077 Veveras Drive,Jacksonville,FL,32258,Duval,30.132572,-81.512621,Miami,HOLD,OTHER,Female/Male,Under 72,356,10.5,61
+JCRLYTX,Joe Corley Processing Center,500 Hilbig Road,Conroe,TX,77301,Montgomery,30.335804,-95.448276,Houston,IGSA,IGSA,Male,Over 72,365,928.3,1047
+JEFFEID,Jefferson County Jail,200 Courthouse Way,Rigby,ID,83442,Jefferson,43.673450,-111.911201,Salt Lake City,IGSA,IGSA,Female/Male,Over 72,364,8.4,24
+JENADLA,Central Louisiana ICE Processing Center,830 Pinehill Road,Jena,LA,71342,LaSalle,31.708204,-92.153439,New Orleans,IGSA,IGSA,Male,Over 72,365,1201.0,1422
+JENATLA,Alexandria Staging Facility,96 George Thompson Dr.,Alexandria,LA,71303,Rapides,31.317564,-92.536490,New Orleans,STAGING,STAGING,Male,Under 72,365,527.2,842
+JFKTSNY,JFK International Airport - T7,Terminal 7,Jamaica,NY,11430,Queens,40.649529,-73.782874,New York City,OTHER,OTHER,Female/Male,,206,6.7,23
+JHRWLTX,Jack Harwell Detention Center,3101 Marlin Hwy,Waco,TX,76705,McLennan,31.549184,-97.081319,Houston,USMS IGA,USMS IGA,Female/Male,Under 72,59,0.3,11
+JKPCCLA,Jackson Parish Correctional Center,327 Industrial Drive,Jonesboro,LA,71251,Jackson,32.215246,-92.715862,New Orleans,IGSA,IGSA,Male,Over 72,365,1174.3,1426
+KANDIMN,Kandiyohi County Jail,2201 23rd St. NE,Willmar,MN,56201,Kandiyohi,45.145874,-95.013974,St Paul,IGSA,IGSA,Female/Male,Over 72,365,127.5,165
+KARNETX,Karnes County Correctional Center,810 Commerce Street,Karnes City,TX,78118,Karnes,28.883469,-97.911785,San Antonio,USMS IGA,USMS IGA,Female/Male,Over 72,331,2.1,10
+KCCDCTX,Karnes County Civil Detention Facility,409 Fm 1144,Karnes City,TX,78118,Karnes,28.884745,-97.915191,San Antonio,IGSA,IGSA,Female/Male,Over 72,24,0.2,9
+KCOJFOK,Kay County Detention Center,1101 West Dry Road,Newkirk,OK,74647,Kay,36.867931,-97.069584,Dallas,IGSA,IGSA,Female/Male,Over 72,365,144.8,184
+KENTOKY,Kenton County Detention Center,3000 Decker Crane Lane,Covington,KY,41017,Kenton,39.002475,-84.530509,Chicago,USMS IGA,USMS IGA,Male,Under 72,298,80.1,151
+KERCOCA,Kern County Jail (Lerdo),17645 Industrial Farm Rd,Bakersfield,CA,93308,Kern,35.510710,-119.110400,San Francisco,IGSA,IGSA,Female/Male,Over 72,1,0.0,2
+KERCOTX,Kerr County Jail,400 Clearwater Paseo,Kerrville,TX,78028,Kerr,30.027810,-99.125507,San Antonio,IGSA,IGSA,Female/Male,,,,
+KFMANTX,Kaufman County Detention Center,1900 East Us Highway 175,Kaufman,TX,75142,Kaufman,32.559749,-96.294386,Dallas,COUNTY,,,,15,0.0,2
+KINNETX,Kinney County Jail,109 North Street,Brackettville,TX,78832,Kinney,29.311477,-100.417853,San Antonio,IGSA,IGSA,Female/Male,Over 72,18,0.1,2
+KNXDFTN,Knox County Detention Facility,5001 Maloneyville Rd,Knoxville,TN,37918,Knox,36.085025,-83.841143,New Orleans,USMS IGA,USMS IGA,Female/Male,Under 72,352,48.6,122
+KNXHOLD,Knoxville Hold Room,324 Prosperity Drive,Knoxville,TN,37923,Knox,35.923200,-84.079390,New Orleans,HOLD,OTHER,Female/Male,Under 72,298,5.3,30
+KODIAAK,Kodiak City Jail,2160 Mill Bay Rd,Kodiak,AK,99615,Kodiak Island,57.804753,-152.372692,Seattle,IGSA,IGSA,Female/Male,Under 72,6,0.0,1
+KRHUBFL,Krome/Miami Hub,"Concourse E Satellite, Miami International",Miami,FL,33299,Miami-Dade,25.795268,-80.283438,Miami,OTHER,OTHER,Female/Male,Under 72,355,6.5,54
+KRNRCTX,Karnes County Immigration Processing Center,409 Fm 1144,Karnes City,TX,78118,Karnes,28.884745,-97.915191,San Antonio,DIGSA,DIGSA,Female/Male,Over 72,365,1082.3,1316
+KRO,Krome North Service Processing Center,18201 SW 12th Street,Miami,FL,33194,Miami-Dade,25.754144,-80.489118,Miami,SPC,SPC,Male,Over 72,365,1010.4,1961
+KROHOLD,Krome Hold Room,18201 SW 12th Street,Miami,FL,33194,Miami-Dade,25.754769,-80.490569,Miami,HOLD,OTHER,Female/Male,Under 72,187,2.8,94
+LACKAPA,"Lackawana Cnty Jail, PA",1371 North Washington Avenue,Scranton,PA,18509,Lackawanna,41.422725,-75.648170,Philadelphia,USMS IGA,USMS IGA,Female/Male,Over 72,5,0.0,2
+LAFAYLA,Lafayette Parish Sheriff’s Office Jail Annex,916 Lafayette Street,Lafayette,LA,70501,Lafayette,30.223520,-92.021411,New Orleans,IGSA,IGSA,Female/Male,,63,1.2,14
+LAKCOFL,Lake County Jail,551 W. Main St.,Tavares,FL,32778,Lake,28.801877,-81.732961,Miami,IGSA,IGSA,Female/Male,,105,0.5,5
+LAPAZAZ,LA Paz County Adult Detention Facility,1109 W Arizona Ave,Parker,AZ,85344,La Paz,34.145900,-114.290100,Phoenix,USMS IGA,USMS IGA,Female/Male,Under 72,245,1.7,10
+LARCOWY,Laramie County Jail,1910 Pioneer Avenue,Cheyenne,WY,82001,Laramie,41.134946,-104.819864,Denver,USMS IGA,USMS IGA,Female/Male,Under 72,177,2.8,17
+LARELKY,Laurel County Corrections,440 Hammock Road,London,KY,40744,Laurel,37.057152,-84.071376,Chicago,USMS IGA,USMS IGA,Female/Male,Under 72,315,3.7,50
+LASALTX,Lasalle County Jail,703 N Main Street,Cotulla,TX,78014,La Salle,28.443837,-99.237052,San Antonio,IGSA,IGSA,Female/Male,Under 72,2,0.0,1
+LASHOLD,Las Cruces Hold Room,1140 Commerce Drive Ste. B,Las Cruces,NM,88011,Doña Ana,32.347403,-106.762748,El Paso,HOLD,OTHER,Female/Male,,73,0.2,7
+LAWINCI,Winn Correctional Center,180 Cca Blvd,Winnfield,LA,71483,Winn,31.850464,-92.781392,New Orleans,DIGSA,DIGSA,Male,Over 72,365,1606.3,1816
+LAWRESD,"Lawrence County Jail, SD",50 Tatanka Dr,Deadwood,SD,57732,Lawrence,44.396827,-103.711920,St Paul,USMS IGA,USMS IGA,Female/Male,Under 72,184,5.2,21
+LBRTYFL,Liberty County Sheriff’s Office,12422 NW Revell Road,Bristol,FL,32321,Liberty,30.433976,-84.968686,Miami,COUNTY,COUNTY,,,3,0.0,1
+LEONCFL,Leon County Jail,535 Appleyard Drive,Tallahassee,FL,32316,Leon,30.436652,-84.335644,Miami,COUNTY,,,,2,0.0,3
+LEVYCFL,Levy County Jail,9150 NE 80th Ave,Bronson,FL,32621,Levy,29.465152,-82.639680,Miami,IGSA,IGSA,Female/Male,,2,0.0,2
+LEXFCKY,Lexington Processing @ Fayette County,600 Old Frankford Cr,Lexington,KY,40510,Fayette,38.065632,-84.545141,Chicago,OTHER,OTHER,Female/Male,,12,0.0,3
+LEXINSC,Lexington County Jail,521 Gibson Road,Lexington,SC,29072,Lexington,33.979261,-81.250446,Atlanta,USMS IGA,USMS IGA,Female/Male,Under 72,365,9.3,22
+LICEPLA,Louisiana ICE Processing Center,17544 Tunica Trace,Angola,LA,70712,West Feliciana,30.940609,-91.568483,New Orleans,IGSA,IGSA,Male,,190,92.2,202
+LIMCJTX,Limestone County Jail,910 Tyus St,Groesbeck,TX,76642,Limestone,31.525841,-96.506574,Houston,COUNTY,COUNTY,Female/Male,,10,0.0,1
+LIMESTX,Limestone County Detention Center,910 North Tyus Street,Groesbeck,TX,76642,Limestone,31.525841,-96.506574,Houston,USMS IGA,USMS IGA,Male,Over 72,365,166.5,309
+LINCONE,Lincoln County Detention Center,302 N Jeffers Street,North Platte,NE,69101,Lincoln,41.135694,-100.763998,St Paul,USMS IGA,USMS IGA,Female/Male,Under 72,361,32.2,76
+LINCOWY,Lincoln County Jail,1040 Justice Center Dr,Kemmerer,WY,83101,Lincoln,41.794000,-110.572600,Denver,IGSA,IGSA,Female/Male,,,,
+LINNJIA,Linn County Jail,53 3rd Avenue Bridge,Cedar Rapids,IA,52401,Linn,41.974650,-91.669211,St Paul,USMS IGA,USMS IGA,Female/Male,Over 72,329,29.1,56
+LIRSFCO,Lirs - Lfsrm Fort Collins Ltfc County,"2032 Lowe Street, Suite 200",Fort Collins,CO,80525,Larimer,40.532531,-105.039779,Denver,JUVENILE,,,,73,0.6,2
+LOGANOK,Logan County Jail,216 S Broad St,Guthrie,OK,73044,Logan,35.876253,-97.422362,Dallas,USMS IGA,USMS IGA,Female/Male,,246,8.1,51
+LONPDAR,Lonoke Police Department Detention Center,203 W. Front Street,Lonoke,AR,72086,Lonoke,34.783610,-91.901520,New Orleans,IGSA,IGSA,Female/Male,Under 72,1,0.0,1
+LOSCJCA,Los Angeles County Jail-Twin Tower,450 Bauchet Street,Los Angeles,CA,90012,Los Angeles,34.058727,-118.230515,Los Angeles,IGSA,IGSA,Female/Male,,3,0.0,1
+LOSHOLD,Los Cust Case,300 N. Los Angeles Street Room B17,Los Angeles,CA,90012,Los Angeles,34.053742,-118.239610,Los Angeles,HOLD,OTHER,Female/Male,Under 72,361,86.9,453
+LOUCOVA,Loudoun County,42035 Loudoun Center Place,Leesburg,VA,20175,Loudoun,39.075011,-77.545345,Washington,USMS IGA,USMS IGA,Female/Male,Under 72,99,0.4,4
+LPAPSAZ,LA Palma Correctional Center APSO,5501 North La Palma Road,Eloy,AZ,85131,Pinal,32.814906,-111.529474,Phoenix,IGSA,IGSA,Male,Over 72,8,0.0,2
+LPD77CA,Los Angeles Police PD 77th Division,7600 S Broadway,Los Angeles,CA,90003,Los Angeles,33.970561,-118.277932,Los Angeles,LOCAL POLICE DEPARTMENT,UNKNOWN,,,1,0.0,1
+LPLCCAZ,LA Palma Correctional Center,5501 North La Palma Road,Eloy,AZ,85131,Pinal,32.814518,-111.528823,Phoenix,IGSA,IGSA,Male,Over 72,2,0.0,1
+LRAHOLD,Little Rock Hold Room,4501 E Roosevelt Road,Little Rock,AR,72206,Pulaski,34.721102,-92.224932,New Orleans,HOLD,OTHER,Female/Male,Under 72,331,5.4,18
+LRDICDF,Corecivic Laredo Processing Center,4702 East Saunders,Laredo,TX,78041,Webb,27.529258,-99.448567,Harlingen,DIGSA,DIGSA,Female/Male,Over 72,365,365.1,441
+LSRDCTX,LA Salle County Regional Detention Center,832 East Texas Hwy 44,Encinal,TX,78019,La Salle,28.045503,-99.336329,San Antonio,USMS IGA,USMS IGA,Male,Over 72,365,213.9,363
+LUBBOTX,Lubbock County Jail,3502 N Holly Ave,Lubbock,TX,79403,Lubbock,33.632575,-101.795586,Dallas,USMS IGA,USMS IGA,Female/Male,Under 72,335,4.8,35
+LYNNCTX,Lynn County Sheriff,810 Lockwood Street,Tahoka,TX,79373,Lynn,33.167040,-101.784500,Dallas,COUNTY,COUNTY,,,,,
+LYNRJVA,BRRJ Lynchburg,510 9th St,Lynchburg,VA,24504,Lynchburg,37.412836,-79.145063,Washington,,,,,60,0.2,6
+MACONTN,Macon County Sheriff,902 State Highway 52 Bypass East,Lafayette,TN,37083,Macon,36.501540,-86.002760,New Orleans,COUNTY,COUNTY,,,,,
+MADISMS,"Madison County Jail, MS",2935 Highway 51,Canton,MS,39046,Madison,32.593242,-90.039772,New Orleans,USMS IGA,USMS IGA,Female/Male,Under 72,360,16.1,70
+MADISNY,Madison County Jail,138 North Court Street,Wampsville,NY,13163,Madison,43.079788,-75.706509,Buffalo,USMS IGA,USMS IGA,Female/Male,Over 72,2,0.0,1
+MAHONOH,Mahoning County Justice Center,110 Fifth Avenue,Youngstown,OH,44503,Mahoning,41.104266,-80.655059,Detroit,USMS IGA,USMS IGA,Female/Male,Over 72,340,89.9,132
+MANATFL,Manatee County Detention-Annex,14470 Harlee Road,Palmetto,FL,34221,Manatee,27.636681,-82.539963,Miami,IGSA,IGSA,Female/Male,Over 72,136,0.8,7
+MARICOR,Marion County Jail,4000 Aumsville Highway SE,Salem,OR,97301,Marion,44.896562,-122.960517,Seattle,IGSA,IGSA,Female/Male,Under 72,1,0.0,2
+MARIOFL,Marion County Jail,3290 NW 10th St,Ocala,FL,34475,Marion,29.195036,-82.174774,Miami,COUNTY,COUNTY,,,145,0.8,9
+MARIOIN,Marion County Jail,675 Justice Way,Indianapolis,IN,46203,Marion,39.755757,-86.110954,Chicago,USMS IGA,USMS IGA,Female/Male,Under 72,336,70.2,126
+MARTIFL,Martin County Jail,800 Southeast Monterey Road,Stuart,FL,34994,Martin,27.172393,-80.241919,Miami,USMS IGA,USMS IGA,Female/Male,Under 72,228,4.8,24
+MAVERTX,Maverick County Jail,1051 Balboa Jones Boulevard,Eagle Pass,TX,78852,Maverick,28.719412,-100.459941,San Antonio,IGSA,IGSA,Female/Male,Under 72,31,0.1,3
+MCAHOLD,McAllen Hold Room,2202 Cornerstone Blvd,Edinburg,TX,78539,Hidalgo,26.263947,-98.198189,Harlingen,HOLD,OTHER,Female/Male,,365,9.1,62
+MCCLETX,McLennan County Jail,3201 E State Hwy 6,Waco,TX,76705,McLennan,31.549869,-97.080350,Houston,USMS IGA,USMS IGA,Female/Male,Under 72,101,0.6,8
+MCJJVFL,Martin County Jail - Juvenile,800 SE Monterey Road,Stuart,FL,34994,Martin,27.172393,-80.241919,Miami,JUVENILE,,,,,,
+MEDHOLD,Medford Sub-Office,3715 International Way,Medford,OR,97504,Jackson,42.373166,-122.866618,Seattle,HOLD,OTHER,Female/Male,Under 72,22,0.1,14
+MEMHOLD,Memphis Hold Room,2833 Business Park Drive Building 1,Memphis,TN,38118,Shelby,35.071807,-89.965521,New Orleans,HOLD,OTHER,Female/Male,Under 72,350,9.9,48
+MESJACO,Mesa County Jail,215 Rice Street,Grand Junction,CO,81501,Mesa,39.068680,-108.573579,Denver,USMS IGA,USMS IGA,Female/Male,Under 72,0,0.0,0
+METROFL,Metro Dade Jail,5680 Southwest 87th Avenue,Miami,FL,33173,Miami-Dade,25.715427,-80.335872,Miami,IGSA,IGSA,Female/Male,,13,0.4,25
+MIAHOLD,Miami (Miramar) Hold Room,2805 SW 145th Avenue,Miramar,FL,33027,Broward,25.982767,-80.339408,Miami,HOLD,OTHER,Female/Male,Under 72,344,35.7,108
+MIDLATX,Midland Detention Center,400 S Main Street,Midland,TX,79701,Midland,31.994050,-102.074886,El Paso,USMS IGA,USMS IGA,Female/Male,Under 72,213,1.3,13
+MILHOLD,Milwaukee Hold Room,310 East Knapp Street,Milwaukee,WI,53202,Milwaukee,43.047315,-87.908031,Chicago,HOLD,OTHER,Female/Male,Under 72,241,2.6,27
+MILLRAR,Miller County Jail,2300 East Street,Texarkana,AR,71854,Miller,33.401169,-94.022475,New Orleans,USMS IGA,USMS IGA,Female/Male,Under 72,342,5.8,27
+MINICID,Minicassia Detention Center,1415 Albion Avenue,Burley,ID,83318,Cassia,42.535035,-113.791190,Salt Lake City,USMS IGA,USMS IGA,Female/Male,Over 72,245,2.9,22
+MINNESD,Minnehaha County Jail,305 W 4th St,Sioux Falls,SD,57104,Minnehaha,43.553407,-96.729923,St Paul,USMS IGA,USMS IGA,Female/Male,Under 72,313,5.7,20
+MLJHOLD,Mount Laurel Hold Room,532 Fellowship Road Suite A,Mount Laurel,NJ,08054,Burlington,39.933092,-74.957477,Newark,HOLD,OTHER,Female/Male,,358,7.5,25
+MNROEMI,Monroe County Jail,7000 East Dunbar Road,Monroe,MI,48161,Monroe,41.895571,-83.393282,Detroit,IGSA,IGSA,Female/Male,Under 72,0,0.0,0
+MNTGMAL,Montgomery City Jail,320 North Ripley Street,Montgomery,AL,36104,Montgomery,32.381562,-86.297759,New Orleans,USMS IGA,USMS IGA,Female/Male,Under 72,0,0.0,0
+MONMONJ,Monmouth County Jail,1 Waterworks Road,Freehold,NJ,07728,Monmouth,40.266934,-74.286719,Newark,IGSA,IGSA,Female/Male,Over 72,1,0.0,1
+MONROFL,Monroe County Jail,5501 College Road,Key West,FL,33040,Monroe,24.576572,-81.751367,Miami,IGSA,IGSA,Male,Over 72,103,0.5,11
+MONROMI,Monroe County Detention-Dorm,7000 East Dunbar Road,Monroe,MI,48161,Monroe,41.895571,-83.393282,Detroit,IGSA,IGSA,Male,Over 72,365,129.3,154
+MONTGAL,Montgomery County Mac Sim Butler DF,250 Mcdonough Street,Montgomery,AL,36103,Montgomery,32.374406,-86.305083,New Orleans,USMS IGA,USMS IGA,Female/Male,Under 72,0,0.0,0
+MONTGNY,Montgomery County Jail,200 Clark Drive,Fultonville,NY,12072,Montgomery,42.933662,-74.332587,Buffalo,USMS IGA,USMS IGA,Female/Male,Under 72,325,5.1,19
+MONTGTX,Montgomery County Jail,1 Criminal Justice Dr,Conroe,TX,77301,Montgomery,30.335384,-95.452392,Houston,IGSA,IGSA,Female/Male,Over 72,0,0.0,0
+MPSIPAN,CNMI Department of Corrections,Tekken St,"Susupe, Saipan",MP,96950,Saipan,15.158179,145.707356,San Francisco,USMS IGA,USMS IGA,Female/Male,Over 72,365,16.3,27
+MSF,Miami Staging Facility,33 NE 4th St,Miami,FL,33132,Miami-Dade,25.778461,-80.193132,Miami,STAGING,STAGING,Female/Male,Under 72,312,28.2,221
+MSTHSTX,Methodist Specialty Transplant Hos,8026 Floyd Curl Dr,San Antonio,TX,78229,Bexar,29.513618,-98.576590,San Antonio,OTHER,OTHER,Female/Male,Over 72,14,0.1,1
+MSVPCPA,Moshannon Valley Processing Center,555 Geo Drive,Philipsburg,PA,16866,Clearfield,40.922608,-78.241697,Philadelphia,DIGSA,DIGSA,Female/Male,Over 72,365,1580.5,1773
+MTGHOLD,Montgomery Hold Room,806 Hilbig Road,Conroe,TX,77301,Montgomery,30.337101,-95.442699,Houston,HOLD,OTHER,Female/Male,,365,67.2,221
+MTGPCTX,Montgomery Processing Center,806 Hilbig Road,Conroe,TX,77301,Montgomery,30.337101,-95.442699,Houston,CDF,CDF,Male,Over 72,365,1243.7,1469
+MUSCAIA,Muscatine County Jail,400 Walnut Street,Muscatine,IA,52761,Muscatine,41.424339,-91.044515,St Paul,USMS IGA,USMS IGA,Female/Male,,342,20.1,46
+MVPNHPA,Penn Highlands Clearfield,809 Turnpike Ave,Clearfield,PA,16830,Clearfield,41.033404,-78.449836,Philadelphia,OTHER,OTHER,Female/Male,,23,0.1,1
+NASSAFL,Nassau County Jail,76212 Nicholas Cutinha Rd,Yulee,FL,32097,Nassau,30.622444,-81.635255,Miami,IGSA,IGSA,Female/Male,Under 72,1,0.0,4
+NASSANY,Nassau County Correctional Center,100 Carman Avenue,East Meadow,NY,11554,Nassau,40.735163,-73.552697,New York City,USMS IGA,USMS IGA,Female/Male,Under 72,340,24.7,90
+NASTRNY,Nassau County ICE Intake,100 Carman Avenue,East Meadow,NY,11554,Nassau,40.735163,-73.552697,New York City,UNKNOWN,UNKNOWN,,,208,2.8,30
+NATCHLA,Natchitoches Parish Detention Center,299 Edwina Dr.,Natchitoches,LA,71457,Natchitoches,31.732601,-93.100545,New Orleans,USMS IGA,USMS IGA,Female/Male,,,,
+NATJVWY,Natrona County Juvenile Detention Center,1120 Bruce Lane,Casper,WY,82601,Natrona,42.864047,-106.345235,Denver,JUVENILE,,,,1,0.0,1
+NATROWY,Natrona County Detention Center,1100 Bruce Lane,Casper,WY,82601,Natrona,42.863031,-106.344863,Denver,USMS IGA,USMS IGA,Female/Male,Under 72,329,13.7,51
+NEMCCOI,McCook Detention Center,2309 Us-83 N,Mccook,NE,69001,Red Willow,40.228114,-100.648446,St Paul,DIGSA,DIGSA,,,128,43.0,171
+NIAGANY,Niagara County Jail,5526 Niagara Street Extention,Lockport,NY,14094,Niagara,43.180303,-78.737327,Buffalo,USMS IGA,USMS IGA,Female/Male,Under 72,327,7.6,20
+NLSCOLA,Nelson Coleman Corrections Center,5061 Highway 3127,Killona,LA,70057,St. Charles,29.991934,-90.502611,New Orleans,USMS IGA,USMS IGA,Male,,254,3.7,18
+NOLHOLD,New Orleans Hold Room,181 James Drive W,Saint Rose,LA,70087,St. Charles,29.985670,-90.285315,New Orleans,HOLD,OTHER,Female/Male,Under 72,125,1.1,23
+NORFOVA,Norfolk City Jail,140 East St,Norfolk,VA,23510,Norfolk,36.844625,-76.282447,Washington,USMS IGA,USMS IGA,Female/Male,Under 72,6,0.0,1
+NORHOLD,Norfolk Sub-Office Hold,200 Granby Street Suite 821,Norfolk,VA,23510,Norfolk,36.848503,-76.290861,Washington,HOLD,OTHER,Female/Male,Under 72,322,3.4,16
+NRJDCVA,NW Regional Juvenile Detention Center,145 Ft Collier Rd,Winchester,VA,22603,Frederick,39.199612,-78.145133,Washington,JUVENILE,JUVENILE,Female/Male,Over 72,365,3.7,7
+NRLKCMI,North Lake Processing Center,1805 W 32nd Street,Baldwin,MI,49304,Lake,43.928627,-85.838791,Detroit,CDF,CDF,Female/Male,,268,776.0,1567
+NSVHOLD,Nashville Hold Room,501 Brick Church Park Drive,Nashville,TN,37207,Davidson,36.225123,-86.786586,New Orleans,HOLD,OTHER,Female/Male,Under 72,252,5.3,75
+NVSDCNV,Nevada Southern Detention Center,2190 E Mesquite Avenue,Pahrump,NV,89060,Nye,36.252458,-115.977029,Salt Lake City,USMS CDF,USMS CDF,Male,Over 72,365,447.6,540
+NWHNVNC,New Hanover County Detention Center,3950 Juvenile Center Rd,Castle Hayne,NC,28429,New Hanover,34.327034,-77.895659,Atlanta,USMS IGA,USMS IGA,Female/Male,Under 72,341,4.4,16
+NWRCCMN,Northwest Regional Corrections Center (Nwrcc),"816 Marin Ave., Suite 110",Crookston,MN,56716,Polk,47.768853,-96.628509,St Paul,USMS IGA,USMS IGA,Female/Male,Under 72,317,10.7,24
+NWREGVA,Northwest Regional Adult Detention,141 Fort Collier Road,Winchester,VA,22603,Frederick,39.198464,-78.144441,Washington,IGSA,IGSA,Female/Male,Over 72,87,0.3,6
+NYCHOLD,NYC Hold Room,"26 Federal Plaza 9th Floor, Suite 9-110",New York,NY,10278,New York,40.715717,-74.004382,New York City,HOLD,OTHER,Female/Male,Under 72,365,52.8,228
+NYGREAC,Great Meadow CF,11739 Ny-22,Comstock,NY,12821,Washington,43.457310,-73.432668,Buffalo,IGSA,IGSA,Female/Male,,1,0.0,1
+NYLIVIC,Livingston Correctional,7005 Sonyea Rd,Sonyea,NY,14556,Livingston,42.689610,-77.823962,Buffalo,IGSA,IGSA,Female/Male,,1,0.0,2
+NYWASHC,Washington Correctional,72 Lock 11 Rd,Comstock,NY,12821,Washington,43.465214,-73.432267,Buffalo,,,,,1,0.0,1
+OAK,Oakdale Federal Detention Center,2105 E. Whatley Rd.,Oakdale,LA,71463,Allen,30.820820,-92.642909,New Orleans,IGSA,IGSA,Female/Male,,1,0.0,2
+OAKHOLD,Oakdale Holding Room,1010 E Whatley Rd,Oakdale,LA,71463,Allen,30.831290,-92.650369,New Orleans,HOLD,OTHER,Female/Male,Under 72,88,0.8,48
+OCIRCCA,Orange Count Intake Release Facility,550 North Flower Street,Santa Ana,CA,92703,Orange,33.748815,-117.878402,Los Angeles,IGSA,IGSA,Female/Male,Under 72,1,0.0,1
+OGUHOLD,Ogden Hold Room,2487 S. 1620 W Unit E,Ogden,UT,84401,Weber,41.220588,-112.019159,Salt Lake City,HOLD,OTHER,Female/Male,Under 72,209,1.5,13
+OHNORWE,Corrections Center of Northwest Ohio (CCNO),3151 Co Rd 2425,Stryker,OH,43557,Williams,41.458863,-84.357342,Detroit,USMS IGA,USMS IGA,Male,,365,72.8,109
+OKCHOLD,Oklahoma City Hold Room,1220 Sovereign Row,Oklahoma City,OK,73108,Oklahoma,35.453678,-97.598140,Dallas,HOLD,OTHER,Female/Male,Under 72,346,15.1,79
+OKCIMMC,Cimarron Correctional Facility,3200 S. Kings Hwy,Cushing,OK,74023,Payne,35.942711,-96.781722,Dallas,USMS IGA,USMS IGA,Male,,365,422.2,645
+OKDBACK,Diamondback Correctional Facility,1000 Diamondback Road,Watonga,OK,73772,Blaine,35.884356,-98.397426,Dallas,DIGSA,DIGSA,Female/Male,,69,105.8,732
+OKMULOK,Okmulgee County Jail,315 W 8th St,Okmulgee,OK,74447,Okmulgee,35.621722,-95.974439,Dallas,IGSA,IGSA,Male,Over 72,3,0.0,1
+OLACCLA,Lasalle Correctional Center Olla,15976 Us-165,Olla,LA,71465,LaSalle,31.910981,-92.219029,New Orleans,IGSA,IGSA,Female/Male,Over 72,2,0.0,2
+OLDHAKY,Oldham County Detention Center,3405 West Highway 146,La Grange,KY,40031,Oldham,38.389359,-85.423677,Chicago,USMS IGA,USMS IGA,Female/Male,Under 72,365,119.3,156
+OMAHOLD,Omaha Field Office Hold,1717 Ave H,Omaha,NE,68110,Douglas,41.280629,-95.908536,St Paul,HOLD,OTHER,Female/Male,Under 72,196,12.2,72
+ONSLONC,Onslow County Jail,717 Court Street,Jacksonville,NC,28540,Onslow,34.751735,-77.432251,Atlanta,COUNTY,,,,59,0.5,8
+ORANGFL,Orange County Jail,3855 South John Young Parkway,Orlando,FL,32839,Orange,28.503524,-81.416853,Miami,USMS IGA,USMS IGA,Female/Male,Under 72,365,60.2,210
+ORANGNY,Orange County Jail,110 Wells Farm Road,Goshen,NY,10924,Orange,41.404248,-74.360627,New York City,IGSA,IGSA,Male,Over 72,365,156.9,178
+ORLHOLD,Orlando Hold Room,9495 Delegates Drive,Orlando,FL,32837,Orange,28.428189,-81.409713,Miami,HOLD,OTHER,Female/Male,Under 72,364,36.4,126
+OSCEOFL,Osceola County Jail,402 Simpson Rd,Kissimmee,FL,34744,Osceola,28.296262,-81.352449,Miami,COUNTY,UNKNOWN,,,359,4.2,14
+OTEROCO,Otero County Jail,222 East Second Street,La Junta,CO,81050,Otero,37.986650,-103.539600,Denver,USMS IGA,USMS IGA,Female/Male,,,,
+OTROPNM,Otero County Prison Facility,10 Mcgregor Range Road,Chaparral,NM,88081,Otero,32.078549,-106.278177,El Paso,USMS IGA,USMS IGA,Female/Male,Under 72,,,
+OTRPCNM,Otero County Processing Center,26 Mcgregor Range Road,Chaparral,NM,88081,Otero,32.080372,-106.281726,El Paso,DIGSA,DIGSA,Female/Male,Over 72,365,911.5,1053
+OZARKMO,Ozark County Jail,1818 County Road 806,Gainesville,MO,65655,Ozark,36.600098,-92.448936,Chicago,IGSA,IGSA,,,323,15.5,36
+PALMBFL,Palm Beach County Jail,3228 Gun Club Road,West Palm Beach,FL,33406,Palm Beach,26.671766,-80.092483,Miami,IGSA,IGSA,Female/Male,Under 72,58,0.2,9
+PAMREVA,Pamunkey Regional Jail,7240 Courtland Farm Road,Hanover,VA,23069,Hanover,37.760314,-77.353578,Washington,USMS IGA,USMS IGA,Female/Male,Over 72,,,
+PCKNSAL,Pickens County Detention Center,188 Cemetery St,Carrollton,AL,35447,Pickens,33.260398,-88.095948,New Orleans,IGSA,IGSA,Female/Male,Over 72,365,53.2,129
+PENNISD,Pennington County Jail,307 Saint Joseph St,Rapid City,SD,57701,Pennington,44.078764,-103.221489,St Paul,USMS IGA,USMS IGA,Female/Male,Over 72,344,4.5,16
+PHELPMO,Phelps County Jail,500 W. 2nd Street,Rolla,MO,65401,Phelps,37.945737,-91.775155,Chicago,USMS IGA,USMS IGA,Female/Male,,357,30.2,71
+PHELPNE,Phelps County Jail,715 5th Avenue,Holdrege,NE,68949,Phelps,40.439554,-99.370636,St Paul,USMS IGA,USMS IGA,Female/Male,Over 72,365,29.6,44
+PHOHOLD,Phoenix District Office,2035 N. Central Avenue,Phoenix,AZ,85004,Maricopa,33.470840,-112.073136,Phoenix,HOLD,OTHER,Female/Male,Under 72,365,45.3,155
+PIC,Port Isabel Service Processing Center,27991 Buena Vista Blvd.,Los Fresnos,TX,78566,Cameron,26.155056,-97.338313,Harlingen,SPC,SPC,Female/Male,Over 72,365,1292.9,1961
+PIERCND,Pierce County Jail,110 Industrial Rd,Rugby,ND,58368,Pierce,48.373596,-99.977551,St Paul,COUNTY,OTHER,,,7,0.0,1
+PIKCOPA,Pike County Correctional Facility,175 Pike County Blvd,Lords Valley,PA,18428,Pike,41.389076,-75.071226,Philadelphia,IGSA,IGSA,Male,Over 72,365,214.2,249
+PIMAJAZ,Pima County Jail,1270 West Silverlake Road,Tucson,AZ,85713,Pima,32.200421,-110.992003,Phoenix,IGSA,IGSA,Female/Male,,0,0.0,0
+PINALAZ,Pinal County Jail,971 N. Jason Lopez Circle,Florence,AZ,85132,Pinal,33.041470,-111.377858,Phoenix,IGSA,IGSA,Female/Male,Over 72,3,0.0,1
+PINELFL,Pinellas County Jail,14400 49th Street North,Clearwater,FL,33762,Pinellas,27.902560,-82.705875,Miami,USMS IGA,USMS IGA,Female/Male,Under 72,365,41.5,87
+PINEPLA,Pine Prairie ICE Processing Center,1133 Hampton Dupre Road,Pine Prairie,LA,70576,Evangeline,30.789089,-92.422766,New Orleans,DIGSA,DIGSA,Male,Over 72,365,938.9,1201
+PITHOLD,Pittsburgh Hold Room,3000 Sidney Street Suite 100,Pittsburgh,PA,15203,Allegheny,40.424829,-79.960800,Philadelphia,HOLD,OTHER,Female/Male,Under 72,297,4.1,19
+PLATTMO,Platte County Jail,415 Third Street,Platte City,MO,64079,Platte,39.371665,-94.780192,Chicago,IGSA,IGSA,Female/Male,Over 72,0,0.0,0
+PLATTWY,Platte County Jail,850 Maple Street,Wheatland,WY,82201,Platte,42.055428,-104.952064,Denver,USMS IGA,USMS IGA,Female/Male,Under 72,294,3.2,16
+PLYMOMA,Plymouth County Correctional Facility,26 Long Pond Road,Plymouth,MA,02360,Plymouth,41.931309,-70.651334,Boston,IGSA,IGSA,Male,Over 72,365,480.5,547
+POLKCTX,IAH Polk Adult Detention Facility,3400 Fm 350 South,Livingston,TX,77351,Polk,30.697892,-95.005949,Houston,DIGSA,DIGSA,Male,Over 72,365,850.5,922
+POLKJFL,Polk County Jail,2390 Bob Philips Road,Bartow,FL,33830,Polk,27.881398,-81.819274,Miami,IGSA,IGSA,Female/Male,,4,0.1,22
+POLKJIA,Polk County Jail,1985 NE 51st Place,Des Moines,IA,50313,Polk,41.653628,-93.587896,St Paul,USMS IGA,USMS IGA,Female/Male,Over 72,365,52.4,72
+POMHOLD,"Portland, ME Hold Room",40 Manson Libby Road Suite 101,Scarborough,ME,04074,Cumberland,43.578804,-70.360567,Boston,HOLD,OTHER,Female/Male,Under 72,88,0.4,4
+POOHOLD,Portland District Office,4310 S Macadam Avenue Suite 300,Portland,OR,97239,Multnomah,45.492804,-122.672617,Seattle,HOLD,OTHER,Female/Male,Under 72,305,5.4,51
+POTTAIA,Pottawattamie County Jail,1400 Big Lake Road,Council Bluffs,IA,51501,Pottawattamie,41.284418,-95.865058,St Paul,USMS IGA,USMS IGA,Female/Male,Over 72,365,34.2,49
+POTTRTX,Potter County Jail,13100 NE 29th Ave,Amarillo,TX,79111,Potter,35.241274,-101.666663,Dallas,COUNTY,UNKNOWN,,,5,0.0,1
+PRLDCTX,Prairieland Detention Facility,1209 Sunflower Lane,Alvarado,TX,76009,Johnson,32.421413,-97.195828,Dallas,DIGSA,DIGSA,Female/Male,Over 72,365,986.0,1194
+PRLHOLD,Prairieland Suboffice Hold Room,1209 Sunflower Ln,Alvarado,TX,76009,Johnson,32.421419,-97.195835,Dallas,HOLD,OTHER,Female/Male,Under 72,83,4.1,80
+PROHOLD,Prohold,443 Jefferson Blvd North Suite,Warwick,RI,02886,Kent,41.735716,-71.441139,Boston,HOLD,OTHER,Female/Male,Under 72,318,2.3,12
+PUEBLCO,Pueblo County Jail,909 Court Street,Pueblo,CO,81003,Pueblo,38.275557,-104.610633,Denver,USMS IGA,USMS IGA,Female/Male,Under 72,1,0.0,1
+PUEHOLD,Pueblo Hold Room,935 Highway 67,Florence,CO,81226,Fremont,38.426569,-105.115653,Denver,HOLD,OTHER,Female/Male,Under 72,162,1.0,15
+PUTMAFL,Putnam County Jail,130 Orie Griffin Blvd,Palatka,FL,32177,Putnam,29.668334,-81.661792,Miami,COUNTY,COUNTY,,,1,0.0,3
+PUTNMTN,Putnam County Sheriff,421 E Spring St.,Cookeville,TN,38501,Putnam,36.161537,-85.497961,New Orleans,USMS IGA,USMS IGA,,,324,20.8,67
+PWILLVA,Prince William,9320 Lee Avenue,Manassas,VA,20110,Prince William,38.752072,-77.480009,Washington,USMS IGA,USMS IGA,Female/Male,Under 72,10,0.0,2
+RAADCMN,"Ramsey Adult Detention Center Annex, Spm",425 Grove Street,Saint Paul,MN,55101,Ramsey,44.956289,-93.086110,St Paul,USMS IGA,USMS IGA,Female/Male,Over 72,1,0.0,1
+RADDFGA,Robert A Deyton Detention Facility,11866 Hastings Bridge Rd,Lovejoy,GA,30250,Clayton,33.434180,-84.308355,Atlanta,USMS IGA,USMS IGA,Male,Over 72,309,13.2,76
+RAPPSVA,Rapp Sec Center,1745 Richmond Hwy,Stafford,VA,22554,Stafford,38.406825,-77.422422,Washington,USMS IGA,USMS IGA,Female/Male,Over 72,261,2.1,15
+RCMHOLD,Richmond Sub-Office Hold,9200 Arboretum Parkway Suite 140,North Chesterfield,VA,23236,Chesterfield,37.494242,-77.568607,Washington,HOLD,OTHER,Female/Male,Under 72,340,26.5,277
+RDUHOLD,Raleigh Hold Room,140 Centrewest Court,Cary,NC,27513,Wake,35.819462,-78.805300,Atlanta,HOLD,OTHER,Female/Male,Under 72,342,5.8,21
+REDHOLD,Redding Hold Room,443 Redcliff Drive,Redding,CA,96002,Shasta,40.575007,-122.362611,San Francisco,HOLD,OTHER,Female/Male,,130,0.7,7
+RGRNDTX,Rio Grande Processing Center,1001 San Rio Blvd,Laredo,TX,78046,Webb,27.377719,-99.490080,Harlingen,USMS CDF,USMS CDF,Male,Over 72,365,629.4,680
+RGS,Rio Grande Valley Staging,27991 Buena Vista Blvd,Los Fresnos,TX,78566,Cameron,26.156032,-97.337781,Harlingen,OTHER,OTHER,Female/Male,Under 72,102,1.1,15
+RICHMVA,Richmond City Jail,1701 Fairfield Way,Richmond,VA,23223,Richmond,37.546854,-77.423004,Washington,IGSA,IGSA,Female/Male,,,,
+RICHOLD,Richland Hold Room,825 Jadwin Avenue Room G165,Richland,WA,99352,Benton,46.277541,-119.275982,Seattle,HOLD,HOLD,,,82,0.3,4
+RMKHOLD,Roanoke Sub-Office Hold Room,103 West Main Street,Salem,VA,24153,Salem,37.292515,-80.061180,Washington,HOLD,OTHER,Female/Male,,175,1.0,6
+RNDLLTX,Randall County Jail,9100 South Georgia Street,Amarillo,TX,79118,Randall,35.117637,-101.867063,Dallas,USMS IGA,USMS IGA,Female/Male,Under 72,68,0.7,14
+ROANOVA,Roanoke County Jail,401 East Main Street,Salem,VA,24153,Salem,37.294222,-80.053479,Washington,IGSA,IGSA,Female/Male,,,,
+ROCKIIL,Rock Island County Jail,1317 3rd Avenue,Rock Island,IL,61201,Rock Island,41.509082,-90.580911,Chicago,USMS IGA,USMS IGA,Female/Male,Under 72,1,0.0,1
+ROCKINH,Rockingham County Jail,96 North Road,Brentwood,NH,03833,Rockingham,43.012014,-71.050779,Boston,USMS IGA,USMS IGA,Female/Male,Over 72,,,
+ROCKIVA,Rockingham County Jail,25 South Liberty Street,Harrisonburg,VA,22801,Harrisonburg,38.449300,-78.870779,Washington,USMS IGA,USMS IGA,Female/Male,Under 72,280,2.1,11
+RONKEVA,Roanoke City Jail,324 Campbell Ave SW,Roanoke,VA,24016,Roanoke,37.271144,-79.946627,Washington,USMS IGA,USMS IGA,Female/Male,Under 72,224,1.6,13
+RSREGVA,Riverside Regional Jail,500 Folar Trail,North Prince George,VA,23860,Prince George,37.307101,-77.341009,Washington,USMS IGA,USMS IGA,Female/Male,Under 72,266,61.4,226
+RVRCCLA,River Correctional Center,26362 Highway 15,Ferriday,LA,71334,Concordia,31.597153,-91.558228,New Orleans,DIGSA,DIGSA,Male,Over 72,365,562.6,656
+RWCCMLA,Richwood Correctional Center,180 Pine Bayou Circle,Monroe,LA,71202,Ouachita,32.456630,-92.078819,New Orleans,DIGSA,DIGSA,Female/Male,Over 72,365,1058.2,1176
+SAAHOLD,Santa Ana Detention and Removal Operations Hold Room,34 Civic Center Plaza Room 1027,Santa Ana,CA,92701,Orange,33.748557,-117.875114,Los Angeles,HOLD,OTHER,Female/Male,Under 72,311,16.6,150
+SACHOLD,Sacramento Hold,650 Capitol Mall Room I-120,Sacramento,CA,95814,Sacramento,38.577670,-121.499944,San Francisco,HOLD,OTHER,Female/Male,Under 72,319,3.8,35
+SACITCA,Santa Ana City Jail,62 Civic Center Plaza,Santa Ana,CA,92701,Orange,33.750212,-117.880568,Los Angeles,IGSA,IGSA,Female/Male,Over 72,5,0.0,1
+SAGHOLD,San Angelo Hold Room,4382 N Us Hwy 277,San Angelo,TX,76905,Tom Green,31.497885,-100.366873,Dallas,HOLD,OTHER,Female/Male,Under 72,260,3.7,19
+SAJHOLD,San Juan Sub-Office Hold Room,"800 Juan Ponce De Leon Avenue, 12th Floor",San Juan,PR,00908,San Juan,18.455351,-66.082792,Miami,HOLD,OTHER,Female/Male,Under 72,136,2.6,50
+SALEMNJ,Salem County Correctional Facility,125 Cemetery Road,Woodstown,NJ,08098,Salem,39.630124,-75.356915,Newark,USMS IGA,USMS IGA,Female/Male,Under 72,17,0.0,1
+SALHOLD,Salisbury Hold Room,119 W. Naylor Mill Road Suite 11,Salisbury,MD,21801,Wicomico,38.410881,-75.571549,Baltimore,HOLD,OTHER,Female/Male,,310,3.5,23
+SALINNE,Saline County Jail,911 S Main Street,Wilber,NE,68465,Saline,40.475050,-96.961656,St Paul,USMS IGA,USMS IGA,Female/Male,Under 72,2,0.0,7
+SARASFL,Sarasota County Jail,2020 Main St,Sarasota,FL,34237,Sarasota,27.336063,-82.529494,Miami,IGSA,IGSA,Female/Male,,294,2.2,10
+SARPYNE,Sarpy County Department of Corrections,1206 Golden Gate Drive,Papillion,NE,68046,Sarpy,41.140822,-96.041677,St Paul,USMS IGA,USMS IGA,Female/Male,,310,14.8,30
+SAUKCWI,Sauk County Sheriff,1300 Lange Ct.,Baraboo,WI,53913,Sauk,43.461569,-89.767274,Chicago,USMS IGA,USMS IGA,Female/Male,,291,8.1,22
+SAVHOLD,Savannah Hold Room,1050 Carl Griffin Dr,Savannah,GA,31405,Chatham,32.067063,-81.168543,Atlanta,HOLD,,,,84,1.2,23
+SBDHOLD,San Bernardino Hold Room,655 West Rialto Avenue,San Bernardino,CA,92410,San Bernardino,34.100527,-117.297593,Los Angeles,HOLD,OTHER,Female/Male,Under 72,328,7.8,50
+SBERNCA,San Bernardino County Jail,630 East Rialto Avenue,San Bernardino,CA,92408,San Bernardino,34.102312,-117.273646,Los Angeles,USMS IGA,USMS IGA,Female/Male,Under 72,1,0.0,1
+SBNTOTX,San Benito Police Department,601 N Oscar Williams Rd,San Benito,TX,78586,Cameron,26.153683,-97.644216,Harlingen,LOCAL POLICE DEPARTMENT,LOCAL POLICE DEPARTMENT,,,,,
+SCNORCA,Santa Clara County Main Jail,885 North San Pedro St,San Jose,CA,95110,Santa Clara,37.351106,-121.905552,San Francisco,USMS IGA,USMS IGA,Female/Male,Over 72,,,
+SCOTTIA,Scott County Jail,400 W 4th St,Davenport,IA,52801,Scott,41.523866,-90.579240,St Paul,USMS IGA,USMS IGA,Female/Male,Under 72,268,2.1,8
+SCOTTNE,Scotts Bluff County Jail,2522 7th St,Gering,NE,69341,Scotts Bluff,41.836225,-103.654871,St Paul,USMS IGA,USMS IGA,Female/Male,Under 72,28,0.1,2
+SEAHOLD,Seattle Field Office Hold Room,12500 Tukwila International Boulevard 4th Floor,Seattle,WA,98168,King,47.490508,-122.291188,Seattle,HOLD,OTHER,Female/Male,Under 72,334,6.7,59
+SEBASAR,Sebastian County Detention Center,801 South A Street,Fort Smith,AR,72901,Sebastian,35.382509,-94.425050,New Orleans,USMS IGA,USMS IGA,Female/Male,Under 72,317,3.0,15
+SENECOH,Seneca County Jail,3040 South State Route 100,Tiffin,OH,44883,Seneca,41.079355,-83.153659,Detroit,IGSA,IGSA,Female/Male,Over 72,365,58.3,77
+SEVIETN,Sevier County Jail,137 Commerce St,Sevierville,TN,37862,Sevier,35.868624,-83.567112,New Orleans,COUNTY,COUNTY,,,,,
+SFRHOLD,Sfr Hold Room,630 Sansome Street 5th Floor,San Francisco,CA,94111,San Francisco,37.796212,-122.401634,San Francisco,HOLD,OTHER,Female/Male,Under 72,242,6.7,47
+SHERBMN,Sherburne County Jail Services,13880 Business Center Drive NW,Elk River,MN,55330,Sherburne,45.304510,-93.619277,St Paul,USMS IGA,USMS IGA,Male,Over 72,365,96.2,130
+SIOUXIA,Sioux County Jail,4363 Ironwood Avenue,Orange City,IA,51041,Sioux,43.018827,-96.077430,St Paul,USMS IGA,USMS IGA,Female/Male,,184,6.0,22
+SJS,San Juan Staging,"651 Federal Drive, Suite 104",Guaynabo,PR,00965,Guaynabo,18.423547,-66.114562,Miami,STAGING,STAGING,Female/Male,Under 72,365,22.9,75
+SLCHOLD,Salt Lake City Hold Room,2975 Decker Lake Drive Suite 100,West Valley City,UT,84119,Salt Lake,40.706226,-111.946344,Salt Lake City,HOLD,OTHER,Female/Male,Under 72,345,17.6,67
+SLRDCAZ,San Luis Regional Detention Center,406 North Avenue D,San Luis,AZ,85349,Yuma,32.484666,-114.684637,Phoenix,IGSA,IGSA,Female/Male,Over 72,365,348.3,546
+SLSLCUT,Salt Lake County Jail,3415 South 900 West,Salt Lake City,UT,84119,Salt Lake,40.696913,-111.915530,Salt Lake City,USMS IGA,USMS IGA,Female/Male,Under 72,325,6.9,27
+SMAHOLD,Santa Maria Sub Office Enforcement and Removal Operations,740 West Century Street Suite A,Santa Maria,CA,93455,Santa Barbara,34.918110,-120.444760,Los Angeles,HOLD,OTHER,,,295,4.3,34
+SMARYMD,St. Mary’s County Detention Center,41880 Baldridge Street,Leonardtown,MD,20650,St. Mary's,38.302833,-76.628150,Baltimore,IGSA,IGSA,Female/Male,Over 72,2,0.0,1
+SMITHTX,Smith County Jail,206 E Elm Street,Tyler,TX,75702,Smith,32.349839,-95.299211,Dallas,COUNTY,COUNTY,,,,,
+SMNOLFL,Seminole County Jail,211 Eslinger Way,Sanford,FL,32773,Seminole,28.747793,-81.298249,Miami,COUNTY,UNKNOWN,,,341,1.4,6
+SMRVLTX,Somervell County Sheriff’s Department,750 Bo Gibbs Blvd,Glen Rose,TX,76043,Somervell,32.250095,-97.751097,Houston,COUNTY,UNKNOWN,,,2,0.0,1
+SNAHOLD,San Antonio Detention and Removal Operations Hold Room,3523 Crosspoint Drive,San Antonio,TX,78217,Bexar,29.543750,-98.428906,San Antonio,HOLD,OTHER,Female/Male,Under 72,362,36.1,145
+SNDCOCA,San Diego County Jail,1173 Front St,San Diego,CA,92101,San Diego,32.717495,-117.164272,San Diego,IGSA,IGSA,Female/Male,Over 72,101,0.5,1
+SNDHOLD,Snd District Staging,880 Front Street Suite 2242,San Diego,CA,92101,San Diego,32.714607,-117.165296,San Diego,STAGING,STAGING,Female/Male,Under 72,365,24.5,81
+SNJHOLD,Snj Hold Room,603 San Juan Avenue First Floor,Stockton,CA,95203,San Joaquin,37.953757,-121.321120,San Francisco,HOLD,OTHER,Female/Male,Under 72,0,0.0,0
+SOBAYCA,South Bay Detent Facility,500 3rd Avenue,Chula Vista,CA,91910,San Diego,32.633038,-117.077408,San Diego,IGSA,IGSA,Female/Male,,0,0.0,0
+SPMHOLD,Bishop Henry Whipple Federal Building,"1 Federal Drive, Suite 1640",Fort Snelling,MN,55111,Hennepin,44.894105,-93.194910,St Paul,HOLD,OTHER,Female/Male,Under 72,339,35.4,362
+SPOHOLD,Spokane Hold Room,411 W Cataldo Avenue,Spokane,WA,99201,Spokane,47.665763,-117.417969,Seattle,HOLD,OTHER,Female/Male,,168,2.1,26
+SROSAFL,Santa Rosa County Jail,5755 East Milton Road,Milton,FL,32583,Santa Rosa,30.643492,-86.974312,Miami,COUNTY,COUNTY,,,0,0.0,0
+STAHOLD,Saint Albans Hold Room,64 Gricebrook Road,Saint. Albans,VT,05478,Franklin,44.801495,-73.073394,Boston,HOLD,OTHER,Female/Male,Under 72,52,0.2,3
+STCDFTX,South Texas ICE Processing Center,566 Veterans Drive,Pearsall,TX,78061,Frio,28.894862,-99.121267,San Antonio,CDF,CDF,Female/Male,Over 72,365,1733.0,1899
+STCHRLA,St. Charles Parish Jail,5061 La Highway 3127,Killona,LA,70057,St. Charles,29.991934,-90.502611,New Orleans,,,,,3,0.0,2
+STCLAMI,St. Clair County Jail,1170 Michigan Road,Port Huron,MI,48060,St. Clair,42.942306,-82.479438,Detroit,IGSA,IGSA,Male,Over 72,365,56.1,78
+STDHOLD,South Texas/Pearsall Hold Room,566 Veterans Dr,Pearsall,TX,78061,Frio,28.894127,-99.121072,San Antonio,HOLD,OTHER,Female/Male,Over 72,282,14.1,54
+STFRCTX,Dilley Immigration Processing Center,300 El Rancho Way,Dilley,TX,78017,Frio,28.657854,-99.200388,San Antonio,FAMILY,FAMILY,Female/Male,Over 72,365,461.7,1081
+STGENMO,Ste. Genevieve County Detention Center,5 Basler Drive,Sainte Genevieve,MO,63670,Ste. Genevieve,37.966054,-90.055593,Chicago,USMS IGA,USMS IGA,Female/Male,,365,100.4,183
+STJONFL,St. John’s County Jail,3955 Lewis Speedway St.,Saint Augustine,FL,32084,St. Johns,29.940300,-81.338802,Miami,IGSA,IGSA,Female/Male,,12,0.2,23
+STK,Stockton Staging Facility,603 San Juan Avenue,Stockton,CA,95203,San Joaquin,37.953757,-121.321120,San Francisco,OTHER,OTHER,Female/Male,Under 72,302,4.1,32
+STLHOLD,St. Louis Hold Room,1222 Spruce Street Room 100,Saint. Louis,MO,63103,St. Louis,38.624197,-90.200489,Chicago,HOLD,OTHER,Female/Male,Under 72,352,5.8,42
+STLUCFL,St. Lucie County Jail,900 N. Rock Rd,Fort Pierce,FL,34945,St. Lucie,27.453465,-80.409441,Miami,COUNTY,COUNTY,,,82,0.5,11
+STRAFNH,Strafford County Corrections,266 County Farm Road,Dover,NH,03820,Strafford,43.217829,-70.940136,Boston,IGSA,IGSA,Female/Male,Over 72,365,134.7,176
+STWRTGA,Stewart Detention Center,146 Cca Road,Lumpkin,GA,31815,Stewart,32.035608,-84.771502,Atlanta,DIGSA,DIGSA,Female/Male,Over 72,365,2073.6,2329
+SUFFONY,Suffolk County Correctional Facility,100 Center Drive,Riverhead,NY,11901,Suffolk,40.914452,-72.672510,New York City,USMS IGA,USMS IGA,Female/Male,Under 72,32,0.1,1
+SUMMIUT,Summit County Jail,6300 Justice Center Rd,Park City,UT,84098,Summit,40.720885,-111.479076,Salt Lake City,IGSA,IGSA,Female/Male,Over 72,6,0.0,1
+SUMTEFL,Sumter County Jail,219 East Anderson Ave,Bushnell,FL,33513,Sumter,28.662703,-82.109763,Miami,IGSA,IGSA,,,110,0.6,10
+SUWANFL,Suwannee County Jail,200 Ohio Ave S,Live Oak,FL,32064,Suwannee,30.295641,-82.985069,Miami,IGSA,IGSA,Female/Male,,1,0.0,1
+SWEETWY,Sweetwater County Detention Center,50140 Us Highway 191 South,Rock Springs,WY,82901,Sweetwater,41.537036,-109.300265,Denver,USMS IGA,USMS IGA,Female/Male,Over 72,330,8.9,29
+TALLAMS,Tallahatchie County Correctional Facility,19351 Us 49,Tutwiler,MS,38963,Tallahatchie,34.027012,-90.446252,New Orleans,USMS IGA,USMS IGA,Male,Over 72,19,0.1,1
+TAMHOLD,Tampa Hold Room,5524 West Cypress Street,Tampa,FL,33607,Hillsborough,27.951672,-82.539823,Miami,HOLD,OTHER,Female/Male,Under 72,365,31.7,87
+TAYLOFL,Taylor County Jail,589 Us Hwy 27 E,Perry,FL,32347,Taylor,30.110400,-83.573400,Miami,COUNTY,COUNTY,,,,,
+TAYLOTX,Taylor County Adult Detention,910 South 27th Street,Abilene,TX,79602,Taylor,32.416938,-99.734608,Dallas,USMS IGA,USMS IGA,Female/Male,Under 72,2,0.0,1
+TAZRJVA,BRRJ Tazewell,115 Court St,Tazewell,VA,24651,Tazewell,37.115259,-81.520837,Washington,COUNTY,COUNTY,,,,,
+TBRJLME,Two Bridges Regional Jail,522 Bath Road,Wiscasset,ME,04578,Lincoln,43.978372,-69.698718,Boston,USMS IGA,USMS IGA,Male,,325,13.4,25
+TELLECO,Teller County Jail,288 Weaverville Road,Divide,CO,80814,Teller,38.943020,-105.151365,Denver,IGSA,IGSA,Female/Male,Over 72,6,0.0,1
+TETONWY,Teton County Detention Center,175 S Willow St,Jackson,WY,83001,Teton,43.477950,-110.759400,Denver,USMS IGA,USMS IGA,Female/Male,Over 72,,,
+TGKJLFL,Turner Guiford Knight (Tgk) Jail,7000 NW 41st St.,Miami,FL,33166,Miami-Dade,25.810298,-80.311420,Miami,IGSA,IGSA,Female/Male,,266,12.0,43
+TGREETX,Tom Green County Jail,4382 N Us Hwy 277,San Angelo,TX,76905,Tom Green,31.497834,-100.366875,Dallas,USMS IGA,USMS IGA,Female/Male,Under 72,302,2.8,15
+THPSCTX,THOP Sierra Campus El Paso,1625 Medical Center Dr,El Paso,TX,79902,El Paso,31.777606,-106.480380,El Paso,OTHER,OTHER,Female/Male,,29,0.1,1
+TITUSTX,Titus County Jail,304 South Van Buren Avenue,Mount Pleasant,TX,75455,Titus,33.154787,-94.970938,Dallas,USMS IGA,USMS IGA,Female/Male,Under 72,131,0.8,6
+TNWESDF,West Tennessee Detention Facility,6299 Finde Naifeh Drive,Mason,TN,38049,Tipton,35.407426,-89.548611,New Orleans,DIGSA,DIGSA,Female/Male,Under 72,181,142.0,479
+TOOELUT,Tooele County Jail,1960 S Main St,Tooele,UT,84074,Tooele,40.493194,-112.332500,Salt Lake City,USMS IGA,USMS IGA,Female/Male,Under 72,303,9.6,25
+TOORANM,Torrance County Detention Facility,209 County Road A049,Estancia,NM,87016,Torrance,34.767680,-106.018446,El Paso,IGSA,IGSA,Male,Over 72,365,443.2,718
+TULCOOK,Tulsa County Jail,300 North Denver Avenue,Tulsa,OK,74103,Tulsa,36.157241,-95.999312,Dallas,IGSA,IGSA,Female/Male,Under 72,365,81.1,203
+TULHOLD,Tulsa Hold Room,300 N Denver St,Tulsa,OK,74103,Tulsa,36.157160,-95.998970,Dallas,HOLD,OTHER,Female/Male,,232,2.4,51
+UINTAWY,Uinta County Detention Center,77 County Road #109,Evanston,WY,82930,Uinta,41.269305,-110.921367,Denver,USMS IGA,USMS IGA,Female/Male,,279,20.5,65
+UNIONSD,Union County Jail,209 E Main St Suite #250,Elk Point,SD,57025,Union,42.685850,-96.682557,St Paul,USMS IGA,USMS IGA,Female/Male,Under 72,24,0.2,9
+URSLATX,Ursula Centralized Processing Center,3700 W Ursula Ave,Mcallen,TX,78503,Hidalgo,26.159058,-98.270204,Harlingen,CBP,CBP,,,90,31.2,463
+UTAHCUT,Utah County Jail,3075 North Main Street,Spanish Fork,UT,84660,Utah,40.149315,-111.659291,Salt Lake City,IGSA,IGSA,Female/Male,Over 72,1,0.0,1
+UVALDTX,Uvalde County Jail,121 E Nopal,Uvalde,TX,78801,Uvalde,29.211301,-99.785646,San Antonio,USMS IGA,USMS IGA,,,15,0.0,2
+VALVETX,Val Verde Detention Center,253 Farm To Market 2523,Del Rio,TX,78840,Val Verde,29.373160,-100.847847,San Antonio,USMS IGA,USMS IGA,Female/Male,Under 72,321,7.2,49
+VENHOLD,Ventura Custody Case,321 Cortez Circle,Camarillo,CA,93012,Ventura,34.214100,-118.994830,Los Angeles,HOLD,OTHER,Female/Male,Under 72,327,7.7,80
+VENTUCA,Ventura County Jail,800 South Victoria Avenue,Ventura,CA,93009,Ventura,34.268487,-119.211405,Los Angeles,USMS IGA,USMS IGA,Female/Male,Under 72,1,0.0,1
+VICTOTX,Victoria County Jail,101 North Glass Street,Victoria,TX,77901,Victoria,28.800267,-97.008327,Houston,USMS IGA,USMS IGA,Female/Male,Under 72,48,0.6,18
+VIRBEVA,Virginia Beach,2501 James Madison Boulevard,Virginia Beach,VA,23456,Virginia Beach,36.753250,-76.061901,Washington,USMS IGA,USMS IGA,Female/Male,Under 72,19,0.1,2
+VPREGVA,Virginia Peninsula Regional Jail,9320 Merrimac Trail,Williamsburg,VA,23185,James City,37.216609,-76.603509,Washington,USMS IGA,USMS IGA,Male,Over 72,1,0.0,1
+VRK,Vrk Prcs,201 Varick Street,New York,NY,10014,New York,40.728073,-74.005596,New York City,OTHER,OTHER,Female/Male,Under 72,103,1.3,17
+VTCHTDN,Chittenden Regional Correctional Facility,7 Farrell Street,South Burlington,VT,05403,Chittenden,44.446398,-73.205380,Boston,USMS IGA,USMS IGA,Female/Male,Under 72,364,6.0,15
+VTDCORR,VT. Department of Corrections,103 South Main Street,Waterbury,VT,05676,Washington,44.333726,-72.752386,Boston,USMS IGA,USMS IGA,Female/Male,Over 72,2,0.0,1
+VTSTALB,Northwest State Correctional Facility,3649 Lower Newton Road,Swanton,VT,05488,Franklin,44.850446,-73.133281,Boston,USMS IGA,USMS IGA,Female/Male,Under 72,365,12.4,26
+WAJAIMN,Washington County Jail,14900 North 62st. Street,Stillwater,MN,55082,Washington,45.038017,-92.802883,St Paul,USMS IGA,USMS IGA,Female/Male,Under 72,0,0.0,0
+WAKULFL,Wakulla County Jail,15 Oak Street,Crawfordville,FL,32327,Wakulla,30.196565,-84.377294,Miami,IGSA,IGSA,Male,Over 72,4,0.0,1
+WALTNFL,Walton County DOC,691 Institution Rd.,Defuniak Springs,FL,32433,Walton,30.778031,-86.103129,Miami,UNKNOWN,UNKNOWN,,,2,0.0,1
+WALWOWI,Walworth County Jail,1770 County Road Nn,Elkhorn,WI,53121,Walworth,42.664130,-88.500020,Chicago,IGSA,IGSA,Female/Male,,,,
+WARDCND,Ward County Detention Center,204 Front St,Minot,ND,58702,Ward,48.233656,-101.287344,St Paul,USMS IGA,USMS IGA,Female/Male,Under 72,281,2.1,8
+WASHCID,Washington County Jail,262 East Court Street,Weiser,ID,83672,Washington,44.247590,-116.965800,Salt Lake City,COUNTY,COUNTY,,,,,
+WASHCUT,Washington County Jail,750 South 5300 West,Hurricane,UT,84737,Washington,37.158386,-113.412221,Salt Lake City,USMS IGA,USMS IGA,Female/Male,Over 72,283,10.2,29
+WASHIAR,Washington County Jail,1155 West Clydesdale Drive,Fayetteville,AR,72701,Washington,36.033536,-94.177470,New Orleans,USMS IGA,USMS IGA,Female/Male,Under 72,362,8.4,31
+WASHIMD,Washington County Detention,500 Western Maryland Parkway,Hagerstown,MD,21740,Washington,39.639503,-77.761899,Baltimore,IGSA,IGSA,Female/Male,,10,0.0,1
+WASHOLD,Washington Field Office,14797 Murdock Street,Chantilly,VA,20151,Fairfax,38.911430,-77.458679,Washington,HOLD,OTHER,Female/Male,Under 72,362,23.9,126
+WASHONV,Washoe County Jail,911 E Parr Blvd,Reno,NV,89512,Washoe,39.573844,-119.811012,Salt Lake City,USMS IGA,USMS IGA,Female/Male,Over 72,365,34.7,64
+WAUKEWI,Waukesha County Jail,515 W Moreland Blvd,Waukesha,WI,53188,Waukesha,43.022236,-88.229651,Chicago,USMS IGA,USMS IGA,Female/Male,Under 72,326,4.5,22
+WCCPBFL,Broward Transitional Center,3900 N. Powerline Road,Pompano Beach,FL,33073,Broward,26.277176,-80.150897,Miami,CDF,CDF,Female/Male,Over 72,365,667.6,772
+WEBCOTX,Webb County Jail,1000 San Agustin Ave,Laredo,TX,78040,Webb,27.507969,-99.505239,Harlingen,IGSA,IGSA,Female/Male,Over 72,1,0.0,1
+WEBDCTX,Corecivic Webb County Detention Center,9998 S. Highway 83,Laredo,TX,78046,Webb,27.369818,-99.490284,Harlingen,DIGSA,DIGSA,Female/Male,Over 72,365,442.7,553
+WEBERUT,Weber County Jail,1400 Depot Dr,Ogden,UT,84404,Weber,41.240363,-111.993513,Salt Lake City,USMS IGA,USMS IGA,Female/Male,Under 72,163,3.9,20
+WICHOLD,Wichita Hold Room,"555 North Woodlawn Street Building 4, Suite 160",Wichita,KS,67208,Sedgwick,37.695809,-97.265044,Chicago,HOLD,OTHER,Female/Male,Under 72,10,0.0,2
+WICHTTX,Wichita County Jail,2815 Central Fwy,Wichita Falls,TX,76302,Wichita,33.884542,-98.440142,Dallas,USMS IGA,USMS IGA,Female/Male,,,,
+WILSOTX,Wilson County Jail,800 10th St Unit 4,Floresville,TX,78114,Wilson,29.148157,-98.157612,San Antonio,IGSA,IGSA,Female/Male,,7,0.1,8
+WLTSOFL,Walton County Jail,40 Sheriff Cir,Defuniak Springs,FL,32433,Walton,30.783460,-86.103994,Miami,USMS IGA,USMS IGA,Female/Male,,355,29.4,77
+WMLNDPA,Westmoreland County Jail,2 North Main Street,Greensburg,PA,15601,Westmoreland,40.302763,-79.544617,Philadelphia,IGSA,IGSA,Female/Male,Under 72,1,0.0,1
+WNBGOWI,Winnebago County Sheriff,4311 Jackson St,Oshkosh,WI,54901,Winnebago,44.079530,-88.545270,Chicago,COUNTY,COUNTY,,,,,
+WNTHOLD,Wenatchee Hold Room,301 Yakima St,Wenatchee,WA,98801,Chelan,47.420582,-120.311980,Seattle,HOLD,OTHER,Female/Male,,49,0.2,5
+WOODBIA,Woodbury County Jail,3701 28th St,Sioux City,IA,51105,Woodbury,42.520616,-96.353584,St Paul,USMS IGA,USMS IGA,Female/Male,Under 72,362,58.9,95
+WOODFKY,Woodford County Sheriff/Jail,204 Beasley Rd,Versailles,KY,40383,Woodford,38.047956,-84.757960,Chicago,COUNTY,,,,27,0.1,4
+WORCEMD,Worcester County Jail,5022 Joyner Road,Snow Hill,MD,21863,Worcester,38.170037,-75.375654,Baltimore,IGSA,IGSA,Female/Male,Over 72,1,0.0,1
+WPOHOLD,Williamsport Hold Room,2851 S Reach Rd,Williamsport,PA,17701,Lycoming,41.223878,-77.070789,Philadelphia,HOLD,OTHER,,,104,0.7,21
+WVEASTR,Eastern Regional Jail,94 Grapevine Rd,Martinsburg,WV,25405,Berkeley,39.435925,-77.956367,Philadelphia,IGSA,IGSA,Female/Male,Under 72,265,7.8,55
+WVIRGVA,Western Virginia Regional Jail,5885 W River Rd,Salem,VA,24153,Roanoke,37.250884,-80.170342,Washington,USMS IGA,USMS IGA,Female/Male,Under 72,310,4.2,57
+WVNCENT,North Central Regional Jail,#1 Lois Lane,Greenwood,WV,26415,Doddridge,39.280782,-80.853624,Philadelphia,IGSA,IGSA,,,44,1.1,31
+WVNORTH,Northern Regional Jail,112 Northern Regional Correctional Dr,Moundsville,WV,26041,Marshall,39.909367,-80.729421,Philadelphia,IGSA,IGSA,Female/Male,Under 72,314,22.6,86
+WVPTMAC,Potomac Highlands Regional Jail,355 Dolan Drive,Augusta,WV,26704,Hampshire,39.302348,-78.646975,Philadelphia,COUNTY,COUNTY,,,17,0.3,19
+WVSCENT,South Central Regional Jail,1001 Centre Way,Charleston,WV,25309,Kanawha,38.310996,-81.710286,Philadelphia,IGSA,IGSA,Male,Over 72,365,28.2,159
+WVSOUTH,Southern Regional Jail,1200 Airport Rd,Beaver,WV,25813,Raleigh,37.771058,-81.116112,Philadelphia,COUNTY,COUNTY,,,28,0.5,26
+WVSWEST,Southwestern Regional Jail,1300 Gaston Caperton Dr,Holden,WV,25625,Logan,37.805225,-82.095719,Philadelphia,IGSA,IGSA,,,38,1.1,23
+WVWESTR,Western Regional Jail,1 O'hanlon Place,Barboursville,WV,25504,Cabell,38.418957,-82.293051,Philadelphia,COUNTY,COUNTY,,,64,6.1,117
+WYATTRI,Wyatt Detention Facility,950 High Street,Central Falls,RI,02863,Providence,41.892336,-71.384013,Boston,USMS IGA,USMS IGA,Female/Male,Over 72,365,111.3,135
+YAKHOLD,Yakima Sub-Office,3701 River Road,Yakima,WA,98902,Yakima,46.618620,-120.558072,Seattle,HOLD,OTHER,Female/Male,Under 72,230,1.7,12
+YELLOMT,Yellowstone County Jail,3165 King Avenue East,Billings,MT,59101,Yellowstone,45.755793,-108.500918,Salt Lake City,USMS IGA,USMS IGA,Female/Male,Under 72,0,0.0,0
+YORCOPA,York County Prison,3401 Concord Road,York,PA,17402,York,39.985740,-76.666097,Philadelphia,IGSA,IGSA,Female/Male,Over 72,214,0.6,1
+YORCOSC,York County Detention Center,1675 York Hwy #3-A,York,SC,29745,York,34.982398,-81.199738,Atlanta,USMS IGA,USMS IGA,Female/Male,Under 72,67,0.4,4
+YRKHOLD,York Hold Room,1605 Clugston Road,York,PA,17404,York,39.984993,-76.757959,Philadelphia,HOLD,OTHER,Female/Male,,351,4.7,16
+YUMHOLD,Yuma Hold Room,3911 S Pico Ave.,Yuma,AZ,85365,Yuma,32.656533,-114.611780,Phoenix,HOLD,OTHER,Female/Male,Under 72,189,1.1,9
