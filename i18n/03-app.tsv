@@ -15,7 +15,7 @@ Signalé par un téléphone fiable aujourd’hui (ses signalements sont souvent 
 {what} à {d} (pas encore confirmé) : zone pas sûre pour l’instant.	{what} {d} away (not yet confirmed): area not safe for now.	{what} a {d} (sin confirmar aún): zona no segura por ahora.	{what} على بعد {d} (غير مؤكَّد بعد): المنطقة غير آمنة حاليًا.
 {what} à {d} : zone pas sûre pour l’instant.	{what} {d} away: area not safe for now.	{what} a {d}: zona no segura por ahora.	{what} على بعد {d}: المنطقة غير آمنة حاليًا.
 C’est calme ici	It’s calm here	Aquí está tranquilo	الوضع هادئ هنا
-Contesté : {n} personne dit que c’est parti. Confirme si c’est toujours là.	Disputed: {n} person says it’s gone. Confirm if it’s still there.	Cuestionado: {n} persona dice que ya no está. Confirma si sigue ahí.	مُتنازَع عليه: شخص واحد يقول إنه زال. أكّد إن كان لا يزال موجودًا.
+Contesté : {n} personne dit que c’est parti. Confirme si c’est toujours là.	Disputed: {n} person says it’s gone. Confirm if it’s still there.	Cuestionado: {n} persona dice que ya no está. Confirma si sigue ahí.	مُتنازَع عليه: {n} شخص يقول إنه زال. أكّد إن كان لا يزال موجودًا.
 Contesté : {n} personnes disent que c’est parti. Confirme si c’est toujours là.	Disputed: {n} people say it’s gone. Confirm if it’s still there.	Cuestionado: {n} personas dicen que ya no está. Confirma si sigue ahí.	مُتنازَع عليه: {n} أشخاص يقولون إنه زال. أكّد إن كان لا يزال موجودًا.
 Précision	Detail	Detalle	تفصيل
 Toujours là	Still there	Sigue ahí	ما زال هنا
@@ -124,7 +124,7 @@ déjà là · {ago} · confirmer	already there · {ago} · confirm	ya está · {
 Tu l’avais déjà signalé : point mis à jour	You had already reported it: point updated	Ya lo habías avisado: punto actualizado	سبق أن أبلغت عنه: تم تحديث النقطة
 Déjà signalé : ta confirmation est ajoutée ({n} personnes)	Already reported: your confirmation was added ({n} people)	Ya avisado: se ha añadido tu confirmación ({n} personas)	مُبلَّغ عنه سابقًا: أُضيف تأكيدك ({n} أشخاص)
 Envoi impossible. Réessaie.	Couldn’t send. Try again.	No se ha podido enviar. Inténtalo de nuevo.	تعذّر الإرسال. أعد المحاولة.
-{n} signalement en attente de réseau	{n} report waiting for signal	{n} aviso esperando cobertura	بلاغ واحد بانتظار الشبكة
+{n} signalement en attente de réseau	{n} report waiting for signal	{n} aviso esperando cobertura	{n} بلاغ بانتظار الشبكة
 {n} signalements en attente de réseau	{n} reports waiting for signal	{n} avisos esperando cobertura	{n} بلاغات بانتظار الشبكة
 Annuler ce signalement	Cancel this report	Cancelar este aviso	إلغاء هذا البلاغ
 Trop ancien, ne sera pas publié	Too old, won’t be published	Demasiado antiguo, no se publicará	قديم جدًا، لن يُنشر
@@ -153,7 +153,7 @@ Ouvre le menu de ton navigateur (<b>⋮</b>) puis <b>Installer l’application</
 Masquer cette annonce	Hide this announcement	Ocultar este anuncio	إخفاء هذا الإعلان
 toute la France	all of France	toda Francia	كل فرنسا
 En savoir plus →	Find out more →	Saber más →	اعرف المزيد ←
-+ {n} autre annonce	+ {n} more announcement	+ {n} anuncio más	+ إعلان آخر
++ {n} autre annonce	+ {n} more announcement	+ {n} anuncio más	+ {n} إعلان آخر
 + {n} autres annonces	+ {n} more announcements	+ {n} anuncios más	+ {n} إعلانات أخرى
 ici	here	aquí	هنا
 à {d} km	{d} km away	a {d} km	على بعد {d} كم
@@ -259,7 +259,7 @@ Indique le début et la fin.	Enter the start and end.	Indica el inicio y el fina
 Merci ! L’arrêté apparaîtra une fois la source vérifiée.	Thanks! The ban will appear once the source is checked.	¡Gracias! El decreto aparecerá cuando se verifique la fuente.	شكرًا! سيظهر القرار بعد التحقق من المصدر.
 Pas de réseau : réessaie plus tard.	No network: try again later.	Sin red: inténtalo más tarde.	لا شبكة: أعد المحاولة لاحقًا.
 Rendez-vous placé	Meeting point placed	Punto de encuentro colocado	تم وضع مكان التجمّع
-Rendez-vous + {n} point de parcours	Meeting point + {n} route point	Punto de encuentro + {n} punto de recorrido	مكان التجمّع + نقطة مسار واحدة
+Rendez-vous + {n} point de parcours	Meeting point + {n} route point	Punto de encuentro + {n} punto de recorrido	مكان التجمّع + {n} نقطة مسار
 Rendez-vous + {n} points de parcours	Meeting point + {n} route points	Punto de encuentro + {n} puntos de recorrido	مكان التجمّع + {n} نقاط مسار
 Rendez-vous placé, sans parcours.	Meeting point placed, no route.	Punto de encuentro colocado, sin recorrido.	تم وضع مكان التجمّع، دون مسار.
 Rendez-vous placé, parcours de {d}.	Meeting point placed, route of {d}.	Punto de encuentro colocado, recorrido de {d}.	تم وضع مكان التجمّع، مسار بطول {d}.
@@ -347,7 +347,7 @@ Ko	KB	KB	ك.ب
 Mo	MB	MB	م.ب
 Prêt : carte de la zone gardée ({size})	Ready: area map saved ({size})	Listo: mapa de la zona guardado ({size})	جاهز: حُفظت خريطة المنطقة ({size})
 Prêt	Ready	Listo	جاهز
-{n} numéro de legal team	{n} legal team number	{n} número de equipo legal	رقم واحد لفريق قانوني
+{n} numéro de legal team	{n} legal team number	{n} número de equipo legal	{n} رقم لفريق قانوني
 {n} numéros de legal team	{n} legal team numbers	{n} números de equipo legal	{n} أرقام لفرق قانونية
 (le plus proche : {phone})	(nearest: {phone})	(el más cercano: {phone})	(الأقرب: {phone})
 annonces et agenda.	announcements and calendar.	anuncios y agenda.	الإعلانات والمواعيد.
