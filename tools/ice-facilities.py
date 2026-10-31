@@ -11,7 +11,7 @@ Needs pyarrow (only here, on the machine that runs this; the server reads the CS
 Output is sorted and number formatting is fixed, so a new version shows as a readable diff. The manifest records the
 source commit, the SHA-256 of every input and of the output, row counts and counts by facility type.
 """
-import csv, datetime, hashlib, io, json, os, subprocess, sys
+import csv, datetime, hashlib, io, json, os, re, subprocess, sys
 
 try:
     import pyarrow as pa
@@ -23,7 +23,7 @@ SOURCE_REPO = 'https://github.com/deportationdata/ice-detention-facilities'
 # Only the columns used are read (a bad value elsewhere in a file can't stop the conversion)
 COLS = {
     'latest': ['detention_facility_code', 'name', 'address', 'city', 'county', 'state', 'zip', 'latitude', 'longitude', 'field_office'],
-    'attributes': ['detention_facility_code', 'type_detailed', 'male_female', 'over_under_72', 'date'],
+    'attributes': ['detention_facility_code', 'type_detailed', 'male_female', 'over_under_72', 'medicare_facility_ID', 'date'],
     'counts': ['detention_facility_code', 'days_with_detentions_daily_last_year', 'average_daily_population_last_year', 'max_daily_population_last_year'],
     'values': ['detention_facility_code', 'variable', 'value', 'date'],
 }
@@ -36,6 +36,9 @@ FILES = {
 }
 # Medical sites (people in custody treated there) are not detention sites: leaving them out avoids a false label
 EXCLUDE_TYPES = {'HOSPITAL', 'MEDICAL'}
+# Hospitals typed OTHER in the dataset: matched to a Medicare facility by the dataset itself, or named as one
+MEDICAL_NAME = re.compile(r'\b(hospital|medical cent(er|re)|health ?care|health system|behavioral health|psychiatric|infirmary)\b', re.I)
+GENERIC = ('', 'OTHER', 'UNKNOWN')
 COLUMNS = ['code', 'name', 'address', 'city', 'state', 'zip', 'county', 'lat', 'lng', 'field_office', 'type', 'type_source',
            'gender', 'over_72', 'days_used', 'avg_daily', 'max_daily']
 
@@ -52,7 +55,8 @@ def read(repo, key):
     with open(path, 'rb') as f:
         if f.read(40).startswith(b'version https://git-lfs'):
             sys.exit(f'{FILES[key]} is a Git LFS pointer, not data: run the git lfs pull command in this script\'s header')
-    t = pq.read_table(path, columns=COLS[key])
+    present = set(pq.read_schema(path).names)
+    t = pq.read_table(path, columns=[c for c in COLS[key] if c in present])
     cols = {}
     for name in t.column_names:
         col = t.column(name)
@@ -100,12 +104,14 @@ def main():
         k = r.get('detention_facility_code')
         if not k: continue
         h = hist.setdefault(k, {})
+        if r.get('medicare_facility_ID'): h['medicare'] = r['medicare_facility_ID']
         for f in ('type_detailed', 'male_female', 'over_under_72'):
             v, d = r.get(f), str(r.get('date') or '')
             if v and (f not in h or d > h[f][1]): h[f] = (v, d)
     cnt = {r['detention_facility_code']: r for r in counts}
 
-    rows, excluded, types, derived = [], {'no coordinates': [], 'medical': []}, {}, {'hold room from code': 0}
+    rows, excluded, types = [], {'no coordinates': [], 'medical (type)': [], 'medical (Medicare ID)': [], 'medical (name)': []}, {}
+    derived = {'hold room from code': 0, 'CBP from code': 0, 'BOP from code': 0, 'county jail from name': 0}
     for r in latest:
         code = clean(r.get('detention_facility_code'))
         lat, lng = r.get('latitude'), r.get('longitude')
@@ -115,10 +121,15 @@ def main():
         src_type = clean((chosen.get(code) or h.get('type_detailed') or ('', ''))[0]).upper()
         typ = src_type
         # ICE hold rooms have codes ending in HOLD; when the dataset gives no specific type, that is what they are
-        if code.endswith('HOLD') and typ in ('', 'OTHER', 'UNKNOWN'):
-            typ = 'HOLD'; derived['hold room from code'] += 1
-        if typ in EXCLUDE_TYPES:
-            excluded['medical'].append(code); continue
+        name = clean(r.get('name'))
+        if typ in EXCLUDE_TYPES: excluded['medical (type)'].append(code); continue
+        if typ in GENERIC and h.get('medicare'): excluded['medical (Medicare ID)'].append(code); continue
+        if typ in GENERIC and MEDICAL_NAME.search(name): excluded['medical (name)'].append(code); continue
+        if typ in GENERIC:
+            if code.endswith('HOLD'): typ = 'HOLD'; derived['hold room from code'] += 1
+            elif code.startswith('CBP'): typ = 'CBP'; derived['CBP from code'] += 1
+            elif code.startswith('BOP'): typ = 'BOP'; derived['BOP from code'] += 1
+            elif re.search(r'\bcounty (jail|detention|correctional)', name, re.I): typ = 'COUNTY'; derived['county jail from name'] += 1
         types[typ or '(unknown)'] = types.get(typ or '(unknown)', 0) + 1
         c = cnt.get(code, {})
         num = lambda v, nd: '' if v is None else (f'{float(v):.{nd}f}' if nd else str(int(v)))
