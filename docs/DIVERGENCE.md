@@ -2,7 +2,7 @@
 
 Community Defense Map is a separate project built on the code of [Cortège](https://github.com/n-e-r-u/cortege) at upstream commit `e87a4f8` (Cortège 2.8.1, 2026-10-29). This file records what differs, what is still inherited and French-specific, and what an operator has to do when upgrading an existing instance.
 
-`CHANGELOG.md` is upstream's history up to 2.8.1 and is kept as-is. The `version` in `package.json` is still upstream's.
+`CHANGELOG.md` is upstream's history up to 2.8.1 and is kept as-is. This project versions itself from `1.0.0-beta.1` (`package.json`, shown in the menu and the "What's new" sheet, `public/nouveautes.json`); bump both together.
 
 ## Identity
 

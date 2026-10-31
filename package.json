@@ -1,6 +1,6 @@
 {
   "name": "community-defense-map",
-  "version": "2.8.1",
+  "version": "1.0.0-beta.1",
   "description": "Crowd-sourced, real-time map of police activity and surveillance infrastructure. No account, no logs. Based on Cortège (AGPL-3.0).",
   "main": "server.js",
   "scripts": {
