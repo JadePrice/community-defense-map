@@ -73,13 +73,6 @@ h2 { font-size: 64px; line-height: 1.05; font-weight: 900; letter-spacing: -.02e
 .stat div + div { font-size: 34px; line-height: 1.3; margin-top: 12px; }
 .link { margin-top: 40px; height: 120px; border: 3px dashed rgba(242,241,244,.35); border-radius: 22px; display: flex; align-items: center; justify-content: center; font-size: 30px; color: #a3a1ad; }`;
 
-  // Projection conique conforme (identique à celle qui a servi à dessiner le fond de carte)
-  function projector(m) {
-    const rad = Math.PI / 180, p0 = 44 * rad, p1 = 49 * rad, tany = y => Math.tan((Math.PI / 2 + y) / 2);
-    const n = Math.log(Math.cos(p0) / Math.cos(p1)) / Math.log(tany(p1) / tany(p0)), f = Math.cos(p0) * Math.pow(tany(p0), n) / n;
-    return (lon, lat) => { const x = (lon - 3) * rad, r = f / Math.pow(tany(lat * rad), n); return [r * Math.sin(n * x) * m.k + m.t[0], m.t[1] - (f - r * Math.cos(n * x)) * m.k]; };
-  }
-
   function stats(d) {
     const cat = Object.fromEntries(d.categories.map(c => [c.id, c]));
     const rows = d.rows.filter(r => cat[r.c]);
@@ -112,7 +105,7 @@ h2 { font-size: 64px; line-height: 1.05; font-weight: 900; letter-spacing: -.02e
 <p class="sub">Plus le cercle est grand, plus il y a de signalements. ${s.city.length} ville${s.city.length > 1 ? 's' : ''} en tout${bm.merged ? ', les communes voisines regroupées' : ''}.</p>
 <svg xmlns="http://www.w3.org/2000/svg" width="${m.w}" height="${m.h}" viewBox="0 0 ${m.w} ${m.h}" style="margin-top:34px">
 <defs><linearGradient id="gr" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7fe0ef"/><stop offset="1" stop-color="#3d8fe0"/></linearGradient><clipPath id="c"><rect width="${m.w}" height="${m.h}"/></clipPath></defs>
-<g clip-path="url(#c)">${m.near.map(p => `<path d="${p}" fill="#1c1c20" stroke="#34343c" stroke-width="1.5"/>`).join('')}<path d="${m.fr}" fill="#26262c" stroke="#5a5866" stroke-width="2"/>${dots}${labels.join('')}</g></svg></div>${foot(2)}`);
+<g clip-path="url(#c)">${m.near.map(p => `<path d="${p}" fill="#1c1c20" stroke="#34343c" stroke-width="1.5"/>`).join('')}<path d="${m.area || m.fr}" fill="#26262c" stroke="#5a5866" stroke-width="2"/>${dots}${labels.join('')}</g></svg></div>${foot(2)}`);
     // 3. Par type
     const maxC = s.cats[0]?.n || 1, rh = s.cats.length > 16 ? 58 : 66;
     out.push(`<div class="page"><div class="kicker">Quoi ?</div><h2>Les ${nf(s.total)} signalements, par type</h2>

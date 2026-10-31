@@ -1,15 +1,18 @@
 'use strict';
-// Carte de France des signalements par ville (bilans publics et stories) : cercles et étiquettes lisibles.
+// Carte des signalements par ville (bilans publics et stories) : cercles et étiquettes lisibles.
 // 1. Les communes très proches (un cercle posé sur un autre) sont regroupées sous le nom de la plus active.
 // 2. Taille des cercles relative à la ville la plus active, plafonnée : un gros cercle ne recouvre plus ses voisines.
 // 3. Étiquettes placées autour de leur cercle (8 positions essayées), sans chevaucher une autre étiquette ni un autre cercle ;
 //    s'il n'y a pas de place, pas d'étiquette (le détail est dans la liste sous la carte).
 // Utilisé par le serveur (require) et par le navigateur de l'admin (window.BubbleMap).
 (function (root) {
+  // Lambert conformal conic; m.lcc = [standard parallel 1, standard parallel 2, central meridian] (tools/build-story-map.js).
+  // Without m.lcc: upstream's map of France (44°, 49°, 3° E).
   function projector(m) {
-    const rad = Math.PI / 180, p0 = 44 * rad, p1 = 49 * rad, tany = y => Math.tan((Math.PI / 2 + y) / 2);
+    const [lat1, lat2, lon0] = m.lcc || [44, 49, 3];
+    const rad = Math.PI / 180, p0 = lat1 * rad, p1 = lat2 * rad, tany = y => Math.tan((Math.PI / 2 + y) / 2);
     const n = Math.log(Math.cos(p0) / Math.cos(p1)) / Math.log(tany(p1) / tany(p0)), f = Math.cos(p0) * Math.pow(tany(p0), n) / n;
-    return (lon, lat) => { const x = (lon - 3) * rad, r = f / Math.pow(tany(lat * rad), n); return [r * Math.sin(n * x) * m.k + m.t[0], m.t[1] - (f - r * Math.cos(n * x)) * m.k]; };
+    return (lon, lat) => { const x = (lon - lon0) * rad, r = f / Math.pow(tany(lat * rad), n); return [r * Math.sin(n * x) * m.k + m.t[0], m.t[1] - (f - r * Math.cos(n * x)) * m.k]; };
   }
   const escD = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 

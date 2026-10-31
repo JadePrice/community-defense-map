@@ -48,6 +48,7 @@ All configuration is through environment variables. The ones that matter for a U
 | `SOURCE_URL` | this repository | Link to the source of the running code (AGPL-3.0 §13). Point it at your fork if you change the code. |
 | `CONTACT_EMAIL`, `HOST_INFO` | empty | Shown on the legal page; `CONTACT_EMAIL` is also the Web Push contact. |
 | `TIMEZONE` | `America/Chicago` | IANA zone for day boundaries, event and order times, archives, and key rotation. |
+| `PAGE_LANG` | `en` | Language of the server-rendered public pages (`/agenda`, `/droits`, `/manif/…`): `en`, `es`, `ar` or `fr`. The app itself follows each visitor's language. |
 | `CENTER`, `ZOOM` | `39.8283,-98.5795`, `4` | Initial map view. |
 | `EVENT_NAME` | `Police & surveillance, live` | Subtitle under the name; a dated admin banner replaces it. |
 | `DISABLED_CATS` | empty | Comma-separated report categories to refuse. See below. |

@@ -54,16 +54,25 @@ Needs a native-speaker review before relying on it:
 - **Arabic**: the new and adapted rows are Modern Standard Arabic written without a native reviewer.
 - **Legal claims carried over from earlier fork commits** and now translated as written: "You have the right to make a local phone call" is not a general constitutional right (it depends on state law), and the NLG number below is unconfirmed.
 
+## Server-rendered public pages
+
+`/agenda`, `/arretes`, `/villes`, `/ville/*`, `/manif/*` (day summaries, city pages, CSV) and `/legal-teams` are rendered in one language per instance (`PAGE_LANG`, default `en`) through the same dictionaries as the app. Their own strings are in `i18n/12-pages.tsv`. Dates use the U.S. locale for English and Spanish.
+
+`/droits` is built from the app's Rights tab and translated block by block. Its extraction looked for the French heading "En cas de", which the fork had changed to English, so the page was serving an empty body. It now matches either heading, and a test checks for the content.
+
+The CSV open data uses fixed English column names (`type;category;group;start;end;latitude;longitude;place;confirmations;verified_by_organizer;outcome`), whatever `PAGE_LANG` is. Category names and outcomes in the rows follow `PAGE_LANG`.
+
+Day summaries and admin stories draw a background map from `public/story-map.json`. Upstream's file was a projected outline of France. It is now built from `geo/states.json` by `tools/build-story-map.js` (contiguous U.S., Lambert conic 33°/45°/96° W; projection parameters stored in the file and read by `public/bubble-map.js`). Alaska, Hawaii and the territories fall outside that frame, so their cities appear in the lists under the map but not on it.
+
 ## Still French or France-specific (not done)
 
 Verified by reading the code:
 
-- **Server-rendered pages** (`/agenda`, `/arretes`, `/villes`, `/ville/*`, `/manif/*`, `/droits`, `/legal-teams`) are in French and say "en France" in titles and descriptions. The server's `tr()` already reads `public/lang/*.json` for push notifications, so these pages can use it with a fixed instance language; that is not done yet.
 - **Report category ids** remain the French ones (`crs`, `bac`, `militaires`, `lbd`…). The labels people see are adapted (above); the ids are internal and stored in reports and archives.
 - **Place classification**: the OSM import looks for French tags (`government=prefecture`, gendarmerie names), so "Government office", "County government office", "Sheriff's office" and "Immigration detention center" are only filled by places an admin adds by hand.
 - **"Arrêtés"** (official orders) keep the French workflow: a state or, with `GEO_API`, a city, plus dates and a source link. Labels are adapted; U.S. orders (curfews, emergency declarations, permit denials) fit the shape but nothing more specific has been done.
 - **The legal page** (`/legal.html`) is French text structured around French publisher obligations, and it doesn't load the translation layer. Only the publisher line has been rewritten. It needs a U.S. privacy policy and terms written for this service, not a translation.
-- **The admin page** and generated images (stories, slot maps, posters) are French-only.
+- **The admin page** and the text of generated images (stories, slot maps, posters) are French-only. The stories' map is the U.S. one.
 - **`docs/INSTALLATION.md` and `docs/FONCTIONNEMENT.md`** are upstream's French docs. Only the PMTiles region path has been updated.
 - **GeoNames attribution** (CC BY 4.0, required for `places.json`) appears in the README but not yet on the legal page.
 

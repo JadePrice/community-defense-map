@@ -1,0 +1,129 @@
+# Pages publiques rendues par le serveur (PAGE_LANG) : /agenda, /arretes, /villes, /ville/*, /manif/*, /droits, /legal-teams
+Carte des signalements par ville	Map of reports by city	Mapa de reportes por ciudad	خريطة البلاغات حسب المدينة
+Sur la carte, les communes très proches sont regroupées sous le nom de la plus active ; le détail est dans la liste.	On the map, places that are very close together are grouped under the name of the most active one; the details are in the list.	En el mapa, los lugares muy cercanos se agrupan con el nombre del más activo; el detalle está en la lista.	على الخريطة، تُجمع الأماكن المتقاربة جدًا تحت اسم الأكثر نشاطًا؛ التفاصيل في القائمة.
+Pages du site	Site pages	Páginas del sitio	صفحات الموقع
+Ouvrir la carte	Open the map	Abrir el mapa	افتح الخريطة
+Suivre le projet	Follow the project	Seguir el proyecto	تابع المشروع
+Signalements anonymes envoyés sur place : ce ne sont pas des faits vérifiés, ils sont confirmés ou contestés par les autres personnes présentes. Positions à une dizaine de mètres près ; rien sur les personnes qui ont signalé.	Anonymous reports sent from the scene: they are not verified facts; other people present confirm or contest them. Positions are accurate to about ten meters; nothing is kept about the people who reported.	Reportes anónimos enviados desde el lugar: no son hechos verificados; otras personas presentes los confirman o los cuestionan. Las posiciones tienen una precisión de unos diez metros; no se guarda nada sobre quienes reportaron.	بلاغات مجهولة الهوية أُرسلت من المكان: ليست وقائع مؤكدة، بل يؤكدها أو يعترض عليها آخرون حاضرون. المواقع دقيقة في حدود عشرة أمتار تقريبًا؛ ولا يُحفظ شيء عن الأشخاص الذين أبلغوا.
+La journée la plus signalée sur {n} bilans publiés	The most reported day of {n} published summaries	El día con más reportes de {n} resúmenes publicados	اليوم الأكثر بلاغات من بين {n} ملخصات منشورة
+Rang {r} sur {n} bilans publiés	Ranked {r} of {n} published summaries	Puesto {r} de {n} resúmenes publicados	المرتبة {r} من بين {n} ملخصات منشورة
+{p} % par rapport au {d}	{p}% compared with {d}	{p} % respecto al {d}	{p}٪ مقارنة بـ {d}
+(tout l’État)	(whole state)	(todo el estado)	(كل الولاية)
+du {a} au {b}	from {a} to {b}	del {a} al {b}	من {a} إلى {b}
+Source	Source	Fuente	المصدر
+lien	link	enlace	رابط
+confirmé {n}×	confirmed {n}×	confirmado {n}×	مؤكد {n}×
+vérifié	verified	verificado	تم التحقق
+confirmés par au moins une autre personne ({n} confirmations)	confirmed by at least one other person ({n} confirmations)	confirmados por al menos otra persona ({n} confirmaciones)	أكّده شخص آخر على الأقل ({n} تأكيدات)
+vérifiés par une orga certifiée	verified by a certified organizer	verificados por un grupo organizador certificado	تحقّقت منها جهة منظِّمة معتمدة
+retirés avant leur expiration (inclus dans les totaux)	removed before they expired (included in the totals)	retirados antes de expirar (incluidos en los totales)	أُزيلت قبل انتهاء صلاحيتها (مشمولة في المجاميع)
+{d} : {n} signalements sur Community Defense Map	{d}: {n} reports on Community Defense Map	{d}: {n} reportes en Community Defense Map	{d}: {n} بلاغًا على Community Defense Map
+{n} signalements dans {c} villes, de {a} à {b}. Carte, moments clés, parcours des cortèges, arrêtés, données ouvertes.	{n} reports in {c} cities, from {a} to {b}. Map, key moments, march routes, orders, open data.	{n} reportes en {c} ciudades, de {a} a {b}. Mapa, momentos clave, recorridos de las marchas, órdenes, datos abiertos.	{n} بلاغًا في {c} مدن، من {a} إلى {b}. خريطة، لحظات رئيسية، مسارات المسيرات، قرارات، بيانات مفتوحة.
+Ce qui a été signalé sur Community Defense Map.	What was reported on Community Defense Map.	Lo que se reportó en Community Defense Map.	ما تم الإبلاغ عنه على Community Defense Map.
+signalements	reports	reportes	بلاغات
+villes	cities	ciudades	مدن
+premier signalement	first report	primer reporte	أول بلاغ
+dernier signalement	last report	último reporte	آخر بلاغ
+Par ville	By city	Por ciudad	حسب المدينة
+Page détaillée pour chaque ville d’au moins {n} signalements : {list}.	Detailed page for each city with at least {n} reports: {list}.	Página detallada para cada ciudad con al menos {n} reportes: {list}.	صفحة مفصّلة لكل مدينة فيها {n} بلاغات على الأقل: {list}.
+Moments clés	Key moments	Momentos clave	لحظات رئيسية
+Le premier signalement de chaque danger, ville par ville.	The first report of each danger, city by city.	El primer reporte de cada peligro, ciudad por ciudad.	أول بلاغ عن كل خطر، مدينة تلو الأخرى.
+Combien de temps	How long	Cuánto tiempo	كم من الوقت
+Durée pendant laquelle chaque danger est resté signalé (les signalements qui se chevauchent ne comptent qu’une fois).	How long each danger stayed reported (overlapping reports count only once).	Tiempo durante el cual cada peligro siguió reportado (los reportes que se superponen cuentan una sola vez).	المدة التي بقي فيها كل خطر مُبلَّغًا عنه (البلاغات المتداخلة تُحسب مرة واحدة).
+Parcours des cortèges	March routes	Recorridos de las marchas	مسارات المسيرات
+D’après le chemin de la tête de cortège, signalée par les manifestant·es ou partagée en direct par le service d’ordre.	Based on the path of the head of the march, reported by protesters or shared live by the march marshals.	Según el camino de la cabeza de la marcha, reportada por manifestantes o compartida en vivo por el equipo de seguridad de la marcha.	بناءً على مسار مقدمة المسيرة، كما أبلغ عنه المحتجون أو شاركه منظمو المسيرة مباشرة.
+{len} de {a} à {b}	{len} from {a} to {b}	{len} de {a} a {b}	{len} من {a} إلى {b}
+environ {v} km/h en moyenne	about {v} km/h on average	unos {v} km/h en promedio	نحو {v} كم/س في المتوسط
+Arrêtés en vigueur ce jour-là	Orders in force that day	Órdenes vigentes ese día	القرارات السارية في ذلك اليوم
+Par type	By type	Por tipo	حسب النوع
+Par heure	By hour	Por hora	حسب الساعة
+Le plus d’envois entre {a} h et {b} h ({n}).	Most reports between {a}:00 and {b}:00 ({n}).	La mayor cantidad de reportes entre las {a}:00 y las {b}:00 ({n}).	أكثر البلاغات بين الساعة {a}:00 و{b}:00 ({n}).
+Signalements par heure	Reports by hour	Reportes por hora	البلاغات حسب الساعة
+Vérification	Verification	Verificación	التحقق
+Carte d’un créneau	Time-slot map	Mapa de una franja horaria	خريطة فترة زمنية
+Choisis un lieu et une plage horaire : une image avec les signalements de ce moment-là, à télécharger ou partager (presse, legal teams, témoignages).	Choose a place and a time range: you get an image of the reports from that moment, to download or share (press, legal teams, testimony).	Elige un lugar y un rango de horas: obtienes una imagen con los reportes de ese momento, para descargar o compartir (prensa, equipos legales, testimonios).	اختر مكانًا ونطاقًا زمنيًا: تحصل على صورة بالبلاغات في تلك اللحظة، للتنزيل أو المشاركة (الصحافة، الفرق القانونية، الشهادات).
+Fabriquer une image d’un créneau	Make a time-slot image	Crear la imagen de una franja horaria	أنشئ صورة لفترة زمنية
+Données ouvertes	Open data	Datos abiertos	بيانات مفتوحة
+Tous les signalements de la journée, un par ligne : type, heures de début et de fin, position (à une dizaine de mètres), lieu, confirmations, vérification, devenir.	All of the day’s reports, one per line: type, start and end times, position (to about ten meters), place, confirmations, verification, outcome.	Todos los reportes del día, uno por línea: tipo, horas de inicio y fin, posición (con unos diez metros de precisión), lugar, confirmaciones, verificación, resultado.	كل بلاغات اليوم، بلاغ في كل سطر: النوع، وقت البداية والنهاية، الموقع (بدقة عشرة أمتار تقريبًا)، المكان، التأكيدات، التحقق، المآل.
+Télécharger les données (CSV)	Download the data (CSV)	Descargar los datos (CSV)	نزّل البيانات (CSV)
+Licence {l} : réutilisation libre en citant « Community Defense Map ». Ce sont des signalements envoyés sur place, confirmés ou contestés par d’autres personnes présentes, pas des faits établis.	License {l}: free reuse with credit to “Community Defense Map”. These are reports sent from the scene, confirmed or contested by other people present, not established facts.	Licencia {l}: reutilización libre citando «Community Defense Map». Son reportes enviados desde el lugar, confirmados o cuestionados por otras personas presentes, no hechos comprobados.	الترخيص {l}: إعادة استخدام حرة مع ذكر «Community Defense Map». هذه بلاغات أُرسلت من المكان، أكّدها أو اعترض عليها آخرون حاضرون، وليست وقائع ثابتة.
+Schéma des signalements à {c}	Diagram of reports in {c}	Esquema de los reportes en {c}	مخطط البلاغات في {c}
+{c}, {d} : {n} signalements sur Community Defense Map	{c}, {d}: {n} reports on Community Defense Map	{c}, {d}: {n} reportes en Community Defense Map	{c}، {d}: {n} بلاغًا على Community Defense Map
+{n} signalements à {c} le {d}, de {a} à {b}. Moments clés, durées, parcours du cortège.	{n} reports in {c} on {d}, from {a} to {b}. Key moments, durations, march route.	{n} reportes en {c} el {d}, de {a} a {b}. Momentos clave, duraciones, recorrido de la marcha.	{n} بلاغًا في {c} يوم {d}، من {a} إلى {b}. لحظات رئيسية، مدد، مسار المسيرة.
+Bilan national du {d}	Nationwide summary for {d}	Resumen nacional del {d}	الملخص الوطني ليوم {d}
+ce qui a été signalé sur Community Defense Map.	what was reported on Community Defense Map.	lo que se reportó en Community Defense Map.	ما تم الإبلاغ عنه على Community Defense Map.
+premier	first	primero	الأول
+dernier	last	último	الأخير
+parcourus par la tête du cortège	covered by the head of the march	recorridos por la cabeza de la marcha	قطعتها مقدمة المسيرة
+Schéma	Diagram	Esquema	مخطط
+En bleu, le chemin de la tête du cortège.	In blue, the path of the head of the march.	En azul, el camino de la cabeza de la marcha.	بالأزرق، مسار مقدمة المسيرة.
+Points : les signalements de la journée à moins de 6 km. Schéma sans fond de carte : pour la vraie carte, fabrique l’image d’un créneau.	Dots: the day’s reports within 6 km. Diagram without a base map: for the real map, make a time-slot image.	Puntos: los reportes del día a menos de 6 km. Esquema sin mapa de fondo: para el mapa real, crea la imagen de una franja horaria.	النقاط: بلاغات اليوم ضمن 6 كم. مخطط بلا خريطة أساس: للخريطة الفعلية أنشئ صورة لفترة زمنية.
+Carte d’un créneau à {c}	Time-slot map for {c}	Mapa de una franja horaria en {c}	خريطة فترة زمنية في {c}
+Parcours du cortège	March route	Recorrido de la marcha	مسار المسيرة
+{a} confirmés par au moins une autre personne, {b} vérifiés par une orga certifiée.	{a} confirmed by at least one other person, {b} verified by a certified organizer.	{a} confirmados por al menos otra persona, {b} verificados por un grupo organizador certificado.	{a} أكّدها شخص آخر على الأقل، و{b} تحقّقت منها جهة منظِّمة معتمدة.
+Mobilisation locale	Local organizers	Organización local	منظمون محليون
+Agenda des manifs	Protest calendar	Calendario de protestas	رزنامة الاحتجاجات
+Les prochaines manifestations, rassemblements, blocus et assemblées annoncés sur Community Defense Map, ville par ville.	Upcoming protests, rallies, blockades and assemblies announced on Community Defense Map, city by city.	Próximas protestas, concentraciones, bloqueos y asambleas anunciadas en Community Defense Map, ciudad por ciudad.	الاحتجاجات والتجمعات والإغلاقات والاجتماعات القادمة المعلنة على Community Defense Map، مدينة تلو الأخرى.
+Rien d’annoncé pour l’instant. Une orga ou un collectif peut annoncer une manif depuis l’appli (onglet Infos).	Nothing announced yet. An organizer or group can announce a protest from the app (Info tab).	Nada anunciado por ahora. Un grupo organizador o colectivo puede anunciar una protesta desde la app (pestaña Info).	لا شيء معلن حتى الآن. يمكن لجهة منظِّمة أو مجموعة الإعلان عن احتجاج من التطبيق (تبويب المعلومات).
+Agenda des manifs · Community Defense Map	Protest calendar · Community Defense Map	Calendario de protestas · Community Defense Map	رزنامة الاحتجاجات · Community Defense Map
+Les prochaines manifs, rassemblements et blocus annoncés, ville par ville, sur Community Defense Map.	Upcoming protests, rallies and blockades announced city by city on Community Defense Map.	Próximas protestas, concentraciones y bloqueos anunciados ciudad por ciudad en Community Defense Map.	الاحتجاجات والتجمعات والإغلاقات القادمة المعلنة مدينة تلو الأخرى على Community Defense Map.
+Arrêtés et interdictions en cours	Current bans and restrictions	Prohibiciones y restricciones vigentes	الحظر والقيود السارية
+Manifestations interdites, périmètres, couvre-feux et fermetures, avec la source officielle de chaque mesure.	Banned protests, no-go areas, curfews and closures, with the official source of each measure.	Protestas prohibidas, zonas restringidas, toques de queda y cierres, con la fuente oficial de cada medida.	احتجاجات محظورة، مناطق ممنوعة، حظر تجول وإغلاقات، مع المصدر الرسمي لكل إجراء.
+Aucun arrêté connu en ce moment.	No known bans right now.	No se conocen prohibiciones por ahora.	لا يُعرف أي حظر حاليًا.
+Une mesure manque ? Propose-la depuis l’appli (onglet Infos, « Tous les arrêtés »), avec le lien de la source : elle est vérifiée avant d’être publiée.	Something missing? Suggest it from the app (Info tab, “All bans and restrictions”) with a link to the source: it is checked before it is published.	¿Falta una medida? Propónla desde la app (pestaña Info, «Todos los decretos y restricciones») con el enlace a la fuente: se verifica antes de publicarse.	هل ينقص إجراء؟ اقترحه من التطبيق (تبويب المعلومات، «كل القرارات والقيود») مع رابط المصدر: تتم مراجعته قبل نشره.
+Arrêtés en cours : interdictions, périmètres, couvre-feux · Community Defense Map	Current bans: protest bans, no-go areas, curfews · Community Defense Map	Prohibiciones vigentes: protestas prohibidas, zonas restringidas, toques de queda · Community Defense Map	الحظر الساري: احتجاجات محظورة، مناطق ممنوعة، حظر تجول · Community Defense Map
+Les mesures en cours contre les manifestations, État par État, avec leurs sources officielles.	Current measures against protests, state by state, with their official sources.	Medidas vigentes contra las protestas, estado por estado, con sus fuentes oficiales.	الإجراءات السارية ضد الاحتجاجات، ولاية تلو الأخرى، مع مصادرها الرسمية.
+Legal teams, ville par ville	Legal teams, city by city	Equipos legales, ciudad por ciudad	الفرق القانونية، مدينة تلو الأخرى
+Les numéros de soutien juridique, ville par ville. Écris le numéro de ta ville au stylo sur ton bras avant de partir : si tu es arrêté·e, ton téléphone peut t’être retiré.	Legal support numbers, city by city. Write your city’s number on your arm in pen before you go: if you’re arrested, your phone may be taken.	Números de apoyo legal, ciudad por ciudad. Escribe con pluma el número de tu ciudad en tu brazo antes de salir: si te arrestan, pueden quitarte el teléfono.	أرقام الدعم القانوني، مدينة تلو الأخرى. اكتب رقم مدينتك بالقلم على ذراعك قبل الخروج: إذا اعتُقلت قد يُؤخذ منك هاتفك.
+Annuaire en cours de constitution.	Directory being compiled.	Directorio en preparación.	الدليل قيد الإعداد.
+Chaque numéro est vérifié auprès de la source publique du collectif. Une erreur, un numéro qui manque ? Écris via la page {link}.	Each number is checked against the group’s public source. A mistake or a missing number? Write via the {link} page.	Cada número se verifica con la fuente pública del colectivo. ¿Un error o un número que falta? Escribe desde la página de {link}.	يُتحقَّق من كل رقم عبر المصدر العام للمجموعة. خطأ أو رقم ناقص؟ اكتب عبر صفحة {link}.
+contact	contact	contacto	التواصل
+Legal teams : les numéros, ville par ville · Community Defense Map	Legal teams: the numbers, city by city · Community Defense Map	Equipos legales: los números, ciudad por ciudad · Community Defense Map	الفرق القانونية: الأرقام مدينة تلو الأخرى · Community Defense Map
+Annuaire des legal teams : le numéro à noter avant une manif, ville par ville.	Directory of legal teams: the number to write down before a protest, city by city.	Directorio de equipos legales: el número que debes anotar antes de una protesta, ciudad por ciudad.	دليل الفرق القانونية: الرقم الذي تدوّنه قبل الاحتجاج، مدينة تلو الأخرى.
+Tes droits en manif	Your rights at a protest	Tus derechos en una protesta	حقوقك في الاحتجاج
+Ordres de dispersion, contrôles de police, arrestation, téléphone, groupes hostiles : l’essentiel à savoir avant de partir. Le même contenu est dans l’appli, onglet Droits, même sans réseau.	Dispersal orders, police stops, arrest, your phone, hostile groups: the essentials before you go. The same content is in the app’s Rights tab, even offline.	Órdenes de dispersión, paradas policiales, arresto, tu teléfono, grupos hostiles: lo esencial antes de salir. El mismo contenido está en la pestaña Derechos de la app, incluso sin conexión.	أوامر التفريق، توقيف الشرطة، الاعتقال، هاتفك، المجموعات المعادية: الأساسيات قبل الخروج. المحتوى نفسه موجود في تبويب الحقوق في التطبيق، حتى دون اتصال.
+Trouve le numéro de la legal team de ta ville dans {link}.	Find your city’s legal team number in {link}.	Encuentra el número del equipo legal de tu ciudad en {link}.	اعثر على رقم الفريق القانوني في مدينتك في {link}.
+l’annuaire	the directory	el directorio	الدليل
+Tes droits en manif : dispersion, contrôles, arrestation · Community Defense Map	Your rights at a protest: dispersal, police stops, arrest · Community Defense Map	Tus derechos en una protesta: dispersión, paradas policiales, arresto · Community Defense Map	حقوقك في الاحتجاج: التفريق، توقيف الشرطة، الاعتقال · Community Defense Map
+Ce qu’il faut savoir avant une manif : ordres de dispersion, contrôles de police, arrestation, téléphone, groupes hostiles.	What to know before a protest: dispersal orders, police stops, arrest, your phone, hostile groups.	Lo que debes saber antes de una protesta: órdenes de dispersión, paradas policiales, arresto, tu teléfono, grupos hostiles.	ما يجب معرفته قبل الاحتجاج: أوامر التفريق، توقيف الشرطة، الاعتقال، هاتفك، المجموعات المعادية.
+Manifs à {c}	Protests in {c}	Protestas en {c}	الاحتجاجات في {c}
+Prochaines manifs, arrêtés en cours, legal team et bilans des dernières mobilisations à {c}.	Upcoming protests, current bans, legal team and summaries of recent mobilizations in {c}.	Próximas protestas, prohibiciones vigentes, equipo legal y resúmenes de las últimas movilizaciones en {c}.	الاحتجاجات القادمة، الحظر الساري، الفريق القانوني وملخصات التحركات الأخيرة في {c}.
+À venir	Coming up	Próximamente	قادمًا
+Rien d’annoncé pour l’instant.	Nothing announced yet.	Nada anunciado por ahora.	لا شيء معلن حتى الآن.
+Arrêtés en cours	Current bans	Prohibiciones vigentes	الحظر الساري
+Note le numéro au stylo sur ton bras avant de partir.	Write the number on your arm in pen before you go.	Escribe el número con pluma en tu brazo antes de salir.	اكتب الرقم بالقلم على ذراعك قبل الخروج.
+Bilans des manifs	Protest summaries	Resúmenes de protestas	ملخصات الاحتجاجات
+{n} signalements	{n} reports	{n} reportes	{n} بلاغًا
+Voir la carte en direct à {c}	See the live map in {c}	Ver el mapa en vivo en {c}	شاهد الخريطة المباشرة في {c}
+Manifs à {c} : agenda, arrêtés, legal team · Community Defense Map	Protests in {c}: calendar, bans, legal team · Community Defense Map	Protestas en {c}: calendario, prohibiciones, equipo legal · Community Defense Map	الاحتجاجات في {c}: الرزنامة، الحظر، الفريق القانوني · Community Defense Map
+Les prochaines manifs à {c}, les arrêtés en cours, le numéro de la legal team et les bilans des dernières mobilisations.	Upcoming protests in {c}, current bans, the legal team number and summaries of recent mobilizations.	Próximas protestas en {c}, prohibiciones vigentes, el número del equipo legal y resúmenes de las últimas movilizaciones.	الاحتجاجات القادمة في {c}، الحظر الساري، رقم الفريق القانوني وملخصات التحركات الأخيرة.
+Les manifs, ville par ville	Protests, city by city	Protestas, ciudad por ciudad	الاحتجاجات، مدينة تلو الأخرى
+Agenda, arrêtés, legal teams et bilans pour chaque ville.	Calendar, bans, legal teams and summaries for each city.	Calendario, prohibiciones, equipos legales y resúmenes de cada ciudad.	الرزنامة والحظر والفرق القانونية والملخصات لكل مدينة.
+Aucune ville pour l’instant.	No cities yet.	Todavía no hay ciudades.	لا مدن حتى الآن.
+Les manifs ville par ville · Community Defense Map	Protests city by city · Community Defense Map	Protestas ciudad por ciudad · Community Defense Map	الاحتجاجات مدينة تلو الأخرى · Community Defense Map
+Agenda des manifs, arrêtés, legal teams et bilans, ville par ville, sur Community Defense Map.	Protest calendar, bans, legal teams and summaries, city by city, on Community Defense Map.	Calendario de protestas, prohibiciones, equipos legales y resúmenes, ciudad por ciudad, en Community Defense Map.	رزنامة الاحتجاجات والحظر والفرق القانونية والملخصات، مدينة تلو الأخرى، على Community Defense Map.
+Ce qui a été signalé sur Community Defense Map, journée par journée.	What was reported on Community Defense Map, day by day.	Lo que se reportó en Community Defense Map, día por día.	ما تم الإبلاغ عنه على Community Defense Map، يومًا بيوم.
+Les prochaines manifs sont dans {link}.	Upcoming protests are in {link}.	Las próximas protestas están en {link}.	الاحتجاجات القادمة موجودة في {link}.
+l’agenda	the calendar	el calendario	الرزنامة
+Bilans	Summaries	Resúmenes	الملخصات
+{n} signalements · {c} villes	{n} reports · {c} cities	{n} reportes · {c} ciudades	{n} بلاغًا · {c} مدن
+Aucun bilan publié pour l’instant.	No summary published yet.	Todavía no se ha publicado ningún resumen.	لم يُنشر أي ملخص بعد.
+Bilans des manifs · Community Defense Map	Protest summaries · Community Defense Map	Resúmenes de protestas · Community Defense Map	ملخصات الاحتجاجات · Community Defense Map
+Les bilans des mobilisations signalées sur Community Defense Map : chiffres, moments clés, parcours, données ouvertes.	Summaries of the mobilizations reported on Community Defense Map: figures, key moments, routes, open data.	Resúmenes de las movilizaciones reportadas en Community Defense Map: cifras, momentos clave, recorridos, datos abiertos.	ملخصات التحركات المُبلَّغ عنها على Community Defense Map: أرقام، لحظات رئيسية، مسارات، بيانات مفتوحة.
++ {n} autres communes.	+ {n} more places.	+ {n} lugares más.	+ {n} أماكن أخرى.
++ {n} autres villes. Chaque ville compte aussi les communes voisines de son agglomération.	+ {n} more cities. Each city also counts the nearby places in its metro area.	+ {n} ciudades más. Cada ciudad incluye también los lugares cercanos de su área metropolitana.	+ {n} مدن أخرى. تشمل كل مدينة أيضًا الأماكن المجاورة في منطقتها الحضرية.
+{n} signalements envoyés hors de la zone desservie, non comptés ici.	{n} reports sent from outside the service area, not counted here.	{n} reportes enviados fuera del área de servicio, no contados aquí.	{n} بلاغًا أُرسلت من خارج منطقة الخدمة، غير محسوبة هنا.
+{n} signalement envoyé hors de la zone desservie, non compté ici.	{n} report sent from outside the service area, not counted here.	{n} reporte enviado fuera del área de servicio, no contado aquí.	{n} بلاغ أُرسل من خارج منطقة الخدمة، غير محسوب هنا.
+Arrêtés	Bans	Prohibiciones	الحظر
+Villes	Cities	Ciudades	المدن
+Tes droits	Your rights	Tus derechos	حقوقك
+Legal teams	Legal teams	Equipos legales	الفرق القانونية
+oui	yes	sí	نعم
+non	no	no	لا
+expiré normalement	expired normally	expiró normalmente	انتهت صلاحيته بشكل طبيعي
+contesté	contested	cuestionado	معترض عليه
+retiré par une orga	removed by an organizer	retirado por un grupo organizador	أزالته جهة منظِّمة
+retiré par l’admin	removed by the admin	retirado por la administración	أزالته الإدارة
+évincé (zone saturée)	dropped (area full)	descartado (zona saturada)	أُسقط (المنطقة ممتلئة)
+effacé (purge)	erased (purge)	borrado (purga)	مُحي (تنظيف)
+retiré	removed	retirado	أُزيل

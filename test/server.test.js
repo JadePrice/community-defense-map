@@ -747,15 +747,15 @@ test('bilans détaillés : moments clés, durées, parcours, page de ville, donn
   const pub = await admin('/api/admin/publish/' + day, {});
   assert.equal(pub.s, 200);
   const html = await fetch(B + '/manif/' + day).then(r => r.text());
-  for (const x of ['Moments clés', 'Combien de temps', 'Parcours des cortèges', 'Données ouvertes', 'CC BY 4.0', '/manif/' + day + '/denver']) assert.ok(html.includes(x), x);
+  for (const x of ['Key moments', 'How long', 'March routes', 'Open data', 'CC BY 4.0', '/manif/' + day + '/denver', 'lang="en"']) assert.ok(html.includes(x), x);
   const city = await fetch(B + '/manif/' + day + '/denver');
   assert.equal(city.status, 200);
   const ch = await city.text();
-  assert.match(ch, /Parcours du cortège/); assert.match(ch, /<svg/); assert.match(ch, /carte\?c=/);
+  assert.match(ch, /March route/); assert.match(ch, /<svg/); assert.match(ch, /carte\?c=/);
   const csv = await fetch(B + '/manif/' + day + '/donnees.csv');
   assert.match(csv.headers.get('content-type'), /text\/csv/);
   const lines = (await csv.text()).trim().split('\n');
-  assert.ok(lines[0].includes('latitude;longitude;commune') && lines.some(l => l.includes('Denver')), 'CSV avec communes');
+  assert.ok(lines[0].includes('latitude;longitude;place') && lines.some(l => l.includes('Denver')), 'CSV avec communes');
   assert.ok(lines.some(l => /;39\.7\d{2,4};/.test(l)), 'positions au dix-millième');
   await fetch(B + '/api/admin/publish/' + day, { method: 'DELETE', headers: { 'x-admin-key': ADMIN, 'content-type': 'application/json' } });
 });
@@ -767,7 +767,8 @@ test('pages de contenu : agenda, arrêtés, villes, droits, legal teams, plan du
   assert.match(ag, /Marche test Denver/); assert.match(ag, /"@type":"Event"/);
   for (const u of ['/arretes', '/legal-teams', '/villes']) assert.equal((await fetch(B + u)).status, 200, u);
   const dr = await fetch(B + '/droits').then(r => r.text());
-  assert.match(dr, /garde à vue|Garde à vue|custody|arrest|detain/i); assert.match(dr, /groupe fasciste|fascist/i); assert.ok(!dr.includes('<button'), 'sans boutons de l’appli');
+  assert.match(dr, /garde à vue|Garde à vue|custody|arrest|detain/i); assert.match(dr, /hostile groups/i);
+  assert.match(dr, /<details>[\s\S]*right to remain silent/, 'Rights content extracted from the app'); assert.ok(!dr.includes('<button'), 'sans boutons de l’appli');
   const v = await fetch(B + '/ville/denver');
   assert.equal(v.status, 200); assert.match(await v.text(), /Marche test Denver/);
   const sm = await fetch(B + '/sitemap.xml').then(r => r.text());

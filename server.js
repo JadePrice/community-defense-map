@@ -1201,38 +1201,47 @@ const routeCache = new Map();
 function mapSvg(cities) {
   try { storyMap ||= JSON.parse(fs.readFileSync(path.join(__dirname, 'public', 'story-map.json'), 'utf8')); } catch { return ''; }
   const m = storyMap, b = BubbleMap.svg(cities, m, { fontSize: 26, labels: 14, esc: htmlEsc });
-  return `<svg viewBox="0 0 ${m.w} ${m.h}" role="img" aria-label="Carte des signalements par ville"><defs><linearGradient id="gr" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ec9fa4"/><stop offset="1" stop-color="#7d86dc"/></linearGradient></defs>`
-    + m.near.map(p => `<path d="${p}" fill="#1c1c20" stroke="#34343c" stroke-width="1.5"/>`).join('') + `<path d="${m.fr}" fill="#26262c" stroke="#5a5866" stroke-width="2"/>${b.dots}${b.labels}</svg>`
-    + (b.merged ? '<p class="fine">Sur la carte, les communes très proches sont regroupées sous le nom de la plus active ; le détail est dans la liste.</p>' : '');
+  return `<svg viewBox="0 0 ${m.w} ${m.h}" role="img" aria-label="${htmlEsc(P('Carte des signalements par ville'))}"><defs><linearGradient id="gr" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7fe0ef"/><stop offset="1" stop-color="#3d8fe0"/></linearGradient></defs>`
+    + m.near.map(p => `<path d="${p}" fill="#1c1c20" stroke="#34343c" stroke-width="1.5"/>`).join('') + `<path d="${m.area || m.fr}" fill="#26262c" stroke="#5a5866" stroke-width="2"/>${b.dots}${b.labels}</svg>`
+    + (b.merged ? `<p class="fine">${P('Sur la carte, les communes très proches sont regroupées sous le nom de la plus active ; le détail est dans la liste.')}</p>` : '');
 }
 const htmlEsc = v => String(v).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const GROUP_COL = { fdo: '#e5484d', danger: '#f5a524', soutien: '#30a46c', info: '#8e8cd8' };
 const GROUP_FR = { fdo: 'Forces de l’ordre', danger: 'Danger', info: 'Info', soutien: 'Soutien' };
-const frDay = d => new Date(d + 'T12:00:00Z').toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
-const frHour = t => new Date(t).toLocaleTimeString('fr-FR', { timeZone: TIMEZONE, hour: '2-digit', minute: '2-digit' }).replace(':', ' h ');
+// Public pages (/agenda, /arretes, /villes, /ville/*, /manif/*, /droits, /legal-teams) are rendered in one language for the
+// whole instance, with the app's translations (public/lang/*.json; French is the key). PAGE_LANG: en (default), es, ar or fr.
+const PAGE_LANG = (l => ['fr', 'en', 'es', 'ar'].includes(l) ? l : 'en')(process.env.PAGE_LANG || 'en');
+const P = (s, v) => tr(PAGE_LANG, s, v);
+const hFr = s => PAGE_LANG === 'fr' ? s.replace(':', ' h ') : s;
+const dec = v => PAGE_LANG === 'fr' ? String(v).replace('.', ',') : String(v);
+const pageDay = d => new Date(d + 'T12:00:00Z').toLocaleDateString(LOCALE[PAGE_LANG], { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+const pageHour = t => hFr(new Date(t).toLocaleTimeString(LOCALE[PAGE_LANG], { timeZone: TIMEZONE, hour: '2-digit', minute: '2-digit' }));
+const pageWhen = t => hFr(new Date(t).toLocaleString(LOCALE[PAGE_LANG], { timeZone: TIMEZONE, day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' }));
+const whenLong = t => hFr(new Date(t).toLocaleString(LOCALE[PAGE_LANG], { timeZone: TIMEZONE, weekday: 'long', day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' }));
+const byName = (a, b) => a.localeCompare(b, LOCALE[PAGE_LANG]);
 const PUB_CSS = `*{box-sizing:border-box}body{margin:0;background:#121214;color:#f2f1f4;font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
-main{max-width:760px;margin:0 auto;padding:24px 16px 48px}a{color:#ec9fa4}.top{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit}.top img{width:44px;height:44px;border-radius:10px}
+main{max-width:760px;margin:0 auto;padding:24px 16px 48px}a{color:#7fe0ef}.top{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit}.top img{width:44px;height:44px;border-radius:10px}
 .top b{display:block;font-size:18px}.top span{color:#a3a1ad;font-size:13px}h1{font-size:clamp(28px,6vw,42px);line-height:1.1;margin:28px 0 6px}.lead{color:#c9c7d1;margin:0 0 20px}
 .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:18px 0}.kpi{background:#1c1c20;border:1px solid #34343c;border-radius:14px;padding:12px 14px}.kpi b{display:block;font-size:30px;font-variant-numeric:tabular-nums}.kpi span{color:#a3a1ad;font-size:13px}
-section{background:#1c1c20;border:1px solid #34343c;border-radius:16px;padding:16px;margin:14px 0}h2{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#ec9fa4;margin:0 0 12px}
+section{background:#1c1c20;border:1px solid #34343c;border-radius:16px;padding:16px;margin:14px 0}h2{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#7fe0ef;margin:0 0 12px}
 svg{width:100%;height:auto;display:block}.row{display:grid;grid-template-columns:minmax(120px,40%) 1fr 48px;gap:10px;align-items:center;margin:6px 0;font-size:14px}.bar{height:14px;border-radius:4px}.n{text-align:right;font-variant-numeric:tabular-nums}
-.hours{display:flex;gap:3px;align-items:flex-end;height:160px;border-bottom:1px solid #5a5866}.hours div{flex:1;background:#5b66c4;border-radius:3px 3px 0 0;min-height:1px}.hours .pk{background:#ec9fa4}.ticks{display:flex;gap:3px;color:#a3a1ad;font-size:11px}.ticks span{flex:1;text-align:center}
+.hours{display:flex;gap:3px;align-items:flex-end;height:160px;border-bottom:1px solid #5a5866}.hours div{flex:1;background:#5b66c4;border-radius:3px 3px 0 0;min-height:1px}.hours .pk{background:#7fe0ef}.ticks{display:flex;gap:3px;color:#a3a1ad;font-size:11px}.ticks span{flex:1;text-align:center}
 .fine{color:#a3a1ad;font-size:13px}.cta{display:grid;gap:10px;grid-template-columns:1fr 1fr;margin-top:18px}.cta a{display:block;text-align:center;padding:14px;border-radius:14px;background:#26262c;border:1px solid #34343c;color:#f2f1f4;text-decoration:none;font-weight:700}
-.cta a.main{background:linear-gradient(135deg,#ec9fa4,#a191d8 60%,#7d86dc);color:#17121f;border:0}
-nav.links{display:flex;flex-wrap:wrap;gap:6px;margin:16px 0 0}nav.links a{padding:6px 10px;border-radius:99px;background:#1c1c20;border:1px solid #34343c;color:#f2f1f4;text-decoration:none;font-size:13px}nav.links a[aria-current]{border-color:#ec9fa4;color:#ec9fa4}
-ul.tl{list-style:none;padding:0;margin:0}ul.tl li{padding:6px 0;border-bottom:1px solid #2a2a30}ul.tl time{display:inline-block;min-width:64px;color:#ec9fa4;font-variant-numeric:tabular-nums;font-weight:700}
+.cta a.main{background:linear-gradient(135deg,#7fe0ef,#5bb8ea 60%,#3d8fe0);color:#17121f;border:0}
+nav.links{display:flex;flex-wrap:wrap;gap:6px;margin:16px 0 0}nav.links a{padding:6px 10px;border-radius:99px;background:#1c1c20;border:1px solid #34343c;color:#f2f1f4;text-decoration:none;font-size:13px}nav.links a[aria-current]{border-color:#7fe0ef;color:#7fe0ef}
+ul.tl{list-style:none;padding:0;margin:0}ul.tl li{padding:6px 0;border-bottom:1px solid #2a2a30}ul.tl time{display:inline-block;min-width:64px;color:#7fe0ef;font-variant-numeric:tabular-nums;font-weight:700}
 ul.orders{padding-left:18px}ul.orders>li{margin:10px 0}ul.orders ul{margin:4px 0;padding-left:18px}.rights details{border-bottom:1px solid #2a2a30;padding:8px 0}.rights summary{font-weight:700;cursor:pointer}ul.days{list-style:none;padding:0}ul.days li{margin:8px 0}ul.days a{display:flex;justify-content:space-between;padding:14px 16px;border-radius:14px;background:#1c1c20;border:1px solid #34343c;color:#f2f1f4;text-decoration:none}`;
 function pubShell(req, { title, desc, body, ld }) {
   const base = PUBLIC_URL_REAL(req), here = base + String(req.url || '/').split('?')[0].replace(/\/$/, '');
-  return `<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  return `<!doctype html><html lang="${PAGE_LANG}"${PAGE_LANG === 'ar' ? ' dir="rtl"' : ''}><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${htmlEsc(title)}</title><meta name="description" content="${htmlEsc(desc)}"><link rel="canonical" href="${htmlEsc(here || base + '/')}">${ld ? jsonLd(ld) : ''}
 <meta property="og:title" content="${htmlEsc(title)}"><meta property="og:description" content="${htmlEsc(desc)}"><meta property="og:type" content="article">
-<meta property="og:image" content="${base}/icon-512.png"><meta name="twitter:card" content="summary"><link rel="icon" href="/favicon.png"><style>${PUB_CSS}</style></head>
-<body><main><a class="top" href="/"><img src="/brand/logo.png" alt=""><span><b>Community Defense Map</b><span>La carte en direct des manifs${BRAND.handle ? ' · par @' + htmlEsc(BRAND.handle) : ''}</span></span></a>
-<nav class="links" aria-label="Pages">${[['/', 'Carte'], ['/agenda', 'Agenda'], ['/arretes', 'Arrêtés'], ['/manif', 'Bilans'], ['/villes', 'Villes'], ['/droits', 'Tes droits'], ['/legal-teams', 'Legal teams']]
-  .map(([u, l]) => `<a href="${u}"${here.endsWith(u) && u !== '/' ? ' aria-current="page"' : ''}>${l}</a>`).join('')}</nav>${body}
-<div class="cta"><a class="main" href="/">Ouvrir la carte</a><a href="${htmlEsc(BRAND.instagram || '/')}" rel="noopener">${BRAND.handle ? 'Suivre @' + htmlEsc(BRAND.handle) : 'Suivre le projet'}</a></div>
-<p class="fine">Signalements anonymes envoyés par les manifestant·es : ce ne sont pas des faits vérifiés, ils sont confirmés ou contestés par les autres sur place. Positions à une dizaine de mètres près ; rien sur les personnes qui ont signalé.</p></main></body></html>`;
+<meta property="og:image" content="${base}/og.png"><meta name="twitter:card" content="summary_large_image"><link rel="icon" href="/favicon.png"><style>${PUB_CSS}</style></head>
+<body><main><a class="top" href="/"><img src="/brand/logo.png" alt=""><span><b>Community Defense Map</b><span>${htmlEsc(P('Carte en direct de l’activité policière et de la surveillance'))}${BRAND.handle ? ' · @' + htmlEsc(BRAND.handle) : ''}</span></span></a>
+<nav class="links" aria-label="${htmlEsc(P('Pages du site'))}">${[['/', 'Carte'], ['/agenda', 'Agenda'], ['/arretes', 'Arrêtés'], ['/manif', 'Bilans'], ['/villes', 'Villes'], ['/droits', 'Tes droits'], ['/legal-teams', 'Legal teams']]
+  .map(([u, l]) => `<a href="${u}"${here.endsWith(u) && u !== '/' ? ' aria-current="page"' : ''}>${htmlEsc(P(l))}</a>`).join('')}</nav>${body}
+<div class="cta"${BRAND.instagram ? '' : ' style="grid-template-columns:1fr"'}><a class="main" href="/">${htmlEsc(P('Ouvrir la carte'))}</a>${BRAND.instagram ? `<a href="${htmlEsc(BRAND.instagram)}" rel="noopener">${BRAND.handle ? '@' + htmlEsc(BRAND.handle) : htmlEsc(P('Suivre le projet'))}</a>` : ''}</div>
+<p class="fine">${P('Signalements anonymes envoyés sur place : ce ne sont pas des faits vérifiés, ils sont confirmés ou contestés par les autres personnes présentes. Positions à une dizaine de mètres près ; rien sur les personnes qui ont signalé.')}</p></main></body></html>`;
 }
 const GOOGLE_VERIFY = /^google[\w-]{6,60}\.html$/.test(process.env.GOOGLE_SITE_VERIFICATION || '') ? process.env.GOOGLE_SITE_VERIFICATION : '';
 function sitemapXml(req) {
@@ -1252,64 +1261,66 @@ const jsonLd = o => `<script type="application/ld+json">${JSON.stringify(o).repl
 const PUBLIC_URL_REAL = req => (process.env.PUBLIC_URL || ('https://' + String(req.headers.host || 'localhost').replace(/[^\w.:-]/g, ''))).replace(/\/$/, '');
 const cap = s => s[0].toUpperCase() + s.slice(1);
 const fmtMin = m => m < 60 ? `${m} min` : `${Math.floor(m / 60)} h${m % 60 ? ' ' + String(m % 60).padStart(2, '0') : ''}`;
-const fmtLen = m => m < 1000 ? `${Math.round(m / 10) * 10} m` : `${(m / 1000).toFixed(1).replace('.', ',')} km`;
-const catTxt = c => CAT[c] ? `${CAT[c].glyph} ${CAT[c].label}` : c;
-// Classement de la journée parmi les bilans publiés, et évolution depuis le bilan précédent
+const fmtLen = m => m < 1000 ? `${Math.round(m / 10) * 10} m` : `${dec((m / 1000).toFixed(1))} km`;
+const catTxt = c => CAT[c] ? `${CAT[c].glyph} ${P(CAT[c].label)}` : c;
+// Rank of the day among published summaries, and change since the previous one
 function pubRank(d) {
   const all = q('SELECT date, data FROM pub ORDER BY date').all().map(x => ({ date: x.date, total: JSON.parse(x.data).total }));
   if (all.length < 2) return '';
   const rank = all.filter(x => x.total > d.total).length + 1, i = all.findIndex(x => x.date === d.date), prev = i > 0 ? all[i - 1] : null;
   const pct = prev && prev.total ? Math.round((d.total - prev.total) / prev.total * 100) : null;
-  return `<p class="fine">${rank === 1 ? 'La journée la plus signalée' : `${rank}<sup>e</sup> journée la plus signalée`} sur ${all.length} bilans publiés${pct !== null ? ` · ${pct >= 0 ? '+' : ''}${pct} % par rapport au <a href="/manif/${prev.date}">${htmlEsc(frDay(prev.date))}</a>` : ''}.</p>`;
+  const pos = rank === 1 ? P('La journée la plus signalée sur {n} bilans publiés', { n: all.length }) : P('Rang {r} sur {n} bilans publiés', { r: rank, n: all.length });
+  const diff = pct !== null ? ' · ' + P('{p} % par rapport au {d}', { p: (pct >= 0 ? '+' : '') + pct, d: `<a href="/manif/${prev.date}">${htmlEsc(pageDay(prev.date))}</a>` }) : '';
+  return `<p class="fine">${pos}${diff}.</p>`;
 }
-const ORDER_GLYPH = k => (ORDER_KIND[k] || ORDER_KIND.autre).glyph + ' ' + (ORDER_KIND[k] || ORDER_KIND.autre).label;
+const ORDER_GLYPH = k => (ORDER_KIND[k] || ORDER_KIND.autre).glyph + ' ' + P((ORDER_KIND[k] || ORDER_KIND.autre).label);
 function ordersHtml(list) {
-  return list.map(o => `<li><b>${htmlEsc(o.name)}</b>${o.scope === 'dep' ? ' (département)' : ''} · du ${htmlEsc(frWhen(o.start))} au ${htmlEsc(frWhen(o.end))}
-<ul>${o.items.map(x => `<li>${htmlEsc(ORDER_GLYPH(x.k))} : ${htmlEsc(x.text)}</li>`).join('')}</ul><span class="fine">Source : <a href="${htmlEsc(o.src)}" rel="noopener nofollow">${htmlEsc(o.host || 'lien')}</a></span></li>`).join('');
+  return list.map(o => `<li><b>${htmlEsc(o.name)}</b>${o.scope === 'dep' ? ' ' + htmlEsc(P('(tout l’État)')) : ''} · ${P('du {a} au {b}', { a: htmlEsc(pageWhen(o.start)), b: htmlEsc(pageWhen(o.end)) })}
+<ul>${o.items.map(x => `<li>${htmlEsc(ORDER_GLYPH(x.k))} : ${htmlEsc(x.text)}</li>`).join('')}</ul><span class="fine">${htmlEsc(P('Source'))} : <a href="${htmlEsc(o.src)}" rel="noopener nofollow">${htmlEsc(o.host || P('lien'))}</a></span></li>`).join('');
 }
-const frWhen = t => new Date(t).toLocaleString('fr-FR', { timeZone: TIMEZONE, day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' }).replace(':', ' h ');
-const momentsHtml = (list, withCity) => `<ul class="tl">${list.map(m => `<li><time>${frHour(m.t)}</time> ${htmlEsc(catTxt(m.c))}${withCity ? ' · ' + htmlEsc(m.city) : ''}${m.up ? ` <span class="fine">(confirmé ${m.up}×)</span>` : ''}${m.v ? ' <span class="fine">✓ vérifié</span>' : ''}</li>`).join('')}</ul>`;
+const momentsHtml = (list, withCity) => `<ul class="tl">${list.map(m => `<li><time>${pageHour(m.t)}</time> ${htmlEsc(catTxt(m.c))}${withCity ? ' · ' + htmlEsc(m.city) : ''}${m.up ? ` <span class="fine">(${P('confirmé {n}×', { n: m.up })})</span>` : ''}${m.v ? ` <span class="fine">✓ ${P('vérifié')}</span>` : ''}</li>`).join('')}</ul>`;
+const verifKpis = d => `<div class="kpis"><div class="kpi"><b style="color:#30a46c">${d.confirmed}</b><span>${P('confirmés par au moins une autre personne ({n} confirmations)', { n: d.confs })}</span></div>
+<div class="kpi"><b style="color:#8e8cd8">${d.verified}</b><span>${P('vérifiés par une orga certifiée')}</span></div><div class="kpi"><b style="color:#f5a524">${d.removed}</b><span>${P('retirés avant leur expiration (inclus dans les totaux)')}</span></div></div>`;
 
 function pubPage(req, d) {
   const maxC = d.cats[0].n, maxH = Math.max(...d.hours), peak = d.hours.indexOf(maxH), top = d.cities.slice(0, 12), maxV = top[0].n;
-  const day = cap(frDay(d.date)), pages = new Map((d.cityPages || []).map(c => [c.name, c.slug]));
-  const title = `${day} : ${d.total} signalements sur Community Defense Map`;
-  const desc = `${d.total} signalements de manifestant·es dans ${d.cities.length} villes, de ${frHour(d.first)} à ${frHour(d.last)}. Carte, moments clés, parcours des cortèges, arrêtés, données ouvertes.`;
+  const day = cap(pageDay(d.date)), pages = new Map((d.cityPages || []).map(c => [c.name, c.slug]));
+  const title = P('{d} : {n} signalements sur Community Defense Map', { d: day, n: d.total });
+  const desc = P('{n} signalements dans {c} villes, de {a} à {b}. Carte, moments clés, parcours des cortèges, arrêtés, données ouvertes.', { n: d.total, c: d.cities.length, a: pageHour(d.first), b: pageHour(d.last) });
   const cityName = c => pages.has(c) ? `<a href="/manif/${d.date}/${pages.get(c)}">${htmlEsc(c)}</a>` : htmlEsc(c);
   const durs = Object.entries(d.durations || {}).slice(0, 12);
-  const body = `<h1>${htmlEsc(day)}</h1><p class="lead">Ce que les manifestant·es ont signalé sur Community Defense Map.</p>
-<div class="kpis"><div class="kpi"><b>${d.total}</b><span>signalements</span></div><div class="kpi"><b>${d.cities.length}</b><span>villes</span></div>
-<div class="kpi"><b>${frHour(d.first)}</b><span>premier signalement</span></div><div class="kpi"><b>${frHour(d.last)}</b><span>dernier signalement</span></div></div>
+  const body = `<h1>${htmlEsc(day)}</h1><p class="lead">${P('Ce qui a été signalé sur Community Defense Map.')}</p>
+<div class="kpis"><div class="kpi"><b>${d.total}</b><span>${P('signalements')}</span></div><div class="kpi"><b>${d.cities.length}</b><span>${P('villes')}</span></div>
+<div class="kpi"><b>${pageHour(d.first)}</b><span>${P('premier signalement')}</span></div><div class="kpi"><b>${pageHour(d.last)}</b><span>${P('dernier signalement')}</span></div></div>
 ${pubRank(d)}
-<section><h2>Par ville</h2>${mapSvg(d.cities)}${top.map(c => `<div class="row"><span>${cityName(c.name)}</span><span class="bar" style="width:${Math.max(2, c.n / maxV * 100)}%;background:linear-gradient(90deg,#ec9fa4,#a191d8)"></span><span class="n">${c.n}</span></div>`).join('')}
-${d.cities.length > 12 ? `<p class="fine">+ ${d.cities.length - 12} autres ${d.communes ? 'communes' : 'villes. Chaque ville compte aussi les communes voisines de son agglomération'}.</p>` : ''}
-${pages.size ? `<p class="fine">Page détaillée pour chaque ville d’au moins ${CITY_PAGE_MIN} signalements : ${[...pages].map(([n, s]) => `<a href="/manif/${d.date}/${s}">${htmlEsc(n)}</a>`).join(', ')}.</p>` : ''}
-${d.abroad ? `<p class="fine">${d.abroad} ${d.abroad > 1 ? 'signalements envoyés' : 'signalement envoyé'} hors de France, non ${d.abroad > 1 ? 'comptés' : 'compté'} ici.</p>` : ''}</section>
-${d.moments && d.moments.length ? `<section><h2>Moments clés</h2><p class="fine">Le premier signalement de chaque danger, ville par ville.</p>${momentsHtml(d.moments.slice(0, 30), true)}</section>` : ''}
-${durs.length ? `<section><h2>Combien de temps</h2><p class="fine">Durée pendant laquelle chaque danger est resté signalé (les signalements qui se chevauchent ne comptent qu’une fois).</p>
+<section><h2>${P('Par ville')}</h2>${mapSvg(d.cities)}${top.map(c => `<div class="row"><span>${cityName(c.name)}</span><span class="bar" style="width:${Math.max(2, c.n / maxV * 100)}%;background:linear-gradient(90deg,#7fe0ef,#3d8fe0)"></span><span class="n">${c.n}</span></div>`).join('')}
+${d.cities.length > 12 ? `<p class="fine">${P(d.communes ? '+ {n} autres communes.' : '+ {n} autres villes. Chaque ville compte aussi les communes voisines de son agglomération.', { n: d.cities.length - 12 })}</p>` : ''}
+${pages.size ? `<p class="fine">${P('Page détaillée pour chaque ville d’au moins {n} signalements : {list}.', { n: CITY_PAGE_MIN, list: [...pages].map(([n, s]) => `<a href="/manif/${d.date}/${s}">${htmlEsc(n)}</a>`).join(', ') })}</p>` : ''}
+${d.abroad ? `<p class="fine">${P(d.abroad > 1 ? '{n} signalements envoyés hors de la zone desservie, non comptés ici.' : '{n} signalement envoyé hors de la zone desservie, non compté ici.', { n: d.abroad })}</p>` : ''}</section>
+${d.moments && d.moments.length ? `<section><h2>${P('Moments clés')}</h2><p class="fine">${P('Le premier signalement de chaque danger, ville par ville.')}</p>${momentsHtml(d.moments.slice(0, 30), true)}</section>` : ''}
+${durs.length ? `<section><h2>${P('Combien de temps')}</h2><p class="fine">${P('Durée pendant laquelle chaque danger est resté signalé (les signalements qui se chevauchent ne comptent qu’une fois).')}</p>
 ${durs.map(([c, l]) => `<p><b>${cityName(c)}</b> : ${l.map(([k, m]) => `${htmlEsc(catTxt(k))} ${fmtMin(m)}`).join(' · ')}</p>`).join('')}</section>` : ''}
-${d.marches && d.marches.length ? `<section><h2>Parcours des cortèges</h2><p class="fine">D’après le chemin de la tête de cortège, signalée par les manifestant·es ou partagée en direct par le service d’ordre.</p>
-${d.marches.map(m => `<p><b>${cityName(m.city)}</b> : ${fmtLen(m.len)} de ${frHour(m.from)} à ${frHour(m.to)}${m.kmh ? `, environ ${String(m.kmh).replace('.', ',')} km/h en moyenne` : ''}</p>`).join('')}</section>` : ''}
-${d.orders && d.orders.length ? `<section><h2>Arrêtés en vigueur ce jour-là</h2><ul class="orders">${ordersHtml(d.orders)}</ul></section>` : ''}
-<section><h2>Par type</h2><p class="fine">${Object.entries(d.fam).map(([g, n]) => `<span style="color:${GROUP_COL[g]}">●</span> ${GROUP_FR[g]} ${n}`).join(' · ')}</p>
-${d.cats.map(c => `<div class="row"><span>${htmlEsc(c.label)}</span><span class="bar" style="width:${Math.max(1.5, c.n / maxC * 100)}%;background:${GROUP_COL[c.group]}"></span><span class="n">${c.n}</span></div>`).join('')}</section>
-<section><h2>Par heure</h2><p class="fine">Le plus d’envois entre ${peak} h et ${(peak + 1) % 24} h (${maxH}).</p><div class="hours" role="img" aria-label="Signalements par heure">${d.hours.map((n, i) => `<div class="${i === peak ? 'pk' : ''}" style="height:${n / maxH * 100}%" title="${i} h : ${n}"></div>`).join('')}</div>
+${d.marches && d.marches.length ? `<section><h2>${P('Parcours des cortèges')}</h2><p class="fine">${P('D’après le chemin de la tête de cortège, signalée par les manifestant·es ou partagée en direct par le service d’ordre.')}</p>
+${d.marches.map(m => `<p><b>${cityName(m.city)}</b> : ${P('{len} de {a} à {b}', { len: fmtLen(m.len), a: pageHour(m.from), b: pageHour(m.to) })}${m.kmh ? ', ' + P('environ {v} km/h en moyenne', { v: dec(m.kmh) }) : ''}</p>`).join('')}</section>` : ''}
+${d.orders && d.orders.length ? `<section><h2>${P('Arrêtés en vigueur ce jour-là')}</h2><ul class="orders">${ordersHtml(d.orders)}</ul></section>` : ''}
+<section><h2>${P('Par type')}</h2><p class="fine">${Object.entries(d.fam).map(([g, n]) => `<span style="color:${GROUP_COL[g]}">●</span> ${htmlEsc(P(GROUP_FR[g]))} ${n}`).join(' · ')}</p>
+${d.cats.map(c => `<div class="row"><span>${htmlEsc(c.glyph ? c.glyph + ' ' + P(c.label) : P(c.label))}</span><span class="bar" style="width:${Math.max(1.5, c.n / maxC * 100)}%;background:${GROUP_COL[c.group]}"></span><span class="n">${c.n}</span></div>`).join('')}</section>
+<section><h2>${P('Par heure')}</h2><p class="fine">${P('Le plus d’envois entre {a} h et {b} h ({n}).', { a: peak, b: (peak + 1) % 24, n: maxH })}</p><div class="hours" role="img" aria-label="${htmlEsc(P('Signalements par heure'))}">${d.hours.map((n, i) => `<div class="${i === peak ? 'pk' : ''}" style="height:${n / maxH * 100}%" title="${i} h : ${n}"></div>`).join('')}</div>
 <div class="ticks">${d.hours.map((_, i) => `<span>${i % 3 ? '' : i + 'h'}</span>`).join('')}</div></section>
-<section><h2>Vérification</h2><div class="kpis"><div class="kpi"><b style="color:#30a46c">${d.confirmed}</b><span>confirmés par au moins une autre personne (${d.confs} confirmations)</span></div>
-<div class="kpi"><b style="color:#8e8cd8">${d.verified}</b><span>vérifiés par une orga certifiée</span></div><div class="kpi"><b style="color:#f5a524">${d.removed}</b><span>retirés avant leur expiration (inclus dans les totaux)</span></div></div></section>
-<section><h2>Carte d’un créneau</h2><p>Choisis un lieu et une plage horaire : une image avec les signalements de ce moment-là, à télécharger ou partager (presse, legal teams, témoignages).</p>
-<div class="cta" style="grid-template-columns:1fr"><a class="main" href="/manif/${d.date}/carte">Fabriquer une image d’un créneau</a></div></section>
+<section><h2>${P('Vérification')}</h2>${verifKpis(d)}</section>
+<section><h2>${P('Carte d’un créneau')}</h2><p>${P('Choisis un lieu et une plage horaire : une image avec les signalements de ce moment-là, à télécharger ou partager (presse, legal teams, témoignages).')}</p>
+<div class="cta" style="grid-template-columns:1fr"><a class="main" href="/manif/${d.date}/carte">${P('Fabriquer une image d’un créneau')}</a></div></section>
 ${dataSection(d)}`;
   const ld = { '@context': 'https://schema.org', '@type': 'Dataset', name: title, description: desc, url: PUBLIC_URL_REAL(req) + '/manif/' + d.date, license: 'https://creativecommons.org/licenses/by/4.0/',
-    creator: { '@type': 'Organization', name: 'Community Defense Map' }, temporalCoverage: d.date, spatialCoverage: 'France', isAccessibleForFree: true,
+    creator: { '@type': 'Organization', name: 'Community Defense Map' }, temporalCoverage: d.date, spatialCoverage: 'United States', isAccessibleForFree: true,
     distribution: d.pts ? [{ '@type': 'DataDownload', encodingFormat: 'text/csv', contentUrl: PUBLIC_URL_REAL(req) + `/manif/${d.date}/donnees.csv` }] : undefined };
   return pubShell(req, { title, desc, body, ld });
 }
-const dataSection = d => d.pts ? `<section><h2>Données ouvertes</h2><p>Tous les signalements de la journée, un par ligne : type, heures de début et de fin, position (à une dizaine de mètres), commune, confirmations, vérification, devenir.</p>
-<div class="cta" style="grid-template-columns:1fr"><a href="/manif/${d.date}/donnees.csv" download>Télécharger les données (CSV)</a></div>
-<p class="fine">Licence <a href="https://creativecommons.org/licenses/by/4.0/deed.fr" rel="noopener">CC BY 4.0</a> : réutilisation libre en citant « Community Defense Map ». Ce sont des signalements de manifestant·es, confirmés ou contestés sur place, pas des faits établis.</p></section>` : '';
+const dataSection = d => d.pts ? `<section><h2>${P('Données ouvertes')}</h2><p>${P('Tous les signalements de la journée, un par ligne : type, heures de début et de fin, position (à une dizaine de mètres), lieu, confirmations, vérification, devenir.')}</p>
+<div class="cta" style="grid-template-columns:1fr"><a href="/manif/${d.date}/donnees.csv" download>${P('Télécharger les données (CSV)')}</a></div>
+<p class="fine">${P('Licence {l} : réutilisation libre en citant « Community Defense Map ». Ce sont des signalements envoyés sur place, confirmés ou contestés par d’autres personnes présentes, pas des faits établis.', { l: `<a href="https://creativecommons.org/licenses/by/4.0/deed.${PAGE_LANG}" rel="noopener">CC BY 4.0</a>` })}</p></section>` : '';
 
-// Schéma d'une ville (sans fond de carte) : parcours de la tête et signalements de la journée, avec une échelle
+// Diagram of a city (no base map): path of the march head and the day's reports, with a scale bar
 function citySvg(c, pts, scale) {
   const near = (pts || []).map(p => ({ c: p[0], lat: p[3] / scale, lng: p[4] / scale })).filter(p => CAT[p.c] && distM(p, c) <= 6000);
   const path = c.march ? c.march.path : [];
@@ -1320,37 +1331,37 @@ function citySvg(c, pts, scale) {
   const x0 = Math.min(...xs), x1 = Math.max(...xs), y0 = Math.min(...ys), y1 = Math.max(...ys);
   const sc = Math.min((W - 2 * pad) / Math.max(x1 - x0, 1e-4), (H - 2 * pad) / Math.max(y1 - y0, 1e-4));
   const P = (lat, lng) => [pad + (lng * k - x0) * sc, H - pad - (lat - y0) * sc];
-  const line = path.length > 1 ? `<polyline points="${path.map(p => P(p[0], p[1]).map(v => v.toFixed(1)).join(',')).join(' ')}" fill="none" stroke="#ec9fa4" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity=".9"/>` : '';
+  const line = path.length > 1 ? `<polyline points="${path.map(p => P(p[0], p[1]).map(v => v.toFixed(1)).join(',')).join(' ')}" fill="none" stroke="#7fe0ef" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity=".9"/>` : '';
   const dots = near.slice(0, 3000).map(p => { const [x, y] = P(p.lat, p.lng); return `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="4" fill="${GROUP_COL[CAT[p.c].group]}" fill-opacity=".75"/>`; }).join('');
   // Échelle : 500 m, 1 km ou 2 km selon la taille du schéma
   const mPerPx = 1 / sc * 111320, bar = [200, 500, 1000, 2000].find(v => v / mPerPx >= 80) || 2000, bw = bar / mPerPx;
-  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Schéma des signalements à ${htmlEsc(c.name)}"><rect width="${W}" height="${H}" rx="12" fill="#16161a"/>${line}${dots}
+  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${htmlEsc(P('Schéma des signalements à {c}', { c: c.name }))}"><rect width="${W}" height="${H}" rx="12" fill="#16161a"/>${line}${dots}
 <g fill="#a3a1ad" font-size="13"><rect x="${W - pad - bw}" y="${H - 14}" width="${bw}" height="3"/><text x="${W - pad}" y="${H - 20}" text-anchor="end">${fmtLen(bar)}</text></g></svg>`;
 }
 function cityDayPage(req, d, c) {
-  const day = frDay(d.date), title = `${c.name}, ${day} : ${c.n} signalements sur Community Defense Map`;
-  const desc = `${c.n} signalements de manifestant·es à ${c.name} le ${day}, de ${frHour(c.first)} à ${frHour(c.last)}. Moments clés, durées, parcours du cortège.`;
+  const day = pageDay(d.date), title = P('{c}, {d} : {n} signalements sur Community Defense Map', { c: c.name, d: day, n: c.n });
+  const desc = P('{n} signalements à {c} le {d}, de {a} à {b}. Moments clés, durées, parcours du cortège.', { n: c.n, c: c.name, d: day, a: pageHour(c.first), b: pageHour(c.last) });
   const maxH = Math.max(...c.hours), peak = c.hours.indexOf(maxH), maxC = c.cats[0][1];
   const pad = n => String(n).padStart(2, '0'), h0 = zoneHour(c.first) % 24, h1 = zoneHour(c.last) % 24;
   const slot = h1 >= h0 && h1 - h0 < 6 ? `${pad(h0)}:00-${pad(h1)}:59` : `${pad(peak)}:00-${pad(Math.min(23, peak + 2))}:59`;
   const ordersHere = (d.orders || []).filter(o => o.name === c.name || o.scope === 'dep');
-  const body = `<p class="fine"><a href="/manif/${d.date}">← Bilan national du ${htmlEsc(day)}</a></p><h1>${htmlEsc(c.name)}</h1><p class="lead">${htmlEsc(cap(day))} : ce que les manifestant·es ont signalé sur Community Defense Map.</p>
-<div class="kpis"><div class="kpi"><b>${c.n}</b><span>signalements</span></div><div class="kpi"><b>${frHour(c.first)}</b><span>premier</span></div><div class="kpi"><b>${frHour(c.last)}</b><span>dernier</span></div>
-${c.march ? `<div class="kpi"><b>${fmtLen(c.march.len)}</b><span>parcourus par la tête du cortège</span></div>` : ''}</div>
-<section><h2>Schéma</h2>${citySvg(c, d.pts, d.ptsS || 1e3)}<p class="fine">${c.march ? 'En rose, le chemin de la tête du cortège. ' : ''}Points : les signalements de la journée à moins de 6 km. Schéma sans fond de carte : pour la vraie carte, fabrique l’image d’un créneau.</p>
-<div class="cta" style="grid-template-columns:1fr"><a class="main" href="/manif/${d.date}/carte?c=${c.lat},${c.lng}&amp;n=${encodeURIComponent(c.name)}&amp;h=${slot}">Carte d’un créneau à ${htmlEsc(c.name)}</a></div></section>
-${c.moments.length ? `<section><h2>Moments clés</h2>${momentsHtml(c.moments, false)}</section>` : ''}
-${c.durations.length ? `<section><h2>Combien de temps</h2>${c.durations.map(([k, m]) => `<p>${htmlEsc(catTxt(k))} : <b>${fmtMin(m)}</b></p>`).join('')}</section>` : ''}
-${c.march ? `<section><h2>Parcours du cortège</h2><p>${fmtLen(c.march.len)} de ${frHour(c.march.from)} à ${frHour(c.march.to)}${c.march.kmh ? `, environ ${String(c.march.kmh).replace('.', ',')} km/h en moyenne` : ''}.</p></section>` : ''}
-${ordersHere.length ? `<section><h2>Arrêtés en vigueur ce jour-là</h2><ul class="orders">${ordersHtml(ordersHere)}</ul></section>` : ''}
-<section><h2>Par type</h2>${c.cats.map(([k, n]) => `<div class="row"><span>${htmlEsc(catTxt(k))}</span><span class="bar" style="width:${Math.max(1.5, n / maxC * 100)}%;background:${GROUP_COL[CAT[k] ? CAT[k].group : 'info']}"></span><span class="n">${n}</span></div>`).join('')}</section>
-<section><h2>Par heure</h2><div class="hours" role="img" aria-label="Signalements par heure">${c.hours.map((n, i) => `<div class="${i === peak ? 'pk' : ''}" style="height:${maxH ? n / maxH * 100 : 0}%" title="${i} h : ${n}"></div>`).join('')}</div>
+  const body = `<p class="fine"><a href="/manif/${d.date}">← ${htmlEsc(P('Bilan national du {d}', { d: day }))}</a></p><h1>${htmlEsc(c.name)}</h1><p class="lead">${htmlEsc(cap(day))} : ${P('ce qui a été signalé sur Community Defense Map.')}</p>
+<div class="kpis"><div class="kpi"><b>${c.n}</b><span>${P('signalements')}</span></div><div class="kpi"><b>${pageHour(c.first)}</b><span>${P('premier')}</span></div><div class="kpi"><b>${pageHour(c.last)}</b><span>${P('dernier')}</span></div>
+${c.march ? `<div class="kpi"><b>${fmtLen(c.march.len)}</b><span>${P('parcourus par la tête du cortège')}</span></div>` : ''}</div>
+<section><h2>${P('Schéma')}</h2>${citySvg(c, d.pts, d.ptsS || 1e3)}<p class="fine">${c.march ? P('En bleu, le chemin de la tête du cortège.') + ' ' : ''}${P('Points : les signalements de la journée à moins de 6 km. Schéma sans fond de carte : pour la vraie carte, fabrique l’image d’un créneau.')}</p>
+<div class="cta" style="grid-template-columns:1fr"><a class="main" href="/manif/${d.date}/carte?c=${c.lat},${c.lng}&amp;n=${encodeURIComponent(c.name)}&amp;h=${slot}">${htmlEsc(P('Carte d’un créneau à {c}', { c: c.name }))}</a></div></section>
+${c.moments.length ? `<section><h2>${P('Moments clés')}</h2>${momentsHtml(c.moments, false)}</section>` : ''}
+${c.durations.length ? `<section><h2>${P('Combien de temps')}</h2>${c.durations.map(([k, m]) => `<p>${htmlEsc(catTxt(k))} : <b>${fmtMin(m)}</b></p>`).join('')}</section>` : ''}
+${c.march ? `<section><h2>${P('Parcours du cortège')}</h2><p>${P('{len} de {a} à {b}', { len: fmtLen(c.march.len), a: pageHour(c.march.from), b: pageHour(c.march.to) })}${c.march.kmh ? ', ' + P('environ {v} km/h en moyenne', { v: dec(c.march.kmh) }) : ''}.</p></section>` : ''}
+${ordersHere.length ? `<section><h2>${P('Arrêtés en vigueur ce jour-là')}</h2><ul class="orders">${ordersHtml(ordersHere)}</ul></section>` : ''}
+<section><h2>${P('Par type')}</h2>${c.cats.map(([k, n]) => `<div class="row"><span>${htmlEsc(catTxt(k))}</span><span class="bar" style="width:${Math.max(1.5, n / maxC * 100)}%;background:${GROUP_COL[CAT[k] ? CAT[k].group : 'info']}"></span><span class="n">${n}</span></div>`).join('')}</section>
+<section><h2>${P('Par heure')}</h2><div class="hours" role="img" aria-label="${htmlEsc(P('Signalements par heure'))}">${c.hours.map((n, i) => `<div class="${i === peak ? 'pk' : ''}" style="height:${maxH ? n / maxH * 100 : 0}%" title="${i} h : ${n}"></div>`).join('')}</div>
 <div class="ticks">${c.hours.map((_, i) => `<span>${i % 3 ? '' : i + 'h'}</span>`).join('')}</div></section>
-<section><h2>Vérification</h2><p>${c.confirmed} confirmés par au moins une autre personne, ${c.verified} vérifiés par une orga certifiée.</p></section>
+<section><h2>${P('Vérification')}</h2><p>${P('{a} confirmés par au moins une autre personne, {b} vérifiés par une orga certifiée.', { a: c.confirmed, b: c.verified })}</p></section>
 ${dataSection(d)}`;
   return pubShell(req, { title, desc, body });
 }
-// Données ouvertes d'un bilan (CSV, gardé en mémoire)
+// Open data of a summary (CSV, kept in memory). Column names are fixed English identifiers whatever PAGE_LANG is.
 const csvCache = new Map();
 function pubCsv(d) {
   const key = d.date + ':' + (d.pts || []).length;
@@ -1358,32 +1369,31 @@ function pubCsv(d) {
   const OUT = ['', 'contesté', 'retiré par une orga', 'retiré par l’admin', 'évincé (zone saturée)', 'effacé (purge)', 'retiré', 'retiré'];
   const sc = d.ptsS || 1e3, iso = m => new Date(m * MIN).toLocaleString('sv-SE', { timeZone: TIMEZONE });
   const esc = v => /[",;\n]/.test(String(v)) ? '"' + String(v).replace(/"/g, '""') + '"' : String(v);
-  const lines = ['type;categorie;famille;debut;fin;latitude;longitude;commune;confirmations;verifie_par_orga;devenir'];
+  const lines = ['type;category;group;start;end;latitude;longitude;place;confirmations;verified_by_organizer;outcome'];
   for (const [c, t, e, la, lo, up, v, o] of d.pts || []) {
     const lat = la / sc, lng = lo / sc;
-    lines.push([c, CAT[c] ? CAT[c].label : c, CAT[c] ? GROUP_FR[CAT[c].group] : '', iso(t), iso(e), lat, lng, whereOf(lat, lng).name, up, v ? 'oui' : 'non', OUT[o || 0] || 'expiré normalement'].map(esc).join(';'));
+    lines.push([c, CAT[c] ? P(CAT[c].label) : c, CAT[c] ? P(GROUP_FR[CAT[c].group]) : '', iso(t), iso(e), lat, lng, whereOf(lat, lng).name, up, P(v ? 'oui' : 'non'), P(OUT[o || 0] || 'expiré normalement')].map(esc).join(';'));
   }
   const out = '﻿' + lines.join('\n') + '\n';
   csvCache.set(key, out); if (csvCache.size > 20) csvCache.delete(csvCache.keys().next().value);
   return out;
 }
 
-// ---- Pages de contenu (référencement) : agenda, arrêtés, villes, droits, legal teams ----
-const whenLong = t => new Date(t).toLocaleString('fr-FR', { timeZone: TIMEZONE, weekday: 'long', day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' }).replace(':', ' h ');
+// ---- Content pages (search engines): agenda, orders, cities, rights, legal teams ----
 const upcoming = (now = Date.now()) => listEvents().filter(e => e.status !== 'pending' && e.lat != null && e.start > now - 2 * 3600e3).sort((a, b) => a.start - b.start);
-// Données structurées des événements (schema.org Event) : gratuit, organisé par l'orga qui l'a publié, fin estimée à 3 h après le début
+// Structured data for events (schema.org Event): free, organized by the group that posted it, end estimated 3 h after the start
 const eventLd = (req, list) => {
   if (!list.length) return null;
   const base = PUBLIC_URL_REAL(req);
   return { '@context': 'https://schema.org', '@graph': list.map(e => {
-    const who = e.by && e.by !== 'Proposition de participant·e' ? e.by : 'Mobilisation locale', url = `${base}/?at=${e.lat},${e.lng}`;
+    const who = e.by && e.by !== 'Proposition de participant·e' ? e.by : P('Mobilisation locale'), url = `${base}/?at=${e.lat},${e.lng}`;
     const org = { '@type': 'Organization', name: who, url: base + '/agenda' };
     return { '@type': 'Event', name: e.title, startDate: new Date(e.start).toISOString(), endDate: new Date(e.start + 3 * 3600e3).toISOString(),
       eventStatus: 'https://schema.org/EventScheduled', eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode', isAccessibleForFree: true,
       location: { '@type': 'Place', name: e.place || e.title, address: e.place || whereOf(e.lat, e.lng).name, geo: { '@type': 'GeoCoordinates', latitude: e.lat, longitude: e.lng } },
       image: [base + '/og.png'], organizer: org, performer: org,
-      offers: { '@type': 'Offer', price: 0, priceCurrency: 'EUR', availability: 'https://schema.org/InStock', url, validFrom: new Date(e.t || e.start).toISOString() },
-      url, description: (EVT[e.type] || EVT.manif).label + (e.place ? ' · ' + e.place : '') + (e.note ? ' · ' + e.note : '') };
+      offers: { '@type': 'Offer', price: 0, priceCurrency: 'USD', availability: 'https://schema.org/InStock', url, validFrom: new Date(e.t || e.start).toISOString() },
+      url, description: P((EVT[e.type] || EVT.manif).label) + (e.place ? ' · ' + e.place : '') + (e.note ? ' · ' + e.note : '') };
   }) };
 };
 const eventsHtml = list => `<ul class="days">${list.map(e => `<li><a href="/?at=${e.lat},${e.lng}"><span>${htmlEsc((EVT[e.type] || EVT.manif).glyph + ' ' + e.title)}${e.place ? `<br><small class="fine">${htmlEsc(e.place)}</small>` : ''}</span><span>${htmlEsc(whenLong(e.start))}</span></a></li>`).join('')}</ul>`;
@@ -1393,40 +1403,42 @@ function agendaPage(req) {
   const list = upcoming().slice(0, 200), by = new Map();
   for (const e of list) { const c = whereOf(e.lat, e.lng).name; if (!by.has(c)) by.set(c, []); by.get(c).push(e); }
   const cities = [...by].sort((a, b) => a[1][0].start - b[1][0].start);
-  const body = `<h1>Agenda des manifs</h1><p class="lead">Les prochaines manifestations, rassemblements, blocus et assemblées annoncés sur Community Defense Map, ville par ville.</p>
-${cities.length ? cities.map(([c, l]) => `<section><h2>${cityLink(c)}</h2>${eventsHtml(l)}</section>`).join('') : '<p class="fine">Rien d’annoncé pour l’instant. Une orga ou un collectif peut annoncer une manif depuis l’appli (onglet Infos).</p>'}`;
-  return pubShell(req, { title: 'Agenda des manifs en France · Community Defense Map', desc: 'Les prochaines manifs, rassemblements et blocus annoncés en France, ville par ville, sur Community Defense Map, la carte en direct des manifs.', body, ld: eventLd(req, list.slice(0, 60)) });
+  const body = `<h1>${P('Agenda des manifs')}</h1><p class="lead">${P('Les prochaines manifestations, rassemblements, blocus et assemblées annoncés sur Community Defense Map, ville par ville.')}</p>
+${cities.length ? cities.map(([c, l]) => `<section><h2>${cityLink(c)}</h2>${eventsHtml(l)}</section>`).join('') : `<p class="fine">${P('Rien d’annoncé pour l’instant. Une orga ou un collectif peut annoncer une manif depuis l’appli (onglet Infos).')}</p>`}`;
+  return pubShell(req, { title: P('Agenda des manifs · Community Defense Map'), desc: P('Les prochaines manifs, rassemblements et blocus annoncés, ville par ville, sur Community Defense Map.'), body, ld: eventLd(req, list.slice(0, 60)) });
 }
 function ordersPage(req) {
   const now = Date.now(), list = ordersLive(now), by = new Map();
   for (const o of list) { const dn = (depOf(o.dep) || { n: o.dep }).n; if (!by.has(dn)) by.set(dn, []); by.get(dn).push({ name: o.name, scope: o.scope, start: o.start, end: o.end, items: o.items, src: o.src, host: o.host }); }
-  const body = `<h1>Arrêtés et interdictions en cours</h1><p class="lead">Manifestations interdites, périmètres, couvre-feux et restrictions de transport, avec la source officielle de chaque mesure.</p>
-${by.size ? [...by].sort((a, b) => a[0].localeCompare(b[0], 'fr')).map(([dn, l]) => `<section><h2>${htmlEsc(dn)}</h2><ul class="orders">${ordersHtml(l)}</ul></section>`).join('') : '<p class="fine">Aucun arrêté connu en ce moment.</p>'}
-<p class="fine">Une mesure manque ? Propose-la depuis l’appli (onglet Infos, « Tous les arrêtés »), avec le lien de la source : elle est vérifiée avant d’être publiée.</p>`;
-  return pubShell(req, { title: 'Arrêtés anti-manif en cours : interdictions, périmètres, couvre-feux · Community Defense Map', desc: 'Les arrêtés en cours contre les manifestations en France, département par département, avec leurs sources officielles.', body });
+  const body = `<h1>${P('Arrêtés et interdictions en cours')}</h1><p class="lead">${P('Manifestations interdites, périmètres, couvre-feux et fermetures, avec la source officielle de chaque mesure.')}</p>
+${by.size ? [...by].sort((a, b) => byName(a[0], b[0])).map(([dn, l]) => `<section><h2>${htmlEsc(dn)}</h2><ul class="orders">${ordersHtml(l)}</ul></section>`).join('') : `<p class="fine">${P('Aucun arrêté connu en ce moment.')}</p>`}
+<p class="fine">${P('Une mesure manque ? Propose-la depuis l’appli (onglet Infos, « Tous les arrêtés »), avec le lien de la source : elle est vérifiée avant d’être publiée.')}</p>`;
+  return pubShell(req, { title: P('Arrêtés en cours : interdictions, périmètres, couvre-feux · Community Defense Map'), desc: P('Les mesures en cours contre les manifestations, État par État, avec leurs sources officielles.'), body });
 }
 function legalTeamsPage(req) {
   const by = new Map();
   for (const e of legalAll().filter(e => e.ok)) { if (!by.has(e.city)) by.set(e.city, []); by.get(e.city).push(e); }
-  const body = `<h1>Legal teams en France</h1><p class="lead">Les numéros des legal teams, ville par ville. Écris le numéro de ta ville au stylo sur ton bras avant la manif : en garde à vue, ton téléphone te sera retiré.</p>
-${by.size ? [...by].sort((a, b) => a[0].localeCompare(b[0], 'fr')).map(([c, l]) => `<section><h2>${cityLink(c)}</h2>${legalHtml(l)}</section>`).join('') : '<p class="fine">Annuaire en cours de constitution.</p>'}
-<p class="fine">Chaque numéro est vérifié auprès de la source publique du collectif. Une erreur, un numéro qui manque ? Écris via la page <a href="/legal.html#retrait">contact</a>.</p>`;
-  return pubShell(req, { title: 'Legal teams : les numéros, ville par ville · Community Defense Map', desc: 'Annuaire des legal teams en France : le numéro à noter avant une manif, ville par ville.', body });
+  const body = `<h1>${P('Legal teams, ville par ville')}</h1><p class="lead">${P('Les numéros de soutien juridique, ville par ville. Écris le numéro de ta ville au stylo sur ton bras avant de partir : si tu es arrêté·e, ton téléphone peut t’être retiré.')}</p>
+${by.size ? [...by].sort((a, b) => byName(a[0], b[0])).map(([c, l]) => `<section><h2>${cityLink(c)}</h2>${legalHtml(l)}</section>`).join('') : `<p class="fine">${P('Annuaire en cours de constitution.')}</p>`}
+<p class="fine">${P('Chaque numéro est vérifié auprès de la source publique du collectif. Une erreur, un numéro qui manque ? Écris via la page {link}.', { link: `<a href="/legal.html#retrait">${P('contact')}</a>` })}</p>`;
+  return pubShell(req, { title: P('Legal teams : les numéros, ville par ville · Community Defense Map'), desc: P('Annuaire des legal teams : le numéro à noter avant une manif, ville par ville.'), body });
 }
-// Page « Tes droits » : le contenu de l'onglet Droits de l'appli (une seule source : index.html)
-let rightsCache = null;
+// "Your rights" page: the content of the app's Rights tab (single source: index.html), translated block by block
+// with the app's dictionary before ids and classes are stripped.
+const rightsCache = new Map();
 function rightsPage(req) {
-  if (!rightsCache) {
+  if (!rightsCache.has(PAGE_LANG)) {
     const html = fs.readFileSync(path.join(PUBLIC, 'index.html'), 'utf8');
-    const a = html.indexOf('<h3 class="menu-group">En cas de</h3>'), sheet = html.indexOf('id="sheetRights"'), b = html.indexOf('</section>', a);
-    // Seulement les rubriques (details) et l'avertissement juridique, pas les boutons ni les liens propres à l'appli
+    const head = /<h3 class="menu-group">(?:En cas de|In case of)<\/h3>/, a = html.search(head), sheet = html.indexOf('id="sheetRights"'), b = html.indexOf('</section>', a);
+    // Only the topics (details) and the legal warning, not the app's buttons and links
     const part = a > sheet && b > a ? html.slice(a, b) : '', end = part.lastIndexOf('</details>');
-    const warn = (part.slice(end).match(/<p[^>]*>[^<]*Informations générales[\s\S]*?<\/p>/) || [''])[0];
-    rightsCache = end > 0 ? (part.slice(0, end + 10) + warn).replace(/<h3 class="menu-group">En cas de<\/h3>/, '').replace(/\s(id|class|data-[\w-]+)="[^"]*"/g, '').replace(/<button[\s\S]*?<\/button>/g, '') : '';
+    const warn = (part.slice(end).match(/<p[^>]*>[^<]*(?:Informations générales|General information)[\s\S]*?<\/p>/) || [''])[0];
+    const tx = s => s.replace(/<(summary|li|p)(\s[^>]*)?>([\s\S]*?)<\/\1>/g, (m, tag, at, inner) => `<${tag}${at || ''}>${P(inner)}</${tag}>`);
+    rightsCache.set(PAGE_LANG, end > 0 ? tx(part.slice(0, end + 10) + warn).replace(head, '').replace(/\s(id|class|data-[\w-]+)="[^"]*"/g, '').replace(/<button[\s\S]*?<\/button>/g, '') : '');
   }
-  const body = `<h1>Tes droits en manif</h1><p class="lead">Sommations, contrôle d’identité, garde à vue, téléphone, attaque d’un groupe fasciste : l’essentiel à savoir avant de partir. Le même contenu est dans l’appli, onglet Droits, même sans réseau.</p>
-<section class="rights">${rightsCache}</section><p class="fine">Trouve le numéro de la legal team de ta ville dans <a href="/legal-teams">l’annuaire</a>.</p>`;
-  return pubShell(req, { title: 'Tes droits en manif : sommations, garde à vue, contrôle d’identité · Community Defense Map', desc: 'Ce qu’il faut savoir avant une manif : sommations, contrôle d’identité, garde à vue, téléphone, attaque fasciste.', body });
+  const body = `<h1>${P('Tes droits en manif')}</h1><p class="lead">${P('Ordres de dispersion, contrôles de police, arrestation, téléphone, groupes hostiles : l’essentiel à savoir avant de partir. Le même contenu est dans l’appli, onglet Droits, même sans réseau.')}</p>
+<section class="rights">${rightsCache.get(PAGE_LANG)}</section><p class="fine">${P('Trouve le numéro de la legal team de ta ville dans {link}.', { link: `<a href="/legal-teams">${P('l’annuaire')}</a>` })}</p>`;
+  return pubShell(req, { title: P('Tes droits en manif : dispersion, contrôles, arrestation · Community Defense Map'), desc: P('Ce qu’il faut savoir avant une manif : ordres de dispersion, contrôles de police, arrestation, téléphone, groupes hostiles.'), body });
 }
 // Villes qui ont du contenu (manif à venir, legal team, ou ville d'un bilan publié) : une page chacune
 var cityIdx = { at: 0, map: new Map() }; // var : remis à zéro par saveEvent, saveLegal et la publication d'un bilan
@@ -1445,28 +1457,30 @@ function cityIndex() {
 const cityLink = name => { const s = slugOf(name); return cityIndex().has(s) ? `<a href="/ville/${s}">${htmlEsc(name)}</a>` : htmlEsc(name); };
 function cityPage(req, c) {
   const now = Date.now(), orders = ordersLive(now).filter(o => c.lat != null && o.p && (o.scope === 'dep' || o.name === c.name) && polyHas(o.p, c.lat, c.lng));
-  const body = `<h1>Manifs à ${htmlEsc(c.name)}</h1><p class="lead">Prochaines manifs, arrêtés en cours, legal team et bilans des dernières mobilisations à ${htmlEsc(c.name)}.</p>
-<section><h2>À venir</h2>${c.events.length ? eventsHtml(c.events) : '<p class="fine">Rien d’annoncé pour l’instant.</p>'}</section>
-${orders.length ? `<section><h2>Arrêtés en cours</h2><ul class="orders">${ordersHtml(orders)}</ul></section>` : ''}
-${c.legal.length ? `<section><h2>Legal team</h2>${legalHtml(c.legal)}<p class="fine">Note le numéro au stylo sur ton bras avant de partir.</p></section>` : ''}
-${c.bilans.length ? `<section><h2>Bilans des manifs</h2><ul class="days">${c.bilans.map(b => `<li><a href="/manif/${b.date}${b.page ? '/' + b.page : ''}"><span>${htmlEsc(frDay(b.date))}</span><span>${b.n} signalements</span></a></li>`).join('')}</ul></section>` : ''}
-<div class="cta" style="grid-template-columns:1fr"><a class="main" href="/?at=${c.lat},${c.lng}">Voir la carte en direct à ${htmlEsc(c.name)}</a></div>`;
-  return pubShell(req, { title: `Manifs à ${c.name} : agenda, arrêtés, legal team · Community Defense Map`, desc: `Les prochaines manifs à ${c.name}, les arrêtés en cours, le numéro de la legal team et les bilans des dernières mobilisations.`, body, ld: eventLd(req, c.events) });
+  const name = htmlEsc(c.name);
+  const body = `<h1>${P('Manifs à {c}', { c: name })}</h1><p class="lead">${P('Prochaines manifs, arrêtés en cours, legal team et bilans des dernières mobilisations à {c}.', { c: name })}</p>
+<section><h2>${P('À venir')}</h2>${c.events.length ? eventsHtml(c.events) : `<p class="fine">${P('Rien d’annoncé pour l’instant.')}</p>`}</section>
+${orders.length ? `<section><h2>${P('Arrêtés en cours')}</h2><ul class="orders">${ordersHtml(orders)}</ul></section>` : ''}
+${c.legal.length ? `<section><h2>${P('Legal team')}</h2>${legalHtml(c.legal)}<p class="fine">${P('Note le numéro au stylo sur ton bras avant de partir.')}</p></section>` : ''}
+${c.bilans.length ? `<section><h2>${P('Bilans des manifs')}</h2><ul class="days">${c.bilans.map(b => `<li><a href="/manif/${b.date}${b.page ? '/' + b.page : ''}"><span>${htmlEsc(pageDay(b.date))}</span><span>${P('{n} signalements', { n: b.n })}</span></a></li>`).join('')}</ul></section>` : ''}
+<div class="cta" style="grid-template-columns:1fr"><a class="main" href="/?at=${c.lat},${c.lng}">${P('Voir la carte en direct à {c}', { c: name })}</a></div>`;
+  return pubShell(req, { title: P('Manifs à {c} : agenda, arrêtés, legal team · Community Defense Map', { c: c.name }), desc: P('Les prochaines manifs à {c}, les arrêtés en cours, le numéro de la legal team et les bilans des dernières mobilisations.', { c: c.name }), body, ld: eventLd(req, c.events) });
 }
 function citiesPage(req) {
-  const list = [...cityIndex().values()].sort((a, b) => a.name.localeCompare(b.name, 'fr'));
-  const body = `<h1>Les manifs, ville par ville</h1><p class="lead">Agenda, arrêtés, legal teams et bilans pour chaque ville.</p>
-<section><p>${list.map(c => `<a href="/ville/${c.slug}">${htmlEsc(c.name)}</a>`).join(' · ') || 'Aucune ville pour l’instant.'}</p></section>`;
-  return pubShell(req, { title: 'Les manifs ville par ville · Community Defense Map', desc: 'Agenda des manifs, arrêtés, legal teams et bilans, ville par ville, sur Community Defense Map.', body });
+  const list = [...cityIndex().values()].sort((a, b) => byName(a.name, b.name));
+  const body = `<h1>${P('Les manifs, ville par ville')}</h1><p class="lead">${P('Agenda, arrêtés, legal teams et bilans pour chaque ville.')}</p>
+<section><p>${list.map(c => `<a href="/ville/${c.slug}">${htmlEsc(c.name)}</a>`).join(' · ') || P('Aucune ville pour l’instant.')}</p></section>`;
+  return pubShell(req, { title: P('Les manifs ville par ville · Community Defense Map'), desc: P('Agenda des manifs, arrêtés, legal teams et bilans, ville par ville, sur Community Defense Map.'), body });
 }
 
 function pubIndex(req) {
   const list = q('SELECT date, data FROM pub ORDER BY date DESC').all().map(x => { const d = JSON.parse(x.data); return { date: x.date, total: d.total, cities: d.cities.length }; });
   const next = upcoming().length;
-  const body = `<h1>Bilans des manifs</h1><p class="lead">Ce que les manifestant·es ont signalé sur Community Defense Map, journée par journée.${next ? ` Les prochaines manifs sont dans <a href="/agenda">l’agenda</a>.` : ''}</p>
-<section><h2>Bilans</h2>${list.length ? `<ul class="days">${list.map(x => `<li><a href="/manif/${x.date}"><span>${htmlEsc(frDay(x.date))}</span><span>${x.total} signalements · ${x.cities} villes</span></a></li>`).join('')}</ul>` : '<p class="fine">Aucun bilan publié pour l’instant.</p>'}</section>`;
-  return pubShell(req, { title: 'Bilans des manifs · Community Defense Map', desc: 'Les bilans des mobilisations signalées sur Community Defense Map, la carte en direct des manifs : chiffres, moments clés, parcours, données ouvertes.', body });
+  const body = `<h1>${P('Bilans des manifs')}</h1><p class="lead">${P('Ce qui a été signalé sur Community Defense Map, journée par journée.')}${next ? ' ' + P('Les prochaines manifs sont dans {link}.', { link: `<a href="/agenda">${P('l’agenda')}</a>` }) : ''}</p>
+<section><h2>${P('Bilans')}</h2>${list.length ? `<ul class="days">${list.map(x => `<li><a href="/manif/${x.date}"><span>${htmlEsc(pageDay(x.date))}</span><span>${P('{n} signalements · {c} villes', { n: x.total, c: x.cities })}</span></a></li>`).join('')}</ul>` : `<p class="fine">${P('Aucun bilan publié pour l’instant.')}</p>`}</section>`;
+  return pubShell(req, { title: P('Bilans des manifs · Community Defense Map'), desc: P('Les bilans des mobilisations signalées sur Community Defense Map : chiffres, moments clés, parcours, données ouvertes.'), body });
 }
+
 function sendPage(res, html) {
   res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'public, max-age=300',
     'Content-Security-Policy': "default-src 'none'; style-src 'unsafe-inline'; img-src 'self' data:; base-uri 'none'; form-action 'none'; frame-ancestors 'none'", 'X-Frame-Options': 'DENY' });
@@ -1576,7 +1590,7 @@ function tr(lang, s, v) {
   const d = LANG_DICT[lang], out = (d && d[String(s).replace(/\s+/g, ' ').trim()]) || s;
   return v ? out.replace(/\{(\w+)\}/g, (m, k) => (k in v ? v[k] : m)) : out;
 }
-const LOCALE = { fr: 'fr-FR', en: 'en-GB', es: 'es-ES', ar: 'ar-u-nu-latn' };
+const LOCALE = { fr: 'fr-FR', en: 'en-US', es: 'es-US', ar: 'ar-u-nu-latn' };
 try { // reprise de l'ancien fichier push.json, une seule fois
   if (fs.existsSync(PUSH_FILE)) {
     const old = JSON.parse(fs.readFileSync(PUSH_FILE, 'utf8'));
