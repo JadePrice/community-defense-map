@@ -10,6 +10,7 @@ Community Defense Map is a separate project built on the code of [Cortège](http
 - The upstream author's Instagram, site, Ko-fi and press kit are removed. The `BRAND_*` variables default to empty, and donation buttons appear only when `BRAND_KOFI` is set.
 - Credit to upstream is a single line in the menu ("Free software (AGPL-3.0), based on Cortège") and a sentence in the legal page's publisher section stating that Cortège's authors do not run or endorse this service.
 - The word "Cortège" remains where it is the French noun for a march (category labels such as "Tête de cortège", the march-length text) and in that credit. `Cortège` is also kept on the reserved organizer-name list.
+- The "What's new" sheet (`public/nouveautes.json`) describes this project's changes, not upstream's release history, and its footer points to this file instead of upstream's CHANGELOG. The release steps are in the README.
 - Internal identifiers keep upstream names so existing installs keep working: `DATA_DIR` default `~/.cortege-data`, the `cortege.db` file, `localStorage` keys `cortege-*`, the `x-cortege-onion` header, and the systemd/backup files under `tools/`.
 
 ## Geography and time
@@ -50,6 +51,7 @@ All user-facing text lives in `i18n/*.tsv` (source text as the key, then English
   - U.S. example places in placeholders;
   - the mask-law caveat (several states restrict masks at protests);
   - American spelling, generated for 55 rows whose Spanish and Arabic are unchanged.
+- The places sheet no longer gives France's on-duty pharmacy number (3237). It says opening hours are not shown and gives 911 for medical emergencies. The upstream row in `02-page.tsv` is left in place, unused.
 
 Checked in a browser with the app set to English, Spanish and Arabic: no French text remains on the main page, and the Rights section is in Spanish and Arabic. In those two languages, the sentences to say to police ("I am going to remain silent", "Am I free to go?", "I do not consent to a search") are kept in English next to the translation.
 
@@ -137,4 +139,6 @@ These are the steps for an instance that ran an earlier fork commit. None of the
    SELECT id, oid FROM reports WHERE oid <> '' AND oid NOT GLOB '*[^0-9]*';  -- all digits = a rowid, not an orga id
    ```
 5. **Configure** `PUBLIC_URL`, `SOURCE_URL` (if you run a modified copy), `CONTACT_EMAIL` and `TIMEZONE`, and decide `DISABLED_CATS`.
-6. **Event-import data.** If the 17 October import ever ran, its French events (source `17oct`) remain until they expire; they can be hidden from the admin page.
+6. **ICE sites.** On the first start after the upgrade the server imports `geo/ice-facilities.csv` (its hash is new to the database) and merges OpenStreetMap jails within 250 m of an ICE site. The log line `ICE : 613 sites imported from ice-facilities.csv` confirms it (613 for dataset commit `a311796`).
+7. **What's new.** People who used the instance before see the "What's new" sheet once, because the version changed from upstream's 2.8 to `1.0.0-beta.1`.
+8. **Event-import data.** If the 17 October import ever ran, its French events (source `17oct`) remain until they expire; they can be hidden from the admin page.

@@ -4,10 +4,14 @@ A crowd-sourced, real-time map of police activity and surveillance infrastructur
 
 Community Defense Map is its own project, run by its own operators. It is built on the code of [Cortège](https://github.com/n-e-r-u/cortege), a French protest map, under the AGPL-3.0. The authors of Cortège do not run, maintain or endorse this service. What changed, and what is still inherited and French-specific, is listed in [docs/DIVERGENCE.md](docs/DIVERGENCE.md).
 
+Status: **beta**, version `1.0.0-beta.1`. The data and translations below have not had native-speaker or legal review (see DIVERGENCE.md).
+
 ## What it does
 
 - **Live reports** of police presence, units, roadblocks, kettles, arrests and crowd-control weapons, confirmed or contested by other people nearby, and expiring after minutes.
-- **Surveillance infrastructure**: camera locations from OpenStreetMap, with facing direction when tagged.
+- **Surveillance infrastructure**: cameras and automated license plate readers from OpenStreetMap (DeFlock tagging), with facing direction when tagged.
+- **Places**: jails and prisons, sheriff's offices, government offices, courts, hospitals, pharmacies and drinking water, imported monthly from OpenStreetMap.
+- **ICE detention sites**: places where ICE has held people since January 2025, from the Deportation Data Project, with facility type, days used, people held and field office. Sites the dataset leaves untyped are listed in [docs/ICE_GENERIC_SITES.md](docs/ICE_GENERIC_SITES.md).
 - **Know your rights**: U.S. guidance aligned with ACLU and NLG material. General information only, not legal advice.
 - **Offline-capable** progressive web app; English by default, with Spanish, French and Arabic.
 
@@ -86,6 +90,14 @@ This is not the default. Deciding it is a policy question for whoever runs the i
 | Places of 50,000+ (`places.json`) | GeoNames | CC BY 4.0 |
 | ICE detention sites (`geo/ice-facilities.csv`) | ICE data compiled and checked by the [Deportation Data Project](https://github.com/deportationdata/ice-detention-facilities) | CC0 |
 | Address search | Nominatim (OSM Foundation), through the server | ODbL, usage policy applies |
+
+## Releases
+
+`CHANGELOG.md` is Cortège's history up to 2.8.1, kept as-is. This project's version is in `package.json` (shown in the menu and at `/api/version`). For a release:
+
+1. Bump `version` in `package.json`.
+2. Set the same `version` in `public/nouveautes.json` and replace its entry with what changed, in French (`items`, the source) and in English, Spanish and Arabic (`items_en`, `items_es`, `items_ar`). People who used an earlier version see this "What's new" sheet once; first-time visitors don't.
+3. Run `npm test`.
 
 ## License
 
