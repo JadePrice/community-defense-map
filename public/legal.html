@@ -1,14 +1,14 @@
 <!doctype html>
-<html lang="fr">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="referrer" content="no-referrer">
-<title>Community Defense Map · mentions légales et confidentialité</title>
-<meta name="description" content="Mentions légales de Community Defense Map et ce que le serveur garde ou non : pas de compte, pas de pistage.">
+<title>Community Defense Map · about, privacy and terms</title>
+<meta name="description" content="Who runs Community Defense Map and what the server keeps or doesn’t: no account, no tracking.">
 <link rel="icon" href="/favicon.png" type="image/png">
 <style>
-/* Page de lecture : une colonne, sommaire en tête, sections numérotées par la structure du texte. */
+/* Reading page: one column, contents first, numbered sections. */
 :root {
   --bg: #121214; --surface: #1c1c20; --line: #34343c; --fg: #f2f1f4; --muted: #a3a1ad; --accent: #7fe0ef;
   --font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
@@ -42,97 +42,99 @@ th { color: var(--muted); font-weight: 600; font-size: 13px; }
 <main>
   <header>
     <img src="/brand/logo.png" alt="">
-    <h1>Mentions légales, confidentialité et règles d’utilisation</h1>
+    <h1>About, privacy and terms of use</h1>
   </header>
-  <a class="back" href="/">← Retour à la carte</a>
-  <p class="updated">Dernière mise à jour : 15 octobre 2026</p>
+  <a class="back" href="/">← Back to the map</a>
+  <p class="updated">Last updated: October 31, 2026</p>
 
-  <nav class="toc" aria-label="Sommaire">
+  <nav class="toc" aria-label="Contents">
     <ol>
-      <li><a href="#mentions">Mentions légales</a></li>
-      <li><a href="#regles">Règles d’utilisation</a></li>
-      <li><a href="#donnees">Données personnelles et confidentialité</a></li>
-      <li><a href="#retrait">Signaler un contenu, contact</a></li>
+      <li><a href="#mentions">Who runs this service</a></li>
+      <li><a href="#regles">Terms of use</a></li>
+      <li><a href="#donnees">Personal data and privacy</a></li>
+      <li><a href="#retrait">Report content, contact</a></li>
     </ol>
   </nav>
 
-  <h2 id="mentions">1. Mentions légales</h2>
-  <h3>Éditeur</h3>
+  <h2 id="mentions">1. Who runs this service</h2>
+  <h3>Publisher</h3>
   <p>Community Defense Map is a free, ad-free web application published by the operator of this instance (contact below). It is free software (AGPL-3.0) based on <a href="https://github.com/n-e-r-u/cortege" target="_blank" rel="noopener">Cortège</a>, an independent French project; the authors of Cortège do not run or endorse this service.</p>
-  <p>Contact : <span class="contact"><span class="todo">adresse à compléter (variable CONTACT_EMAIL)</span></span></p>
-  <h3>Hébergeur</h3>
-  <p id="hostInfo">Coordonnées de l’hébergeur : voir la variable HOST_INFO de l’instance.</p>
-  <h3>Carte et code</h3>
-  <p id="mapCredit">Fond de carte et recherche de lieux : © les contributeur·ices d’<a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>, données sous licence ODbL. Les lieux permanents (préfectures, mairies, commissariats, tribunaux, hôpitaux, pharmacies, points d’eau) viennent aussi d’OpenStreetMap, mis à jour chaque mois : ils peuvent être incomplets ou dépassés. Le code source de Community Defense Map est libre (licence AGPL-3.0)<span class="source-wrap" hidden> et consultable ici : <a class="source-link" href="#" target="_blank" rel="noopener">code source</a></span>.</p>
+  <p>Contact: <span class="contact"><span class="todo">address to be added (CONTACT_EMAIL setting)</span></span></p>
+  <h3>Host</h3>
+  <p id="hostInfo">Hosting provider details: see this instance’s HOST_INFO setting.</p>
+  <h3>Map and code</h3>
+  <p id="mapCredit">Base map and place search: © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors, data under the ODbL license. Permanent places (government offices, city halls, police stations, courts, hospitals, pharmacies, drinking water, surveillance cameras) also come from OpenStreetMap, updated monthly: they may be incomplete or out of date. City names in summaries come from GeoNames (CC BY 4.0); state outlines from the U.S. Census Bureau. The source code of Community Defense Map is free software (AGPL-3.0).</p>
+  <p class="source-wrap" hidden><a class="source-link" href="#" target="_blank" rel="noopener">Source code</a></p>
 
-  <h2 id="regles">2. Règles d’utilisation</h2>
-  <p>Community Defense Map sert à se protéger collectivement en manifestation. Les signalements sont visibles par tout le monde : chacun·e en est responsable.</p>
+  <h2 id="regles">2. Terms of use</h2>
+  <p>Community Defense Map is for protecting each other: it maps police activity and surveillance. Reports are visible to everyone, and each person is responsible for what they post.</p>
   <div class="box">
-    <b>On signale des situations, jamais des personnes.</b>
+    <b>Report situations, never people.</b>
     <ul>
-      <li>Interdit : noms, surnoms, descriptions physiques, matricules, numéros RIO, plaques d’immatriculation, ou tout élément permettant d’identifier une personne, qu’il s’agisse d’un·e manifestant·e ou d’un agent.</li>
-      <li>Interdit : insultes, menaces, appels à la violence ou à la haine, propos discriminatoires.</li>
-      <li>Interdit : fausses informations et signalements volontairement trompeurs.</li>
+      <li>Not allowed: names, nicknames, physical descriptions, badge numbers, license plates, or anything else that identifies a person, whether a protester or an officer.</li>
+      <li>Not allowed: insults, threats, calls for violence or hatred, discriminatory statements.</li>
+      <li>Not allowed: false information and deliberately misleading reports.</li>
     </ul>
   </div>
-  <p>Tout contenu contraire à ces règles est supprimé sans préavis. En cas d’attaque (afflux de faux signalements), les signalements peuvent être mis en pause ou effacés.</p>
-  <p><b>Une information participative, pas une vérité.</b> Les signalements viennent de participant·es et ne sont pas vérifiés, sauf mention « Vérifié par » une organisation. Ils peuvent être faux, incomplets ou dépassés. Garde ton propre jugement, reste avec ton groupe, et en cas d’urgence médicale ou de danger grave, appelle le <b>911</b>.</p>
-  <p>La fiche « Mes droits » donne des informations générales sur le droit français. Ce n’est pas un conseil juridique : en cas d’interpellation, adresse-toi à un·e avocat·e.</p>
+  <p>Content that breaks these rules is removed without notice. During an attack (a flood of fake reports), reporting can be paused or reports erased.</p>
+  <p><b>Crowd-sourced information, not the truth.</b> Reports come from participants and are not verified unless marked “Verified by” an organization. They can be wrong, incomplete or out of date. Use your own judgment, stay with your group, and in a medical emergency or serious danger call <b>911</b>.</p>
+  <p>The Rights tab gives general information about U.S. law. It is not legal advice: if you are arrested, talk to a lawyer.</p>
 
-  <h2 id="donnees">3. Données personnelles et confidentialité</h2>
-  <p>Community Defense Map a été conçu pour collecter le moins de données possible. <b>Aucun compte, aucun cookie, aucune publicité, aucune mesure d’audience.</b> Responsable du traitement : l’éditeur (voir ci-dessus).</p>
+  <h2 id="donnees">3. Personal data and privacy</h2>
+  <p>Community Defense Map was designed to collect as little data as possible. <b>No account, no cookies, no ads, no analytics.</b> The publisher (see above) is responsible for this data.</p>
   <div class="table-wrap">
   <table>
-    <thead><tr><th>Donnée</th><th>Ce qui est fait</th><th>Durée</th></tr></thead>
+    <thead><tr><th>Data</th><th>What is done with it</th><th>How long</th></tr></thead>
     <tbody>
-      <tr><td>Ta position GPS</td><td>Reste sur ton téléphone. Elle sert à centrer la carte, à te suivre et à t’alerter. Pour charger les signalements, le téléphone demande seulement les zones de la carte qui t’entourent, arrondies à environ 5 km. Pour le temps réel, il s’abonne aussi aux grandes zones d’environ 100 km qui t’entourent, sans rien garder sur le serveur.</td><td>Jamais envoyée</td></tr>
-      <tr><td>La boussole</td><td>Utilisée sur le téléphone pour orienter ton point sur la carte.</td><td>Jamais envoyée</td></tr>
-      <tr><td>Tes signalements</td><td>Catégorie, position arrondie à une dizaine de mètres, précision écrite facultative, heure. Visibles par tout le monde.</td><td>Effacés à expiration (10 à 90 min selon le type, prolongeables)</td></tr>
-      <tr><td>Statistiques anonymes</td><td>Quand un signalement disparaît (expiré ou retiré), on garde seulement : catégorie, heures de début et de fin à la minute, position arrondie à une dizaine de mètres (comme sur la carte en direct), nombres de confirmations, de « Plus là » et de précisions, et ce qu’il est devenu (expiré, contesté, retiré…) ; pour la tête et la queue de cortège, aussi leur chemin. Jamais le texte des précisions, jamais d’empreinte. Elles servent aux bilans des mobilisations : un bilan publié (page publique et données ouvertes téléchargeables) garde ces points, sans rien sur les personnes qui les ont envoyés.</td><td>30 jours (sans limite pour un bilan publié)</td></tr>
-      <tr><td>Empreintes anti-abus</td><td>Pour limiter le spam, le serveur calcule une empreinte chiffrée (HMAC) de ton adresse IP et de l’identifiant aléatoire de ton téléphone. Ni l’adresse IP ni l’identifiant ne sont stockés en clair. La clé est tirée au hasard pour chaque période (6 heures pour l’adresse IP, une journée pour le téléphone), puis détruite à la fin de la période suivante : même avec une copie du disque, on ne peut plus recalculer les empreintes passées, et deux journées ne peuvent pas être reliées entre elles. À l’intérieur d’une même période, en revanche, le serveur peut relier entre elles les actions d’un même téléphone (une journée) ou d’un même réseau (6 heures).</td><td>Le temps du signalement, et 5 minutes pour les limites</td></tr>
-      <tr><td>Ancienneté du téléphone</td><td>Pour que les « Plus là » d’un identifiant tout juste créé ne comptent pas, le serveur note l’heure à laquelle il a vu pour la première fois l’empreinte de ton téléphone (jamais l’identifiant lui-même). Quand tu appuies sur « Plus là », ton téléphone indique seulement s’il est à moins de 400 m du point : le calcul est fait sur le téléphone, ta position n’est pas envoyée.</td><td>26 h au plus (l’empreinte change chaque jour)</td></tr>
-      <tr><td>Fiabilité du jour</td><td>Le serveur compte, pour l’empreinte du jour de ton téléphone, combien de tes signalements ont été confirmés par d’autres et combien ont été contestés. Un téléphone souvent confirmé pèse un peu plus. Tout repart de zéro chaque jour, puisque l’empreinte change.</td><td>26 h au plus</td></tr>
-      <tr><td>Tableau des abus</td><td>Pour repérer les attaques (faux signalements en série, votes en rafale) : type d’événement, heure et position arrondie à environ 1 km. L’empreinte du téléphone et du réseau y est effacée au bout d’une heure.</td><td>48 h</td></tr>
-      <tr><td>Notifications (si tu les actives)</td><td>L’adresse technique fournie par ton navigateur pour recevoir les notifications, ta zone arrondie à environ 10 km, tes choix (annonces urgentes, dangers près de toi, nouveaux arrêtés), la langue de l’appli et l’heure de la dernière alerte « danger » (pour ne pas t’en envoyer plus d’une toutes les 3 minutes). Le contenu des notifications est chiffré de bout en bout jusqu’à ton téléphone ; il comprend les signalements publics actifs autour de ta zone, pour que la carte soit à jour même sans réseau. Les notifications passent par le service de ton navigateur (Google pour Chrome et Android, Apple pour Safari et l’iPhone, Mozilla pour Firefox, Microsoft pour Edge sous Windows) : il voit qu’une notification t’est envoyée, à quelle heure et sa taille, jamais son contenu.</td><td>Jusqu’à ce que tu désactives le réglage</td></tr>
-      <tr><td>Événements proposés</td><td>Titre, date, lieu, parcours et précision que tu écris, visibles par tout le monde une fois validés. Une empreinte anti-spam de ton téléphone est gardée tant que la proposition attend la validation.</td><td>12 h après le début de l’événement</td></tr>
-      <tr><td>Position en direct des orgas</td><td>Seulement pour une orga confirmée qui l’active (street medic, legal team, presse, tête ou queue de cortège) : la position de son téléphone est envoyée toutes les 30 secondes et affichée sur la carte avec le nom de l’orga, arrondie à une dizaine de mètres. Le serveur ne garde que la dernière position, plus, pour la tête et la queue de cortège seulement, le chemin des 30 dernières minutes. Le partage s’arrête à la main, à la fin de la durée choisie, au bout de 4 heures au plus, sans confirmation toutes les 30 minutes, ou dès que le téléphone s’éloigne de plus de 2 km de son point de départ (et du parcours de la manif) : cette position lointaine n’est jamais enregistrée. Le point de départ sert seulement à ce contrôle et n’est jamais publié.</td><td>3 minutes après le dernier envoi</td></tr>
-      <tr><td>Arrêtés proposés</td><td>Département, commune, dates, mesures et lien de la source que tu envoies, visibles par tout le monde une fois validés par l’admin. Une empreinte anti-spam de ton téléphone est gardée avec la proposition.</td><td>Jusqu’à la fin de l’arrêté</td></tr>
-      <tr><td>Contact « SOS interpellation »</td><td>Le nom et le numéro de la personne à prévenir restent sur ton téléphone. Le SMS part de ton téléphone, avec ton forfait : il ne passe pas par Community Defense Map.</td><td>Jamais envoyé</td></tr>
-      <tr><td>Recherche de lieux</td><td>Le texte tapé passe par le serveur de Community Defense Map, puis par le service de recherche d’OpenStreetMap (Nominatim), sans ton adresse IP.</td><td>Non conservé</td></tr>
-      <tr><td>Stockage sur ton téléphone</td><td>Identifiant aléatoire anti-spam, tes propres signalements (pour pouvoir les prolonger ou les corriger), annonces masquées, morceaux de carte déjà affichés, signalements en attente de réseau, réglages (langue, économie de batterie, alerte vocale, lieux affichés, agenda masqué sur la carte), point de rendez-vous, zone et choix des notifications, dernière situation de la carte et derniers signalements reçus par notification (pour l’afficher sans réseau), contact SOS, lien d’accès pour les organisations et, sur le téléphone de l’admin, sa clé d’accès.</td><td>Jusqu’à ce que tu effaces les données du site</td></tr>
-      <tr><td>Actions des orgas</td><td>Pour pouvoir corriger un abus, les actions des orgas (vérification, retrait, annonce, événement) sont enregistrées avec l’heure, le nom de l’orga, le type de signalement, une position arrondie à environ 100 m et, pour une annonce ou une précision corrigée, son texte et le numéro publié. Aucune adresse IP. Un point retiré reste restaurable une heure : pendant ce temps, il est gardé en entier, avec les empreintes anti-abus de celles et ceux qui l’ont signalé ou confirmé. Pour les orgas invitées par une autre orga, l’orga marraine voit aussi leurs dernières actions.</td><td>30 jours (1 h pour un point retiré)</td></tr>
-      <tr><td>Demandes d’accès orga</td><td>Nom du collectif, ville, rôle, lien public, canal officiel du collectif et message éventuel, envoyés par le formulaire « Devenir orga certifiée ». Ni adresse IP ni identifiant du téléphone n’y sont joints.</td><td>Jusqu’au traitement de la demande, 30 jours au plus</td></tr>
-      <tr id="logsRow"><td>Journaux de l’hébergeur</td><td>Comme tout site, l’hébergeur tient des journaux de connexion techniques (adresse IP, date, page demandée). Community Defense Map ne les exploite pas.</td><td>Selon les obligations légales de l’hébergeur</td></tr>
+      <tr><td>Your GPS location</td><td>Stays on your phone. It centers the map, follows you and triggers alerts. To load reports, the phone only asks for the map areas around you, rounded to about 5 km. For live updates, it also subscribes to the large areas of about 100 km around you, with nothing kept on the server.</td><td>Never sent</td></tr>
+      <tr><td>The compass</td><td>Used on the phone to orient your dot on the map.</td><td>Never sent</td></tr>
+      <tr><td>Your reports</td><td>Category, position rounded to about ten meters, optional written note, time. Visible to everyone.</td><td>Erased when they expire (10 to 90 min depending on the type, can be extended)</td></tr>
+      <tr><td>Anonymous statistics</td><td>When a report disappears (expired or removed), only this is kept: category, start and end times to the minute, position rounded to about ten meters (as on the live map), number of confirmations, of “Gone” votes and of notes, and what happened to it (expired, contested, removed…); for the head and tail of a march, also their path. Never the text of notes, never a fingerprint. They are used for summaries of mobilizations: a published summary (public page and downloadable open data) keeps these points, with nothing about the people who sent them.</td><td>30 days (no limit for a published summary)</td></tr>
+      <tr><td>Anti-abuse fingerprints</td><td>To limit spam, the server computes an encrypted fingerprint (HMAC) of your IP address and of your phone’s random identifier. Neither the IP address nor the identifier is stored in the clear. The key is drawn at random for each period (6 hours for the IP address, one day for the phone), then destroyed at the end of the following period: even with a copy of the disk, past fingerprints can no longer be computed, and two days cannot be linked. Within one period, however, the server can link the actions of the same phone (one day) or the same network (6 hours).</td><td>The life of the report, and 5 minutes for rate limits</td></tr>
+      <tr><td>Phone age</td><td>So that “Gone” votes from a brand-new identifier don’t count, the server notes when it first saw your phone’s fingerprint (never the identifier itself). When you tap “Gone”, your phone only says whether it is within 400 m of the point: the calculation is done on the phone, your location is not sent.</td><td>26 h at most (the fingerprint changes every day)</td></tr>
+      <tr><td>Daily reliability</td><td>For your phone’s fingerprint of the day, the server counts how many of your reports others confirmed and how many were contested. A phone that is often confirmed counts a little more. Everything resets every day, since the fingerprint changes.</td><td>26 h at most</td></tr>
+      <tr><td>Abuse log</td><td>To detect attacks (fake reports in series, bursts of votes): event type, time and position rounded to about 1 km. The phone and network fingerprints are erased from it after one hour.</td><td>48 h</td></tr>
+      <tr><td>Notifications (if you turn them on)</td><td>The technical address your browser provides for notifications, your area rounded to about 10 km, your choices (urgent announcements, dangers near you, new orders), the app’s language and the time of the last “danger” alert (so you don’t get more than one every 3 minutes). Notification content is end-to-end encrypted to your phone; it includes the public reports active around your area, so the map stays up to date without a network. Notifications go through your browser’s service (Google for Chrome and Android, Apple for Safari and iPhone, Mozilla for Firefox, Microsoft for Edge on Windows): it sees that a notification is sent to you, when, and its size, never its content.</td><td>Until you turn the setting off</td></tr>
+      <tr><td>Suggested events</td><td>Title, date, place, route and the note you write, visible to everyone once approved. An anti-spam fingerprint of your phone is kept while the suggestion waits for approval.</td><td>12 h after the event starts</td></tr>
+      <tr><td>Organizers’ live location</td><td>Only for a confirmed organizer who turns it on (street medic, legal team, press, head or tail of a march): the phone’s position is sent every 30 seconds and shown on the map with the organizer’s name, rounded to about ten meters. The server keeps only the last position, plus, for the head and tail of a march only, the path of the last 30 minutes. Sharing stops by hand, at the end of the chosen duration, after 4 hours at most, without a confirmation every 30 minutes, or as soon as the phone moves more than 2 km from its starting point (and from the march route): that distant position is never recorded. The starting point is only used for this check and is never published.</td><td>3 minutes after the last update</td></tr>
+      <tr><td>Suggested orders</td><td>State, city, dates, measures and the source link you send, visible to everyone once approved by the admin. An anti-spam fingerprint of your phone is kept with the suggestion.</td><td>Until the order ends</td></tr>
+      <tr><td>“I’ve been arrested” contact</td><td>The name and number of the person to alert stay on your phone. The text message is sent from your phone, on your plan: it does not go through Community Defense Map.</td><td>Never sent</td></tr>
+      <tr><td>Place search</td><td>What you type goes through the Community Defense Map server, then to OpenStreetMap’s search service (Nominatim), without your IP address.</td><td>Not kept</td></tr>
+      <tr><td>Storage on your phone</td><td>Random anti-spam identifier, your own reports (so you can extend or correct them), hidden announcements, map pieces already shown, reports waiting for a network, settings (language, battery saver, voice alert, places shown, calendar hidden on the map), meeting point, notification area and choices, the last state of the map and the last reports received by notification (to show them without a network), SOS contact, the access link for organizations and, on the admin’s phone, the admin key.</td><td>Until you clear the site’s data</td></tr>
+      <tr><td>Organizer actions</td><td>To be able to correct abuse, organizer actions (verification, removal, announcement, event) are recorded with the time, the organizer’s name, the report type, a position rounded to about 100 m and, for an announcement or a corrected note, its text and the published number. No IP address. A removed point can be restored for one hour: during that time it is kept in full, with the anti-abuse fingerprints of the people who reported or confirmed it. For organizers invited by another organizer, the sponsoring organizer also sees their latest actions.</td><td>30 days (1 h for a removed point)</td></tr>
+      <tr><td>Organizer access requests</td><td>Group name, city, role, public link, the group’s official channel and an optional message, sent through the “Become a certified organizer” form. No IP address or phone identifier is attached.</td><td>Until the request is handled, 30 days at most</td></tr>
+      <tr id="logsRow"><td>Host’s logs</td><td>Like any website, the host keeps technical connection logs (IP address, date, page requested). Community Defense Map does not use them.</td><td>According to the host’s policies and legal obligations</td></tr>
     </tbody>
   </table>
   </div>
-  <p>Base légale : l’intérêt légitime de fournir un service d’information et de sécurité, et de le protéger contre les abus. Les données ne sont ni vendues ni transmises à des tiers, à l’exception des sous-traitants techniques cités (hébergeur, OpenStreetMap pour la carte, services de notification des navigateurs).</p>
-  <p>Ce que cette protection ne couvre pas : l’hébergeur, ou toute personne qui prendrait le contrôle du serveur, peut techniquement lire ce qu’il contient au moment où il le fait (signalements actifs, empreintes du moment, abonnements aux notifications, clés des orgas sous forme chiffrée). L’effacement d’urgence efface tout cela et détruit les clés, mais un effacement logiciel ne touche ni les sauvegardes ou instantanés de l’hébergeur, ni les copies déjà faites ailleurs, ni les traces physiques du disque.</p>
-  <p>En situation sensible, tu peux utiliser Community Defense Map via un VPN ou le navigateur Tor.</p>
-  <p>You have rights under applicable U.S. privacy laws depending on your state. Since Community Defense Map collects minimal data and cannot identify you, most requests cannot be fulfilled by linking data to you. You can write to the address below with questions.</p>
+  <p>Why this data is processed: to provide an information and safety service and to protect it against abuse. Data is not sold or shared with third parties, except the technical providers named above (host, OpenStreetMap for the map, browsers’ notification services).</p>
+  <p>What this protection does not cover: the host, or anyone who takes control of the server, can technically read what it holds at that moment (active reports, current fingerprints, notification subscriptions, organizer keys in hashed form). The emergency wipe erases all of that and destroys the keys, but a software wipe does not reach the host’s backups or snapshots, copies already made elsewhere, or physical traces on the disk.</p>
+  <p>In a sensitive situation, you can use Community Defense Map through a VPN or the Tor Browser.</p>
+  <p>You may have rights under the privacy laws of your state. Because Community Defense Map collects minimal data and cannot identify you, most requests cannot be fulfilled by linking data to you. You can write to the address below with questions.</p>
 
-  <h2 id="retrait">4. Signaler un contenu, contact</h2>
-  <p>Pour signaler un contenu illicite ou contraire aux règles, ou pour toute question, écris à : <span class="contact"><span class="todo">adresse à compléter (variable CONTACT_EMAIL)</span></span>. Indique le type de signalement, le lieu approximatif et l’heure : il sera retiré dans les meilleurs délais.</p>
+  <h2 id="retrait">4. Report content, contact</h2>
+  <p>To report illegal content or content that breaks the rules, or for any question, write to: <span class="contact"><span class="todo">address to be added (CONTACT_EMAIL setting)</span></span>. Give the report type, the approximate place and the time: it will be removed as soon as possible.</p>
 </main>
+<script src="/i18n.js"></script>
 <script>
-fetch('/api/config').then(r => r.json()).then(c => {
-  if (c.brand) {
-    document.querySelectorAll('.handle').forEach(n => (n.textContent = c.brand.handle));
-    document.querySelectorAll('.site-link').forEach(a => { a.href = c.brand.site; a.textContent = c.brand.site.replace(/^https?:\/\//, '').replace(/\/$/, ''); });
-  }
+(async () => {
+  if (window.I18N) await window.I18N.ready;
+  const t = s => (window.I18N ? window.I18N.t(s) : s);
+  const c = await fetch('/api/config').then(r => r.json()).catch(() => null);
+  if (!c) return;
   if (c.contact) document.querySelectorAll('.contact').forEach(n => {
     n.textContent = ''; const a = document.createElement('a'); a.href = 'mailto:' + c.contact; a.textContent = c.contact; n.append(a);
   });
   if (c.hostInfo) document.querySelector('#hostInfo').textContent = c.hostInfo;
-  if (c.vector) { const p = document.querySelector('#mapCredit'); p.insertBefore(document.createTextNode('Carte hébergée sur le serveur de Community Defense Map (format Protomaps) : aucune demande ne part chez un fournisseur de carte. '), p.firstChild); }
+  if (c.vector) { const p = document.querySelector('#mapCredit'); p.insertBefore(document.createTextNode(t('The map is hosted on the Community Defense Map server (Protomaps format): no request goes to a map provider.') + ' '), p.firstChild); }
   if (c.accessLogs === 'none') {
     const row = document.querySelector('#logsRow').children;
-    row[0].textContent = 'Journaux de connexion';
-    row[1].textContent = 'Le serveur ne tient aucun journal des connexions : ni adresse IP, ni page demandée, ni heure de visite. Comme pour tout site, l’hébergeur et ton opérateur voient seulement qu’une connexion a lieu.';
-    row[2].textContent = 'Aucune conservation';
+    row[0].textContent = t('Connection logs');
+    row[1].textContent = t('The server keeps no connection logs: no IP address, no page requested, no time of visit. As for any website, the host and your carrier only see that a connection takes place.');
+    row[2].textContent = t('Not kept at all');
   }
   if (c.sourceUrl) { document.querySelector('.source-wrap').hidden = false; document.querySelector('.source-link').href = c.sourceUrl; }
-}).catch(() => {});
+})();
 </script>
 </body>
 </html>
