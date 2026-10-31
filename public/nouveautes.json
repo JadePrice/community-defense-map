@@ -1,440 +1,150 @@
 {
-  "version": "2.8",
+  "version": "2.8.1",
   "items": [
     [
-      "📊 Bilans détaillés",
-      "Moments clés, durée de chaque danger, parcours des cortèges, arrêtés du jour, une page par ville, et les données à télécharger."
+      "🛂 Lieux de détention de l’ICE",
+      "Les lieux où l’ICE a détenu des personnes depuis janvier 2025, d’après le Deportation Data Project : type de lieu, jours d’utilisation, nombre de personnes, bureau régional de l’ICE."
     ],
     [
-      "🗺️ Agenda, arrêtés, villes",
-      "De nouvelles pages publiques : l’agenda des manifs, les arrêtés en cours, tes droits et les legal teams, ville par ville."
+      "🚘 Lecteurs de plaques",
+      "Les lecteurs automatiques de plaques d’immatriculation recensés dans OpenStreetMap (DeFlock), avec leur propre interrupteur, visibles au zoom quartier."
+    ],
+    [
+      "🏛️ Prisons, shérifs, administrations",
+      "Prisons, bureaux du shérif et administrations dans tout le pays, mis à jour chaque mois depuis OpenStreetMap."
+    ],
+    [
+      "🇺🇸 Pensée pour les États-Unis",
+      "En anglais, espagnol et arabe, avec tes droits face à la police aux États-Unis et les États sur la carte."
     ]
   ],
   "items_en": [
     [
-      "📊 Detailed reports",
-      "Key moments, how long each danger lasted, march routes, the day’s orders, a page per city, and downloadable data."
+      "🛂 ICE detention sites",
+      "Places where ICE has held people since January 2025, from the Deportation Data Project: type of site, days used, number of people held, ICE field office."
     ],
     [
-      "🗺️ Calendar, orders, cities",
-      "New public pages: the protest calendar, current orders, your rights and legal teams, city by city."
+      "🚘 License plate readers",
+      "Automated license plate readers mapped in OpenStreetMap (DeFlock), with their own layer switch, visible at neighborhood zoom."
+    ],
+    [
+      "🏛️ Jails, sheriffs, government offices",
+      "Jails and prisons, sheriff’s offices and government offices nationwide, updated monthly from OpenStreetMap."
+    ],
+    [
+      "🇺🇸 Built for the U.S.",
+      "In English, Spanish and Arabic, with your rights with police in the U.S. and the states on the map."
     ]
   ],
   "items_es": [
     [
-      "📊 Balances detallados",
-      "Momentos clave, duración de cada peligro, recorridos de las manifestaciones, órdenes del día, una página por ciudad y los datos para descargar."
+      "🛂 Lugares de detención de ICE",
+      "Los lugares donde ICE ha retenido a personas desde enero de 2025, según el Deportation Data Project: tipo de lugar, días de uso, número de personas, oficina regional de ICE."
     ],
     [
-      "🗺️ Agenda, órdenes, ciudades",
-      "Nuevas páginas públicas: la agenda de manifestaciones, las órdenes vigentes, tus derechos y los legal teams, ciudad por ciudad."
+      "🚘 Lectores de placas",
+      "Los lectores automáticos de placas registrados en OpenStreetMap (DeFlock), con su propio interruptor, visibles con zoom de barrio."
+    ],
+    [
+      "🏛️ Cárceles, sheriffs, oficinas de gobierno",
+      "Cárceles y prisiones, oficinas del sheriff y oficinas de gobierno en todo el país, actualizadas cada mes desde OpenStreetMap."
+    ],
+    [
+      "🇺🇸 Hecha para EE. UU.",
+      "En inglés, español y árabe, con tus derechos ante la policía en EE. UU. y los estados en el mapa."
     ]
   ],
   "items_ar": [
     [
-      "📊 حصائل مفصّلة",
-      "اللحظات الرئيسية، مدة كل خطر، مسارات المسيرات، قرارات اليوم، صفحة لكل مدينة، والبيانات للتنزيل."
+      "🛂 مواقع احتجاز ICE",
+      "الأماكن التي احتجزت فيها ICE أشخاصًا منذ يناير 2025، بحسب Deportation Data Project: نوع الموقع، وأيام الاستخدام، وعدد المحتجزين، والمكتب الميداني لـ ICE."
     ],
     [
-      "🗺️ المواعيد والقرارات والمدن",
-      "صفحات عامة جديدة: مواعيد المظاهرات، القرارات السارية، حقوقك، والفرق القانونية، مدينة بمدينة."
+      "🚘 قارئات لوحات السيارات",
+      "قارئات لوحات السيارات الآلية المسجّلة في OpenStreetMap (DeFlock)، مع مفتاح خاص بها، تظهر عند تكبير مستوى الحي."
+    ],
+    [
+      "🏛️ السجون ومكاتب الشريف والمكاتب الحكومية",
+      "السجون ومكاتب الشريف والمكاتب الحكومية في جميع أنحاء البلاد، تُحدَّث كل شهر من OpenStreetMap."
+    ],
+    [
+      "🇺🇸 مصمَّمة للولايات المتحدة",
+      "بالإنجليزية والإسبانية والعربية، مع حقوقك أمام الشرطة في الولايات المتحدة والولايات على الخريطة."
     ]
   ],
   "history": [
     {
-      "version": "2.8",
+      "version": "2.8.1",
       "items": [
         [
-          "📊 Bilans détaillés",
-          "Moments clés, durée de chaque danger, parcours des cortèges, arrêtés du jour, une page par ville, et les données à télécharger."
+          "🛂 Lieux de détention de l’ICE",
+          "Les lieux où l’ICE a détenu des personnes depuis janvier 2025, d’après le Deportation Data Project : type de lieu, jours d’utilisation, nombre de personnes, bureau régional de l’ICE."
         ],
         [
-          "🗺️ Agenda, arrêtés, villes",
-          "De nouvelles pages publiques : l’agenda des manifs, les arrêtés en cours, tes droits et les legal teams, ville par ville."
+          "🚘 Lecteurs de plaques",
+          "Les lecteurs automatiques de plaques d’immatriculation recensés dans OpenStreetMap (DeFlock), avec leur propre interrupteur, visibles au zoom quartier."
+        ],
+        [
+          "🏛️ Prisons, shérifs, administrations",
+          "Prisons, bureaux du shérif et administrations dans tout le pays, mis à jour chaque mois depuis OpenStreetMap."
+        ],
+        [
+          "🇺🇸 Pensée pour les États-Unis",
+          "En anglais, espagnol et arabe, avec tes droits face à la police aux États-Unis et les États sur la carte."
         ]
       ],
       "items_en": [
         [
-          "📊 Detailed reports",
-          "Key moments, how long each danger lasted, march routes, the day’s orders, a page per city, and downloadable data."
+          "🛂 ICE detention sites",
+          "Places where ICE has held people since January 2025, from the Deportation Data Project: type of site, days used, number of people held, ICE field office."
         ],
         [
-          "🗺️ Calendar, orders, cities",
-          "New public pages: the protest calendar, current orders, your rights and legal teams, city by city."
+          "🚘 License plate readers",
+          "Automated license plate readers mapped in OpenStreetMap (DeFlock), with their own layer switch, visible at neighborhood zoom."
+        ],
+        [
+          "🏛️ Jails, sheriffs, government offices",
+          "Jails and prisons, sheriff’s offices and government offices nationwide, updated monthly from OpenStreetMap."
+        ],
+        [
+          "🇺🇸 Built for the U.S.",
+          "In English, Spanish and Arabic, with your rights with police in the U.S. and the states on the map."
         ]
       ],
       "items_es": [
         [
-          "📊 Balances detallados",
-          "Momentos clave, duración de cada peligro, recorridos de las manifestaciones, órdenes del día, una página por ciudad y los datos para descargar."
+          "🛂 Lugares de detención de ICE",
+          "Los lugares donde ICE ha retenido a personas desde enero de 2025, según el Deportation Data Project: tipo de lugar, días de uso, número de personas, oficina regional de ICE."
         ],
         [
-          "🗺️ Agenda, órdenes, ciudades",
-          "Nuevas páginas públicas: la agenda de manifestaciones, las órdenes vigentes, tus derechos y los legal teams, ciudad por ciudad."
+          "🚘 Lectores de placas",
+          "Los lectores automáticos de placas registrados en OpenStreetMap (DeFlock), con su propio interruptor, visibles con zoom de barrio."
+        ],
+        [
+          "🏛️ Cárceles, sheriffs, oficinas de gobierno",
+          "Cárceles y prisiones, oficinas del sheriff y oficinas de gobierno en todo el país, actualizadas cada mes desde OpenStreetMap."
+        ],
+        [
+          "🇺🇸 Hecha para EE. UU.",
+          "En inglés, español y árabe, con tus derechos ante la policía en EE. UU. y los estados en el mapa."
         ]
       ],
       "items_ar": [
         [
-          "📊 حصائل مفصّلة",
-          "اللحظات الرئيسية، مدة كل خطر، مسارات المسيرات، قرارات اليوم، صفحة لكل مدينة، والبيانات للتنزيل."
+          "🛂 مواقع احتجاز ICE",
+          "الأماكن التي احتجزت فيها ICE أشخاصًا منذ يناير 2025، بحسب Deportation Data Project: نوع الموقع، وأيام الاستخدام، وعدد المحتجزين، والمكتب الميداني لـ ICE."
         ],
         [
-          "🗺️ المواعيد والقرارات والمدن",
-          "صفحات عامة جديدة: مواعيد المظاهرات، القرارات السارية، حقوقك، والفرق القانونية، مدينة بمدينة."
-        ]
-      ]
-    },
-    {
-      "version": "2.7",
-      "items": [
-        [
-          "📣 La tête suit le cortège",
-          "Un seul point qui avance avec le cortège, sa trace, sa direction et sa vitesse. Sur un parcours annoncé : où en est le cortège et quand il arrive près de toi."
+          "🚘 قارئات لوحات السيارات",
+          "قارئات لوحات السيارات الآلية المسجّلة في OpenStreetMap (DeFlock)، مع مفتاح خاص بها، تظهر عند تكبير مستوى الحي."
         ],
         [
-          "🔚 Queue de cortège",
-          "Signale aussi la queue : la carte montre le cortège entier et sa longueur."
+          "🏛️ السجون ومكاتب الشريف والمكاتب الحكومية",
+          "السجون ومكاتب الشريف والمكاتب الحكومية في جميع أنحاء البلاد، تُحدَّث كل شهر من OpenStreetMap."
         ],
         [
-          "🟢 Medics et legal teams en direct",
-          "Les orgas confirmées peuvent partager leur position en direct pour qu’on les trouve facilement."
-        ]
-      ],
-      "items_en": [
-        [
-          "📣 The front follows the march",
-          "A single point that moves with the march, with its trail, direction and speed. On an announced route: how far the march is and when it reaches you."
-        ],
-        [
-          "🔚 Back of the march",
-          "Report the back too: the map shows the whole march and its length."
-        ],
-        [
-          "🟢 Live medics and legal teams",
-          "Confirmed organisations can share their live position so people can find them easily."
-        ]
-      ],
-      "items_es": [
-        [
-          "📣 La cabeza sigue la manifestación",
-          "Un solo punto que avanza con la manifestación, con su rastro, dirección y velocidad. En un recorrido anunciado: por dónde va y cuándo llega cerca de ti."
-        ],
-        [
-          "🔚 Cola de la manifestación",
-          "Avisa también de la cola: el mapa muestra la manifestación entera y su longitud."
-        ],
-        [
-          "🟢 Medics y legal teams en directo",
-          "Las organizaciones confirmadas pueden compartir su posición en directo para que se las encuentre fácilmente."
-        ]
-      ],
-      "items_ar": [
-        [
-          "📣 المقدمة تتبع المسيرة",
-          "نقطة واحدة تتقدّم مع المسيرة، مع أثرها واتجاهها وسرعتها. وعلى مسار معلَن: أين وصلت المسيرة ومتى تصل قربك."
-        ],
-        [
-          "🔚 مؤخرة المسيرة",
-          "أبلغ عن المؤخرة أيضًا: تُظهر الخريطة المسيرة كاملة وطولها."
-        ],
-        [
-          "🟢 مسعفون وفرق قانونية مباشرة",
-          "يمكن للمنظمات المؤكَّدة مشاركة موقعها مباشرة ليسهل العثور عليها."
-        ]
-      ]
-    },
-    {
-      "version": "2.6.3",
-      "items": [
-        [
-          "☠️ Milices fascistes",
-          "Nouveau signalement « Milice / groupe fasciste », avec alerte et vibration. Dans Droits : que faire en cas d’attaque."
-        ]
-      ],
-      "items_en": [
-        [
-          "☠️ Fascist militias",
-          "New report type “Far-right militia / fascist group”, with alert and vibration. In Rights: what to do if attacked."
-        ]
-      ],
-      "items_es": [
-        [
-          "☠️ Milicias fascistas",
-          "Nuevo aviso «Milicia / grupo fascista», con alerta y vibración. En Derechos: qué hacer en caso de ataque."
-        ]
-      ],
-      "items_ar": [
-        [
-          "☠️ ميليشيات فاشية",
-          "بلاغ جديد «ميليشيا / جماعة فاشية» مع تنبيه واهتزاز. وفي الحقوق: ماذا تفعل عند التعرّض لهجوم."
-        ]
-      ]
-    },
-    {
-      "version": "2.6",
-      "items": [
-        [
-          "📣 Annoncer une manif",
-          "Un bouton dans l’onglet Infos, sous l’agenda, et « Organiser une manif » dans Plus : le formulaire s’ouvre directement."
-        ],
-        [
-          "⛔ Nouveaux arrêtés",
-          "Une alerte quand un arrêté (manif interdite, périmètre, couvre-feu) est ajouté pour ta zone. Réglable dans Alertes."
-        ],
-        [
-          "🌍 Dans ta langue",
-          "Les notifications arrivent dans la langue de l’appli : français, anglais, espagnol ou arabe."
-        ],
-        [
-          "📊 Bilans plus justes",
-          "Les bilans comptent seulement la France, commune par commune. Les points envoyés d’ailleurs restent sur la carte en direct."
-        ]
-      ],
-      "items_en": [
-        [
-          "📣 Announce a protest",
-          "A button in the Info tab, under the calendar, and “Organise a protest” in More: the form opens right away."
-        ],
-        [
-          "⛔ New orders",
-          "An alert when an order (banned protest, perimeter, curfew) is added for your area. You can turn it on or off in Alerts."
-        ],
-        [
-          "🌍 In your language",
-          "Notifications now come in the app’s language: French, English, Spanish or Arabic."
-        ],
-        [
-          "📊 More accurate reports",
-          "Daily reports only count France, town by town. Points sent from elsewhere stay on the live map."
-        ]
-      ],
-      "items_es": [
-        [
-          "📣 Anunciar una manifestación",
-          "Un botón en la pestaña Infos, bajo la agenda, y «Organizar una manifestación» en Más: el formulario se abre directamente."
-        ],
-        [
-          "⛔ Nuevas órdenes",
-          "Una alerta cuando se añade una orden (manifestación prohibida, perímetro, toque de queda) para tu zona. Se ajusta en Alertas."
-        ],
-        [
-          "🌍 En tu idioma",
-          "Las notificaciones llegan en el idioma de la app: francés, inglés, español o árabe."
-        ],
-        [
-          "📊 Balances más justos",
-          "Los balances solo cuentan Francia, municipio por municipio. Los puntos enviados desde otros lugares siguen en el mapa en directo."
-        ]
-      ],
-      "items_ar": [
-        [
-          "📣 أعلن عن مظاهرة",
-          "زر في تبويب المعلومات تحت المواعيد، و«نظّم مظاهرة» في المزيد: يُفتح النموذج مباشرة."
-        ],
-        [
-          "⛔ قرارات جديدة",
-          "تنبيه عند إضافة قرار (مظاهرة ممنوعة، محيط، حظر تجوّل) يخص منطقتك. يمكن ضبطه في التنبيهات."
-        ],
-        [
-          "🌍 بلغتك",
-          "تصل الإشعارات الآن بلغة التطبيق: الفرنسية أو الإنجليزية أو الإسبانية أو العربية."
-        ],
-        [
-          "📊 حصائل أدق",
-          "تحسب الحصائل فرنسا وحدها، بلدية ببلدية. وتبقى النقاط المرسلة من أماكن أخرى على الخريطة المباشرة."
-        ]
-      ]
-    },
-    {
-      "version": "2.5.6",
-      "items": [
-        [
-          "🚨 Nouveaux signalements",
-          "Unités d’intervention (BRI, RAID, GIGN), blindés (Centaure, VBRG) et tirs LBD / grenades, avec alerte et vibration propre. Militaires (Sentinelle) dans les forces de l’ordre, sans alerte : ils gardent des bâtiments."
-        ],
-        [
-          "✓ Pas encore confirmé",
-          "Un signalement tout frais n’est plus marqué « téléphone suspect » : il attend simplement qu’une autre personne le confirme."
-        ]
-      ],
-      "items_en": [
-        [
-          "🚨 New reports",
-          "Intervention units (BRI, RAID, GIGN), armoured vehicles (Centaure, VBRG) and LBD / grenade fire, with their own alert and vibration. Soldiers (Sentinelle) under police forces, with no alert: they guard buildings."
-        ],
-        [
-          "✓ Not confirmed yet",
-          "A brand-new report is no longer labelled “suspicious phone”: it just waits for someone else to confirm it."
-        ]
-      ],
-      "items_es": [
-        [
-          "🚨 Nuevos avisos",
-          "Unidades de intervención (BRI, RAID, GIGN), blindados (Centaure, VBRG) y disparos de LBD / granadas, con su propia alerta y vibración. Militares (Sentinelle) en fuerzas del orden, sin alerta: vigilan edificios."
-        ],
-        [
-          "✓ Aún sin confirmar",
-          "Un aviso recién hecho ya no se marca como «teléfono sospechoso»: solo espera a que otra persona lo confirme."
-        ]
-      ],
-      "items_ar": [
-        [
-          "🚨 بلاغات جديدة",
-          "وحدات التدخّل (BRI، RAID، GIGN)، والمدرّعات (Centaure، VBRG)، وإطلاق LBD / القنابل، مع تنبيه واهتزاز خاص بكل منها. والعسكريون (Sentinelle) ضمن قوات الأمن ودون تنبيه: مهمتهم حراسة المباني."
-        ],
-        [
-          "✓ لم يتأكد بعد",
-          "لم يعد البلاغ الجديد يُوسَم بـ«هاتف مشبوه»: إنه ينتظر فقط أن يؤكده شخص آخر."
-        ]
-      ]
-    },
-    {
-      "version": "2.5",
-      "items": [
-        [
-          "🧭 Nouvelle navigation",
-          "Une barre en bas : Carte, Infos, Signaler, Droits et Plus. Les arrêtés, les annonces des orgas et l’agenda sont réunis dans « Infos ». Le bouton Calques choisit ce que montre la carte (types de signalements, agenda, lieux, caméras)."
-        ],
-        [
-          "✊ Mode manif",
-          "Dans « Plus » : la carte, un gros bouton Signaler, le SOS et la legal team, rien d’autre. Pour le jour J."
-        ],
-        [
-          "🌍 English, español, العربية",
-          "L’appli parle aussi anglais, espagnol et arabe. Elle choisit la langue du téléphone ; tu peux la changer dans « Plus », Réglages."
-        ],
-        [
-          "🔊 Alerte vocale",
-          "Un danger signalé près de toi peut être lu à voix haute, pratique avec des écouteurs. À activer dans Alertes."
-        ],
-        [
-          "🧹 Tout effacer d’un geste",
-          "Dans « Droits » et « Plus » : garde le doigt appuyé 2 secondes et Cortège efface tout ce qu’il garde sur ton téléphone."
-        ]
-      ],
-      "items_en": [
-        [
-          "🧭 New navigation",
-          "A bar at the bottom: Map, News, Report, Rights and More. Bans, organiser announcements and the calendar are gathered under “News”. The layers button chooses what the map shows (types of reports, calendar, places, cameras)."
-        ],
-        [
-          "✊ Protest mode",
-          "In “More”: the map, a big Report button, SOS and the legal team, nothing else. For the day itself."
-        ],
-        [
-          "🌍 English, español, العربية",
-          "The app now speaks English, Spanish and Arabic. It uses your phone’s language; you can change it in “More”, Settings."
-        ],
-        [
-          "🔊 Voice alert",
-          "A danger reported near you can be read out loud, handy with earphones. Turn it on in Alerts."
-        ],
-        [
-          "🧹 Erase everything in one gesture",
-          "In “Rights” and “More”: keep your finger pressed for 2 seconds and Cortège erases everything it keeps on your phone."
-        ]
-      ],
-      "items_es": [
-        [
-          "🧭 Nueva navegación",
-          "Una barra abajo: Mapa, Info, Avisar, Derechos y Más. Los decretos, los anuncios de las organizaciones y la agenda están juntos en «Info». El botón de capas elige lo que muestra el mapa (tipos de avisos, agenda, lugares, cámaras)."
-        ],
-        [
-          "✊ Modo manifestación",
-          "En «Más»: el mapa, un gran botón Avisar, el SOS y el equipo legal, nada más. Para el día de la mani."
-        ],
-        [
-          "🌍 English, español, العربية",
-          "La app ya habla inglés, español y árabe. Usa el idioma del teléfono; puedes cambiarlo en «Más», Ajustes."
-        ],
-        [
-          "🔊 Alerta de voz",
-          "Un peligro avisado cerca de ti puede leerse en voz alta, práctico con auriculares. Actívala en Alertas."
-        ],
-        [
-          "🧹 Borrarlo todo de un gesto",
-          "En «Derechos» y «Más»: mantén el dedo pulsado 2 segundos y Cortège borra todo lo que guarda en tu teléfono."
-        ]
-      ],
-      "items_ar": [
-        [
-          "🧭 تنقّل جديد",
-          "شريط في الأسفل: الخريطة، أخبار، أبلِغ، الحقوق، المزيد. القرارات وإعلانات المنظّمين والمواعيد مجمّعة في «أخبار». وزرّ الطبقات يحدد ما تعرضه الخريطة (أنواع البلاغات، المواعيد، الأماكن، الكاميرات)."
-        ],
-        [
-          "✊ وضع المظاهرة",
-          "في «المزيد»: الخريطة وزرّ إبلاغ كبير وSOS والفريق القانوني، لا شيء غير ذلك. ليوم المظاهرة."
-        ],
-        [
-          "🌍 English, español, العربية",
-          "أصبح التطبيق يتحدث الإنجليزية والإسبانية والعربية. يستخدم لغة هاتفك، ويمكنك تغييرها في «المزيد»، الإعدادات."
-        ],
-        [
-          "🔊 تنبيه صوتي",
-          "يمكن قراءة الخطر المُبلَّغ عنه قربك بصوت عالٍ، وهذا مفيد مع السماعات. فعّله في التنبيهات."
-        ],
-        [
-          "🧹 امسح كل شيء بحركة واحدة",
-          "في «الحقوق» و«المزيد»: أبقِ إصبعك ضاغطًا لثانيتين ويمسح Cortège كل ما يحفظه على هاتفك."
-        ]
-      ]
-    },
-    {
-      "version": "2.4",
-      "items": [
-        [
-          "🚫 Arrêtés et couvre-feux",
-          "Manif interdite, couvre-feu, transports coupés : un bandeau s’affiche quand tu regardes la zone concernée ou que tu t’y trouves, avec la source officielle. Tu peux en signaler un depuis le menu « Arrêtés », avec un lien vers la source : il est vérifié avant d’apparaître."
-        ],
-        [
-          "📷 Caméras de surveillance",
-          "Nouvelle puce « Caméras » : en zoomant au plus près, les caméras qui filment la rue. Rouge : publique. Orange : privée. Le cône montre la direction filmée quand elle est connue. Recensement bénévole d’OpenStreetMap, donc incomplet : une rue sans caméra sur la carte n’est pas forcément une rue sans caméra."
-        ],
-        [
-          "🏛 Lieux plus complets",
-          "Les vraies préfectures et les centres de rétention, avec les horaires, les téléphones et les services d’urgences des hôpitaux quand ils sont connus. Mise à jour chaque mois."
-        ]
-      ]
-    },
-    {
-      "version": "2.3",
-      "items": [
-        [
-          "🗺 Carte d’un créneau",
-          "Sur chaque bilan de manif (menu, « Bilans »), choisis un lieu et une plage horaire : une image avec les signalements de ce moment-là, à télécharger ou partager."
-        ],
-        [
-          "⊘ Les retraits restent visibles",
-          "Dans ces images, un signalement retiré ou contesté reste affiché, en rond vide, avec la mention de qui l’a retiré."
-        ],
-        [
-          "🏛 Choisis tes lieux",
-          "Touche la puce « Lieux » : préfectures, mairies, commissariats, tribunaux, hôpitaux, pharmacies, eau potable, type par type. Ils apparaissent en zoomant."
-        ]
-      ]
-    },
-    {
-      "version": "2.2",
-      "items": [
-        [
-          "🏛 Lieux sur la carte",
-          "Préfectures, mairies, commissariats, tribunaux, hôpitaux, et au zoom rue les pharmacies et les points d’eau. Puce « Lieux » pour les afficher ou les masquer."
-        ],
-        [
-          "🔔 Tester tes notifications",
-          "Dans le menu 🔔, « Recevoir une notification de test » : le serveur t’en envoie une vraie, comme pendant une manif."
-        ],
-        [
-          "✓ Signalements des orgas",
-          "Un signalement fait par une orga confirmée est vérifié d’office et reste affiché plus longtemps."
-        ],
-        [
-          "📶 Moins de faux « hors ligne »",
-          "En revenant dans l’appli, elle se reconnecte au lieu d’afficher « hors ligne »."
-        ],
-        [
-          "📣 Journées de mobilisation",
-          "Les grandes journées sont annoncées la veille au soir et affichées en haut de la carte le jour J."
+          "🇺🇸 مصمَّمة للولايات المتحدة",
+          "بالإنجليزية والإسبانية والعربية، مع حقوقك أمام الشرطة في الولايات المتحدة والولايات على الخريطة."
         ]
       ]
     }
