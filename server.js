@@ -1782,7 +1782,8 @@ const PLACES_EVERY = 30 * 24 * 60 * MIN;
 const wait = ms => new Promise(go => setTimeout(go, ms));
 const poiRg = (lat, lng) => `${Math.floor(lat)}_${Math.floor(lng)}`;
 // Immigration detention or enforcement (ICE in the U.S., CRA in France), by name or operator
-const IMMIGRATION_RE = /r[ée]tention administrative|immigration and customs enforcement|\bICE\b|\bprocessing cent(er|re)\b|immigration (detention|holding)/i;
+// "ICE" only in capitals: "Ice Age Trail" is an operator in Wisconsin's data
+const IMMIGRATION_RE = /r[ée]tention administrative|immigration and customs enforcement|\bprocessing cent(er|re)\b|immigration (detention|holding)/i, ICE_RE = /\bICE\b/;
 function poiKind(t) {
   const name = t.name || '', who = name + ' ' + (t.operator || '');
   // Caméras qui filment la rue (publiques, ou privées tournées vers l'extérieur) ; pas les caméras intérieures ni les vigiles
@@ -1792,7 +1793,7 @@ function poiKind(t) {
     if (t.surveillance === 'indoor' || /^(guard|mobile)$/.test(st)) return null;
     return 'cam';
   }
-  if ((t.amenity === 'prison' || t.office === 'government') && IMMIGRATION_RE.test(who)) return 'cra';
+  if ((t.amenity === 'prison' || t.office === 'government') && (IMMIGRATION_RE.test(who) || ICE_RE.test(who))) return 'cra';
   if (t.amenity === 'prison') return 'jail';
   if (t.office === 'government' && t.government === 'prefecture') return /sous[- ]pr[ée]fecture/i.test(name) ? 'spref' : 'pref';
   // U.S.: state capitol = state government; a county government building = county government office
@@ -1805,6 +1806,17 @@ function poiKind(t) {
   if (t.amenity === 'pharmacy') return 'pharma';
   if (t.amenity === 'drinking_water') return /^(private|no)$/.test(t.access || '') || t.drinking_water === 'no' ? null : 'eau';
   return null;
+}
+// Same place mapped twice (a building outline and a point, as for the Wisconsin State Capitol): same type and name
+// within about 300 m. The first one seen is kept.
+function poiDedup() {
+  const seen = new Map();
+  return (kind, t, lat, lng) => {
+    const name = String(t.name || '').trim().toLowerCase(); if (!name || kind === 'cam' || kind === 'alpr') return false;
+    const k = kind + '|' + name, near = seen.get(k) || [];
+    if (near.some(([a, b]) => Math.abs(a - lat) < 0.003 && Math.abs(b - lng) < 0.004)) return true;
+    near.push([lat, lng]); seen.set(k, near); return false;
+  };
 }
 const poiStr = (x, n) => String(x || '').replace(/[\u0000-\u001f]/g, ' ').trim().slice(0, n);
 function poiData(t, kind) {
@@ -1939,6 +1951,7 @@ async function placesImportOsm() {
     kind=CASE WHEN ed=1 THEN kind ELSE excluded.kind END, lat=CASE WHEN ed=1 THEN lat ELSE excluded.lat END, lng=CASE WHEN ed=1 THEN lng ELSE excluded.lng END,
     rg=CASE WHEN ed=1 THEN rg ELSE excluded.rg END, data=CASE WHEN ed=1 THEN data ELSE excluded.data END`);
   const clean = () => { for (const f of fs.readdirSync(dir)) try { fs.unlinkSync(path.join(dir, f)); } catch {} };
+  const isDup = poiDedup();
   const upComm = q('INSERT OR REPLACE INTO communes(id,insee,name,minlat,minlng,maxlat,maxlng,data,seen) VALUES(?,?,?,?,?,?,?,?,?)');
   try {
     for (const [i, url] of GEOFABRIK.entries()) {
@@ -1978,6 +1991,7 @@ async function placesImportOsm() {
         const id = String(t['@type'] || 'n')[0] + t['@id'];
         if (seenIds.has(id)) continue; // une surface fermée peut sortir deux fois (ligne et surface)
         seenIds.add(id);
+        if (isDup(kind, t, lat, lng)) continue;
         batch.push([id, kind, lat, lng, poiRg(lat, lng), JSON.stringify(poiData(t, kind)), t0]); run.n++;
         if (batch.length >= 2000) { flush(); save(); await new Promise(go => setImmediate(go)); }
       }
@@ -2062,6 +2076,7 @@ async function placesImport(resume = false) {
     run.err = null; console.log(`lieux : import ${prev && run === prev ? 'repris' : 'lancé'} (${run.done}/${chunks.length} zones faites)`);
     const t0 = run.t, save = () => setMeta('poisrun', JSON.stringify(run));
     save();
+    const isDup = poiDedup();
     const up = q(`INSERT INTO pois(id,kind,lat,lng,rg,data,src,seen) VALUES(?,?,?,?,?,?,'osm',?) ON CONFLICT(id) DO UPDATE SET seen=excluded.seen,
       kind=CASE WHEN ed=1 THEN kind ELSE excluded.kind END, lat=CASE WHEN ed=1 THEN lat ELSE excluded.lat END, lng=CASE WHEN ed=1 THEN lng ELSE excluded.lng END,
       rg=CASE WHEN ed=1 THEN rg ELSE excluded.rg END, data=CASE WHEN ed=1 THEN data ELSE excluded.data END`);
@@ -2091,7 +2106,7 @@ async function placesImport(resume = false) {
       else if (Array.isArray(res.elements)) tx(() => {
         for (const el of res.elements) {
           const t = el.tags || {}, kind = poiKind(t), lat = el.lat ?? el.center?.lat, lng = el.lon ?? el.center?.lon;
-          if (!kind || !validLatLng(lat, lng)) continue;
+          if (!kind || !validLatLng(lat, lng) || isDup(kind, t, lat, lng)) continue;
           up.run(el.type[0] + el.id, kind, Math.round(lat * 1e5) / 1e5, Math.round(lng * 1e5) / 1e5, poiRg(lat, lng), JSON.stringify(poiData(t, kind)), t0); run.n++;
         }
       });
@@ -2106,7 +2121,7 @@ async function placesImport(resume = false) {
       if (!res) { run.failed.push(i); continue; }
       run.errs--;
       tx(() => { for (const el of res.elements || []) { const t = el.tags || {}, kind = poiKind(t), lat = el.lat ?? el.center?.lat, lng = el.lon ?? el.center?.lon;
-        if (kind && validLatLng(lat, lng)) { up.run(el.type[0] + el.id, kind, Math.round(lat * 1e5) / 1e5, Math.round(lng * 1e5) / 1e5, poiRg(lat, lng), JSON.stringify(poiData(t, kind)), t0); run.n++; } } });
+        if (kind && validLatLng(lat, lng) && !isDup(kind, t, lat, lng)) { up.run(el.type[0] + el.id, kind, Math.round(lat * 1e5) / 1e5, Math.round(lng * 1e5) / 1e5, poiRg(lat, lng), JSON.stringify(poiData(t, kind)), t0); run.n++; } } });
       save(); await wait(Number(process.env.OVERPASS_GAP ?? 3000));
     }
     // Lieux disparus d'OpenStreetMap : retirés seulement si tout l'import a réussi (sinon on garderait une carte trouée)

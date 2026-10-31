@@ -83,12 +83,14 @@ Rules (`poiKind()` in `server.js` for the Geofabrik and Overpass sources; `kindO
 
 | Type | Rule |
 |---|---|
-| Immigration detention (`cra`) | prison or government office whose name or operator matches Immigration and Customs Enforcement, ICE, "processing center", "immigration detention/holding" (French "rétention administrative" kept) |
+| Immigration detention (`cra`) | prison or government office whose name or operator matches Immigration and Customs Enforcement, "ICE" (capitals only), "processing center", "immigration detention/holding" (French "rétention administrative" kept) |
 | Jail (`jail`, new) | `amenity=prison` not matched above |
 | Government office (`pref`) | `office=government` named "… State Capitol" (French prefectures kept) |
 | County government office (`spref`) | `office=government` named "… County … Government/Administration/Board/Commission" |
 | Sheriff's office (`gend`) | police whose name or operator contains "Sheriff" (French gendarmerie kept) |
 | License plate reader (`alpr`, new) | `man_made=surveillance` + `surveillance:type=ALPR` (DeFlock tagging); manufacturer and operator kept |
+
+A place of the same type and name within about 300 m of one already imported is dropped (some buildings are mapped twice, as an outline and a point).
 
 Plate readers are published in their own region files (`live/l/<region>-a.json`) and shown from neighborhood zoom (15), with their own layer switch; ordinary cameras stay at street zoom (17). Overpass now also requests all prisons, government offices whose name or operator suggests immigration, capitol or county, and plate readers.
 
@@ -97,7 +99,7 @@ Plate readers are published in their own region files (`live/l/<region>-a.json`)
 Verified by reading the code:
 
 - **Report category ids** remain the French ones (`crs`, `bac`, `militaires`, `lbd`…). The labels people see are adapted (above); the ids are internal and stored in reports and archives.
-- **Place classification rules are unverified against real U.S. data.** See "Permanent places" above; the rules were written from OpenStreetMap conventions and tested only on fixtures.
+- **Place classification** was checked against Geofabrik's Wisconsin extract (October 2026): 2,108 plate readers, 62 sheriff's offices out of 397 police features, 144 prisons (mostly county jails), the State Capitol (mapped twice, hence the de-duplication). No ICE facility is tagged in Wisconsin, so that rule is untested on real data; ICE often holds people in county jails under contract, which no tag shows. Other states may name things differently.
 - **"Arrêtés"** (official orders) keep the French workflow: a state or, with `GEO_API`, a city, plus dates and a source link. Labels are adapted; U.S. orders (curfews, emergency declarations, permit denials) fit the shape but nothing more specific has been done.
 - **`docs/INSTALLATION.md` and `docs/FONCTIONNEMENT.md`** are upstream's French docs. Only the PMTiles region path has been updated.
 - **Free-text details in the organizer log** that the server composes (for example "retiré par …") stay in French on the admin page; action names are translated.

@@ -7,7 +7,7 @@ const { pois } = require('./pmtiles-pois.js');
 // The map file carries a kind and a name, not the full OpenStreetMap tags: U.S. rules match on the name.
 function kindOf(p) {
   const k = String(p.kind ?? p['pmap:kind'] ?? ''), name = String(p.name || '');
-  if (/r[ée]tention administrative|immigration and customs enforcement|\bICE\b|\bprocessing cent(er|re)\b|immigration (detention|holding)/i.test(name)) return 'cra';
+  if (/r[ée]tention administrative|immigration and customs enforcement|\bprocessing cent(er|re)\b|immigration (detention|holding)/i.test(name) || /\bICE\b/.test(name)) return 'cra';
   if (k === 'prison') return 'jail';
   if (/\bstate capitol\b/i.test(name)) return 'pref';
   if (/^(h[ôo]tel de (la )?)?sous[- ]pr[ée]fecture\b/i.test(name)) return 'spref';

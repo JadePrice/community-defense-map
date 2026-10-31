@@ -509,6 +509,9 @@ test('lieux permanents : import OpenStreetMap, fichiers par région, correction 
         { type: 'way', id: 7, center: { lat: 43.074, lon: -89.384 }, tags: { amenity: 'prison', name: 'Dane County Jail' } },
         { type: 'node', id: 8, lat: 43.075, lon: -89.385, tags: { office: 'government', name: 'Field Office', operator: 'U.S. Immigration and Customs Enforcement' } },
         { type: 'node', id: 9, lat: 43.076, lon: -89.386, tags: { man_made: 'surveillance', 'surveillance:type': 'ALPR', manufacturer: 'Flock Safety', operator: 'City of Madison', direction: '90' } },
+        // Seen in Wisconsin's data: the capitol mapped twice, and "Ice" in an unrelated operator
+        { type: 'node', id: 10, lat: 43.0751, lon: -89.3849, tags: { office: 'government', government: 'legislative', name: 'Wisconsin State Capitol' } },
+        { type: 'node', id: 11, lat: 43.077, lon: -89.387, tags: { office: 'government', name: 'Trail Office', operator: 'Ice Age Trail Alliance' } },
       ]) : [] }));
     });
   }).listen(0);
@@ -522,7 +525,7 @@ test('lieux permanents : import OpenStreetMap, fichiers par région, correction 
     const A = (p, body, method = 'POST') => fetch(B2 + p, { method, headers: { 'x-admin-key': ADMIN, 'content-type': 'application/json' }, body: body && JSON.stringify(body) }).then(async r => ({ s: r.status, j: await r.json() }));
     assert.equal((await A('/api/admin/places/import', {})).s, 202);
     let st; for (let i = 0; i < 100; i++) { st = (await A('/api/admin/places?q=madison', undefined, 'GET')).j; if (!st.running && st.last) break; await new Promise(r => setTimeout(r, 100)); }
-    assert.equal(st.last.n, 8, 'eau privée ignorée');
+    assert.equal(st.last.n, 8, 'private water ignored, duplicate capitol dropped, Ice Age Trail office not immigration');
     for (const k of ['mairie', 'pref', 'gend', 'jail', 'cra', 'alpr', 'pharma', 'hopital']) assert.equal(st.counts[k], 1, k);
     const main = JSON.parse(fs.readFileSync(D2 + '/l/l/43_-90.json', 'utf8')).p, street = JSON.parse(fs.readFileSync(D2 + '/l/l/43_-90-s.json', 'utf8')).p;
     assert.equal(main.length, 6); assert.equal(street.length, 1);
