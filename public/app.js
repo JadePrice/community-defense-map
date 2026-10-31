@@ -1150,8 +1150,20 @@
     if (kind === 'pharma') root.append(el('p', { class: 'poi-tip' }, t('Check for 24-hour pharmacies nearby or call local information.')));
     if (kind === 'hopital') root.append(el('p', { class: 'poi-tip' }, flag ? t('🚑 Service d’urgences') : t('Urgences : pas indiqué. En cas d’urgence, appelle le 911.')));
     if (kind === 'eau' && flag) root.append(el('p', { class: 'poi-tip' }, t('Fontaine saisonnière : peut être coupée en hiver.')));
+    if (Array.isArray(x[8])) { iceInfo(root, x[8]); return root; }
     root.append(el('p', { class: 'fine' }, 'Lieu permanent · © contributeurs OpenStreetMap'));
     return root;
+  }
+  // ICE site: [type, days used last year, average daily population, max, field office, address, dataset date]
+  const ICE_TYPE = { SPC: 'ICE-owned processing center', CDF: 'Private detention center under contract with ICE', IGSA: 'Local jail or facility holding people for ICE under contract',
+    DIGSA: 'Facility dedicated to ICE under a local government contract', 'USMS IGA': 'Jail used by the U.S. Marshals, also holding people for ICE', 'USMS CDF': 'Private facility under U.S. Marshals contract, also used by ICE',
+    BOP: 'Federal prison also used by ICE', FAMILY: 'Family detention center', JUVENILE: 'Youth facility used by ICE', HOLD: 'ICE hold room (short-term processing)', STAGING: 'ICE staging facility' };
+  function iceInfo(root, [type, days, avg, max, office, address, asOf]) {
+    root.append(el('p', {}, el('b', {}, t(ICE_TYPE[String(type).toUpperCase()] || 'Site used by ICE to hold people'))));
+    if (address) root.append(el('p', {}, address));
+    if (days >= 0) root.append(el('p', {}, t('Used by ICE on {d} days in the past year · {a} people a day on average · up to {m}', { d: days, a: avg >= 0 ? avg : '?', m: max >= 0 ? max : '?' })));
+    if (office) root.append(el('p', {}, t('ICE field office: {o}', { o: office })));
+    root.append(el('p', { class: 'fine' }, t('Source: ICE data compiled and checked by the Deportation Data Project (CC0){d}.', { d: asOf ? ', ' + t('dataset of {d}', { d: asOf }) : '' })));
   }
   function poiIcon(x, labels) {
     if (x[1] === 'cam') return camIcon(x);

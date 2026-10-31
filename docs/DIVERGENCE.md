@@ -94,6 +94,17 @@ A place of the same type and name within about 300 m of one already imported is 
 
 Plate readers are published in their own region files (`live/l/<region>-a.json`) and shown from neighborhood zoom (15), with their own layer switch; ordinary cameras stay at street zoom (17). Overpass now also requests all prisons, government offices whose name or operator suggests immigration, capitol or county, and plate readers.
 
+## ICE detention sites
+
+OpenStreetMap barely tags immigration detention (none in Wisconsin), and much of it happens in county jails under contract, which no tag shows. Sites come instead from the Deportation Data Project's facilities dataset (CC0): ICE's own facility list, public-records releases and reference datasets, joined by ICE facility code, with locations checked by hand.
+
+- `tools/ice-facilities.py <clone of the dataset>` (needs `pyarrow`, run on a workstation) joins `facilities-latest`, the facility types (most recent dated value), and last year's usage counts, and writes `geo/ice-facilities.csv` and `geo/ice-facilities.manifest.json` (source commit and date, SHA-256 of every input and of the output, counts by type, exclusions). Hospitals are excluded: a person treated there doesn't make it a detention site.
+- The server imports the CSV at startup when its hash changes, as `src='ice'` rows of type `cra` (`ICE_FACILITIES` points elsewhere). The OpenStreetMap import never touches them; admin corrections are kept.
+- An OpenStreetMap jail or immigration site within 250 m of an ICE site is published once, as the ICE site. Two separate places closer than that would be merged.
+- The popup states the facility type in plain words (county jail under contract, private contract facility, ICE processing center, hold room…), days used and average and maximum population over the past year, the ICE field office, the address and the dataset date.
+
+The dataset covers facilities that held at least one person from January 2025 onward, so a site may no longer be in use; the days-used figure shows how active it was. To update: pull the dataset, run the script, review the diff of the CSV and the manifest, commit.
+
 ## Still French or France-specific (not done)
 
 Verified by reading the code:

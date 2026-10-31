@@ -507,7 +507,7 @@ test('lieux permanents : import OpenStreetMap, fichiers par région, correction 
         { type: 'node', id: 5, lat: 43.072, lon: -89.382, tags: { amenity: 'drinking_water', access: 'private' } },
         { type: 'node', id: 6, lat: 43.073, lon: -89.383, tags: { amenity: 'hospital', name: 'Test Hospital', emergency: 'yes' } },
         { type: 'way', id: 7, center: { lat: 43.074, lon: -89.384 }, tags: { amenity: 'prison', name: 'Dane County Jail' } },
-        { type: 'node', id: 8, lat: 43.075, lon: -89.385, tags: { office: 'government', name: 'Field Office', operator: 'U.S. Immigration and Customs Enforcement' } },
+        { type: 'node', id: 8, lat: 43.085, lon: -89.395, tags: { office: 'government', name: 'Field Office', operator: 'U.S. Immigration and Customs Enforcement' } },
         { type: 'node', id: 9, lat: 43.076, lon: -89.386, tags: { man_made: 'surveillance', 'surveillance:type': 'ALPR', manufacturer: 'Flock Safety', operator: 'City of Madison', direction: '90' } },
         // Seen in Wisconsin's data: the capitol mapped twice, and "Ice" in an unrelated operator
         { type: 'node', id: 10, lat: 43.0751, lon: -89.3849, tags: { office: 'government', government: 'legislative', name: 'Wisconsin State Capitol' } },
@@ -518,17 +518,27 @@ test('lieux permanents : import OpenStreetMap, fichiers par région, correction 
   await new Promise(r => fake.on('listening', r));
   // Le serveur de test tourne déjà : on lance un second serveur pointé sur le faux Overpass
   const port = 20000 + Math.floor(Math.random() * 20000), B2 = 'http://127.0.0.1:' + port, D2 = fs.mkdtempSync(path.join(os.tmpdir(), 'cortege-l-'));
+  // ICE sites (tools/ice-facilities.py format): one at the OpenStreetMap jail's location, one hold room
+  fs.writeFileSync(D2 + '/ice.csv', 'code,name,address,city,state,zip,county,lat,lng,field_office,type,gender,over_72,days_used,avg_daily,max_daily\n'
+    + 'DANECWI,"Dane County Jail, Public Safety Building",115 W Doty St,Madison,WI,53703,Dane,43.074200,-89.384100,Chicago,USMS IGA,Female/Male,Over 72,120,3.4,17\n'
+    + 'MSNHOLD,Madison Hold Room,1 Test Way,Madison,WI,53703,Dane,43.060000,-89.400000,Chicago,HOLD,,,200,1.2,9\n');
+  fs.writeFileSync(D2 + '/ice.manifest.json', JSON.stringify({ source_commit_date: '2026-10-20' }));
   const s2 = spawn(process.execPath, [path.join(ROOT, 'server.js')], { stdio: 'ignore', env: { ...process.env, PORT: String(port), DATA_DIR: D2 + '/d', LIVE_DIR: D2 + '/l',
-    ADMIN_KEY: ADMIN, IMPORT_17OCT: '0', PLACES_IMPORT: '0', PLACES_SOURCE: 'overpass', OVERPASS_URL: 'http://127.0.0.1:' + fake.address().port + '/api/interpreter', OVERPASS_GAP: '0' } });
+    ADMIN_KEY: ADMIN, IMPORT_17OCT: '0', PLACES_IMPORT: '0', PLACES_SOURCE: 'overpass', ICE_FACILITIES: D2 + '/ice.csv', OVERPASS_URL: 'http://127.0.0.1:' + fake.address().port + '/api/interpreter', OVERPASS_GAP: '0' } });
   try {
     for (let i = 0; i < 100; i++) { try { if ((await fetch(B2 + '/api/health')).ok) break; } catch {} await new Promise(r => setTimeout(r, 100)); }
     const A = (p, body, method = 'POST') => fetch(B2 + p, { method, headers: { 'x-admin-key': ADMIN, 'content-type': 'application/json' }, body: body && JSON.stringify(body) }).then(async r => ({ s: r.status, j: await r.json() }));
     assert.equal((await A('/api/admin/places/import', {})).s, 202);
     let st; for (let i = 0; i < 100; i++) { st = (await A('/api/admin/places?q=madison', undefined, 'GET')).j; if (!st.running && st.last) break; await new Promise(r => setTimeout(r, 100)); }
     assert.equal(st.last.n, 8, 'private water ignored, duplicate capitol dropped, Ice Age Trail office not immigration');
-    for (const k of ['mairie', 'pref', 'gend', 'jail', 'cra', 'alpr', 'pharma', 'hopital']) assert.equal(st.counts[k], 1, k);
+    for (const k of ['mairie', 'pref', 'gend', 'jail', 'alpr', 'pharma', 'hopital']) assert.equal(st.counts[k], 1, k);
+    assert.equal(st.counts.cra, 3, 'OpenStreetMap immigration office + 2 ICE sites');
     const main = JSON.parse(fs.readFileSync(D2 + '/l/l/43_-90.json', 'utf8')).p, street = JSON.parse(fs.readFileSync(D2 + '/l/l/43_-90-s.json', 'utf8')).p;
-    assert.equal(main.length, 6); assert.equal(street.length, 1);
+    assert.equal(main.length, 7, 'OpenStreetMap jail merged into the ICE site'); assert.equal(street.length, 1);
+    assert.ok(!main.some(x => x[0] === 'w7'), 'OpenStreetMap jail at the ICE site not shown twice');
+    assert.deepEqual(main.find(x => x[0] === 'iDANECWI'), ['iDANECWI', 'cra', 43.0742, -89.3841, 'Dane County Jail, Public Safety Building', '', '', 0,
+      ['USMS IGA', 120, 3.4, 17, 'Chicago', '115 W Doty St, Madison, WI, 53703', '2026-10-20']]);
+    assert.equal(main.find(x => x[0] === 'iMSNHOLD')[8][0], 'HOLD');
     assert.deepEqual(JSON.parse(fs.readFileSync(D2 + '/l/l/43_-90-a.json', 'utf8')).p, [['n9', 'alpr', 43.076, -89.386, 'City of Madison', 'Flock Safety', 90]], 'plate readers in their own file');
     assert.ok(!fs.existsSync(D2 + '/l/l/43_-90-c.json'), 'no ordinary camera file');
     assert.equal(street[0][1], 'pharma'); assert.equal(street[0][5], 'Mo-Sa 09:00-19:00');
@@ -545,7 +555,8 @@ test('lieux permanents : import OpenStreetMap, fichiers par région, correction 
     assert.equal((await A('/api/admin/places/import', {})).s, 202);
     for (let i = 0; i < 100; i++) { st = (await A('/api/admin/places?filter=edited', undefined, 'GET')).j; if (!st.running && st.last.n === 0) break; await new Promise(r => setTimeout(r, 100)); }
     const main3 = JSON.parse(fs.readFileSync(D2 + '/l/l/43_-90.json', 'utf8')).p;
-    assert.deepEqual(main3.map(x => x[1]).sort(), ['cra', 'mairie']);
+    assert.deepEqual(main3.map(x => x[1]).sort(), ['cra', 'cra', 'cra', 'mairie'], 'admin-added and ICE sites stay when OpenStreetMap has nothing');
+    assert.ok(['iDANECWI', 'iMSNHOLD'].every(id => main3.some(x => x[0] === id)));
     assert.ok(!fs.existsSync(D2 + '/l/l/43_-90-a.json'), 'plate reader gone from OpenStreetMap: file removed');
     assert.ok(JSON.parse(fs.readFileSync(D2 + '/l/g.json', 'utf8')).pois);
   } finally { s2.kill(); fake.close(); fs.rmSync(D2, { recursive: true, force: true }); }

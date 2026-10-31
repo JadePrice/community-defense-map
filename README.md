@@ -59,6 +59,7 @@ All configuration is through environment variables. The ones that matter for a U
 | `GEO_API` | empty | City-outline service for city-level orders. Empty: orders cover whole states only. |
 | `TILE_URL`, `TILE_UA` | OSM, `CommunityDefenseMap/1.0 (+SOURCE_URL)` | Tile source and the User-Agent sent to OSM services. |
 | `TILE_PMTILES`, `TILE_PMTILES_REGION` | empty, `tools/us-region.geojson` | Self-hosted vector tiles and the area they cover. |
+| `ICE_FACILITIES` | `geo/ice-facilities.csv` | ICE detention sites, built by `tools/ice-facilities.py` (see `docs/DIVERGENCE.md`). Imported at startup when the file changes. |
 | `BRAND_KOFI` | empty | Donation link. Donation buttons stay hidden while empty. |
 | `BRAND_HANDLE`, `BRAND_INSTAGRAM`, `BRAND_SITE` | empty | Optional social links used on posters and generated images. |
 | `VIOLENCE_URL` | empty | Overrides the "report police violence" link (the page defaults to the ACLU). |
@@ -83,6 +84,7 @@ This is not the default. Deciding it is a policy question for whoever runs the i
 | Base map, places, cameras | © OpenStreetMap contributors | ODbL |
 | State and territory outlines (`geo/states.json`) | U.S. Census Bureau cartographic boundary file `cb_2024_us_state_5m`, simplified; see [docs/US_GEODATA.md](docs/US_GEODATA.md) | public domain |
 | Places of 50,000+ (`places.json`) | GeoNames | CC BY 4.0 |
+| ICE detention sites (`geo/ice-facilities.csv`) | ICE data compiled and checked by the [Deportation Data Project](https://github.com/deportationdata/ice-detention-facilities) | CC0 |
 | Address search | Nominatim (OSM Foundation), through the server | ODbL, usage policy applies |
 
 ## License

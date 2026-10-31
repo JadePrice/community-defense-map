@@ -2138,8 +2138,57 @@ const poiRow = x => { const d = JSON.parse(x.data || '{}');
   if (x.kind === 'cam') return [x.id, x.kind, x.lat, x.lng, d.o || '', d.c ? 1 : 0, d.dir ?? -1, d.ct || ''];
   // Plate reader: [id, 'alpr', lat, lng, operator, manufacturer, direction in degrees (-1: unknown)]
   if (x.kind === 'alpr') return [x.id, x.kind, x.lat, x.lng, d.o || '', d.m || '', d.dir ?? -1];
+  // ICE site: the 9th element is [type, days used last year, average daily population, max, field office, address, dataset date]
+  if (x.src === 'ice') return [x.id, x.kind, x.lat, x.lng, d.n || '', '', '', 0, [d.ty || '', d.du ?? -1, d.ap ?? -1, d.mx ?? -1, d.fo || '', d.ad || '', d.as || '']];
   const row = [x.id, x.kind, x.lat, x.lng, d.n || '', d.h || '', d.p || '', d.e || d.s || 0];
   while (row.length > 4 && !row[row.length - 1]) row.pop(); return row; };
+// ---- ICE detention sites (Deportation Data Project, CC0) ----
+// geo/ice-facilities.csv is built by tools/ice-facilities.py; its manifest records the source commit and hashes.
+// Imported at startup when the file changes, as its own source: the OpenStreetMap import never touches these rows.
+const ICE_FILE = process.env.ICE_FACILITIES || path.join(__dirname, 'geo', 'ice-facilities.csv');
+const ICE_MERGE_M = 250;
+function csvParse(text) {
+  const rows = []; let row = [], cur = '', q = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (q) { if (c === '"') { if (text[i + 1] === '"') { cur += '"'; i++; } else q = false; } else cur += c; }
+    else if (c === '"') q = true;
+    else if (c === ',') { row.push(cur); cur = ''; }
+    else if (c === '\n') { row.push(cur); rows.push(row); row = []; cur = ''; }
+    else if (c !== '\r') cur += c;
+  }
+  if (cur || row.length) { row.push(cur); rows.push(row); }
+  const [head, ...body] = rows;
+  return (body || []).filter(r => r.length === head.length).map(r => Object.fromEntries(head.map((h, i) => [h, r[i]])));
+}
+function iceImport() {
+  let buf; try { buf = fs.readFileSync(ICE_FILE); } catch (e) { if (e.code !== 'ENOENT') console.error('ICE :', e.message); return; }
+  const hash = crypto.createHash('sha256').update(buf).digest('hex');
+  if (getMeta('iceimp') === hash) return;
+  let asOf = ''; try { asOf = JSON.parse(fs.readFileSync(ICE_FILE.replace(/\.csv$/, '.manifest.json'), 'utf8')).source_commit_date || ''; } catch {}
+  const list = csvParse(buf.toString('utf8')), t0 = Date.now(), rgs = new Set();
+  const up = q(`INSERT INTO pois(id,kind,lat,lng,rg,data,src,seen) VALUES(?,?,?,?,?,?,'ice',?) ON CONFLICT(id) DO UPDATE SET seen=excluded.seen, src='ice',
+    kind=CASE WHEN ed=1 THEN kind ELSE excluded.kind END, lat=CASE WHEN ed=1 THEN lat ELSE excluded.lat END, lng=CASE WHEN ed=1 THEN lng ELSE excluded.lng END,
+    rg=CASE WHEN ed=1 THEN rg ELSE excluded.rg END, data=CASE WHEN ed=1 THEN data ELSE excluded.data END`);
+  const int = v => (v === '' || v == null || !Number.isFinite(+v) ? undefined : Math.round(+v)), dec = v => (v === '' || v == null || !Number.isFinite(+v) ? undefined : Math.round(+v * 10) / 10);
+  let n = 0;
+  tx(() => {
+    for (const r of list) {
+      const lat = +r.lat, lng = +r.lng;
+      if (!/^[A-Z0-9]{3,12}$/.test(r.code || '') || !validLatLng(lat, lng)) continue;
+      const d = { n: poiStr(r.name, 80), ty: poiStr(r.type, 20), fo: poiStr(r.field_office, 40), ad: poiStr([r.address, r.city, r.state, r.zip].filter(Boolean).join(', '), 120), as: asOf,
+        du: int(r.days_used), ap: dec(r.avg_daily), mx: int(r.max_daily) };
+      for (const k of Object.keys(d)) if (d[k] === undefined || d[k] === '') delete d[k];
+      const rg = poiRg(lat, lng); rgs.add(rg);
+      up.run('i' + r.code, 'cra', Math.round(lat * 1e5) / 1e5, Math.round(lng * 1e5) / 1e5, rg, JSON.stringify(d), t0); n++;
+    }
+    for (const x of q("SELECT rg FROM pois WHERE src='ice' AND ed=0 AND seen<?").all(t0)) rgs.add(x.rg);
+    q("DELETE FROM pois WHERE src='ice' AND ed=0 AND seen<?").run(t0);
+  });
+  setMeta('iceimp', hash);
+  console.log(`ICE : ${n} sites imported from ${path.basename(ICE_FILE)}`);
+  if (rgs.size) placesPublish(rgs);
+}
 // Publie les fichiers de lieux (toutes les régions, ou seulement celles indiquées)
 const placesPublish = (regions = null) => placesPublishRun(regions).catch(e => console.error('lieux : publication', e.message));
 async function placesPublishRun(regions) {
@@ -2150,7 +2199,10 @@ async function placesPublishRun(regions) {
   const written = new Set();
   for (const rg of rgs) {
     if (!regions) await new Promise(go => setImmediate(go)); // publication complète : on rend la main entre deux zones
-    const rows = q('SELECT id, kind, lat, lng, data FROM pois WHERE rg=? AND hid=0').all(rg);
+    let rows = q('SELECT id, kind, lat, lng, data, src FROM pois WHERE rg=? AND hid=0').all(rg);
+    // An OpenStreetMap jail or detention site within ~250 m of an ICE site is the same place: shown once, as the ICE site
+    const ice = rows.filter(x => x.src === 'ice');
+    if (ice.length) rows = rows.filter(x => x.src !== 'osm' || !(x.kind === 'jail' || x.kind === 'cra') || !ice.some(i => distM(i, x) < ICE_MERGE_M));
     for (const [suffix, list] of [['', rows.filter(x => !street.has(x.kind) && !cams.has(x.kind) && !alpr.has(x.kind))], ['-s', rows.filter(x => street.has(x.kind))], ['-c', rows.filter(x => cams.has(x.kind))], ['-a', rows.filter(x => alpr.has(x.kind))]]) {
       const f = path.join(dir, rg + suffix + '.json');
       if (list.length) { writeIfChanged(f, JSON.stringify({ p: list.map(poiRow) })); written.add(rg + suffix + '.json'); }
@@ -2674,6 +2726,7 @@ setTimeout(() => {
   try { migrateJson(); } catch (e) { console.error('reprise state.json', e.message); }
   try { seedLegal(); } catch (e) { console.error('annuaire', e.message); }
   try { settings(); sweep(); rebuildAll(); } catch (e) { console.error('publication initiale', e.message); }
+  try { iceImport(); } catch (e) { console.error('ICE', e.message); }
   try { if (!fs.existsSync(path.join(LIVE_DIR, 'l')) && q('SELECT 1 FROM pois LIMIT 1').get()) placesPublish(); } catch (e) { console.error('lieux', e.message); }
 }, 200);
 // Veille de l'annuaire : vérifiée toutes les heures, faite une fois par jour (désactivable : LEGAL_WATCH=0)

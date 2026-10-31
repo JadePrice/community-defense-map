@@ -1519,7 +1519,7 @@ function renderPlaces(list) {
     const ed = btn('Correct', 'ghost'), hide = btn(x.hid ? 'Show again' : 'Hide', x.hid ? '' : 'danger');
     hide.onclick = async () => { try { await api('/api/admin/places/' + x.id, { method: 'POST', body: JSON.stringify({ hid: !x.hid }) }); loadPlaces(true); } catch (e) { alertMsg(e.message); } };
     const l = li(`${k.glyph} ${x.n || tl(k.label)}${x.hid ? ' · hidden' : ''}${x.ed ? ' · corrected' : ''}`,
-      `${tl(k.label)} · ${x.lat.toFixed(4)}, ${x.lng.toFixed(4)}${x.h ? ' · ' + x.h : ''}${x.p ? ' · ' + x.p : ''} · ${x.src === 'osm' ? 'OpenStreetMap ' + x.id : 'added here'}`, ed, hide);
+      `${tl(k.label)} · ${x.lat.toFixed(4)}, ${x.lng.toFixed(4)}${x.h ? ' · ' + x.h : ''}${x.p ? ' · ' + x.p : ''} · ${x.src === 'osm' ? 'OpenStreetMap ' + x.id : x.src === 'ice' ? 'ICE data (Deportation Data Project) ' + x.id.slice(1) : 'added here'}`, ed, hide);
     ed.onclick = () => {
       if (l.querySelector('.edit-form')) return;
       const f = document.createElement('form'); f.className = 'edit-form';
