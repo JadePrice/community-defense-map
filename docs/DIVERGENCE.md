@@ -37,9 +37,14 @@ These are fork-only. Nothing here should be sent upstream as is.
 
 ## Translation and U.S. adaptation
 
-The browser app's text lives in `i18n/*.tsv` (French source text as the key, then English, Spanish, Arabic), compiled by `node tools/i18n-build.js` into `public/lang/*.json`. Two files are this project's own:
+All user-facing text lives in `i18n/*.tsv` (source text as the key, then English, Spanish, Arabic), compiled by `node tools/i18n-build.js` into `public/lang/*.json`; CI fails if the compiled files are out of date. Files 11 to 16 and the override file are this project's own:
 
-- `i18n/11-cdm.tsv`: text written for this project. Where the page source was written directly in English (the Rights section), the key is the English text and the English column repeats it.
+- `11-cdm.tsv`: text written for this project. Where the page source was written directly in English (the Rights section), the key is the English text and the English column repeats it.
+- `12-pages.tsv`: server-rendered public pages.
+- `13-public.tsv`: time-slot map page and image, poster, embeddable map.
+- `14-server.tsv`: server messages shown to people. Messages that carry a number or a date are worded by the server in the request's language (`X-Lang` sent by the app, else `Accept-Language`).
+- `15-legal.tsv`: the legal page, written in English for this project (key = English).
+- `16-admin.tsv`: organizer-log action names, shown on the admin page.
 - `i18n/us.override.tsv`: replaces the English, Spanish and Arabic of upstream rows without touching upstream's files. Override files load last, and a row whose key no longer exists fails the build, so upstream text changes can't silently drop an adaptation. It holds:
   - U.S. equivalents rather than literal translations: riot police, plainclothes units, SWAT, National Guard, BearCat/MRAP, rubber bullets/flash-bangs; government offices, sheriff's offices, immigration detention; state instead of département; "whole country" instead of "all of France";
   - U.S. example places in placeholders;
@@ -64,6 +69,12 @@ The CSV open data uses fixed English column names (`type;category;group;start;en
 
 Day summaries and admin stories draw a background map from `public/story-map.json`. Upstream's file was a projected outline of France. It is now built from `geo/states.json` by `tools/build-story-map.js` (contiguous U.S., Lambert conic 33°/45°/96° W; projection parameters stored in the file and read by `public/bubble-map.js`). Alaska, Hawaii and the territories fall outside that frame, so their cities appear in the lists under the map but not on it.
 
+## Legal page and admin page
+
+`/legal.html` is now written in English (Spanish and Arabic through `15-legal.tsv`). Its data-handling table states the same facts as upstream's, which match the code; the French framing was removed ("mentions légales", the GDPR "legal basis"), and GeoNames and the Census Bureau are credited. It has not had a legal review. One rule to decide: posting police badge numbers is forbidden (upstream's ban on French police ID numbers carried over), although in the U.S. badge numbers are generally public and used for accountability.
+
+The admin page and the stories it generates are in English, written directly in the source: `admin.html` sets `data-i18n-lang="en"`, which pins `i18n.js` to English on that page. Values the server stores in French (organizer-log actions, abuse kinds, category and place labels) are not changed; they are translated when displayed, so comparisons in the code still match. The emergency wipe now asks for ERASE (the server also still accepts EFFACER).
+
 ## Still French or France-specific (not done)
 
 Verified by reading the code:
@@ -71,10 +82,9 @@ Verified by reading the code:
 - **Report category ids** remain the French ones (`crs`, `bac`, `militaires`, `lbd`…). The labels people see are adapted (above); the ids are internal and stored in reports and archives.
 - **Place classification**: the OSM import looks for French tags (`government=prefecture`, gendarmerie names), so "Government office", "County government office", "Sheriff's office" and "Immigration detention center" are only filled by places an admin adds by hand.
 - **"Arrêtés"** (official orders) keep the French workflow: a state or, with `GEO_API`, a city, plus dates and a source link. Labels are adapted; U.S. orders (curfews, emergency declarations, permit denials) fit the shape but nothing more specific has been done.
-- **The legal page** (`/legal.html`) is French text structured around French publisher obligations, and it doesn't load the translation layer. Only the publisher line has been rewritten. It needs a U.S. privacy policy and terms written for this service, not a translation.
-- **The admin page** and the text of generated images (stories, slot maps, posters) are French-only. The stories' map is the U.S. one.
 - **`docs/INSTALLATION.md` and `docs/FONCTIONNEMENT.md`** are upstream's French docs. Only the PMTiles region path has been updated.
-- **GeoNames attribution** (CC BY 4.0, required for `places.json`) appears in the README but not yet on the legal page.
+- **Free-text details in the organizer log** that the server composes (for example "retiré par …") stay in French on the admin page; action names are translated.
+- **Code comments** in upstream files are in French.
 
 Inferred, not verified:
 

@@ -1,0 +1,57 @@
+# Journal des actions des orgas (page admin) : noms d’actions enregistrés par le serveur
+annonce	announcement	anuncio	إعلان
+annonce (en attente)	announcement (pending)	anuncio (pendiente)	إعلان (قيد الانتظار)
+annonce retirée	announcement removed	anuncio retirado	أُزيل إعلان
+annonce validée	announcement approved	anuncio aprobado	تمت الموافقة على إعلان
+annuaire ajouté	directory entry added	entrada del directorio añadida	أُضيف إدخال إلى الدليل
+annuaire modifié	directory entry edited	entrada del directorio modificada	عُدّل إدخال في الدليل
+annuaire retiré	directory entry removed	entrada del directorio retirada	أُزيل إدخال من الدليل
+appareil ajouté	device added	dispositivo añadido	أُضيف جهاز
+arrêté publié	order published	orden publicada	نُشر قرار
+arrêtés importés	orders imported	órdenes importadas	استُوردت قرارات
+confirmé (essai)	confirmed (trial)	confirmado (prueba)	مؤكَّد (تجربة)
+confirmé (parrainée)	confirmed (sponsored)	confirmado (patrocinado)	مؤكَّد (برعاية)
+confirmée (parrainage)	confirmed (sponsorship)	confirmado (patrocinio)	مؤكَّدة (رعاية)
+corrigé	corrected	corregido	صُحّح
+dépublié	unpublished	despublicado	أُلغي نشره
+essai	trial	prueba	تجربة
+fin du mode renforcé	strict mode ended	fin del modo estricto	انتهى الوضع المشدّد
+fin du partage de position	location sharing ended	fin del envío de ubicación	انتهت مشاركة الموقع
+fin du partage de position (hors zone)	location sharing ended (out of area)	fin del envío de ubicación (fuera de la zona)	انتهت مشاركة الموقع (خارج المنطقة)
+gardé (modération)	kept (moderation)	conservado (moderación)	أُبقي (إشراف)
+import des lieux lancé	places import started	importación de lugares iniciada	بدأ استيراد الأماكن
+import des lieux repris	places import resumed	importación de lugares reanudada	استُؤنف استيراد الأماكن
+invitation	invitation	invitación	دعوة
+invitation (parrainage)	invitation (sponsorship)	invitación (patrocinio)	دعوة (رعاية)
+invitation utilisée	invitation used	invitación usada	استُخدمت الدعوة
+journée modifiée	day edited	día modificado	عُدّل اليوم
+journée prévue	day planned	día previsto	خُطّط ليوم
+legal team (en attente)	legal team (pending)	equipo legal (pendiente)	فريق قانوني (قيد الانتظار)
+lien d’appareil créé	device link created	enlace de dispositivo creado	أُنشئ رابط جهاز
+lieu ajouté	place added	lugar añadido	أُضيف مكان
+lieu corrigé	place corrected	lugar corregido	صُحّح مكان
+lieu masqué	place hidden	lugar oculto	أُخفي مكان
+lieu réaffiché	place shown again	lugar visible de nuevo	أُعيد إظهار مكان
+mode manif renforcé	strict protest mode	modo estricto de protesta	الوضع المشدّد للاحتجاج
+mode manif renforcé (journée prévue)	strict protest mode (planned day)	modo estricto de protesta (día previsto)	الوضع المشدّد للاحتجاج (يوم مخطط)
+nouvelle invitation (ancienne clé révoquée)	new invitation (old key revoked)	nueva invitación (clave anterior revocada)	دعوة جديدة (أُلغي المفتاح القديم)
+nouvelle invitation (parrainage)	new invitation (sponsorship)	nueva invitación (patrocinio)	دعوة جديدة (رعاية)
+partage de position	location sharing	envío de ubicación	مشاركة الموقع
+prolongé	extended	prolongado	مُدّد
+restauré	restored	restaurado	استُعيد
+retrait (essai)	removal (trial)	retiro (prueba)	إزالة (تجربة)
+retrait bloqué (rafale)	removal blocked (burst)	retiro bloqueado (ráfaga)	حُظرت إزالة (دفعة)
+réglages modifiés	settings changed	ajustes modificados	عُدّلت الإعدادات
+révoquée pour abus	revoked for abuse	revocado por abuso	أُلغيت بسبب الإساءة
+signalement	report	reporte	بلاغ
+source revue	source reviewed	fuente revisada	رُوجع المصدر
+validé	approved	aprobado	تمت الموافقة
+vérification bloquée (rafale)	verification blocked (burst)	verificación bloqueada (ráfaga)	حُظر تحقق (دفعة)
+vérifié (modération)	verified (moderation)	verificado (moderación)	تم التحقق (إشراف)
+vérifié (signalement)	verified (report)	verificado (reporte)	تم التحقق (بلاغ)
+événement	event	evento	فعالية
+événement (en attente)	event (pending)	evento (pendiente)	فعالية (قيد الانتظار)
+événement retiré	event removed	evento retirado	أُزيلت فعالية
+annuaire validé	directory entry approved	entrada del directorio aprobada	تمت الموافقة على إدخال في الدليل
+annuaire dépublié	directory entry unpublished	entrada del directorio despublicada	أُلغي نشر إدخال في الدليل
+annuaire source revue	directory source reviewed	fuente del directorio revisada	رُوجع مصدر الدليل

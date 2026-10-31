@@ -6,7 +6,10 @@
   const LANGS = ['en', 'es', 'fr', 'ar'];
   const LOCALES = { fr: 'fr-FR', en: 'en-US', es: 'es-US', ar: 'ar-u-nu-latn' };
   let lang = null;
-  try { lang = localStorage.getItem('cortege-lang'); } catch {}
+  // A page written in one language (the admin page) pins it: <html data-i18n-lang="en">
+  const pinned = document.documentElement.getAttribute('data-i18n-lang');
+  if (LANGS.includes(pinned)) lang = pinned;
+  else try { lang = localStorage.getItem('cortege-lang'); } catch {}
   if (!LANGS.includes(lang)) {
     lang = 'en';
     for (const l of navigator.languages || [navigator.language || 'en']) {

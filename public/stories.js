@@ -4,14 +4,14 @@
 (() => {
   const W = 1080, H = 1920;
   const COL = { fdo: '#e5484d', danger: '#f5a524', soutien: '#30a46c', info: '#8e8cd8' };
-  const FAM = { fdo: 'Forces de l’ordre', danger: 'Danger', info: 'Info', soutien: 'Soutien' };
+  const FAM = { fdo: 'Police', danger: 'Danger', info: 'Info', soutien: 'Support' };
   const REMOVED = new Set(['cont', 'orga', 'admin', 'full', 'purge', 'removed', 'old']);
-  const nf = n => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+  const nf = n => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const TZ = window.CDM_TZ || 'America/Chicago'; // set by /tz.js
-  const hh = t => new Date(t).toLocaleTimeString('fr-FR', { timeZone: TZ, hour: '2-digit', minute: '2-digit' }).replace(':', ' h ');
+  const hh = t => new Date(t).toLocaleTimeString('en-US', { timeZone: TZ, hour: 'numeric', minute: '2-digit' });
   const hourOf = t => +new Date(t).toLocaleString('en-GB', { timeZone: TZ, hour: '2-digit', hour12: false }) % 24;
-  const longDay = d => new Date(d + 'T12:00:00').toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+  const longDay = d => new Date(d + 'T12:00:00Z').toLocaleDateString('en-US', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
 
   const toDataUrl = blob => new Promise(ok => { const r = new FileReader(); r.onload = () => ok(r.result); r.readAsDataURL(blob); });
   const fetchData = async url => toDataUrl(await (await fetch(url)).blob());
@@ -93,50 +93,50 @@ h2 { font-size: 64px; line-height: 1.05; font-weight: 900; letter-spacing: -.02e
   function pages(d, s, a, photos, brand) {
     const foot = i => `<div class="foot"><span class="brand">${a.logo ? `<img src="${a.logo}"/>` : ''}Community Defense Map${brand ? ' · @' + esc(brand) : ''}</span><span class="num">${i}/7</span></div>`;
     const out = [];
-    // 1. Couverture
+    // 1. Cover
     out.push(`${photos.cover ? `<div class="bg" style="background-image:url(${photos.cover})"></div><div class="shade"></div>` : ''}
 <div class="page" style="justify-content:flex-end"><div class="kicker">${esc(longDay(d.date))}</div>
-<div class="big" style="margin-top:22px">${nf(s.total)}</div><h2 style="margin-top:6px">signalement${s.total > 1 ? 's' : ''}</h2>
-<p class="sub">envoyés par des manifestant·es sur Community Defense Map, dans ${s.city.length} ville${s.city.length > 1 ? 's' : ''}, de ${hh(s.first)} à ${hh(s.last)}.</p></div>${foot(1)}`);
-    // 2. Carte
+<div class="big" style="margin-top:22px">${nf(s.total)}</div><h2 style="margin-top:6px">report${s.total > 1 ? 's' : ''}</h2>
+<p class="sub">sent by people on the ground through Community Defense Map, in ${s.city.length} cit${s.city.length > 1 ? 'ies' : 'y'}, from ${hh(s.first)} to ${hh(s.last)}.</p></div>${foot(1)}`);
+    // 2. Map
     const m = a.map, bm = window.BubbleMap.svg(s.city, m, { fontSize: 30, labels: 12, font: 'Inter', numFont: 'Mono', numFmt: nf, esc });
     const dots = bm.dots, labels = [bm.labels];
-    out.push(`<div class="page"><div class="kicker">Où ?</div><h2>Signalements par ville</h2>
-<p class="sub">Plus le cercle est grand, plus il y a de signalements. ${s.city.length} ville${s.city.length > 1 ? 's' : ''} en tout${bm.merged ? ', les communes voisines regroupées' : ''}.</p>
+    out.push(`<div class="page"><div class="kicker">Where?</div><h2>Reports by city</h2>
+<p class="sub">The bigger the circle, the more reports. ${s.city.length} cit${s.city.length > 1 ? 'ies' : 'y'} in all${bm.merged ? ', nearby places grouped' : ''}.</p>
 <svg xmlns="http://www.w3.org/2000/svg" width="${m.w}" height="${m.h}" viewBox="0 0 ${m.w} ${m.h}" style="margin-top:34px">
 <defs><linearGradient id="gr" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7fe0ef"/><stop offset="1" stop-color="#3d8fe0"/></linearGradient><clipPath id="c"><rect width="${m.w}" height="${m.h}"/></clipPath></defs>
 <g clip-path="url(#c)">${m.near.map(p => `<path d="${p}" fill="#1c1c20" stroke="#34343c" stroke-width="1.5"/>`).join('')}<path d="${m.area || m.fr}" fill="#26262c" stroke="#5a5866" stroke-width="2"/>${dots}${labels.join('')}</g></svg></div>${foot(2)}`);
-    // 3. Par type
+    // 3. By type
     const maxC = s.cats[0]?.n || 1, rh = s.cats.length > 16 ? 58 : 66;
-    out.push(`<div class="page"><div class="kicker">Quoi ?</div><h2>Les ${nf(s.total)} signalements, par type</h2>
+    out.push(`<div class="page"><div class="kicker">What?</div><h2>The ${nf(s.total)} reports, by type</h2>
 <div class="legend">${['fdo', 'danger', 'info', 'soutien'].filter(f => s.fam[f]).map(f => `<span><i style="background:${COL[f]}"></i>${FAM[f]} <b>${nf(s.fam[f])}</b></span>`).join('')}</div>
 <div style="margin-top:28px">${s.cats.slice(0, 20).map(c => `<div class="row" style="grid-template-columns:380px 1fr 92px;height:${rh}px"><span style="font-size:27px;font-weight:700;line-height:1.1">${esc(c.label)}</span>
 <span class="bar" style="height:30px;background:${COL[c.group]};width:${Math.max(1.2, c.n / maxC * 100)}%"></span><span class="num" style="font-size:30px;text-align:right">${nf(c.n)}</span></div>`).join('')}</div></div>${foot(3)}`);
-    // 4. Heure par heure
+    // 4. Hour by hour
     const maxH = Math.max(...s.hours), peak = s.hours.indexOf(maxH), BH = 980;
-    out.push(`<div class="page"><div class="kicker">Quand ?</div><h2>Signalements par heure</h2>
-<p class="sub">Premier à ${hh(s.first)}, dernier à ${hh(s.last)}. Le plus d’envois : entre ${peak} h et ${(peak + 1) % 24} h (${maxH}).</p>
+    out.push(`<div class="page"><div class="kicker">When?</div><h2>Reports by hour</h2>
+<p class="sub">First at ${hh(s.first)}, last at ${hh(s.last)}. Most reports: between ${peak}:00 and ${(peak + 1) % 24}:00 (${maxH}).</p>
 <div style="display:flex;gap:7px;margin-top:70px;border-bottom:2px solid #5a5866">${s.hours.map((n, i) => `<div style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:${BH}px">
 ${i === peak ? `<span class="num" style="font-size:28px;margin-bottom:10px;color:#7fe0ef">${n}</span>` : ''}<div style="width:100%;height:${n / maxH * (BH - 60)}px;min-height:${n ? 3 : 0}px;border-radius:5px 5px 0 0;background:${i === peak ? '#7fe0ef' : '#5b66c4'}"></div></div>`).join('')}</div>
 <div class="num" style="display:flex;gap:7px;margin-top:14px;font-size:24px;color:#a3a1ad">${s.hours.map((_, i) => `<span style="flex:1;text-align:center">${i % 3 === 0 ? i + 'h' : ''}</span>`).join('')}</div></div>${foot(4)}`);
-    // 5. Villes
+    // 5. Cities
     const top = s.city.slice(0, 12), maxV = top[0]?.n || 1, rest = s.city.slice(12), restN = rest.reduce((t, c) => t + c.n, 0);
-    out.push(`<div class="page"><div class="kicker">Dans quelles villes ?</div><h2>Les ${top.length} villes les plus actives</h2>
+    out.push(`<div class="page"><div class="kicker">In which cities?</div><h2>The ${top.length} most active cities</h2>
 <div style="margin-top:40px">${top.map(c => `<div class="row" style="grid-template-columns:420px 1fr 92px;height:74px"><span style="font-size:30px;font-weight:700;line-height:1.1">${esc(c.name)}</span>
 <span class="bar" style="height:32px;background:linear-gradient(90deg,#7fe0ef,#5bb8ea);width:${Math.max(1.5, c.n / maxV * 100)}%"></span><span class="num" style="font-size:32px;text-align:right">${nf(c.n)}</span></div>`).join('')}</div>
-${rest.length ? `<p class="sub" style="font-size:30px;margin-top:20px">+ ${rest.length} autre${rest.length > 1 ? 's' : ''} ville${rest.length > 1 ? 's' : ''} : ${nf(restN)} signalement${restN > 1 ? 's' : ''}.</p>` : ''}
-<p class="note">Chaque ville compte aussi les communes voisines de son agglomération.</p></div>${foot(5)}`);
-    // 6. Vérification
+${rest.length ? `<p class="sub" style="font-size:30px;margin-top:20px">+ ${rest.length} more cit${rest.length > 1 ? 'ies' : 'y'}: ${nf(restN)} report${restN > 1 ? 's' : ''}.</p>` : ''}
+<p class="note">Each city also counts the nearby places in its metro area.</p></div>${foot(5)}`);
+    // 6. Verification
     const stat = (n, t, c) => `<div class="stat"><div class="num" style="color:${c}">${nf(n)}</div><div>${t}</div></div>`;
-    out.push(`<div class="page"><div class="kicker">Vérification</div><h2>Qui a confirmé quoi</h2><div style="margin-top:50px">
-${stat(s.confirmed, `signalements confirmés par au moins une autre personne (${nf(s.confs)} confirmations en tout)`, '#30a46c')}
-${stat(s.verified, 'signalements vérifiés par une orga certifiée (legal team, street medics, collectif)', '#8e8cd8')}
-${stat(s.removed, 'signalements retirés de la carte avant leur expiration', '#f5a524')}</div>
-<p class="note">Les ${nf(s.total)} signalements de cette série incluent les ${nf(s.removed)} retirés.</p></div>${foot(6)}`);
+    out.push(`<div class="page"><div class="kicker">Verification</div><h2>Who confirmed what</h2><div style="margin-top:50px">
+${stat(s.confirmed, `reports confirmed by at least one other person (${nf(s.confs)} confirmations in all)`, '#30a46c')}
+${stat(s.verified, 'reports verified by a certified organizer (legal team, street medics, group)', '#8e8cd8')}
+${stat(s.removed, 'reports removed from the map before they expired', '#f5a524')}</div>
+<p class="note">The ${nf(s.total)} reports in this series include the ${nf(s.removed)} removed.</p></div>${foot(6)}`);
     // 7. Source
     out.push(`${photos.end ? `<div class="bg" style="background-image:url(${photos.end})"></div><div class="shade"></div>` : ''}
-<div class="page" style="justify-content:flex-end"><div class="kicker">Source</div><h2 style="font-size:58px">Community Defense Map, la carte en direct des manifs</h2>
-<p class="sub">Signalements anonymes envoyés par les manifestant·es. Un signalement n’est pas un fait vérifié : il est confirmé ou contesté par les autres sur place.</p>
+<div class="page" style="justify-content:flex-end"><div class="kicker">Source</div><h2 style="font-size:58px">Community Defense Map, the live map of police activity and surveillance</h2>
+<p class="sub">Anonymous reports sent by people on the ground. A report is not a verified fact: others on site confirm or contest it.</p>
 <div class="link">${esc(location.host)}</div></div>${foot(7)}`);
     return out;
   }
@@ -157,7 +157,7 @@ ${stat(s.removed, 'signalements retirés de la carte avant leur expiration', '#f
   window.makeStories = async function (d, { cover, end, brand } = {}) {
     const a = await loadAssets();
     const s = stats(d);
-    if (!s.total) throw new Error('Aucun signalement ce jour-là.');
+    if (!s.total) throw new Error('No reports that day.');
     const photos = { cover: cover ? await photoBg(cover) : null, end: end ? await photoBg(end, 0.62) : null };
     const blobs = [];
     for (const html of pages(d, s, a, photos, brand)) blobs.push(await render(html, a));

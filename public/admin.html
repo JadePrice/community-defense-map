@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="fr">
+<html lang="en" data-i18n-lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -140,69 +140,69 @@ textarea { padding: 10px 12px; border-radius: 10px; border: 1px solid var(--line
 <main>
   <header>
     <img src="/brand/logo.png" alt="">
-    <h1>Administration <small>accès réservé</small></h1>
+    <h1>Administration <small>restricted access</small></h1>
   </header>
 
   <form class="controls" id="loginForm">
-    <label for="key">Clé admin (variable ADMIN_KEY)
+    <label for="key">Admin key (ADMIN_KEY setting)
       <input id="key" type="password" autocomplete="current-password" required>
     </label>
-    <button type="submit">Entrer</button>
+    <button type="submit">Enter</button>
   </form>
   <p class="msg" id="loginMsg"></p>
 
   <div id="app" hidden>
-  <button type="button" class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="adminNav"><span id="navCurrent">Orgas</span><span aria-hidden="true">▾</span></button>
+  <button type="button" class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="adminNav"><span id="navCurrent">Organizers</span><span aria-hidden="true">▾</span></button>
   <nav class="tabs" id="adminNav" role="tablist" aria-orientation="vertical">
-    <div class="nav-group" role="presentation">Pendant la manif</div>
-    <button class="tab" role="tab" id="tabLive" aria-selected="false" aria-controls="panelLive"><span class="ni" aria-hidden="true">📈</span>Direct</button>
-    <button class="tab" role="tab" id="tabReports" aria-selected="false" aria-controls="panelReports"><span class="ni" aria-hidden="true">🚨</span>Urgences</button>
-    <button class="tab" role="tab" id="tabMod" aria-selected="false" aria-controls="panelMod"><span class="ni" aria-hidden="true">🛡</span>Modération <span id="modBadge"></span></button>
-    <button class="tab" role="tab" id="tabAnns" aria-selected="false" aria-controls="panelAnns"><span class="ni" aria-hidden="true">📣</span>Annonces <span id="annBadge"></span></button>
-    <button class="tab" role="tab" id="tabOrders" aria-selected="false" aria-controls="panelOrders"><span class="ni" aria-hidden="true">🚫</span>Arrêtés <span id="ordBadge"></span></button>
-    <div class="nav-group" role="presentation">Organiser</div>
-    <button class="tab" role="tab" id="tabMobs" aria-selected="false" aria-controls="panelMobs"><span class="ni" aria-hidden="true">🗓</span>Journées <span id="mobBadge"></span></button>
-    <button class="tab" role="tab" id="tabAgenda" aria-selected="false" aria-controls="panelAgenda"><span class="ni" aria-hidden="true">📅</span>Agenda <span id="pendingBadge"></span></button>
-    <button class="tab" role="tab" id="tabOrgas" aria-selected="true" aria-controls="panelOrgas"><span class="ni" aria-hidden="true">👥</span>Orgas <span id="reqBadge"></span></button>
+    <div class="nav-group" role="presentation">During a protest</div>
+    <button class="tab" role="tab" id="tabLive" aria-selected="false" aria-controls="panelLive"><span class="ni" aria-hidden="true">📈</span>Live</button>
+    <button class="tab" role="tab" id="tabReports" aria-selected="false" aria-controls="panelReports"><span class="ni" aria-hidden="true">🚨</span>Emergency</button>
+    <button class="tab" role="tab" id="tabMod" aria-selected="false" aria-controls="panelMod"><span class="ni" aria-hidden="true">🛡</span>Moderation <span id="modBadge"></span></button>
+    <button class="tab" role="tab" id="tabAnns" aria-selected="false" aria-controls="panelAnns"><span class="ni" aria-hidden="true">📣</span>Announcements <span id="annBadge"></span></button>
+    <button class="tab" role="tab" id="tabOrders" aria-selected="false" aria-controls="panelOrders"><span class="ni" aria-hidden="true">🚫</span>Orders <span id="ordBadge"></span></button>
+    <div class="nav-group" role="presentation">Organize</div>
+    <button class="tab" role="tab" id="tabMobs" aria-selected="false" aria-controls="panelMobs"><span class="ni" aria-hidden="true">🗓</span>Planned days <span id="mobBadge"></span></button>
+    <button class="tab" role="tab" id="tabAgenda" aria-selected="false" aria-controls="panelAgenda"><span class="ni" aria-hidden="true">📅</span>Calendar <span id="pendingBadge"></span></button>
+    <button class="tab" role="tab" id="tabOrgas" aria-selected="true" aria-controls="panelOrgas"><span class="ni" aria-hidden="true">👥</span>Organizers <span id="reqBadge"></span></button>
     <button class="tab" role="tab" id="tabLegal" aria-selected="false" aria-controls="panelLegal"><span class="ni" aria-hidden="true">⚖</span>Legal teams <span id="legalBadge"></span></button>
-    <button class="tab" role="tab" id="tabPlaces" aria-selected="false" aria-controls="panelPlaces"><span class="ni" aria-hidden="true">🏛</span>Lieux</button>
-    <div class="nav-group" role="presentation">Bilans et contrôle</div>
+    <button class="tab" role="tab" id="tabPlaces" aria-selected="false" aria-controls="panelPlaces"><span class="ni" aria-hidden="true">🏛</span>Places</button>
+    <div class="nav-group" role="presentation">Summaries and oversight</div>
     <button class="tab" role="tab" id="tabDigest" aria-selected="false" aria-controls="panelDigest"><span class="ni" aria-hidden="true">📊</span>Digest</button>
-    <button class="tab" role="tab" id="tabJournal" aria-selected="false" aria-controls="panelJournal"><span class="ni" aria-hidden="true">🧾</span>Journal <span id="journalBadge"></span></button>
-    <button class="tab" role="tab" id="tabAbuse" aria-selected="false" aria-controls="panelAbuse"><span class="ni" aria-hidden="true">⚠</span>Abus</button>
+    <button class="tab" role="tab" id="tabJournal" aria-selected="false" aria-controls="panelJournal"><span class="ni" aria-hidden="true">🧾</span>Action log <span id="journalBadge"></span></button>
+    <button class="tab" role="tab" id="tabAbuse" aria-selected="false" aria-controls="panelAbuse"><span class="ni" aria-hidden="true">⚠</span>Abuse</button>
     <div class="nav-group" role="presentation">Configuration</div>
-    <button class="tab" role="tab" id="tabSettings" aria-selected="false" aria-controls="panelSettings"><span class="ni" aria-hidden="true">⚙</span>Réglages</button>
+    <button class="tab" role="tab" id="tabSettings" aria-selected="false" aria-controls="panelSettings"><span class="ni" aria-hidden="true">⚙</span>Settings</button>
   </nav>
   <div class="admin-main">
 
 
   <section class="card prompt" id="pubPrompt" hidden>
-    <h2>Bilan à publier</h2>
+    <h2>Summary to publish</h2>
     <ul class="org-list" id="pubPromptList"></ul>
   </section>
 
   <section class="panel" id="panelLive" role="tabpanel" aria-labelledby="tabLive" hidden>
     <div class="kpis" id="liveKpis"></div>
-    <section class="card"><h2>Nouveaux signalements par minute (15 dernières)</h2><div class="hours live" id="livePerMin"></div><p class="fine" id="liveState"></p></section>
+    <section class="card"><h2>New reports per minute (last 15)</h2><div class="hours live" id="livePerMin"></div><p class="fine" id="liveState"></p></section>
     <section class="card">
-      <h2>Notifications depuis le démarrage du serveur</h2>
+      <h2>Notifications since the server started</h2>
       <dl class="kv" id="livePush"></dl>
       <ul class="org-list" id="liveBatches"></ul>
-      <p class="fine">« Expirés » : téléphones désabonnés ou appli désinstallée, retirés automatiquement. « Échecs » : le service de notification (Google, Apple, Mozilla) a refusé ou n’a pas répondu ; le détail de la dernière erreur s’affiche ci-dessus.</p>
+      <p class="fine">“Expired”: phones that unsubscribed or uninstalled the app, removed automatically. “Failures”: the notification service (Google, Apple, Mozilla) refused or did not answer; the last error is shown above.</p>
     </section>
-    <section class="card"><h2>Serveur</h2><dl class="kv" id="liveSys"></dl><p class="fine">Actualisé toutes les 10 secondes tant que cet onglet est ouvert.</p></section>
+    <section class="card"><h2>Server</h2><dl class="kv" id="liveSys"></dl><p class="fine">Refreshed every 10 seconds while this tab is open.</p></section>
   </section>
 
   <section class="panel" id="panelMod" role="tabpanel" aria-labelledby="tabMod" hidden>
     <section class="card">
-      <h2>À vérifier <span id="modCount"></span></h2>
-      <p class="fine">Le plus urgent en haut : dangers contestés, puis séries de dangers près des zones calmes, puis points isolés. Chaque point dit pourquoi il est là.
-        « C’est vrai » efface les contestations et le remet normalement sur la carte ; « Vérifier » fait pareil et le marque vérifié ; « Retirer » le supprime.</p>
+      <h2>To review <span id="modCount"></span></h2>
+      <p class="fine">Most urgent first: contested dangers, then series of dangers near calm areas, then isolated points. Each point says why it is here.
+        “It’s true” clears the contest and puts it back on the map normally; “Verify” does the same and marks it verified; “Remove” deletes it.</p>
       <div class="controls">
-        <label>Ville<select id="modCity"><option value="">Toutes</option></select></label>
-        <label>Type<select id="modType"><option value="">Tous</option><option value="fdo">Forces de l’ordre</option><option value="danger">Danger</option><option value="soutien">Soutien</option><option value="info">Infos cortège</option></select></label>
-        <label class="check"><input type="checkbox" id="modLow"> Afficher aussi les « pas encore confirmé » <span id="modLowN"></span></label>
-        <button type="button" class="ghost" id="modReload">Actualiser</button>
+        <label>City<select id="modCity"><option value="">All</option></select></label>
+        <label>Type<select id="modType"><option value="">All</option><option value="fdo">Police</option><option value="danger">Danger</option><option value="soutien">Support</option><option value="info">March info</option></select></label>
+        <label class="check"><input type="checkbox" id="modLow"> Also show “not confirmed yet” <span id="modLowN"></span></label>
+        <button type="button" class="ghost" id="modReload">Refresh</button>
       </div>
       <ul class="org-list" id="modList"></ul>
     </section>
@@ -210,417 +210,418 @@ textarea { padding: 10px 12px; border-radius: 10px; border: 1px solid var(--line
 
   <section class="panel" id="panelMobs" role="tabpanel" aria-labelledby="tabMobs" hidden>
     <section class="card">
-      <h2>Prévoir une journée de mobilisation</h2>
+      <h2>Plan a day of action</h2>
       <form class="stack" id="mobForm">
         <div class="controls">
           <label>Date<input type="date" id="mobDate" required></label>
-          <label style="flex:1;min-width:220px">Titre (bandeau de la carte)<input id="mobTitle" maxlength="80" placeholder="ex. : Grève et manifs partout en France" required></label>
+          <label style="flex:1;min-width:220px">Title (map banner)<input id="mobTitle" maxlength="80" placeholder="e.g. Nationwide day of action" required></label>
         </div>
-        <label>Texte de la notification de la veille (facultatif)<input id="mobEve" maxlength="160" placeholder="Par défaut : « Journée de mobilisation … Ouvre Community Defense Map pour voir l’agenda et les numéros utiles. »"></label>
+        <label>Text of the notification the evening before (optional)<input id="mobEve" maxlength="160" placeholder="Default: “Day of action … Open Community Defense Map for the calendar and useful numbers.”"></label>
         <div class="controls">
-          <label class="check"><input type="checkbox" id="mobPush" checked> Notification la veille à 20 h</label>
-          <label class="check"><input type="checkbox" id="mobStrict" checked> Mode renforcé le jour J (7 h → 2 h)</label>
+          <label class="check"><input type="checkbox" id="mobPush" checked> Notification the evening before at 8 p.m.</label>
+          <label class="check"><input type="checkbox" id="mobStrict" checked> Strict mode on the day (7 a.m. → 2 a.m.)</label>
         </div>
-        <div class="controls"><button type="submit" id="mobSave">Prévoir la journée</button><button type="button" class="ghost" id="mobCancel" hidden>Annuler la modification</button></div>
+        <div class="controls"><button type="submit" id="mobSave">Plan the day</button><button type="button" class="ghost" id="mobCancel" hidden>Cancel editing</button></div>
       </form>
-      <p class="fine">La veille à 20 h : une notification à tous les téléphones abonnés aux annonces urgentes. Le jour J : le titre s’affiche en bandeau et le mode renforcé démarre à 7 h. Le lendemain : le bilan public est proposé ici, à publier en un clic.</p>
+      <p class="fine">The evening before at 8 p.m.: a notification to every phone subscribed to urgent announcements. On the day: the title shows as a banner and strict mode starts at 7 a.m. The next day: the public summary is offered here, to publish in one click.</p>
     </section>
-    <section class="card"><h2>Journées prévues</h2><ul class="org-list" id="mobList"></ul></section>
+    <section class="card"><h2>Planned days</h2><ul class="org-list" id="mobList"></ul></section>
   </section>
 
   <section class="panel" id="panelPlaces" role="tabpanel" aria-labelledby="tabPlaces" hidden>
     <section class="card">
-      <h2>Lieux permanents (OpenStreetMap)</h2>
+      <h2>Permanent places (OpenStreetMap)</h2>
       <p class="fine" id="plState">—</p>
       <div class="bars" id="plCounts"></div>
-      <div class="controls" style="margin-top:12px"><button type="button" id="plImport">Mettre à jour depuis OpenStreetMap</button></div>
-      <p class="fine">Les lieux et les caméras de surveillance viennent d’une copie complète d’OpenStreetMap (Geofabrik, environ 4,5 Go pour la France), téléchargée une fois par mois puis triée sur le serveur avec osmium : un simple téléchargement de fichier, sans API. Le gros fichier est effacé juste après. Sans osmium, les lieux sont lus dans la carte du serveur (sans caméras), ou à défaut demandés à Overpass. Les lieux corrigés ou ajoutés ici sont gardés aux mises à jour ; un lieu masqué reste masqué.</p>
+      <div class="controls" style="margin-top:12px"><button type="button" id="plImport">Update from OpenStreetMap</button></div>
+      <p class="fine">Places and surveillance cameras come from a full copy of OpenStreetMap (Geofabrik, about 10 GB for the U.S.), downloaded once a month then sorted on the server with osmium: a plain file download, no API. The large file is erased right after. Without osmium, places are read from the server’s map (no cameras), or else requested from Overpass. Places corrected or added here are kept across updates; a hidden place stays hidden.</p>
     </section>
     <section class="card">
-      <h2>Chercher, corriger, masquer</h2>
+      <h2>Search, correct, hide</h2>
       <form class="controls" id="plSearch">
-        <label style="flex:1;min-width:160px">Nom ou identifiant<input id="plQ" placeholder="ex. : préfecture du Rhône"></label>
-        <label>Type<select id="plKind"><option value="">Tous</option></select></label>
-        <label>Afficher<select id="plFilter"><option value="">Tous</option><option value="edited">Corrigés</option><option value="hidden">Masqués</option><option value="admin">Ajoutés ici</option></select></label>
-        <button type="submit">Chercher</button>
+        <label style="flex:1;min-width:160px">Name or identifier<input id="plQ" placeholder="e.g. Cook County courthouse"></label>
+        <label>Type<select id="plKind"><option value="">All</option></select></label>
+        <label>Show<select id="plFilter"><option value="">All</option><option value="edited">Corrected</option><option value="hidden">Hidden</option><option value="admin">Added here</option></select></label>
+        <button type="submit">Search</button>
       </form>
       <ul class="org-list" id="plList"></ul>
     </section>
     <section class="card">
-      <h2>Ajouter un lieu</h2>
+      <h2>Add a place</h2>
       <form class="stack" id="plAdd">
         <div class="controls">
           <label>Type<select id="plAddKind"></select></label>
-          <label style="flex:1;min-width:200px">Nom<input id="plAddName" maxlength="80" required></label>
+          <label style="flex:1;min-width:200px">Name<input id="plAddName" maxlength="80" required></label>
         </div>
         <div class="controls">
           <label style="flex:1;min-width:220px">Position (latitude, longitude)<input id="plAddPos" placeholder="45.7578, 4.8320" required></label>
-          <label style="flex:1;min-width:160px">Horaires (facultatif)<input id="plAddHours" maxlength="120" placeholder="Mo-Fr 09:00-17:00"></label>
-          <label>Téléphone (facultatif)<input id="plAddPhone" maxlength="30"></label>
+          <label style="flex:1;min-width:160px">Opening hours (optional)<input id="plAddHours" maxlength="120" placeholder="Mo-Fr 09:00-17:00"></label>
+          <label>Phone (optional)<input id="plAddPhone" maxlength="30"></label>
         </div>
-        <div class="controls"><button type="submit">Ajouter</button></div>
+        <div class="controls"><button type="submit">Add</button></div>
       </form>
-      <p class="fine">Astuce : sur openstreetmap.org, un clic droit sur la carte puis « Afficher l’adresse » donne la position.</p>
+      <p class="fine">Tip: on openstreetmap.org, right-click the map then “Show address” to get the position.</p>
     </section>
   </section>
 
   <section class="panel" id="panelSettings" role="tabpanel" aria-labelledby="tabSettings" hidden>
     <form class="panel" id="setForm">
       <section class="card">
-        <h2>Ton nom affiché</h2>
-        <div class="controls"><label style="flex:1;min-width:220px">Nom de l’admin sur les annonces, les vérifications et ta position en direct<input id="setAdminLabel" maxlength="40" placeholder="Community Defense Map"></label></div>
-        <p class="fine">Les annonces déjà publiées gardent leur nom. Ce nom est réservé : aucune orga ne peut le prendre.</p>
+        <h2>Your display name</h2>
+        <div class="controls"><label style="flex:1;min-width:220px">Admin name on announcements, verifications and your live location<input id="setAdminLabel" maxlength="40" placeholder="Community Defense Map"></label></div>
+        <p class="fine">Announcements already published keep their name. This name is reserved: no organizer can take it.</p>
       </section>
       <section class="card">
-        <h2>Bandeau en haut de la carte</h2>
+        <h2>Banner at the top of the map</h2>
         <div class="controls">
-          <label style="flex:1;min-width:220px">Texte (vide = nom par défaut)<input id="setBanner" maxlength="80"></label>
+          <label style="flex:1;min-width:220px">Text (empty = default name)<input id="setBanner" maxlength="80"></label>
           <label>Du<input type="date" id="setFrom"></label>
           <label>Au<input type="date" id="setTo"></label>
         </div>
         <p class="fine" id="setBannerDef"></p>
       </section>
       <section class="card">
-        <h2>Vue à l’ouverture</h2>
+        <h2>View on opening</h2>
         <div class="controls">
           <label>Latitude<input id="setLat" inputmode="decimal" style="width:120px"></label>
           <label>Longitude<input id="setLng" inputmode="decimal" style="width:120px"></label>
-          <label>Zoom (3 à 17)<input id="setZoom" type="number" min="3" max="17" style="width:90px"></label>
-          <button type="button" class="ghost" id="setViewReset">Vue par défaut</button>
+          <label>Zoom (3 to 17)<input id="setZoom" type="number" min="3" max="17" style="width:90px"></label>
+          <button type="button" class="ghost" id="setViewReset">Default view</button>
         </div>
-        <p class="fine" id="setViewDef">Pour les personnes qui ouvrent l’appli sans position connue. Exemples : France entière 46.6, 2.4, zoom 6 ; Paris 48.857, 2.347, zoom 12.</p>
+        <p class="fine" id="setViewDef">For people who open the app without a known location. Examples: contiguous U.S. 39.83, -98.58, zoom 4; Chicago 41.878, -87.63, zoom 11.</p>
       </section>
       <section class="card">
-        <h2>Seuils</h2>
+        <h2>Thresholds</h2>
         <div class="controls">
-          <label>Rayon de l’alerte dans l’appli (m)<input id="setRadius" type="number" min="50" max="2000" style="width:120px"></label>
-          <label>Distance des notifications « danger près de toi » (km)<input id="setNear" type="number" min="1" max="50" style="width:120px"></label>
+          <label>In-app alert radius (m)<input id="setRadius" type="number" min="50" max="2000" style="width:120px"></label>
+          <label>Distance for “danger near you” notifications (km)<input id="setNear" type="number" min="1" max="50" style="width:120px"></label>
         </div>
       </section>
       <section class="card">
-        <h2>Types de signalement</h2>
-        <p class="fine">Décoche pour retirer un type du bouton « Signaler ». Durée : en minutes (de 5 à 1440).</p>
+        <h2>Report types</h2>
+        <p class="fine">Uncheck to remove a type from the “Report” button. Duration: in minutes (5 to 1440).</p>
         <div class="cat-table" id="setCats"></div>
       </section>
-      <div class="controls"><button type="submit">Enregistrer les réglages</button><span class="fine" id="setMsg"></span></div>
-      <p class="fine">Appliqué tout de suite sur le serveur, et sur les téléphones à leur prochaine mise à jour (quelques secondes). Les clés, les chemins et les liens restent dans le fichier de configuration du serveur.</p>
+      <div class="controls"><button type="submit">Save settings</button><span class="fine" id="setMsg"></span></div>
+      <p class="fine">Applied right away on the server, and on phones at their next update (a few seconds). Keys, paths and links stay in the server’s configuration.</p>
     </form>
   </section>
 
   <section class="panel" id="panelOrgas" role="tabpanel" aria-labelledby="tabOrgas">
     <section class="card" id="reqCard">
-      <h2>Demandes d’accès <span id="reqCount"></span></h2>
+      <h2>Access requests <span id="reqCount"></span></h2>
       <ul class="org-list" id="reqList"></ul>
-      <p class="fine">Vérifie chaque demande par les canaux publics du collectif (le lien donné, le canal officiel), jamais par un contact personnel. « Créer l’invitation » remplit le formulaire ci-dessous ; envoie ensuite l’invitation par le canal officiel. Les demandes sont effacées une fois traitées, et au plus tard au bout de 30 jours.</p>
+      <p class="fine">Check each request through the group’s public channels (the link given, the official channel), never through a personal contact. “Create invitation” fills in the form below; then send the invitation through the official channel. Requests are erased once handled, and after 30 days at the latest.</p>
     </section>
     <section class="card">
-      <h2>Lien de candidature pour une ville</h2>
+      <h2>Application link for a city</h2>
       <form class="controls" id="joinLinkForm">
-        <label for="joinCity" style="flex:1;min-width:200px">Ville
-          <input id="joinCity" maxlength="60" required placeholder="ex. : Montpellier">
+        <label for="joinCity" style="flex:1;min-width:200px">City
+          <input id="joinCity" maxlength="60" required placeholder="e.g. Milwaukee">
         </label>
-        <button type="submit">Créer le lien</button>
+        <button type="submit">Create link</button>
       </form>
       <div class="newlink" id="joinLinkOut" hidden>
         <div class="qr-invite" id="joinQr"></div>
         <code id="joinUrl"></code>
-        <div class="row"><button type="button" id="joinCopy">Copier le lien</button></div>
-        <p class="fine">À partager dans les AG et sur les canaux des collectifs locaux : le lien ouvre le formulaire de demande avec la ville déjà remplie. Il ne donne aucun accès par lui-même.</p>
+        <div class="row"><button type="button" id="joinCopy">Copy link</button></div>
+        <p class="fine">To share at meetings and on local groups’ channels: the link opens the request form with the city already filled in. It gives no access by itself.</p>
       </div>
     </section>
     <section class="card">
-      <h2>Ajouter une orga</h2>
+      <h2>Add an organizer</h2>
       <form class="controls" id="orgaForm">
-        <label for="orgaLabel" style="flex:1;min-width:220px">Nom affiché sur ses annonces
-          <input id="orgaLabel" maxlength="60" placeholder="ex. : Legal Team Montpellier" required>
+        <label for="orgaLabel" style="flex:1;min-width:220px">Name shown on their announcements
+          <input id="orgaLabel" maxlength="60" placeholder="e.g. Milwaukee Legal Team" required>
         </label>
-        <button type="submit">Créer l’invitation</button>
+        <button type="submit">Create invitation</button>
       </form>
       <div class="newlink" id="newLink" hidden>
-        <div><b id="newLabel"></b> : invitation à usage unique, valable jusqu’au <span id="newExp"></span>.</div>
+        <div><b id="newLabel"></b>: single-use invitation, valid until <span id="newExp"></span>.</div>
         <div class="qr-invite" id="newQr"></div>
         <code id="newUrl"></code>
         <div class="row">
-          <button type="button" id="copyLink">Copier le lien</button>
-          <button type="button" class="ghost" id="shareLink">Envoyer…</button>
+          <button type="button" id="copyLink">Copy link</button>
+          <button type="button" class="ghost" id="shareLink">Send…</button>
         </div>
-        <p class="warn">L’orga scanne ce QR code avec l’appareil photo de son téléphone (ou ouvre le lien) : sa clé est créée à ce moment-là, sur son téléphone, et l’invitation ne sert plus. Si quelqu’un d’autre l’utilise avant elle, tu le verras (« activée » alors qu’elle n’a rien reçu) : crée une nouvelle invitation, l’accès précédent est coupé. Préviens-la : son accès n’existe que sur le téléphone qui a ouvert l’invitation. Si elle vide les données du site ou change de téléphone, il faudra une nouvelle invitation (elle peut ajouter un deuxième appareil depuis son espace orga pour éviter ça).</p>
+        <p class="warn">The organizer scans this QR code with their phone’s camera (or opens the link): their key is created at that moment, on their phone, and the invitation can’t be used again. If someone else uses it first, you’ll see it (“activated” although they received nothing): create a new invitation, and the previous access is cut. Tell them: their access exists only on the phone that opened the invitation. If they clear the site’s data or change phones, they’ll need a new invitation (they can add a second device from their organizer space to avoid that).</p>
       </div>
     </section>
     <section class="card">
-      <h2>Orgas actives</h2>
+      <h2>Active organizers</h2>
       <ul class="org-list" id="orgaList"></ul>
-      <p class="fine">Supprimer une orga coupe son accès immédiatement. Ses annonces déjà publiées restent jusqu’à expiration ; tu peux les retirer depuis l’appli avec ton lien admin. Les orgas notées « variable » viennent de ORGA_KEYS et se gèrent dans cPanel.</p>
+      <p class="fine">Deleting an organizer cuts their access immediately. Their announcements already published stay until they expire; you can remove them from the app with your admin link. Organizers marked “variable” come from ORGA_KEYS and are managed in the server’s configuration.</p>
     </section>
   </section>
 
   <section class="panel" id="panelAnns" role="tabpanel" aria-labelledby="tabAnns" hidden>
     <section class="card">
-      <h2>Annonce nationale</h2>
+      <h2>Nationwide announcement</h2>
       <form class="stack" id="natForm">
-        <label for="natText">Message (visible partout en France, en haut de la carte)
-          <textarea id="natText" maxlength="220" rows="3" required placeholder="ex. : Grève nationale jeudi : retrouve ton point de rendez-vous dans l’agenda 📅"></textarea>
+        <label for="natText">Message (visible everywhere, at the top of the map)
+          <textarea id="natText" maxlength="220" rows="3" required placeholder="e.g. Nationwide day of action Thursday: find your meeting point in the calendar 📅"></textarea>
         </label>
-        <label for="natLink">Lien « En savoir plus » (facultatif, https://…)
-          <input id="natLink" type="url" maxlength="300" placeholder="ex. : https://www.17octobregiletjaune.net/carte/">
+        <label for="natLink">“Learn more” link (optional, https://…)
+          <input id="natLink" type="url" maxlength="300" placeholder="e.g. https://example.org/day-of-action">
         </label>
         <div class="controls">
           <label for="natLevel">Importance
-            <select id="natLevel"><option value="info">Info</option><option value="urgent">Urgent : vibre + notification</option></select>
+            <select id="natLevel"><option value="info">Info</option><option value="urgent">Urgent: vibration + notification</option></select>
           </label>
-          <label for="natMinutes">Durée
+          <label for="natMinutes">Duration
             <select id="natMinutes"><option value="60">1 h</option><option value="180">3 h</option><option value="360">6 h</option><option value="720" selected>12 h</option><option value="1440">24 h</option></select>
           </label>
-          <button type="submit">Publier partout</button>
+          <button type="submit">Publish everywhere</button>
         </div>
       </form>
       <p class="fine" id="pushCount"></p>
     </section>
     <section class="card">
-      <h2>Annonces actives <span id="annCount"></span></h2>
+      <h2>Active announcements <span id="annCount"></span></h2>
       <ul class="org-list" id="annAdminList"></ul>
-      <p class="fine">Les numéros de legal team restent affichés jusqu’à ce qu’ils soient retirés ici ou par leur orga.</p>
+      <p class="fine">Legal team numbers stay shown until they are removed here or by their organizer.</p>
     </section>
   </section>
 
   <section class="panel" id="panelLegal" role="tabpanel" aria-labelledby="tabLegal" hidden>
     <section class="card">
-      <h2>Annuaire permanent <span id="legalCount"></span></h2>
-      <p class="fine">Affiché dans « Mes droits » pour tout le monde, ville la plus proche en premier. Une ligne n’est publiée qu’après ta validation. Appelle ou écris au collectif avant de valider : un mauvais numéro en garde à vue, c’est grave.</p>
+      <h2>Permanent directory <span id="legalCount"></span></h2>
+      <p class="fine">Shown in the Rights tab for everyone, nearest city first. An entry is published only after you approve it. Call or write to the group before approving: a wrong number for someone under arrest is serious.</p>
       <p class="fine" id="legalWatchState">—</p>
-      <div class="controls"><button type="button" class="ghost" id="legalWatchNow">Relire les sources maintenant</button></div>
+      <div class="controls"><button type="button" class="ghost" id="legalWatchNow">Check sources now</button></div>
       <ul class="org-list" id="legalList"></ul>
     </section>
     <section class="card">
-      <h2 id="legalFormTitle">Ajouter une legal team</h2>
+      <h2 id="legalFormTitle">Add a legal team</h2>
       <form class="stack" id="legalForm">
         <input type="hidden" id="lgId">
         <div class="controls">
-          <label for="lgCity" style="flex:1;min-width:180px">Ville
-            <input id="lgCity" maxlength="40" required placeholder="ex. : Montpellier">
+          <label for="lgCity" style="flex:1;min-width:180px">City
+            <input id="lgCity" maxlength="40" required placeholder="e.g. Milwaukee">
           </label>
-          <button type="button" class="ghost" id="lgFind">Placer la ville</button>
+          <button type="button" class="ghost" id="lgFind">Place the city</button>
         </div>
-        <p class="fine" id="lgPos">Position : pas encore placée.</p>
-        <label for="lgName">Nom du collectif
-          <input id="lgName" maxlength="80" required placeholder="ex. : Legal Team Montpellier">
+        <p class="fine" id="lgPos">Position: not placed yet.</p>
+        <label for="lgName">Group name
+          <input id="lgName" maxlength="80" required placeholder="e.g. Milwaukee Legal Team">
         </label>
         <div class="controls">
-          <label for="lgPhone" style="flex:1;min-width:180px">Numéro
+          <label for="lgPhone" style="flex:1;min-width:180px">Number
             <input id="lgPhone" type="tel" maxlength="20" required placeholder="(555) 123-4567">
           </label>
-          <label class="check"><input type="checkbox" id="lgSignal"> Joignable sur Signal</label>
+          <label class="check"><input type="checkbox" id="lgSignal"> Reachable on Signal</label>
         </div>
-        <label for="lgSrc">Page source publique (sert à la veille quotidienne)
+        <label for="lgSrc">Public source page (used for the daily check)
           <input id="lgSrc" type="url" maxlength="400" placeholder="https://…">
         </label>
-        <label for="lgSrcDate">Date de la source
+        <label for="lgSrcDate">Source date
           <input id="lgSrcDate" type="date">
         </label>
         <div class="controls">
-          <button type="submit">Enregistrer (à valider ensuite)</button>
-          <button type="button" class="ghost" id="lgCancel" hidden>Annuler la modification</button>
+          <button type="submit">Save (approve afterwards)</button>
+          <button type="button" class="ghost" id="lgCancel" hidden>Cancel editing</button>
         </div>
       </form>
-      <p class="fine">Modifier le numéro ou la source repasse la ligne en « à valider ».</p>
+      <p class="fine">Changing the number or the source sets the entry back to “to approve”.</p>
     </section>
   </section>
 
   <section class="panel" id="panelOrders" role="tabpanel" aria-labelledby="tabOrders" hidden>
     <section class="card">
-      <h2>Propositions à valider</h2>
+      <h2>Suggestions to approve</h2>
       <ul class="org-list" id="ordPending"></ul>
-      <p class="fine">Envoyées depuis l’appli. Ouvre la source et vérifie les dates, la commune et chaque mesure avant de valider : le bandeau s’affiche alors pour toute la zone.</p>
+      <p class="fine">Sent from the app. Open the source and check the dates, the city and each measure before approving: the banner then shows for the whole area.</p>
     </section>
     <section class="card">
-      <h2>Publier un arrêté</h2>
+      <h2>Publish an order</h2>
       <form class="orga-form" id="ordAdminForm">
         <div class="row2">
-          <label>Département<select id="oaDep" required></select></label>
-          <label>Commune (vide : tout le département)<input id="oaCommune" maxlength="80" placeholder="ex. : Montpellier"></label>
+          <label>State<select id="oaDep" required></select></label>
+          <label>City (empty: whole state)<input id="oaCommune" maxlength="80" placeholder="e.g. Milwaukee"></label>
         </div>
         <div class="row2">
-          <label>À partir de<input id="oaStart" type="datetime-local" required></label>
-          <label>Jusqu’à<input id="oaEnd" type="datetime-local" required></label>
+          <label>From<input id="oaStart" type="datetime-local" required></label>
+          <label>Until<input id="oaEnd" type="datetime-local" required></label>
         </div>
-        <label>Mesures (une par ligne, commençant par le type : manif, perimetre, couvre, transport, consigne, autre)
-          <textarea id="oaItems" rows="5" required placeholder="manif: La manifestation du samedi 24 octobre est interdite.&#10;couvre: Couvre-feu pour les mineurs non accompagnés vendredi dès 22 h et samedi dès 20 h.&#10;transport: Pas de tram samedi.&#10;consigne: Commerçants : rentrez les terrasses."></textarea>
+        <label>Measures (one per line, starting with the type: manif = protest ban, perimetre = no-go area, couvre = curfew, transport, consigne = instruction, autre = other)
+          <textarea id="oaItems" rows="5" required placeholder="manif: The march planned for Saturday is not permitted.&#10;couvre: Curfew for unaccompanied minors from 10 p.m. Friday and 8 p.m. Saturday.&#10;transport: No light rail service Saturday.&#10;consigne: Businesses: bring in outdoor seating."></textarea>
         </label>
-        <label>Source<input id="oaSrc" type="url" maxlength="400" required placeholder="https://www.herault.gouv.fr/…"></label>
-        <div class="controls"><button type="submit">Publier</button></div>
+        <label>Source<input id="oaSrc" type="url" maxlength="400" required placeholder="https://…"></label>
+        <div class="controls"><button type="submit">Publish</button></div>
       </form>
     </section>
     <section class="card">
-      <h2>Importer un bloc préparé</h2>
+      <h2>Import a prepared block</h2>
       <form class="orga-form" id="ordImportForm">
-        <label>Bloc (JSON)<textarea id="oiText" rows="6" required placeholder='[{"departement": "34", "commune": "Montpellier", "debut": "2026-10-23 22:00", "fin": "2026-10-25 06:00", "source": "https://…", "mesures": [{"type": "manif", "texte": "…"}]}]'></textarea></label>
-        <div class="controls"><button type="submit">Importer et publier</button></div>
+        <label>Block (JSON)<textarea id="oiText" rows="6" required placeholder='[{"departement": "34", "commune": "Montpellier", "debut": "2026-10-23 22:00", "fin": "2026-10-25 06:00", "source": "https://…", "mesures": [{"type": "manif", "texte": "…"}]}]'></textarea></label>
+        <div class="controls"><button type="submit">Import and publish</button></div>
       </form>
-      <p class="fine" id="oiMsg">Relis le bloc avant de l’importer : chaque arrêté est publié tout de suite. Heures de Paris.</p>
+      <p class="fine" id="oiMsg">Reread the block before importing it: each order is published right away. Times in the instance’s time zone.</p>
     </section>
     <section class="card">
-      <h2>Arrêtés publiés</h2>
+      <h2>Published orders</h2>
       <ul class="org-list" id="ordList"></ul>
-      <p class="fine">Ils disparaissent tout seuls à la fin. La zone est le contour officiel de la commune ou du département.</p>
+      <p class="fine">They disappear on their own when they end. The area is the official outline of the city or the state.</p>
     </section>
   </section>
 
   <section class="panel" id="panelAgenda" role="tabpanel" aria-labelledby="tabAgenda" hidden>
     <section class="card">
-      <h2>Propositions à valider</h2>
+      <h2>Suggestions to approve</h2>
       <ul class="org-list" id="pendingList"></ul>
-      <p class="fine">Proposées par des participant·es (blocus, manifs…). Vérifie la date et le lieu avant de valider : l’événement apparaît alors dans l’agenda de tout le monde.</p>
+      <p class="fine">Suggested by participants (walkouts, protests…). Check the date and the place before approving: the event then appears in everyone’s calendar.</p>
     </section>
     <section class="card">
-      <h2>Événements publiés</h2>
+      <h2>Published events</h2>
       <ul class="org-list" id="eventList"></ul>
     </section>
   </section>
 
   <section class="panel" id="panelReports" role="tabpanel" aria-labelledby="tabReports" hidden>
     <section class="card">
-      <h2>Afflux de faux signalements ?</h2>
+      <h2>Flood of fake reports?</h2>
       <p class="fine" id="pauseState">—</p>
       <div class="controls">
         <button type="button" data-pause="15">Pause 15 min</button>
         <button type="button" data-pause="60">Pause 1 h</button>
-        <button type="button" class="ghost" data-pause="0">Reprendre</button>
+        <button type="button" class="ghost" data-pause="0">Resume</button>
       </div>
-      <p class="fine">Pendant la pause, la carte reste visible mais personne ne peut signaler. Les orgas peuvent toujours publier des annonces.</p>
+      <p class="fine">During the pause, the map stays visible but nobody can report. Organizers can still post announcements.</p>
     </section>
     <section class="card">
-      <h2>Effacer les signalements</h2>
+      <h2>Erase reports</h2>
       <div class="controls">
-        <button type="button" class="danger" id="purgeReports">Effacer tous les signalements</button>
-        <button type="button" class="danger" id="purgeAll">Effacer signalements + annonces</button>
+        <button type="button" class="danger" id="purgeReports">Erase all reports</button>
+        <button type="button" class="danger" id="purgeAll">Erase reports + announcements</button>
       </div>
-      <p class="fine">Partout en France, immédiatement. Les points effacés restent comptés dans le digest comme « effacés (purge) ».</p>
+      <p class="fine">Everywhere, immediately. Erased points stay counted in the digest as “erased (purge)”.</p>
     </section>
     <section class="card danger-card">
-      <h2>Effacement d’urgence : toutes les traces</h2>
-      <p class="fine">À utiliser si une saisie du serveur se profile. Efface d’un coup : signalements, annonces, journal des orgas, corbeille, empreintes anti-abus (y compris celles des propositions d’agenda et d’arrêtés), tableau des abus, abonnements aux notifications et archive du digest. Une nouvelle clé de hachage est créée : les anciennes empreintes deviennent inutilisables. Les orgas, l’agenda public et les arrêtés publiés sont gardés.</p>
-      <p class="fine"><b>Ce que l’effacement ne peut pas toucher :</b> les sauvegardes et instantanés de l’hébergeur, les copies déjà faites ailleurs (navigateurs, captures), et le disque lui-même (un effacement logiciel n’est pas un effacement physique). Si plusieurs processus tournent (Passenger), arrête-les ensuite.</p>
+      <h2>Emergency wipe: every trace</h2>
+      <p class="fine">Use this if a seizure of the server is coming. Erases at once: reports, announcements, organizer log, trash, anti-abuse fingerprints (including those of calendar and order suggestions), abuse log, notification subscriptions and the digest archive. A new hashing key is created: old fingerprints become unusable. Organizers, the public calendar and published orders are kept.</p>
+      <p class="fine"><b>What the wipe can’t reach:</b> the host’s backups and snapshots, copies already made elsewhere (browsers, screenshots), and the disk itself (a software wipe is not a physical wipe). If several processes are running (Passenger), stop them afterwards.</p>
       <form class="controls" id="wipeForm">
-        <label class="check"><input type="checkbox" id="wipePub"> Supprimer aussi les bilans publics</label>
-        <label for="wipeConfirm" style="flex:1;min-width:200px">Tape EFFACER pour confirmer<input id="wipeConfirm" autocomplete="off" placeholder="EFFACER"></label>
-        <button type="submit" class="danger">Tout effacer maintenant</button>
+        <label class="check"><input type="checkbox" id="wipePub"> Also delete public summaries</label>
+        <label for="wipeConfirm" style="flex:1;min-width:200px">Type ERASE to confirm<input id="wipeConfirm" autocomplete="off" placeholder="ERASE"></label>
+        <button type="submit" class="danger">Erase everything now</button>
       </form>
     </section>
     <section class="card">
-      <h2>Signalements actifs <span id="repCount"></span></h2>
-      <div class="controls"><label for="repFilter" style="flex:1">Filtrer (type ou texte)<input id="repFilter" placeholder="ex. : nasse, gare…"></label><button type="button" class="ghost" id="repReload">Actualiser</button></div>
+      <h2>Active reports <span id="repCount"></span></h2>
+      <div class="controls"><label for="repFilter" style="flex:1">Filter (type or text)<input id="repFilter" placeholder="e.g. kettle, station…"></label><button type="button" class="ghost" id="repReload">Refresh</button></div>
       <ul class="org-list" id="repList"></ul>
     </section>
   </section>
 
   <section class="panel" id="panelAbuse" role="tabpanel" aria-labelledby="tabAbuse" hidden>
     <section class="card">
-      <h2>Mode manif renforcé</h2>
+      <h2>Strict protest mode</h2>
       <p class="fine" id="strictState">—</p>
       <div class="controls">
         <button type="button" data-strict="60">1 h</button>
         <button type="button" data-strict="180">3 h</button>
         <button type="button" data-strict="360">6 h</button>
-        <button type="button" class="ghost" data-strict="0">Arrêter</button>
+        <button type="button" class="ghost" data-strict="0">Stop</button>
       </div>
-      <p class="fine">Pour une grosse journée ou une attaque en cours, sans couper les signalements : moitié moins de signalements autorisés par téléphone et par réseau, rafales de « Plus là » coupées plus tôt, et les téléphones apparus il y a moins de 10 minutes ne pèsent plus (leurs dangers ne suspendent pas les zones calmes et ne déclenchent pas de notification, leurs « Plus là » ne comptent pas). Les téléphones fiables ne sont pas touchés.</p>
+      <p class="fine">For a big day or an ongoing attack, without stopping reports: half as many reports allowed per phone and per network, bursts of “Gone” votes cut sooner, and phones first seen less than 10 minutes ago no longer count (their dangers don’t suspend calm areas or trigger notifications, their “Gone” votes don’t count). Reliable phones are not affected.</p>
     </section>
     <section class="card">
-      <h2>Dernières 24 h <button type="button" class="ghost" id="abuseReload" style="float:right;height:30px;font-size:12px">Actualiser</button></h2>
+      <h2>Last 24 h <button type="button" class="ghost" id="abuseReload" style="float:right;height:30px;font-size:12px">Refresh</button></h2>
       <p class="fine" id="abuseSummary">—</p>
       <ul class="org-list" id="abuseKinds"></ul>
     </section>
     <section class="card">
-      <h2>Zones concernées</h2>
+      <h2>Areas involved</h2>
       <ul class="org-list" id="abuseZones"></ul>
-      <p class="fine">Positions arrondies à environ 5 km. Le tableau ne garde rien plus de 48 h, et les empreintes des téléphones y sont effacées au bout d’une heure.</p>
+      <p class="fine">Positions rounded to about 5 km. The log keeps nothing longer than 48 h, and phone fingerprints are erased from it after one hour.</p>
     </section>
   </section>
 
   <section class="panel" id="panelJournal" role="tabpanel" aria-labelledby="tabJournal" hidden>
     <section class="card" id="journalAlerts" hidden>
-      <h2>À vérifier</h2>
+      <h2>To review</h2>
       <ul class="org-list" id="journalAlertList"></ul>
     </section>
     <section class="card">
-      <h2>Corbeille <span id="trashCount"></span></h2>
+      <h2>Trash <span id="trashCount"></span></h2>
       <ul class="org-list" id="trashList"></ul>
-      <p class="fine">Les points retirés par une orga (ou par toi), ou contestés par des « Plus là », restent ici une heure. « Restaurer » les remet sur la carte avec le temps qu’il leur restait (et annule la contestation).</p>
+      <p class="fine">Points removed by an organizer (or by you), or contested by “Gone” votes, stay here for one hour. “Restore” puts them back on the map with the time they had left (and cancels the contest).</p>
     </section>
     <section class="card">
-      <h2>Journal des actions</h2>
-      <div class="controls"><label for="journalOrga">Orga <select id="journalOrga"><option value="">Toutes</option></select></label></div>
+      <h2>Action log</h2>
+      <div class="controls"><label for="journalOrga">Organizer <select id="journalOrga"><option value="">All</option></select></label></div>
       <ul class="org-list" id="journalList"></ul>
-      <p class="fine">Gardé 30 jours : heure, orga, action, type de signalement et position arrondie à environ 100 m. Aucune adresse IP.</p>
+      <p class="fine">Kept 30 days: time, organizer, action, report type and position rounded to about 100 m. No IP address.</p>
     </section>
   </section>
 
   <section class="panel" id="panelDigest" role="tabpanel" aria-labelledby="tabDigest" hidden>
   <form class="controls" id="form">
-    <label for="date">Jour
+    <label for="date">Day
       <input id="date" type="date" required>
     </label>
-    <button type="submit">Afficher</button>
+    <button type="submit">Show</button>
   </form>
-  <p class="msg" id="msg">Choisis un jour.</p>
+  <p class="msg" id="msg">Choose a day.</p>
 
   <div id="out" hidden>
-    <label class="check digest-toggle"><input type="checkbox" id="dgAll" checked> Compter aussi les signalements retirés ou contestés</label>
+    <label class="check digest-toggle"><input type="checkbox" id="dgAll" checked> Also count removed or contested reports</label>
     <div class="kpis" id="kpis"></div>
-    <section class="card"><h2>Carte du jour</h2><div id="dgMap"></div><div class="legend" id="dgLegend"></div></section>
+    <section class="card"><h2>Map of the day</h2><div id="dgMap"></div><div class="legend" id="dgLegend"></div></section>
     <section class="card">
-      <h2>Carte d’un créneau (pour un média, une legal team)</h2>
+      <h2>Time-slot map (for media, a legal team)</h2>
       <form class="stack" id="slotForm">
         <div class="controls">
           <label>De<input type="time" id="slotFrom" value="17:00" required></label>
-          <label>À<input type="time" id="slotTo" value="18:00" required></label>
-          <label style="flex:1;min-width:220px">Lieu (adresse, ou « latitude, longitude »)<input id="slotPlace" placeholder="ex. : place Jacques Bonsergent, Paris" required></label>
+          <label>To<input type="time" id="slotTo" value="18:00" required></label>
+          <label style="flex:1;min-width:220px">Place (address, or “latitude, longitude”)<input id="slotPlace" placeholder="e.g. Civic Center Park, Denver" required></label>
           <label>Rayon (m)<input type="number" id="slotR" value="500" min="100" max="5000" step="50" style="width:110px"></label>
-          <button type="submit" id="slotGo">Fabriquer l’image</button>
+          <button type="submit" id="slotGo">Make the image</button>
         </div>
       </form>
-      <p class="fine" id="slotMsg">Les signalements actifs pendant le créneau, autour du lieu, sur une carte avec leurs heures : une image PNG à envoyer. Positions arrondies à environ 100 m, comme dans l’archive.</p>
+      <p class="fine" id="slotMsg">The reports active during the time slot, around the place, on a map with their times: a PNG image to send. Positions rounded to about 100 m, as in the archive.</p>
       <canvas id="slotCanvas" hidden style="width:100%;height:auto;border-radius:10px;margin-top:10px"></canvas>
-      <div class="controls" id="slotActions" hidden style="margin-top:10px"><a class="ghost" id="slotDl" href="#" download>Télécharger l’image</a><button type="button" class="ghost" id="slotCsv">Télécharger les données (CSV)</button></div>
+      <div class="controls" id="slotActions" hidden style="margin-top:10px"><a class="ghost" id="slotDl" href="#" download>Download the image</a><button type="button" class="ghost" id="slotCsv">Download the data (CSV)</button></div>
     </section>
-    <section class="card"><h2>Moments clés</h2><ol class="timeline" id="moments"></ol></section>
+    <section class="card"><h2>Key moments</h2><ol class="timeline" id="moments"></ol></section>
     <section class="card"><h2>Par type</h2><div class="bars" id="cats"></div></section>
-    <section class="card"><h2>Par heure (heure de Paris)</h2><div class="hours stacked" id="hours"></div><div class="hour-labels" id="hourLabels"></div><div class="legend" id="hourLegend"></div></section>
-    <section class="card"><h2>Par ville</h2><div class="bars" id="zones"></div></section>
-    <section class="card"><h2>Ce que sont devenus les signalements</h2><div class="bars" id="outcomes"></div></section>
-    <section class="card"><h2>Fiabilité</h2><div class="bars" id="trust"></div><p class="fine" id="lifetimes"></p></section>
-    <section class="card"><h2>Orgas et modération</h2><div class="bars" id="orgaDay"></div></section>
-    <section class="card"><h2>Comparaison (15 jours)</h2><div class="hours history" id="history"></div><div class="hour-labels hist-labels" id="historyLabels"></div></section>
-    <section class="card" id="eventsCard" hidden><h2>Agenda du jour</h2><ul class="org-list" id="dgEvents"></ul></section>
+    <section class="card"><h2>By hour (instance time zone)</h2><div class="hours stacked" id="hours"></div><div class="hour-labels" id="hourLabels"></div><div class="legend" id="hourLegend"></div></section>
+    <section class="card"><h2>By city</h2><div class="bars" id="zones"></div></section>
+    <section class="card"><h2>What happened to the reports</h2><div class="bars" id="outcomes"></div></section>
+    <section class="card"><h2>Reliability</h2><div class="bars" id="trust"></div><p class="fine" id="lifetimes"></p></section>
+    <section class="card"><h2>Organizers and moderation</h2><div class="bars" id="orgaDay"></div></section>
+    <section class="card"><h2>Comparison (15 days)</h2><div class="hours history" id="history"></div><div class="hour-labels hist-labels" id="historyLabels"></div></section>
+    <section class="card" id="eventsCard" hidden><h2>Calendar of the day</h2><ul class="org-list" id="dgEvents"></ul></section>
     <section class="card">
-      <h2>Résumé à copier</h2>
+      <h2>Summary to copy</h2>
       <pre id="summary"></pre>
-      <div class="controls"><button type="button" class="ghost" id="copy">Copier le résumé</button><button type="button" class="ghost" id="csv">Télécharger les données (CSV)</button></div>
+      <div class="controls"><button type="button" class="ghost" id="copy">Copy the summary</button><button type="button" class="ghost" id="csv">Download the data (CSV)</button></div>
     </section>
     <section class="card">
-      <h2>Page publique</h2>
+      <h2>Public page</h2>
       <p class="fine" id="pubState">—</p>
-      <div class="controls"><button type="button" id="pubBtn">Publier la page publique</button><a class="ghost" id="pubLink" href="#" target="_blank" rel="noopener" hidden>Voir la page</a></div>
-      <p class="fine">Publie un résumé de la journée sur <code>/manif/AAAA-MM-JJ</code> : totaux par ville (centre de la ville seulement), types, heures, vérification. Aucune position de signalement. Le résumé est figé au moment de la publication : republie pour le mettre à jour. Il reste en ligne même quand l’archive détaillée est effacée.</p>
+      <div class="controls"><button type="button" id="pubBtn">Publish the public page</button><a class="ghost" id="pubLink" href="#" target="_blank" rel="noopener" hidden>See the page</a></div>
+      <p class="fine">Publishes a summary of the day at <code>/manif/YYYY-MM-DD</code>: totals per city (city center only), types, hours, verification. No report positions. The summary is frozen when published: publish again to update it. It stays online even when the detailed archive is erased.</p>
     </section>
     <section class="card">
       <h2>Stories Instagram</h2>
-      <p class="fine">7 visuels 1080 × 1920 avec les chiffres bruts de la journée (tous les signalements, retirés compris). Les photos sont facultatives : le bas est flouté automatiquement. Tout est fabriqué ici, dans ton navigateur.</p>
+      <p class="fine">7 images, 1080 × 1920, with the day’s raw figures (all reports, removed ones included). Photos are optional: the bottom is blurred automatically. Everything is made here, in your browser.</p>
       <div class="controls">
-        <label>Photo de couverture <input type="file" id="stCover" accept="image/*"></label>
-        <label>Photo de fin <input type="file" id="stEnd" accept="image/*"></label>
-        <button type="button" id="stMake">Fabriquer les stories</button>
+        <label>Cover photo <input type="file" id="stCover" accept="image/*"></label>
+        <label>Closing photo <input type="file" id="stEnd" accept="image/*"></label>
+        <button type="button" id="stMake">Make the stories</button>
       </div>
       <div class="story-grid" id="stOut"></div>
-      <div class="controls" id="stActions" hidden><button type="button" id="stShare">Partager (téléphone)</button><button type="button" class="ghost" id="stSave">Tout télécharger</button></div>
+      <div class="controls" id="stActions" hidden><button type="button" id="stShare">Share (phone)</button><button type="button" class="ghost" id="stSave">Download all</button></div>
     </section>
-    <p class="fine">Données anonymes : catégorie, heures de début et de fin à la minute, position arrondie à environ 100 m, nombre de confirmations, de « Plus là » et de précisions (jamais leur texte). Les empreintes de connexion ne sont jamais archivées. Ce sont des signalements de participant·es, pas des faits vérifiés : à recouper avant publication.</p>
+    <p class="fine">Anonymous data: category, start and end times to the minute, position rounded to about 100 m, number of confirmations, of “Gone” votes and of notes (never their text). Connection fingerprints are never archived. These are reports from participants, not verified facts: cross-check before publishing.</p>
   </div>
   </section>
   </div>
   </div>
 </main>
 <link rel="stylesheet" href="/vendor/leaflet.css">
+<script src="/i18n.js"></script>
 <script src="/tz.js"></script>
 <script src="/vendor/leaflet.js"></script>
 <script src="/vendor/protomaps-leaflet.js"></script>
@@ -633,12 +634,15 @@ textarea { padding: 10px 12px; border-radius: 10px; border: 1px solid var(--line
 'use strict';
 const $ = s => document.querySelector(s);
 const COLORS = { fdo: 'var(--fdo)', danger: 'var(--danger)', soutien: 'var(--soutien)', info: 'var(--info)' };
-const hhmm = t => new Date(t).toLocaleTimeString('fr-FR', { timeZone: window.CDM_TZ || 'America/Chicago', hour: '2-digit', minute: '2-digit' });
-const longDate = d => new Date(d + 'T12:00:00Z').toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+const hhmm = t => new Date(t).toLocaleTimeString('en-US', { timeZone: window.CDM_TZ || 'America/Chicago', hour: 'numeric', minute: '2-digit' });
+// Labels and log actions sent by the server in French (the source language of the translations), shown in English
+const tl = s => (window.I18N && s ? window.I18N.t(s) : s);
+const tlx = x => (x && x.label ? { ...x, label: tl(x.label) } : x);
+const longDate = d => new Date(d + 'T12:00:00Z').toLocaleDateString('en-US', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
 let KEY = '';
 try { KEY = localStorage.getItem('cortege-admin') || ''; $('#key').value = KEY; } catch {}
 const api = (url, opts = {}) => fetch(url, { ...opts, headers: { 'Content-Type': 'application/json', 'X-Admin-Key': KEY, ...(opts.headers || {}) } })
-  .then(async r => { const b = await r.json().catch(() => ({})); if (!r.ok) throw Object.assign(new Error(b.error || 'Erreur.'), { status: r.status }); return b; });
+  .then(async r => { const b = await r.json().catch(() => ({})); if (!r.ok) throw Object.assign(new Error(tl(b.error) || 'Error.'), { status: r.status }); return b; });
 
 async function login() {
   KEY = $('#key').value;
@@ -677,32 +681,32 @@ $('#tabJournal').onclick = () => { showTab('Journal'); loadJournal(); };
 
 // ---- Journal des orgas et corbeille ----
 const JCATS = {};
-fetch('/api/config').then(r => r.json()).then(c => (c.categories || []).forEach(x => (JCATS[x.id] = x)));
+fetch('/api/config').then(r => r.json()).then(c => (c.categories || []).forEach(x => (JCATS[x.id] = tlx(x))));
 const ALERT_ACTIONS = new Set(['retrait bloqué (rafale)', 'legal team (en attente)', 'événement (en attente)']);
 let journal = { log: [], trash: [] };
 async function loadJournal() {
   try { journal = await api('/api/admin/journal'); } catch (e) { alertMsg(e.message); return; }
   // Corbeille
-  const tl = $('#trashList'); tl.textContent = '';
+  const tl_ = $('#trashList'); tl_.textContent = '';
   $('#trashCount').textContent = '(' + journal.trash.length + ')';
-  if (!journal.trash.length) empty(tl, 'Corbeille vide.');
+  if (!journal.trash.length) empty(tl_, 'Trash empty.');
   for (const x of journal.trash) {
     const c = JCATS[x.cat] || { glyph: '•', label: x.cat };
-    const b = btn('Restaurer');
-    b.onclick = async () => { try { await api('/api/admin/trash/' + x.id + '/restore', { method: 'POST', body: '{}' }); alertMsg('Point restauré.'); loadJournal(); } catch (e) { alertMsg(e.message); } };
-    tl.append(li(c.glyph + ' ' + c.label + (x.note ? ' · ' + x.note : ''), `${x.orga.startsWith('Votes') ? 'contesté par les votes' : 'retiré par ' + x.orga} à ${hhmm(x.t)} · ${x.lat.toFixed(4)}, ${x.lng.toFixed(4)}${x.up ? ' · confirmé ' + x.up + '×' : ''}`, b));
+    const b = btn('Restore');
+    b.onclick = async () => { try { await api('/api/admin/trash/' + x.id + '/restore', { method: 'POST', body: '{}' }); alertMsg('Point restored.'); loadJournal(); } catch (e) { alertMsg(e.message); } };
+    tl_.append(li(c.glyph + ' ' + tl(c.label) + (x.note ? ' · ' + x.note : ''), `${x.orga.startsWith('Votes') ? 'contested by votes' : 'removed by ' + x.orga} at ${hhmm(x.t)} · ${x.lat.toFixed(4)}, ${x.lng.toFixed(4)}${x.up ? ' · confirmed ' + x.up + '×' : ''}`, b));
   }
   // Filtre par orga
   const sel = $('#journalOrga'), cur = sel.value;
   const orgas = [...new Set(journal.log.map(x => x.orga))].sort();
-  sel.textContent = ''; sel.append(new Option('Toutes', ''), ...orgas.map(o => new Option(o, o))); sel.value = orgas.includes(cur) ? cur : '';
+  sel.textContent = ''; sel.append(new Option('All', ''), ...orgas.map(o => new Option(o, o))); sel.value = orgas.includes(cur) ? cur : '';
   renderJournal();
   // À vérifier : rafales bloquées et validations en attente (24 h)
   const since = Date.now() - 24 * 3600e3;
   const alerts = journal.log.filter(x => x.t > since && ALERT_ACTIONS.has(x.action));
   // Vague de « Plus là » : beaucoup de points contestés en 30 min
   const recent = journal.log.filter(x => x.action === 'contesté' && x.t > Date.now() - 30 * 60e3);
-  if (recent.length >= 10) alerts.unshift({ orga: 'Votes', action: recent.length + ' points contestés en 30 min', t: recent[0].t, detail: 'vérifie la corbeille' });
+  if (recent.length >= 10) alerts.unshift({ orga: 'Votes', action: recent.length + ' points contested in 30 min', t: recent[0].t, detail: 'check the trash' });
   $('#journalAlerts').hidden = !alerts.length;
   const al = $('#journalAlertList'); al.textContent = '';
   for (const x of alerts.slice(0, 30)) al.append(li(x.orga + ' : ' + x.action, hhmm(x.t) + (x.detail ? ' · ' + x.detail : '')));
@@ -711,12 +715,12 @@ async function loadJournal() {
 function renderJournal() {
   const ul = $('#journalList'); ul.textContent = '';
   const f = $('#journalOrga').value, rows = journal.log.filter(x => !f || x.orga === f);
-  if (!rows.length) return empty(ul, 'Aucune action enregistrée.');
+  if (!rows.length) return empty(ul, 'No action recorded.');
   for (const x of rows.slice(0, 200)) {
     const c = x.cat ? (JCATS[x.cat] || { glyph: '•', label: x.cat }) : null;
     const where = x.lat != null ? ` · ${x.lat.toFixed(3)}, ${x.lng.toFixed(3)}` : '';
-    const day = new Date(x.t).toLocaleDateString('fr-FR', { timeZone: window.CDM_TZ || 'America/Chicago', day: 'numeric', month: 'short' });
-    ul.append(li(`${x.orga} : ${x.action}${c ? ' ' + c.glyph + ' ' + c.label : ''}`, `${day} ${hhmm(x.t)}${where}${x.detail ? ' · ' + x.detail : ''}`));
+    const day = new Date(x.t).toLocaleDateString('en-US', { timeZone: window.CDM_TZ || 'America/Chicago', day: 'numeric', month: 'short' });
+    ul.append(li(`${x.orga}: ${tl(x.action)}${c ? ' ' + c.glyph + ' ' + tl(c.label) : ''}`, `${day} ${hhmm(x.t)}${where}${x.detail ? ' · ' + x.detail : ''}`));
   }
 }
 $('#journalOrga').onchange = renderJournal;
@@ -734,50 +738,50 @@ const btn = (label, cls) => { const b = document.createElement('button'); b.text
 const empty = (ul, txt) => { const l = document.createElement('li'); l.className = 'meta'; l.textContent = txt; ul.append(l); };
 async function loadAnns() {
   let d; try { d = await api('/api/admin/reports'); } catch (e) { alertMsg(e.message); return; }
-  $('#pushCount').textContent = d.pushSubs + ' téléphone(s) abonné(s) aux notifications. Une annonce urgente nationale leur arrive à tous.';
+  $('#pushCount').textContent = d.pushSubs + ' phone(s) subscribed to notifications. A nationwide urgent announcement reaches all of them.';
   const ul = $('#annAdminList'); ul.textContent = '';
   $('#annCount').textContent = '(' + d.announcements.length + ')';
   $('#annBadge').textContent = d.pending || ''; $('#legalBadge').textContent = d.legalAlerts || '';
-  if (!d.announcements.length) return empty(ul, 'Aucune annonce active.');
+  if (!d.announcements.length) return empty(ul, 'No active announcement.');
   for (const a of d.announcements) {
     const del = btn('Retirer', 'danger');
-    confirmBtn(del, 'Confirmer', async () => { await api('/api/admin/announcements/' + a.id, { method: 'DELETE' }); loadAnns(); });
-    const what = (a.pending ? '⏳ À VALIDER · ' : '') + (a.kind === 'legal' ? '⚖ Legal team ' + (a.city ? a.city + ' ' : '') + a.phone + (a.text ? ' · ' + a.text : '') : (a.level === 'urgent' ? '⚠ ' : '') + a.text);
-    const where = a.national ? 'toute la France' : a.r + ' km autour de ' + a.lat.toFixed(3) + ', ' + a.lng.toFixed(3);
+    confirmBtn(del, 'Confirm', async () => { await api('/api/admin/announcements/' + a.id, { method: 'DELETE' }); loadAnns(); });
+    const what = (a.pending ? '⏳ TO APPROVE · ' : '') + (a.kind === 'legal' ? '⚖ Legal team ' + (a.city ? a.city + ' ' : '') + a.phone + (a.text ? ' · ' + a.text : '') : (a.level === 'urgent' ? '⚠ ' : '') + a.text);
+    const where = a.national ? 'nationwide' : a.r + ' km around ' + a.lat.toFixed(3) + ', ' + a.lng.toFixed(3);
     const buttons = [del];
     if (a.pending) { const ok = btn('Valider'); ok.onclick = async () => { try { await api('/api/admin/announcements/' + a.id + '/approve', { method: 'POST', body: '{}' }); loadAnns(); } catch (e) { alertMsg(e.message); } }; buttons.unshift(ok); }
-    ul.append(li(what, `${a.by} · ${where} · ${a.permanent ? 'permanent' : 'jusqu’à ' + hhmm(a.exp)}${a.pending ? ' · vérifie le numéro auprès du collectif avant de valider' : ''}`, ...buttons));
+    ul.append(li(what, `${a.by} · ${where} · ${a.permanent ? 'permanent' : 'until ' + hhmm(a.exp)}${a.pending ? ' · check the number with the group before approving' : ''}`, ...buttons));
   }
 }
 $('#natForm').addEventListener('submit', async e => {
   e.preventDefault();
   try {
     await api('/api/admin/announcements', { method: 'POST', body: JSON.stringify({ kind: 'info', national: true, text: $('#natText').value, link: $('#natLink').value, level: $('#natLevel').value, minutes: +$('#natMinutes').value }) });
-    $('#natText').value = ''; $('#natLink').value = ''; alertMsg('Annonce nationale publiée.'); loadAnns();
+    $('#natText').value = ''; $('#natLink').value = ''; alertMsg('Nationwide announcement published.'); loadAnns();
   } catch (err) { alertMsg(err.message); }
 });
 
 // ---- Agenda : validation des propositions ----
 const EVT = {};
 fetch('/api/config').then(r => r.json()).then(c => (c.eventTypes || []).forEach(t => (EVT[t.id] = t)));
-const when = t => new Date(t).toLocaleString('fr-FR', { timeZone: window.CDM_TZ || 'America/Chicago', weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
+const when = t => new Date(t).toLocaleString('en-US', { timeZone: window.CDM_TZ || 'America/Chicago', weekday: 'short', day: 'numeric', month: 'short', hour: 'numeric', minute: '2-digit' });
 async function loadAgenda() {
   let d; try { d = await api('/api/admin/events'); } catch (e) { alertMsg(e.message); return; }
   const pending = d.events.filter(e => e.status === 'pending'), ok = d.events.filter(e => e.status === 'ok');
   $('#pendingBadge').textContent = pending.length || '';
-  for (const [ul, list, none] of [[$('#pendingList'), pending, 'Aucune proposition en attente.'], [$('#eventList'), ok, 'Aucun événement à venir.']]) {
+  for (const [ul, list, none] of [[$('#pendingList'), pending, 'No pending suggestion.'], [$('#eventList'), ok, 'No upcoming event.']]) {
     ul.textContent = '';
     if (!list.length) { empty(ul, none); continue; }
     for (const e of list) {
       const t = EVT[e.type] || { glyph: '📍', label: e.type };
-      const map = document.createElement('a'); map.href = `https://www.openstreetmap.org/?mlat=${e.lat}&mlon=${e.lng}#map=16/${e.lat}/${e.lng}`; map.target = '_blank'; map.rel = 'noopener'; map.textContent = 'voir le lieu';
+      const map = document.createElement('a'); map.href = `https://www.openstreetmap.org/?mlat=${e.lat}&mlon=${e.lng}#map=16/${e.lat}/${e.lng}`; map.target = '_blank'; map.rel = 'noopener'; map.textContent = 'see the place';
       map.style.cssText = 'color:var(--accent);align-self:center;font-size:13px';
-      const del = btn(e.status === 'pending' ? 'Refuser' : 'Retirer', 'danger');
-      confirmBtn(del, 'Confirmer', async () => { await api('/api/admin/events/' + e.id, { method: 'DELETE' }); loadAgenda(); });
+      const del = btn(e.status === 'pending' ? 'Reject' : 'Remove', 'danger');
+      confirmBtn(del, 'Confirm', async () => { await api('/api/admin/events/' + e.id, { method: 'DELETE' }); loadAgenda(); });
       const buttons = [map];
       if (e.status === 'pending') { const okb = btn('Valider'); okb.onclick = async () => { try { await api('/api/admin/events/' + e.id + '/approve', { method: 'POST', body: '{}' }); loadAgenda(); } catch (err) { alertMsg(err.message); } }; buttons.push(okb); }
       buttons.push(del);
-      ul.append(li(`${t.glyph} ${e.title}`, `${t.label} · ${when(e.start)} · ${e.place}${e.route ? ' · parcours tracé' : ''}${e.note ? ' · « ' + e.note + ' »' : ''} · ${e.by}`, ...buttons));
+      ul.append(li(`${t.glyph} ${e.title}`, `${tl(t.label)} · ${when(e.start)} · ${e.place}${e.route ? ' · route drawn' : ''}${e.note ? ' · “' + e.note + '”' : ''} · ${e.by}`, ...buttons));
     }
   }
 }
@@ -786,22 +790,22 @@ async function loadAgenda() {
 let ordKinds = {};
 async function loadOrders() {
   let d; try { d = await api('/api/admin/orders'); } catch (e) { alertMsg(e.message); return; }
-  ordKinds = Object.fromEntries(d.kinds.map(k => [k.id, k]));
+  ordKinds = Object.fromEntries(d.kinds.map(k => [k.id, tlx(k)]));
   if (!$('#oaDep').options.length) { $('#oaDep').append(new Option('Choisir…', '')); d.deps.forEach(([c, n]) => $('#oaDep').append(new Option(c + ' · ' + n, c))); }
   const pending = d.orders.filter(o => o.status === 'pending'), ok = d.orders.filter(o => o.status === 'ok');
   $('#ordBadge').textContent = pending.length || '';
-  for (const [ul, list, none] of [[$('#ordPending'), pending, 'Aucune proposition en attente.'], [$('#ordList'), ok, 'Aucun arrêté en cours ou à venir.']]) {
+  for (const [ul, list, none] of [[$('#ordPending'), pending, 'No pending suggestion.'], [$('#ordList'), ok, 'No current or upcoming order.']]) {
     ul.textContent = '';
     if (!list.length) { empty(ul, none); continue; }
     for (const o of list) {
       const src = document.createElement('a'); src.href = o.src; src.target = '_blank'; src.rel = 'noopener noreferrer'; src.textContent = 'source : ' + (o.host || 'lien');
       src.style.cssText = 'color:var(--accent);align-self:center;font-size:13px';
-      const del = btn(o.status === 'pending' ? 'Refuser' : 'Retirer', 'danger');
-      confirmBtn(del, 'Confirmer', async () => { await api('/api/admin/orders/' + o.id, { method: 'DELETE' }); loadOrders(); });
+      const del = btn(o.status === 'pending' ? 'Reject' : 'Remove', 'danger');
+      confirmBtn(del, 'Confirm', async () => { await api('/api/admin/orders/' + o.id, { method: 'DELETE' }); loadOrders(); });
       const buttons = [src];
-      if (o.status === 'pending') { const okb = btn('Valider'); okb.onclick = async () => { okb.disabled = true; try { await api('/api/admin/orders/' + o.id + '/approve', { method: 'POST', body: '{}' }); alertMsg('Arrêté publié.'); loadOrders(); } catch (err) { alertMsg(err.message); okb.disabled = false; } }; buttons.push(okb); }
+      if (o.status === 'pending') { const okb = btn('Valider'); okb.onclick = async () => { okb.disabled = true; try { await api('/api/admin/orders/' + o.id + '/approve', { method: 'POST', body: '{}' }); alertMsg('Order published.'); loadOrders(); } catch (err) { alertMsg(err.message); okb.disabled = false; } }; buttons.push(okb); }
       buttons.push(del);
-      const zone = o.zone ? o.zone.name + (o.zone.scope === 'dep' ? ' (département)' : ` (${o.zone.dep})`) : (o.commune ? o.commune + ' (' + o.dep + ')' : 'département ' + o.dep);
+      const zone = o.zone ? o.zone.name + (o.zone.scope === 'dep' ? ' (whole state)' : ` (${o.zone.dep})`) : (o.commune ? o.commune + ' (' + o.dep + ')' : 'state ' + o.dep);
       ul.append(li(`🚫 ${zone}`, `${when(o.start)} → ${when(o.end)} · ${o.items.map(x => (ordKinds[x.k] || { glyph: 'ℹ' }).glyph + ' ' + x.text).join(' · ')} · ${o.by}`, ...buttons));
     }
   }
@@ -811,14 +815,14 @@ $('#ordAdminForm').addEventListener('submit', async e => {
   e.preventDefault();
   const items = $('#oaItems').value.split('\n').map(l => l.trim()).filter(Boolean).map(l => { const m = l.match(/^(manif|perimetre|couvre|transport|consigne|autre)\s*:\s*(.+)$/i); return m ? { k: m[1].toLowerCase(), text: m[2] } : { k: 'autre', text: l }; });
   const body = { dep: $('#oaDep').value, commune: $('#oaCommune').value, start: new Date($('#oaStart').value).getTime(), end: new Date($('#oaEnd').value).getTime(), items, src: $('#oaSrc').value };
-  try { await api('/api/admin/orders', { method: 'POST', body: JSON.stringify(body) }); alertMsg('Arrêté publié.'); $('#ordAdminForm').reset(); loadOrders(); } catch (err) { alertMsg(err.message); }
+  try { await api('/api/admin/orders', { method: 'POST', body: JSON.stringify(body) }); alertMsg('Order published.'); $('#ordAdminForm').reset(); loadOrders(); } catch (err) { alertMsg(err.message); }
 });
 $('#ordImportForm').addEventListener('submit', async e => {
   e.preventDefault();
   try {
     const d = await api('/api/admin/orders/import', { method: 'POST', body: JSON.stringify({ text: $('#oiText').value }) });
     const bad = d.results.filter(r => !r.ok);
-    $('#oiMsg').textContent = `${d.results.length - bad.length} publié(s) sur ${d.results.length}.` + (bad.length ? ' Refusés : ' + bad.map(r => `${r.name} (${r.error})`).join(' ; ') : '');
+    $('#oiMsg').textContent = `${d.results.length - bad.length} of ${d.results.length} published.` + (bad.length ? ' Rejected: ' + bad.map(r => `${r.name} (${tl(r.error)})`).join('; ') : '');
     if (!bad.length) $('#oiText').value = '';
     loadOrders();
   } catch (err) { alertMsg(err.message); }
@@ -826,7 +830,7 @@ $('#ordImportForm').addEventListener('submit', async e => {
 
 // ---- Urgences ----
 let CATS = {};
-fetch('/api/config').then(r => r.json()).then(c => { CATS = Object.fromEntries(c.categories.map(x => [x.id, x])); });
+fetch('/api/config').then(r => r.json()).then(c => { CATS = Object.fromEntries(c.categories.map(x => [x.id, tlx(x)])); });
 let repData = { reports: [], paused: 0 };
 function confirmBtn(btn, label, action) {
   btn.onclick = async () => {
@@ -838,7 +842,7 @@ function confirmBtn(btn, label, action) {
 async function loadReports() {
   try { repData = await api('/api/admin/reports'); } catch (e) { alertMsg(e.message); return; }
   const p = repData.paused;
-  $('#pauseState').textContent = p ? 'En pause jusqu’à ' + new Date(p).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }) + '.' : 'Signalements ouverts.';
+  $('#pauseState').textContent = p ? 'Paused until ' + hhmm(p) + '.' : 'Reporting open.';
   renderReports();
 }
 function renderReports() {
@@ -846,18 +850,18 @@ function renderReports() {
   const list = repData.reports.filter(r => !q || (CATS[r.cat]?.label || r.cat).toLowerCase().includes(q) || (r.note || '').toLowerCase().includes(q));
   $('#repCount').textContent = '(' + repData.reports.length + ')';
   const ul = $('#repList'); ul.textContent = '';
-  if (!list.length) { const li = document.createElement('li'); li.className = 'meta'; li.textContent = 'Aucun signalement actif.'; ul.append(li); return; }
+  if (!list.length) { const li = document.createElement('li'); li.className = 'meta'; li.textContent = 'No active report.'; ul.append(li); return; }
   for (const r of list.slice(0, 300)) {
     const li = document.createElement('li');
     const info = document.createElement('div');
     const t = document.createElement('b'); t.textContent = (CATS[r.cat]?.glyph || '') + ' ' + (CATS[r.cat]?.label || r.cat) + (r.ver ? ' ✓' : '');
     const m = document.createElement('div'); m.className = 'meta';
-    const a = document.createElement('a'); a.href = `https://www.openstreetmap.org/?mlat=${r.lat}&mlon=${r.lng}#map=17/${r.lat}/${r.lng}`; a.target = '_blank'; a.rel = 'noopener'; a.textContent = 'voir';
+    const a = document.createElement('a'); a.href = `https://www.openstreetmap.org/?mlat=${r.lat}&mlon=${r.lng}#map=17/${r.lat}/${r.lng}`; a.target = '_blank'; a.rel = 'noopener'; a.textContent = 'see';
     a.style.color = 'var(--accent)';
-    m.append(`il y a ${Math.round((Date.now() - r.t) / 60000)} min · +${r.up} / −${r.down}${r.note ? ' · « ' + r.note + ' »' : ''} · `, a);
+    m.append(`${Math.round((Date.now() - r.t) / 60000)} min ago · +${r.up} / −${r.down}${r.note ? ' · “' + r.note + '”' : ''} · `, a);
     info.append(t, m);
-    const del = document.createElement('button'); del.className = 'danger'; del.textContent = 'Supprimer';
-    confirmBtn(del, 'Confirmer', async () => { await api('/api/admin/reports/' + r.id, { method: 'DELETE' }); loadReports(); });
+    const del = document.createElement('button'); del.className = 'danger'; del.textContent = 'Delete';
+    confirmBtn(del, 'Confirm', async () => { await api('/api/admin/reports/' + r.id, { method: 'DELETE' }); loadReports(); });
     li.append(info, del); ul.append(li);
   }
 }
@@ -866,45 +870,46 @@ $('#repReload').onclick = loadReports;
 document.querySelectorAll('[data-pause]').forEach(b => b.onclick = async () => {
   try { await api('/api/admin/pause', { method: 'POST', body: JSON.stringify({ minutes: +b.dataset.pause }) }); loadReports(); } catch (e) { alertMsg(e.message); }
 });
-confirmBtn($('#purgeReports'), 'Confirmer : tout effacer', async () => { const r = await api('/api/admin/purge', { method: 'POST', body: '{}' }); alertMsg(r.removed + ' signalement(s) effacé(s).'); loadReports(); });
-confirmBtn($('#purgeAll'), 'Confirmer : tout effacer + annonces', async () => { const r = await api('/api/admin/purge', { method: 'POST', body: JSON.stringify({ announcements: true }) }); alertMsg(r.removed + ' signalement(s) et toutes les annonces effacés.'); loadReports(); });
+confirmBtn($('#purgeReports'), 'Confirm: erase everything', async () => { const r = await api('/api/admin/purge', { method: 'POST', body: '{}' }); alertMsg(r.removed + ' report(s) erased.'); loadReports(); });
+confirmBtn($('#purgeAll'), 'Confirm: erase everything + announcements', async () => { const r = await api('/api/admin/purge', { method: 'POST', body: JSON.stringify({ announcements: true }) }); alertMsg(r.removed + ' report(s) and all announcements erased.'); loadReports(); });
 $('#wipeForm').addEventListener('submit', async e => {
   e.preventDefault();
-  if ($('#wipeConfirm').value.trim() !== 'EFFACER') return alertMsg('Tape EFFACER pour confirmer.');
+  if ($('#wipeConfirm').value.trim() !== 'ERASE') return alertMsg('Type ERASE to confirm.');
   try {
-    const r = await api('/api/admin/wipe', { method: 'POST', body: JSON.stringify({ confirm: 'EFFACER', pub: $('#wipePub').checked }) });
+    const r = await api('/api/admin/wipe', { method: 'POST', body: JSON.stringify({ confirm: 'ERASE', pub: $('#wipePub').checked }) });
     $('#wipeConfirm').value = '';
-    alertMsg(`Effacement terminé : ${r.removed} signalement(s) et toutes les traces effacés.` + (r.rotated ? ' Nouvelle clé de hachage créée.' : ' La clé vient de la variable SECRET : change-la dans cPanel puis redémarre.'));
+    alertMsg(`Wipe complete: ${r.removed} report(s) and every trace erased.` + (r.rotated ? ' New hashing key created.' : ' The key comes from the SECRET setting: change it in the server configuration, then restart.'));
     loadReports();
   } catch (err) { alertMsg(err.message); }
 });
 // ---- Abus ----
+// Keys are the abuse kinds the server records (French identifiers): [name shown, explanation]
 const ABUSE_HELP = {
-  'orga en rafale': 'une orga a été bloquée : trop de vérifications, de retraits ou d’annonces urgentes d’un coup (regarde son journal dans Orgas)',
-  'abonnements en rafale': 'trop d’abonnements aux notifications depuis un même réseau : refusés',
-  'point contesté': 'points devenus « contestés » par des « Plus là »',
-  '« Plus là » en rafale': 'téléphones dont les « Plus là » ont été ignorés (trop d’un coup)',
-  'signalements en rafale': 'téléphones bloqués : trop de signalements d’un coup',
-  'danger près zone calme': 'dangers signalés à moins de 100 m d’une zone calme (souvent légitime)',
-  'série de dangers près des zones calmes': 'téléphones repérés : dangers près de plusieurs zones calmes à la suite (marqués non fiables)',
+  'orga en rafale': ['organizer burst', 'an organizer was blocked: too many verifications, removals or urgent announcements at once (see their log under Organizers)'],
+  'abonnements en rafale': ['subscription burst', 'too many notification subscriptions from one network: refused'],
+  'point contesté': ['contested point', 'points that became “contested” through “Gone” votes'],
+  '« Plus là » en rafale': ['“Gone” burst', 'phones whose “Gone” votes were ignored (too many at once)'],
+  'signalements en rafale': ['report burst', 'phones blocked: too many reports at once'],
+  'danger près zone calme': ['danger near a calm area', 'dangers reported within 100 m of a calm area (often legitimate)'],
+  'série de dangers près des zones calmes': ['series of dangers near calm areas', 'phones flagged: dangers near several calm areas in a row (marked unreliable)'],
 };
 function bars(arr) { const max = Math.max(1, ...arr); return arr.slice().reverse().map(n => '▁▂▃▄▅▆▇█'[Math.min(7, Math.round(n / max * 7))]).join(''); }
 async function loadAbuse() {
   let d; try { d = await api('/api/admin/abuse'); } catch (e) { alertMsg(e.message); return; }
-  $('#strictState').textContent = d.strict ? 'Actif jusqu’à ' + new Date(d.strict).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }) + '.' : 'Désactivé.';
-  $('#abuseSummary').textContent = `${d.trusted} téléphone(s) fiable(s) aujourd’hui · ${d.unreliable} signalement(s) non fiable(s) en ce moment` + (d.paused ? ' · signalements en pause' : '');
+  $('#strictState').textContent = d.strict ? 'Active until ' + hhmm(d.strict) + '.' : 'Off.';
+  $('#abuseSummary').textContent = `${d.trusted} reliable phone(s) today · ${d.unreliable} unreliable report(s) right now` + (d.paused ? ' · reporting paused' : '');
   const ul = $('#abuseKinds'); ul.textContent = '';
   const kinds = Object.entries(d.kinds).sort((a, b) => b[1] - a[1]);
-  if (!kinds.length) empty(ul, 'Rien à signaler sur les dernières 24 h.');
+  if (!kinds.length) empty(ul, 'Nothing to report over the last 24 h.');
   for (const [k, n] of kinds) {
-    const l = li(`${n} · ${k}`, (ABUSE_HELP[k] || '') + ' · ' + bars(d.hours[k] || []) + ' (24 h → maintenant)');
+    const l = li(`${n} · ${(ABUSE_HELP[k] || [k])[0]}`, ((ABUSE_HELP[k] || [])[1] || '') + ' · ' + bars(d.hours[k] || []) + ' (24 h → now)');
     ul.append(l);
   }
   const zl = $('#abuseZones'); zl.textContent = '';
-  if (!d.zones.length) empty(zl, 'Aucune zone.');
+  if (!d.zones.length) empty(zl, 'No area.');
   for (const z of d.zones) {
-    const a = document.createElement('a'); a.href = `https://www.openstreetmap.org/?mlat=${z.lat}&mlon=${z.lng}#map=12/${z.lat}/${z.lng}`; a.target = '_blank'; a.rel = 'noopener'; a.textContent = 'voir'; a.style.color = 'var(--accent)';
-    zl.append(li(`${z.name || z.lat + ', ' + z.lng} · ${z.n}`, Object.entries(z.kinds).map(([k, n]) => n + ' ' + k).join(' · '), a));
+    const a = document.createElement('a'); a.href = `https://www.openstreetmap.org/?mlat=${z.lat}&mlon=${z.lng}#map=12/${z.lat}/${z.lng}`; a.target = '_blank'; a.rel = 'noopener'; a.textContent = 'see'; a.style.color = 'var(--accent)';
+    zl.append(li(`${z.name || z.lat + ', ' + z.lng} · ${z.n}`, Object.entries(z.kinds).map(([k, n]) => n + ' ' + (ABUSE_HELP[k] || [k])[0]).join(' · '), a));
   }
 }
 $('#tabAbuse').onclick = () => { showTab('Abuse'); loadAbuse(); };
@@ -916,29 +921,29 @@ if (location.hash === '#digest') showTab('Digest');
 
 function renderOrgas({ orgas }) {
   const ul = $('#orgaList'); ul.textContent = '';
-  if (!orgas.length) { const li = document.createElement('li'); li.className = 'meta'; li.textContent = 'Aucune orga pour l’instant.'; ul.append(li); return; }
+  if (!orgas.length) { const li = document.createElement('li'); li.className = 'meta'; li.textContent = 'No organizer yet.'; ul.append(li); return; }
   for (const o of orgas) {
     const li = document.createElement('li');
     const info = document.createElement('div');
     const name = document.createElement('b'); name.textContent = o.label;
     const meta = document.createElement('div'); meta.className = 'meta';
-    meta.textContent = (o.source === 'variable' ? 'Variable ORGA_KEYS (cPanel)' : 'Créée le ' + new Date(o.created).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }))
-      + (o.trial ? ' · EN PÉRIODE D’ESSAI' : ' · confirmée')
-      + (o.source === 'page' ? (o.active ? ' · activée' + (o.devices > 1 ? ' (' + o.devices + ' appareils)' : '') : o.invite ? ' · invitation en attente' : ' · invitation expirée') : '')
-      + (o.clash ? ' · ⚠ NOM RÉSERVÉ OU EN DOUBLE : vérifie que c’est bien une vraie orga' : '')
-      + (o.byLabel ? ' · parrainée par ' + o.byLabel : '') + (o.children ? ' · a invité ' + o.children + ' orga(s)' : '')
-      + (o.ban ? ' · ⛔ invitations suspendues jusqu’au ' + new Date(o.ban).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' }) : '');
+    meta.textContent = (o.source === 'variable' ? 'ORGA_KEYS setting' : 'Created ' + new Date(o.created).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' }))
+      + (o.trial ? ' · ON TRIAL' : ' · confirmed')
+      + (o.source === 'page' ? (o.active ? ' · activated' + (o.devices > 1 ? ' (' + o.devices + ' devices)' : '') : o.invite ? ' · invitation pending' : ' · invitation expired') : '')
+      + (o.clash ? ' · ⚠ RESERVED OR DUPLICATE NAME: check that this is a real organizer' : '')
+      + (o.byLabel ? ' · sponsored by ' + o.byLabel : '') + (o.children ? ' · invited ' + o.children + ' organizer(s)' : '')
+      + (o.ban ? ' · ⛔ invitations suspended until ' + new Date(o.ban).toLocaleDateString('en-US', { day: 'numeric', month: 'long' }) : '');
     let extra = null;
     if (o.readiness) {
       const rd = document.createElement('div'); rd.className = 'meta';
       const r = o.readiness;
-      rd.textContent = r.ready ? '✓ Prête à être confirmée (' + r.days + ' j, ' + r.actions + ' actions, aucun incident)' : `Surveillance renforcée : ${r.days} j, ${r.actions} action(s)` + (r.bursts ? `, ${r.bursts} rafale(s) bloquée(s)` : '') + (r.restored ? `, ${r.restored} retrait(s) annulé(s)` : '');
+      rd.textContent = r.ready ? '✓ Ready to be confirmed (' + r.days + ' days, ' + r.actions + ' actions, no incident)' : `Closer watch: ${r.days} days, ${r.actions} action(s)` + (r.bursts ? `, ${r.bursts} burst(s) blocked` : '') + (r.restored ? `, ${r.restored} removal(s) undone` : '');
       if (r.ready) rd.style.color = '#7ee2b0';
       extra = rd;
     }
     const stats = document.createElement('div'); stats.className = 'meta';
     const d = o.day || {};
-    stats.textContent = `24 h : ${d.verified || 0} vérifié(s), ${d.removed || 0} retiré(s), ${d.announcements || 0} annonce(s)` + (d.blocked ? ` · ⚠ ${d.blocked} rafale(s) bloquée(s)` : '');
+    stats.textContent = `24 h: ${d.verified || 0} verified, ${d.removed || 0} removed, ${d.announcements || 0} announcement(s)` + (d.blocked ? ` · ⚠ ${d.blocked} burst(s) blocked` : '');
     info.append(name, meta, ...(extra ? [extra] : []), stats);
     li.append(info);
     if (o.id) {
@@ -946,14 +951,14 @@ function renderOrgas({ orgas }) {
       tr.onclick = async () => { try { await api('/api/admin/orgas/' + o.id + '/trial', { method: 'POST', body: JSON.stringify({ trial: !o.trial }) }); api('/api/admin/orgas').then(renderOrgas); } catch (e) { alertMsg(e.message); } };
       li.append(tr);
       const inv = document.createElement('button'); inv.className = 'ghost'; inv.textContent = 'Nouvelle invitation';
-      inv.title = 'Crée un nouveau QR code et coupe l’accès actuel de cette orga';
-      confirmBtn(inv, 'Confirmer (coupe l’accès actuel)', async () => { const r = await api('/api/admin/orgas/' + o.id + '/invite', { method: 'POST', body: '{}' }); showInvite(r); api('/api/admin/orgas').then(renderOrgas); });
+      inv.title = 'Creates a new QR code and cuts this organizer’s current access';
+      confirmBtn(inv, 'Confirm (cuts current access)', async () => { const r = await api('/api/admin/orgas/' + o.id + '/invite', { method: 'POST', body: '{}' }); showInvite(r); api('/api/admin/orgas').then(renderOrgas); });
       li.append(inv);
-      const rv = document.createElement('button'); rv.className = 'danger'; rv.textContent = o.children ? 'Révoquer pour abus (+ ses invitées)' : 'Révoquer pour abus';
-      rv.title = 'Coupe cette orga et toutes celles qu’elle a fait entrer. Sa marraine ne peut plus inviter pendant 30 jours.';
-      confirmBtn(rv, 'Confirmer la révocation', async () => { const r = await api('/api/admin/orgas/' + o.id + '/revoke', { method: 'POST', body: '{}' }); alertMsg('Révoquée(s) : ' + r.removed.join(', ') + (r.sponsorBanned ? '. Sa marraine ne peut plus inviter pendant 30 jours.' : '.')); api('/api/admin/orgas').then(renderOrgas); });
+      const rv = document.createElement('button'); rv.className = 'danger'; rv.textContent = o.children ? 'Revoke for abuse (+ those they invited)' : 'Revoke for abuse';
+      rv.title = 'Cuts this organizer and every one they brought in. Their sponsor can’t invite for 30 days.';
+      confirmBtn(rv, 'Confirm revocation', async () => { const r = await api('/api/admin/orgas/' + o.id + '/revoke', { method: 'POST', body: '{}' }); alertMsg('Revoked: ' + r.removed.join(', ') + (r.sponsorBanned ? '. Their sponsor can’t invite for 30 days.' : '.')); api('/api/admin/orgas').then(renderOrgas); });
       li.append(rv);
-      const del = document.createElement('button'); del.className = 'danger'; del.textContent = 'Supprimer';
+      const del = document.createElement('button'); del.className = 'danger'; del.textContent = 'Delete';
       del.onclick = async () => {
         if (!del.dataset.armed) { del.dataset.armed = '1'; del.textContent = 'Confirmer'; return; }
         try { await api('/api/admin/orgas/' + o.id, { method: 'DELETE' }); api('/api/admin/orgas').then(renderOrgas); }
@@ -975,7 +980,7 @@ function alertMsg(m) {
 function showInvite(o) {
   const url = location.origin + '/?invite=' + o.invite;
   $('#newLabel').textContent = o.label; $('#newUrl').textContent = url;
-  $('#newExp').textContent = new Date(o.exp).toLocaleString('fr-FR', { weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
+  $('#newExp').textContent = new Date(o.exp).toLocaleString('en-US', { weekday: 'short', day: 'numeric', month: 'short', hour: 'numeric', minute: '2-digit' });
   $('#newQr').textContent = '';
   if (window.qrcode) { const q = qrcode(0, 'M'); q.addData(url); q.make(); $('#newQr').innerHTML = q.createSvgTag({ cellSize: 6, margin: 3, scalable: true }); }
   $('#newLink').hidden = false; $('#shareLink').hidden = !navigator.share;
@@ -991,11 +996,11 @@ $('#orgaForm').addEventListener('submit', async e => {
   } catch (err) { alertMsg(err.message); }
 });
 $('#copyLink').onclick = async () => {
-  try { await navigator.clipboard.writeText($('#newUrl').textContent); $('#copyLink').textContent = 'Copié'; }
-  catch { const r = document.createRange(); r.selectNodeContents($('#newUrl')); getSelection().removeAllRanges(); getSelection().addRange(r); $('#copyLink').textContent = 'Sélectionné'; }
-  setTimeout(() => ($('#copyLink').textContent = 'Copier le lien'), 2000);
+  try { await navigator.clipboard.writeText($('#newUrl').textContent); $('#copyLink').textContent = 'Copied'; }
+  catch { const r = document.createRange(); r.selectNodeContents($('#newUrl')); getSelection().removeAllRanges(); getSelection().addRange(r); $('#copyLink').textContent = 'Selected'; }
+  setTimeout(() => ($('#copyLink').textContent = 'Copy link'), 2000);
 };
-$('#shareLink').onclick = () => navigator.share?.({ title: 'Invitation orga Community Defense Map', text: 'Ton invitation orga Community Defense Map (usage unique, ne la transfère pas) :', url: $('#newUrl').textContent }).catch(() => {});
+$('#shareLink').onclick = () => navigator.share?.({ title: 'Community Defense Map organizer invitation', text: 'Your Community Defense Map organizer invitation (single use, don’t forward it):', url: $('#newUrl').textContent }).catch(() => {});
 $('#date').value = new Date().toLocaleDateString('sv-SE', { timeZone: window.CDM_TZ || 'America/Chicago' });
 
 function bar(label, n, max, color, extra) {
@@ -1011,8 +1016,8 @@ function bar(label, n, max, color, extra) {
 }
 
 // ---- Digest ----
-const OUTCOME = { exp: 'expirés normalement', active: 'encore actifs', cont: 'contestés par « Plus là » puis expirés', orga: 'retirés par une orga',
-  admin: 'retirés par l’admin', full: 'évincés (zone saturée)', purge: 'effacés (purge)', removed: 'retirés', old: 'retirés (ancien format)' };
+const OUTCOME = { exp: 'expired normally', active: 'still active', cont: 'contested by “Gone” then expired', orga: 'removed by an organizer',
+  admin: 'removed by the admin', full: 'dropped (area full)', purge: 'erased (purge)', removed: 'removed', old: 'removed (old format)' };
 const REMOVED = new Set(['cont', 'orga', 'admin', 'full', 'purge', 'removed', 'old']);
 const KEY_CATS = ['charge', 'nasse', 'lacrymo', 'canon', 'sommations', 'interpellation', 'bac', 'crs'];
 let dg = null, dgMap = null, dgLayer = null, brand = {};
@@ -1023,13 +1028,13 @@ const median = a => { if (!a.length) return 0; const b = a.slice().sort((x, y) =
 $('#form').addEventListener('submit', async e => {
   e.preventDefault();
   const date = $('#date').value;
-  $('#msg').textContent = 'Chargement… (le nom des villes peut prendre quelques secondes)';
+  $('#msg').textContent = 'Loading… (city names can take a few seconds)';
   try {
     const res = await fetch('/api/digest?date=' + date, { headers: { 'X-Admin-Key': KEY } });
     const d = await res.json();
-    if (!res.ok) { $('#msg').textContent = d.error || 'Erreur.'; $('#out').hidden = true; return; }
-    dg = d; renderDigest();
-  } catch { $('#msg').textContent = 'Pas de réseau.'; }
+    if (!res.ok) { $('#msg').textContent = tl(d.error) || 'Error.'; $('#out').hidden = true; return; }
+    dg = { ...d, categories: (d.categories || []).map(tlx), groups: (d.groups || []).map(tlx) }; renderDigest();
+  } catch { $('#msg').textContent = 'No network.'; }
 });
 $('#dgAll').addEventListener('change', () => dg && renderDigest());
 
@@ -1038,8 +1043,8 @@ function renderDigest() {
   const d = dg, cat = Object.fromEntries(d.categories.map(c => [c.id, c]));
   const all = d.rows.filter(r => cat[r.c]);
   const rows = $('#dgAll').checked ? all : all.filter(r => !REMOVED.has(r.o));
-  $('#msg').textContent = (all.length ? longDate(d.date) : `Aucun signalement en France le ${longDate(d.date)}.` + (d.days.length ? ` Jours archivés : ${d.days.slice(0, 8).join(', ')}.` : ''))
-    + (d.abroad ? ` · ${d.abroad} ${d.abroad > 1 ? 'signalements' : 'signalement'} hors de France, ${d.abroad > 1 ? 'visibles' : 'visible'} sur la carte en direct mais non ${d.abroad > 1 ? 'comptés' : 'compté'} ici.` : '');
+  $('#msg').textContent = (all.length ? longDate(d.date) : `No reports in the service area on ${longDate(d.date)}.` + (d.days.length ? ` Archived days: ${d.days.slice(0, 8).join(', ')}.` : ''))
+    + (d.abroad ? ` · ${d.abroad} ${d.abroad > 1 ? 'reports' : 'report'} outside the service area, shown on the live map but not counted here.` : '');
   $('#out').hidden = !all.length;
   if (!all.length) return;
   const groupOf = r => cat[r.c].group, zoneName = r => d.zones[r.z]?.name || r.z;
@@ -1050,8 +1055,8 @@ function renderDigest() {
 
   // Chiffres clés
   $('#kpis').textContent = '';
-  for (const [n, label] of [[rows.length, 'signalements'], [cities, cities > 1 ? 'villes' : 'ville'], [confirmed, 'confirmés par d’autres'], [verified, 'vérifiés par une orga'],
-    [removed, 'retirés ou contestés'], [rows.length ? hhmm(t0) + '–' + hhmm(t1) : '—', 'activité']]) {
+  for (const [n, label] of [[rows.length, 'reports'], [cities, cities > 1 ? 'cities' : 'city'], [confirmed, 'confirmed by others'], [verified, 'verified by an organizer'],
+    [removed, 'removed or contested'], [rows.length ? hhmm(t0) + '–' + hhmm(t1) : '—', 'activity']]) {
     const k = document.createElement('div'); k.className = 'kpi';
     const b = document.createElement('b'); b.textContent = n; const s = document.createElement('span'); s.textContent = label;
     k.append(b, s); $('#kpis').append(k);
@@ -1067,22 +1072,22 @@ function renderDigest() {
   for (const r of rows) {
     const c = cat[r.c], col = getComputedStyle(document.documentElement).getPropertyValue('--' + ({ fdo: 'fdo', danger: 'danger', soutien: 'soutien', info: 'info' })[c.group]).trim() || '#7fe0ef';
     L.circleMarker([r.lat, r.lng], { radius: 5 + Math.min(r.up, 6), color: col, weight: REMOVED.has(r.o) ? 1 : 2, dashArray: REMOVED.has(r.o) ? '3 3' : null, fillOpacity: REMOVED.has(r.o) ? .15 : .55 })
-      .bindTooltip(`${c.glyph} ${c.label} · ${hhmm(r.t)}${r.e ? '–' + hhmm(r.e) : ''} · ${OUTCOME[r.o] || r.o}${r.up ? ' · confirmé ' + r.up + '×' : ''}`).addTo(dgLayer);
+      .bindTooltip(`${c.glyph} ${tl(c.label)} · ${hhmm(r.t)}${r.e ? '–' + hhmm(r.e) : ''} · ${OUTCOME[r.o] || r.o}${r.up ? ' · confirmed ' + r.up + '×' : ''}`).addTo(dgLayer);
   }
   setTimeout(() => { dgMap.invalidateSize(); if (rows.length) dgMap.fitBounds(L.latLngBounds(rows.map(r => [r.lat, r.lng])).pad(0.2), { maxZoom: 14 }); }, 50);
   $('#dgLegend').textContent = '';
   for (const g of d.groups) { const s = document.createElement('span'); s.style.setProperty('--c', COLORS[g.id]); s.textContent = g.label; $('#dgLegend').append(s); }
-  const s2 = document.createElement('span'); s2.style.setProperty('--c', 'transparent'); s2.textContent = 'pointillés : retiré ou contesté'; $('#dgLegend').append(s2);
+  const s2 = document.createElement('span'); s2.style.setProperty('--c', 'transparent'); s2.textContent = 'dotted: removed or contested'; $('#dgLegend').append(s2);
 
   // Moments clés : première occurrence de chaque danger par ville
   const firsts = new Map();
   for (const r of rows.filter(r => KEY_CATS.includes(r.c)).sort((a, b) => a.t - b.t)) { const k = r.z + '|' + r.c; if (!firsts.has(k)) firsts.set(k, r); }
   const mom = [...firsts.values()].sort((a, b) => a.t - b.t).slice(0, 30);
   $('#moments').textContent = '';
-  if (!mom.length) { const li = document.createElement('li'); li.textContent = 'Aucun danger signalé.'; $('#moments').append(li); }
+  if (!mom.length) { const li = document.createElement('li'); li.textContent = 'No danger reported.'; $('#moments').append(li); }
   for (const r of mom) {
     const li = document.createElement('li'); const tm = document.createElement('time'); tm.textContent = hhmm(r.t);
-    const sp = document.createElement('span'); sp.textContent = `${cat[r.c].glyph} ${zoneName(r)} : ${cat[r.c].label.toLowerCase()}${r.up ? ` (confirmé ${r.up}×)` : ''}${r.v ? ' ✓ vérifié' : ''}${REMOVED.has(r.o) ? ' · ' + OUTCOME[r.o] : ''}`;
+    const sp = document.createElement('span'); sp.textContent = `${cat[r.c].glyph} ${zoneName(r)}: ${tl(cat[r.c].label).toLowerCase()}${r.up ? ` (confirmed ${r.up}×)` : ''}${r.v ? ' ✓ verified' : ''}${REMOVED.has(r.o) ? ' · ' + OUTCOME[r.o] : ''}`;
     li.append(tm, sp); $('#moments').append(li);
   }
 
@@ -1094,7 +1099,7 @@ function renderDigest() {
   for (const [c, list] of cats) {
     const first = Math.min(...list.map(r => r.t)), conf = list.filter(r => r.up > 0).length, life = median(list.filter(r => r.e).map(r => r.e - r.t));
     $('#cats').append(bar(`${cat[c].glyph} ${cat[c].label}`, list.length, cats[0][1].length, COLORS[cat[c].group],
-      `Premier à ${hhmm(first)} · ${conf} confirmé(s)` + (life ? ` · visible ${minutes(life)} min en médiane` : '')));
+      `First at ${hhmm(first)} · ${conf} confirmed` + (life ? ` · visible ${minutes(life)} min median` : '')));
   }
 
   // Par heure, empilé par famille
@@ -1130,22 +1135,22 @@ function renderDigest() {
   for (const [o, n] of oc) $('#outcomes').append(bar(OUTCOME[o] || o, n, oc[0][1], REMOVED.has(o) ? 'var(--fdo)' : 'var(--soutien)'));
 
   // Fiabilité
-  const tr = [['confirmés (2 pers. ou +)', confirmed], ['confirmés (3 pers. ou +)', rows.filter(r => r.up >= 2).length],
-    ['vérifiés par une orga', verified], ['téléphone fiable', rows.filter(r => r.f === 1).length], ['marqués non fiables', rows.filter(r => r.f === -1).length],
-    ['avec une précision', rows.filter(r => r.n > 0).length], ['avec des « Plus là »', rows.filter(r => r.dn > 0).length]];
+  const tr = [['confirmed (2+ people)', confirmed], ['confirmed (3+ people)', rows.filter(r => r.up >= 2).length],
+    ['verified by an organizer', verified], ['reliable phone', rows.filter(r => r.f === 1).length], ['marked unreliable', rows.filter(r => r.f === -1).length],
+    ['with a note', rows.filter(r => r.n > 0).length], ['with “Gone” votes', rows.filter(r => r.dn > 0).length]];
   $('#trust').textContent = '';
   for (const [l, n] of tr) $('#trust').append(bar(l, n, rows.length, 'var(--accent)', rows.length ? Math.round(n / rows.length * 100) + ' %' : ''));
-  const lifeBy = d.groups.map(g => { const l = rows.filter(r => groupOf(r) === g.id && r.e).map(r => r.e - r.t); return l.length ? `${g.label} : ${minutes(median(l))} min` : null; }).filter(Boolean);
-  $('#lifetimes').textContent = lifeBy.length ? 'Durée de visibilité médiane sur la carte : ' + lifeBy.join(' · ') + '.' : '';
+  const lifeBy = d.groups.map(g => { const l = rows.filter(r => groupOf(r) === g.id && r.e).map(r => r.e - r.t); return l.length ? `${tl(g.label)}: ${minutes(median(l))} min` : null; }).filter(Boolean);
+  $('#lifetimes').textContent = lifeBy.length ? 'Median time visible on the map: ' + lifeBy.join(' · ') + '.' : '';
 
   // Orgas et modération
-  const od = [['vérifications d’orgas', d.orga.verified], ['retraits par des orgas', d.orga.removed], ['retraits par l’admin', d.orga.adminRemoved], ['retraits annulés', d.orga.restored],
-    ['annonces publiées', d.orga.announcements], ['annonces urgentes', d.orga.urgent], ['numéros de legal team', d.orga.legal], ['contestés par votes', d.orga.contested],
+  const od = [['organizer verifications', d.orga.verified], ['removals by organizers', d.orga.removed], ['removals by the admin', d.orga.adminRemoved], ['removals undone', d.orga.restored],
+    ['announcements posted', d.orga.announcements], ['urgent announcements', d.orga.urgent], ['legal team numbers', d.orga.legal], ['contested by votes', d.orga.contested],
     ...Object.entries(d.abuse).map(([k, n]) => ['anti-abus : ' + k, n])];
   const maxO = Math.max(1, ...od.map(x => x[1]));
   $('#orgaDay').textContent = '';
   for (const [l, n] of od) if (n) $('#orgaDay').append(bar(l, n, maxO, 'var(--info)'));
-  if (!$('#orgaDay').children.length) $('#orgaDay').textContent = 'Aucune action d’orga ce jour-là.';
+  if (!$('#orgaDay').children.length) $('#orgaDay').textContent = 'No organizer action that day.';
 
   // Comparaison
   const maxHist = Math.max(1, ...d.history.map(x => x.total));
@@ -1164,15 +1169,15 @@ function renderDigest() {
   // Résumé
   const peak = totH.indexOf(Math.max(...totH));
   const lines = [
-    `Mobilisation du ${longDate(d.date)} : ce que les manifestant·es ont signalé sur Community Defense Map`,
-    `• ${rows.length} signalements dans ${cities} ${cities > 1 ? 'villes' : 'ville'}, de ${hhmm(t0)} à ${hhmm(t1)}`,
-    ...cats.slice(0, 5).map(([c, list]) => `• ${list.length} × ${cat[c].label.toLowerCase()} (premier à ${hhmm(Math.min(...list.map(r => r.t)))})`),
-    `• Pic d’activité entre ${peak} h et ${peak + 1} h`,
-    ...(zs.length ? [`• Ville la plus active : ${d.zones[zs[0][0]]?.name || zs[0][0]} (${zs[0][1].length})`] : []),
-    ...mom.slice(0, 4).map(r => `• ${hhmm(r.t)} : ${cat[r.c].label.toLowerCase()} à ${zoneName(r)}`),
-    ...(avg ? [`• ${rows.length >= avg ? '+' : ''}${Math.round((rows.length - avg) / avg * 100)} % par rapport à la moyenne des 14 jours précédents`] : []),
-    `Signalements de participant·es : ${confirmed} confirmés par d’autres, ${verified} vérifiés par des orgas${removed ? `, ${removed} retirés ou contestés` + ($('#dgAll').checked ? ' (inclus dans les chiffres)' : ' (non comptés)') : ''}.`,
-    `Source : Community Defense Map (${location.host})${brand.handle ? ', par @' + brand.handle : ''}`,
+    `${longDate(d.date)}: what people reported on Community Defense Map`,
+    `• ${rows.length} reports in ${cities} ${cities > 1 ? 'cities' : 'city'}, from ${hhmm(t0)} to ${hhmm(t1)}`,
+    ...cats.slice(0, 5).map(([c, list]) => `• ${list.length} × ${tl(cat[c].label).toLowerCase()} (first at ${hhmm(Math.min(...list.map(r => r.t)))})`),
+    `• Peak of activity between ${peak}:00 and ${peak + 1}:00`,
+    ...(zs.length ? [`• Most active city: ${d.zones[zs[0][0]]?.name || zs[0][0]} (${zs[0][1].length})`] : []),
+    ...mom.slice(0, 4).map(r => `• ${hhmm(r.t)}: ${tl(cat[r.c].label).toLowerCase()} in ${zoneName(r)}`),
+    ...(avg ? [`• ${rows.length >= avg ? '+' : ''}${Math.round((rows.length - avg) / avg * 100)}% compared with the average of the previous 14 days`] : []),
+    `Reports from participants: ${confirmed} confirmed by others, ${verified} verified by organizers${removed ? `, ${removed} removed or contested` + ($('#dgAll').checked ? ' (included in the figures)' : ' (not counted)') : ''}.`,
+    `Source: Community Defense Map (${location.host})${brand.handle ? ', @' + brand.handle : ''}`,
   ];
   $('#summary').textContent = lines.join('\n');
 }
@@ -1180,20 +1185,20 @@ function renderDigest() {
 $('#csv').addEventListener('click', () => {
   if (!dg) return;
   const cat = Object.fromEntries(dg.categories.map(c => [c.id, c]));
-  const head = ['categorie', 'famille', 'debut', 'fin', 'latitude', 'longitude', 'ville', 'confirmations', 'plus_la', 'precisions', 'verifie', 'fiabilite', 'devenir'];
+  const head = ['category', 'group', 'start', 'end', 'latitude', 'longitude', 'city', 'confirmations', 'gone_votes', 'notes', 'verified', 'reliability', 'outcome'];
   const esc = v => /[",;\n]/.test(String(v)) ? '"' + String(v).replace(/"/g, '""') + '"' : String(v);
   const iso = t => t ? new Date(t).toLocaleString('sv-SE', { timeZone: window.CDM_TZ || 'America/Chicago' }) : '';
-  const lines = [head.join(';'), ...dg.rows.filter(r => cat[r.c]).map(r => [cat[r.c].label, cat[r.c].group, iso(r.t), iso(r.e), r.lat, r.lng, dg.zones[r.z]?.name || '', r.up, r.dn ?? '', r.n ?? '', r.v ? 'oui' : 'non',
-    r.f === 1 ? 'fiable' : r.f === -1 ? 'non fiable' : '', OUTCOME[r.o] || r.o].map(esc).join(';'))];
+  const lines = [head.join(';'), ...dg.rows.filter(r => cat[r.c]).map(r => [tl(cat[r.c].label), cat[r.c].group, iso(r.t), iso(r.e), r.lat, r.lng, dg.zones[r.z]?.name || '', r.up, r.dn ?? '', r.n ?? '', r.v ? 'yes' : 'no',
+    r.f === 1 ? 'reliable' : r.f === -1 ? 'unreliable' : '', OUTCOME[r.o] || r.o].map(esc).join(';'))];
   const a = document.createElement('a');
   a.href = URL.createObjectURL(new Blob(['﻿' + lines.join('\n')], { type: 'text/csv;charset=utf-8' }));
   a.download = `cortege-${dg.date}.csv`; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 2000);
 });
 
 $('#copy').addEventListener('click', async () => {
-  try { await navigator.clipboard.writeText($('#summary').textContent); $('#copy').textContent = 'Copié'; }
-  catch { const r = document.createRange(); r.selectNodeContents($('#summary')); getSelection().removeAllRanges(); getSelection().addRange(r); $('#copy').textContent = 'Sélectionné, fais Copier'; }
-  setTimeout(() => ($('#copy').textContent = 'Copier le résumé'), 2000);
+  try { await navigator.clipboard.writeText($('#summary').textContent); $('#copy').textContent = 'Copied'; }
+  catch { const r = document.createRange(); r.selectNodeContents($('#summary')); getSelection().removeAllRanges(); getSelection().addRange(r); $('#copy').textContent = 'Selected, press Copy'; }
+  setTimeout(() => ($('#copy').textContent = 'Copy the summary'), 2000);
 });
 
 // ---- Annuaire des legal teams ----
@@ -1205,29 +1210,29 @@ async function loadBadges() {
   } catch {}
 }
 setInterval(() => { if (!$('#app').hidden) loadBadges(); }, 120000);
-const WATCH = { ok: '✓ source relue, numéro présent', missing: '⚠ numéro ABSENT de la source', changed: '⚠ la source affiche d’autres numéros', error: '⚠ source illisible', new: 'source pas encore relue' };
-const dayFr = t => new Date(t).toLocaleDateString('fr-FR', { timeZone: window.CDM_TZ || 'America/Chicago', day: 'numeric', month: 'short', year: 'numeric' });
+const WATCH = { ok: '✓ source checked, number present', missing: '⚠ number MISSING from the source', changed: '⚠ the source shows other numbers', error: '⚠ source unreadable', new: 'source not checked yet' };
+const dayFr = t => new Date(t).toLocaleDateString('en-US', { timeZone: window.CDM_TZ || 'America/Chicago', day: 'numeric', month: 'short', year: 'numeric' });
 let lgPos = null;
 async function loadLegal() {
   let d; try { d = await api('/api/admin/legal'); } catch (e) { alertMsg(e.message); return; }
   const ul = $('#legalList'); ul.textContent = '';
   const live = d.list.filter(e => e.ok).length;
-  $('#legalCount').textContent = `(${live} publiée(s) sur ${d.list.length})`;
-  $('#legalWatchState').textContent = d.lastWatch ? 'Dernière relecture des sources : ' + dayFr(d.lastWatch) + ' à ' + hhmm(d.lastWatch) + '. La veille prévient ici, elle ne publie et ne modifie jamais rien.' : 'Les sources n’ont pas encore été relues (une fois par jour).';
-  if (!d.list.length) return empty(ul, 'Annuaire vide.');
+  $('#legalCount').textContent = `(${live} of ${d.list.length} published)`;
+  $('#legalWatchState').textContent = d.lastWatch ? 'Sources last checked: ' + dayFr(d.lastWatch) + ' at ' + hhmm(d.lastWatch) + '. The check only warns here; it never publishes or changes anything.' : 'The sources have not been checked yet (once a day).';
+  if (!d.list.length) return empty(ul, 'Directory empty.');
   for (const e of d.list) {
     const buttons = [];
-    if (!e.ok) { const v = btn('Valider'); v.onclick = () => legalAct(e.id, 'validate'); buttons.push(v); }
-    else { const u = btn('Dépublier', 'ghost'); u.onclick = () => legalAct(e.id, 'unvalidate'); buttons.push(u); }
-    if (['missing', 'changed'].includes(e.status)) { const a = btn('Vu, numéro toujours bon', 'ghost'); a.onclick = () => legalAct(e.id, 'ack'); buttons.push(a); }
+    if (!e.ok) { const v = btn('Approve'); v.onclick = () => legalAct(e.id, 'validate'); buttons.push(v); }
+    else { const u = btn('Unpublish', 'ghost'); u.onclick = () => legalAct(e.id, 'unvalidate'); buttons.push(u); }
+    if (['missing', 'changed'].includes(e.status)) { const a = btn('Seen, number still right', 'ghost'); a.onclick = () => legalAct(e.id, 'ack'); buttons.push(a); }
     const ed = btn('Modifier', 'ghost'); ed.onclick = () => editLegal(e); buttons.push(ed);
-    const del = btn('Retirer', 'danger'); confirmBtn(del, 'Confirmer', async () => { await api('/api/admin/legal/' + e.id, { method: 'DELETE' }); loadLegal(); }); buttons.push(del);
-    const title = `${e.ok ? '✅' : '⏳ À VALIDER'} · ${e.city} · ${e.name} · ${e.phone}${e.signal ? ' (Signal)' : ''}`;
-    const meta = [e.ok && e.checked ? 'vérifié le ' + dayFr(e.checked) : null, e.srcDate ? 'source du ' + dayFr(e.srcDate) : 'source non datée',
+    const del = btn('Remove', 'danger'); confirmBtn(del, 'Confirm', async () => { await api('/api/admin/legal/' + e.id, { method: 'DELETE' }); loadLegal(); }); buttons.push(del);
+    const title = `${e.ok ? '✅' : '⏳ TO APPROVE'} · ${e.city} · ${e.name} · ${e.phone}${e.signal ? ' (Signal)' : ''}`;
+    const meta = [e.ok && e.checked ? 'verified ' + dayFr(e.checked) : null, e.srcDate ? 'source dated ' + dayFr(e.srcDate) : 'undated source',
       WATCH[e.status] + (e.watch && e.watch.at ? ' (' + dayFr(e.watch.at) + ')' : ''),
-      e.status === 'changed' && e.watch ? 'numéros vus : ' + e.watch.phones.join(', ') : null, e.watch && e.watch.err ? e.watch.err : null].filter(Boolean).join(' · ');
+      e.status === 'changed' && e.watch ? 'numbers seen: ' + e.watch.phones.join(', ') : null, e.watch && e.watch.err ? e.watch.err : null].filter(Boolean).join(' · ');
     const row = li(title, meta, ...buttons);
-    if (e.src) { const a = document.createElement('a'); a.href = e.src; a.target = '_blank'; a.rel = 'noopener noreferrer'; a.textContent = 'Ouvrir la source'; a.className = 'meta'; row.firstChild.append(a); }
+    if (e.src) { const a = document.createElement('a'); a.href = e.src; a.target = '_blank'; a.rel = 'noopener noreferrer'; a.textContent = 'Open the source'; a.className = 'meta'; row.firstChild.append(a); }
     ul.append(row);
   }
 }
@@ -1236,30 +1241,30 @@ function editLegal(e) {
   $('#lgId').value = e.id; $('#lgCity').value = e.city; $('#lgName').value = e.name; $('#lgPhone').value = e.phone; $('#lgSignal').checked = e.signal;
   $('#lgSrc').value = e.src || ''; $('#lgSrcDate').value = e.srcDate || ''; lgPos = { lat: e.lat, lng: e.lng };
   $('#lgPos').textContent = 'Position : ' + e.lat.toFixed(3) + ', ' + e.lng.toFixed(3);
-  $('#legalFormTitle').textContent = 'Modifier : ' + e.city; $('#lgCancel').hidden = false;
+  $('#legalFormTitle').textContent = 'Edit: ' + e.city; $('#lgCancel').hidden = false;
   $('#legalForm').scrollIntoView({ behavior: 'smooth' });
 }
-function resetLegalForm() { $('#legalForm').reset(); $('#lgId').value = ''; lgPos = null; $('#lgPos').textContent = 'Position : pas encore placée.'; $('#legalFormTitle').textContent = 'Ajouter une legal team'; $('#lgCancel').hidden = true; }
+function resetLegalForm() { $('#legalForm').reset(); $('#lgId').value = ''; lgPos = null; $('#lgPos').textContent = 'Position: not placed yet.'; $('#legalFormTitle').textContent = 'Add a legal team'; $('#lgCancel').hidden = true; }
 $('#lgCancel').onclick = resetLegalForm;
 $('#lgFind').onclick = async () => {
   try {
     const r = await fetch('/api/geocode?q=' + encodeURIComponent($('#lgCity').value)).then(r => r.json());
-    if (!Array.isArray(r) || !r.length) return ($('#lgPos').textContent = 'Ville introuvable, précise le nom.');
+    if (!Array.isArray(r) || !r.length) return ($('#lgPos').textContent = 'City not found, give a more precise name.');
     lgPos = { lat: r[0].lat, lng: r[0].lng }; $('#lgPos').textContent = 'Position : ' + r[0].name + ' (' + r[0].lat.toFixed(3) + ', ' + r[0].lng.toFixed(3) + ')';
   } catch { $('#lgPos').textContent = 'Recherche indisponible.'; }
 };
 $('#legalForm').addEventListener('submit', async ev => {
   ev.preventDefault();
-  if (!lgPos) return ($('#lgPos').textContent = 'Place d’abord la ville (bouton « Placer la ville »).');
+  if (!lgPos) return ($('#lgPos').textContent = 'Place the city first (“Place the city” button).');
   const body = { city: $('#lgCity').value, name: $('#lgName').value, phone: $('#lgPhone').value, signal: $('#lgSignal').checked,
     src: $('#lgSrc').value, srcDate: $('#lgSrcDate').value || null, lat: lgPos.lat, lng: lgPos.lng };
   if ($('#lgId').value) body.id = $('#lgId').value;
   try { await api('/api/admin/legal', { method: 'POST', body: JSON.stringify(body) }); resetLegalForm(); loadLegal(); loadBadges(); } catch (e) { alertMsg(e.message); }
 });
 $('#legalWatchNow').onclick = async () => {
-  const b = $('#legalWatchNow'); b.disabled = true; b.textContent = 'Relecture en cours…';
+  const b = $('#legalWatchNow'); b.disabled = true; b.textContent = 'Checking…';
   try { await api('/api/admin/legal-watch', { method: 'POST', body: '{}' }); } catch (e) { alertMsg(e.message); }
-  b.disabled = false; b.textContent = 'Relire les sources maintenant'; loadLegal(); loadBadges();
+  b.disabled = false; b.textContent = 'Check sources now'; loadLegal(); loadBadges();
 };
 
 // ---- Demandes d'accès orga ----
@@ -1267,18 +1272,18 @@ async function loadRequests() {
   let d; try { d = await api('/api/admin/orga-requests'); } catch (e) { return; }
   const ul = $('#reqList'); ul.textContent = '';
   $('#reqCount').textContent = '(' + d.list.length + ')'; $('#reqBadge').textContent = d.list.length || '';
-  if (!d.list.length) return empty(ul, 'Aucune demande en attente.');
+  if (!d.list.length) return empty(ul, 'No pending request.');
   for (const r of d.list) {
-    const inv = btn('Créer l’invitation');
+    const inv = btn('Create invitation');
     inv.onclick = async () => { $('#orgaLabel').value = r.collective; $('#orgaForm').requestSubmit();
       try { await api('/api/admin/orga-requests/' + r.id, { method: 'DELETE' }); } catch {} loadRequests(); };
     const del = btn('Refuser', 'danger');
-    confirmBtn(del, 'Confirmer', async () => { await api('/api/admin/orga-requests/' + r.id, { method: 'DELETE' }); loadRequests(); });
+    confirmBtn(del, 'Confirm', async () => { await api('/api/admin/orga-requests/' + r.id, { method: 'DELETE' }); loadRequests(); });
     const meta = [r.role, r.city, 'canal : ' + r.contact, r.since ? 'depuis ' + r.since : null, r.sponsor ? 'garant : ' + r.sponsor : null,
-      new Date(r.t).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' })].filter(Boolean).join(' · ');
+      new Date(r.t).toLocaleDateString('en-US', { day: 'numeric', month: 'short' })].filter(Boolean).join(' · ');
     const row = li(r.collective, meta, inv, del);
     const a = document.createElement('a'); a.href = r.link; a.target = '_blank'; a.rel = 'noopener noreferrer'; a.textContent = r.link; a.className = 'meta'; row.firstChild.append(a);
-    if (r.note) { const n = document.createElement('div'); n.className = 'meta'; n.textContent = '« ' + r.note + ' »'; row.firstChild.append(n); }
+    if (r.note) { const n = document.createElement('div'); n.className = 'meta'; n.textContent = '“' + r.note + '”'; row.firstChild.append(n); }
     ul.append(row);
   }
 }
@@ -1289,13 +1294,13 @@ $('#joinLinkForm').addEventListener('submit', e => {
   if (window.qrcode) { const q = qrcode(0, 'M'); q.addData(url); q.make(); $('#joinQr').innerHTML = q.createSvgTag({ cellSize: 6, margin: 3, scalable: true }); }
   $('#joinLinkOut').hidden = false;
 });
-$('#joinCopy').onclick = async () => { try { await navigator.clipboard.writeText($('#joinUrl').textContent); alertMsg('Lien copié.'); } catch {} };
+$('#joinCopy').onclick = async () => { try { await navigator.clipboard.writeText($('#joinUrl').textContent); alertMsg('Link copied.'); } catch {} };
 
 // ---- Stories Instagram du digest ----
 let stBlobs = [];
 $('#stMake').onclick = async () => {
   if (!dg) return;
-  const b = $('#stMake'); b.disabled = true; b.textContent = 'Fabrication…';
+  const b = $('#stMake'); b.disabled = true; b.textContent = 'Making…';
   try {
     stBlobs = await window.makeStories(dg, { cover: $('#stCover').files[0], end: $('#stEnd').files[0], brand: brand.handle });
     const out = $('#stOut'); out.textContent = '';
@@ -1303,9 +1308,9 @@ $('#stMake').onclick = async () => {
     $('#stActions').hidden = false;
     $('#stShare').hidden = !(navigator.canShare && navigator.canShare({ files: [new File([stBlobs[0]], 'a.png', { type: 'image/png' })] }));
   } catch (e) { alertMsg('Stories : ' + e.message); }
-  b.disabled = false; b.textContent = 'Fabriquer les stories';
+  b.disabled = false; b.textContent = 'Make the stories';
 };
-const stFiles = () => stBlobs.map((bl, i) => new File([bl], `cortege-${dg.date}-${i + 1}.png`, { type: 'image/png' }));
+const stFiles = () => stBlobs.map((bl, i) => new File([bl], `community-defense-map-${dg.date}-${i + 1}.png`, { type: 'image/png' }));
 $('#stShare').onclick = () => navigator.share({ files: stFiles() }).catch(() => {});
 $('#stSave').onclick = () => stFiles().forEach((f, i) => setTimeout(() => {
   const a = document.createElement('a'); a.href = URL.createObjectURL(f); a.download = f.name; document.body.append(a); a.click(); a.remove();
@@ -1314,21 +1319,21 @@ $('#stSave').onclick = () => stFiles().forEach((f, i) => setTimeout(() => {
 // ---- Page publique du jour ----
 function pubUi() {
   if (!dg) return;
-  $('#pubState').textContent = dg.published ? 'Publiée : ' + location.origin + '/manif/' + dg.date : 'Pas encore publiée.';
-  $('#pubBtn').textContent = dg.published ? 'Mettre à jour la page' : 'Publier la page publique';
+  $('#pubState').textContent = dg.published ? 'Published: ' + location.origin + '/manif/' + dg.date : 'Not published yet.';
+  $('#pubBtn').textContent = dg.published ? 'Update the page' : 'Publish the public page';
   $('#pubLink').hidden = !dg.published; $('#pubLink').href = '/manif/' + dg.date;
   let un = document.getElementById('pubDel');
-  if (dg.published && !un) { un = btn('Retirer la page', 'danger'); un.id = 'pubDel'; un.type = 'button'; $('#pubBtn').after(un);
-    confirmBtn(un, 'Confirmer', async () => { await api('/api/admin/publish/' + dg.date, { method: 'DELETE' }); dg.published = false; un.remove(); pubUi(); }); }
+  if (dg.published && !un) { un = btn('Take the page down', 'danger'); un.id = 'pubDel'; un.type = 'button'; $('#pubBtn').after(un);
+    confirmBtn(un, 'Confirm', async () => { await api('/api/admin/publish/' + dg.date, { method: 'DELETE' }); dg.published = false; un.remove(); pubUi(); }); }
   if (!dg.published && un) un.remove();
 }
 $('#pubBtn').onclick = async () => {
   if (!dg) return;
-  try { await api('/api/admin/publish/' + dg.date, { method: 'POST', body: '{}' }); dg.published = true; pubUi(); alertMsg('Page publiée.'); } catch (e) { alertMsg(e.message); }
+  try { await api('/api/admin/publish/' + dg.date, { method: 'POST', body: '{}' }); dg.published = true; pubUi(); alertMsg('Page published.'); } catch (e) { alertMsg(e.message); }
 };
 // ==== 2.2 ====
-const fmtN = n => Number(n || 0).toLocaleString('fr-FR');
-const dayLong = d => new Date(d + 'T12:00:00Z').toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' });
+const fmtN = n => Number(n || 0).toLocaleString('en-US');
+const dayLong = d => new Date(d + 'T12:00:00Z').toLocaleDateString('en-US', { weekday: 'long', day: 'numeric', month: 'long', timeZone: 'UTC' });
 const dur = s => s < 3600 ? Math.round(s / 60) + ' min' : s < 86400 ? Math.floor(s / 3600) + ' h ' + String(Math.round(s % 3600 / 60)).padStart(2, '0') : Math.floor(s / 86400) + ' j ' + Math.floor(s % 86400 / 3600) + ' h';
 const kv = (dl, rows) => { dl.textContent = ''; for (const [k, v] of rows) { const dt = document.createElement('dt'), dd = document.createElement('dd'); dt.textContent = k; dd.textContent = v; dl.append(dt, dd); } };
 const kpi = (n, label) => { const d = document.createElement('div'); d.className = 'kpi'; const b = document.createElement('b'); b.textContent = n; const sp = document.createElement('span'); sp.textContent = label; d.append(b, sp); return d; };
@@ -1338,10 +1343,10 @@ function pubPrompt(list) {
   const ul = $('#pubPromptList'); ul.textContent = '';
   $('#pubPrompt').hidden = !list.length;
   for (const m of list) {
-    const go = btn('Publier le bilan'), see = btn('Voir le digest', 'ghost');
-    go.onclick = async () => { try { const r = await api('/api/admin/publish/' + m.date, { method: 'POST', body: '{}' }); alertMsg('Bilan publié : ' + location.origin + r.url); loadBadges(); } catch (e) { alertMsg(e.message); } };
+    const go = btn('Publish the summary'), see = btn('See the digest', 'ghost');
+    go.onclick = async () => { try { const r = await api('/api/admin/publish/' + m.date, { method: 'POST', body: '{}' }); alertMsg('Summary published: ' + location.origin + r.url); loadBadges(); } catch (e) { alertMsg(e.message); } };
     see.onclick = () => { $('#tabDigest').click(); $('#date').value = m.date; $('#form').requestSubmit(); };
-    ul.append(li(m.title, dayLong(m.date) + ' · les chiffres de la page publique sont figés au moment de la publication', see, go));
+    ul.append(li(m.title, dayLong(m.date) + ' · the public page’s figures are frozen when it is published', see, go));
   }
 }
 
@@ -1353,37 +1358,37 @@ async function loadLive() {
   let d; try { d = await api('/api/admin/live'); } catch (e) { alertMsg(e.message); return; }
   const k = $('#liveKpis'); k.textContent = '';
   const last15 = d.perMin.reduce((a, b) => a + b, 0);
-  k.append(kpi(fmtN(d.active), 'signalements actifs'), kpi(fmtN(last15), 'nouveaux en 15 min'), kpi(fmtN(d.contested), 'à vérifier'),
-    kpi(fmtN(d.streams), 'téléphones en temps réel'), kpi(fmtN(d.push.subs), 'abonnés aux notifications'));
+  k.append(kpi(fmtN(d.active), 'active reports'), kpi(fmtN(last15), 'new in 15 min'), kpi(fmtN(d.contested), 'to review'),
+    kpi(fmtN(d.streams), 'phones on live updates'), kpi(fmtN(d.push.subs), 'notification subscribers'));
   const box = $('#livePerMin'); box.textContent = '';
   const max = Math.max(1, ...d.perMin);
   d.perMin.forEach((n, i) => { const b = document.createElement('div'); b.style.height = Math.max(2, n / max * 100) + '%'; if (!n) b.className = 'zero'; b.title = (14 - i) + ' min : ' + n; box.append(b); });
   const st = [];
-  if (d.mob) st.push('Journée prévue aujourd’hui : ' + d.mob.title);
-  st.push(d.strict ? 'Mode renforcé jusqu’à ' + hhmm(d.strict) : 'Mode renforcé : non');
-  st.push(d.paused ? 'Signalements en pause jusqu’à ' + hhmm(d.paused) : 'Signalements ouverts');
+  if (d.mob) st.push('Day planned today: ' + d.mob.title);
+  st.push(d.strict ? 'Strict mode until ' + hhmm(d.strict) : 'Strict mode: off');
+  st.push(d.paused ? 'Reporting paused until ' + hhmm(d.paused) : 'Reporting open');
   $('#liveState').textContent = st.join(' · ');
   const p = d.push, rate = p.sent ? Math.round(p.ok / p.sent * 100) + ' %' : '—';
   kv($('#livePush'), [
-    ['Abonnés', `${fmtN(p.subs)} (annonces urgentes : ${fmtN(p.urg)}, dangers près de soi : ${fmtN(p.near)})`],
-    ['Envoyées', `${fmtN(p.sent)} depuis ${dur(Math.round((d.now - p.since) / 1000))}`],
-    ['Reçues par le service', `${fmtN(p.ok)} (${rate})`], ['Expirées', fmtN(p.gone)],
-    ['Échecs', fmtN(p.fail) + (Object.keys(p.codes).length ? ' · codes ' + Object.entries(p.codes).map(([c, n]) => (c === '0' ? 'sans réponse' : c) + ' ×' + n).join(', ') : '')],
-    ['En file', `${p.queue} en attente, ${p.running} en cours`],
-    ['Dernière erreur', p.lastErr ? `${hhmm(p.lastErr.t)} · ${p.lastErr.host} · ${p.lastErr.code || 'pas de réponse'} · ${p.lastErr.msg || ''}` : 'aucune'],
+    ['Subscribers', `${fmtN(p.subs)} (urgent announcements: ${fmtN(p.urg)}, dangers nearby: ${fmtN(p.near)})`],
+    ['Sent', `${fmtN(p.sent)} in ${dur(Math.round((d.now - p.since) / 1000))}`],
+    ['Accepted by the service', `${fmtN(p.ok)} (${rate})`], ['Expired', fmtN(p.gone)],
+    ['Failures', fmtN(p.fail) + (Object.keys(p.codes).length ? ' · codes ' + Object.entries(p.codes).map(([c, n]) => (c === '0' ? 'no answer' : c) + ' ×' + n).join(', ') : '')],
+    ['En file', `${p.queue} queued, ${p.running} running`],
+    ['Last error', p.lastErr ? `${hhmm(p.lastErr.t)} · ${p.lastErr.host} · ${p.lastErr.code || 'no answer'} · ${p.lastErr.msg || ''}` : 'none'],
   ]);
   const bl = $('#liveBatches'); bl.textContent = '';
-  for (const b of p.batches) bl.append(li(`${b.kind} : ${b.n} envoi(s)`, `${hhmm(b.t)} · ${b.ok} reçue(s), ${b.gone} expirée(s), ${b.fail} échec(s)` + (b.fail ? ' ' + JSON.stringify(b.codes) : '')));
+  for (const b of p.batches) bl.append(li(`${b.kind}: ${b.n} sent`, `${hhmm(b.t)} · ${b.ok} accepted, ${b.gone} expired, ${b.fail} failed` + (b.fail ? ' ' + JSON.stringify(b.codes) : '')));
   const sy = d.sys;
   kv($('#liveSys'), [
     ['Version', d.version], ['En ligne depuis', dur(sy.uptime)],
-    ['Charge (1, 5, 15 min)', sy.load.join(' · ') + ` pour ${sy.cpus} cœurs`],
-    ['Mémoire libre', sy.mem ? `${sy.mem.free} % (${fmtN(sy.mem.mb)} Mo)` : '—'], ['Mémoire de Community Defense Map', sy.rss + ' Mo'],
+    ['Load (1, 5, 15 min)', sy.load.join(' · ') + ` for ${sy.cpus} cores`],
+    ['Free memory', sy.mem ? `${sy.mem.free}% (${fmtN(sy.mem.mb)} MB)` : '—'], ['Community Defense Map memory', sy.rss + ' MB'],
     ['Disque libre', sy.disk ? `${sy.disk.free} % (${String(sy.disk.gb).replace('.', ',')} Go)` : '—'],
     ['Serveur', (d.up != null ? `en marche depuis ${d.up < 3600 ? Math.round(d.up / 60) + ' min' : d.up < 172800 ? Math.round(d.up / 3600) + ' h' : Math.round(d.up / 86400) + ' j'}` : '—')
-      + (d.crash && Date.now() - d.crash.t < 7 * 864e5 ? ` · ⚠ dernier plantage le ${dayFr(d.crash.t)} à ${hhmm(d.crash.t)} : ${d.crash.msg}${d.crash.at ? ' (' + d.crash.at + ')' : ''}` : '')],
-    ['Retard de Node', d.load ? `${d.load.lagMs} ms` + (d.load.lagMs > 500 ? ' (surchargé : seul l’essentiel passe)' : '') : '—'],
-    ['Refusées depuis le démarrage', d.load ? `${fmtN(d.load.shed)} par surcharge · ${fmtN(d.load.flood)} rafales d’une même adresse` : '—'],
+      + (d.crash && Date.now() - d.crash.t < 7 * 864e5 ? ` · ⚠ last crash ${dayFr(d.crash.t)} at ${hhmm(d.crash.t)}: ${d.crash.msg}${d.crash.at ? ' (' + d.crash.at + ')' : ''}` : '')],
+    ['Node event-loop lag', d.load ? `${d.load.lagMs} ms` + (d.load.lagMs > 500 ? ' (overloaded: only essentials get through)' : '') : '—'],
+    ['Refused since start', d.load ? `${fmtN(d.load.shed)} for overload · ${fmtN(d.load.flood)} bursts from one address` : '—'],
   ]);
   liveTimer = setTimeout(loadLive, 10000);
 }
@@ -1393,14 +1398,14 @@ document.addEventListener('visibilitychange', () => { if (!document.hidden && !$
 // ---- Modération ----
 // Explication en clair de chaque raison (calculée par le serveur)
 const MOD_WHY = {
-  contested: r => `Contesté : ${r.down} ${r.down > 1 ? 'personnes disent' : 'personne dit'} que ce n’est plus là. Si c’est toujours vrai, « C’est vrai » le remet ; sinon, retire-le.`,
-  down: r => `${r.down} « Plus là », pas encore assez pour le contester. Rien d’urgent.`,
-  series: () => 'Danger signalé près d’une zone calme par un téléphone qui en a signalé près de plusieurs zones calmes en peu de temps. Peut-être une tentative de faire fuir les gens d’un endroit sûr.',
-  new: () => 'Pas encore confirmé : envoyé par un téléphone tout récent pendant le mode manif renforcé. Il s’affiche avec la mention « Pas encore confirmé ». Rien à faire, sauf si tu sais qu’il est faux.',
-  isolated: () => 'Isolé : aucun autre signalement à moins de 500 km. Souvent un test ou une position fausse.',
-  abroad: () => 'Hors de France : visible sur la carte en direct, mais pas compté dans les bilans.',
+  contested: r => `Contested: ${r.down} ${r.down > 1 ? 'people say' : 'person says'} it’s no longer there. If it’s still true, “It’s true” puts it back; otherwise remove it.`,
+  down: r => `${r.down} “Gone”, not yet enough to contest it. Nothing urgent.`,
+  series: () => 'Danger reported near a calm area by a phone that reported dangers near several calm areas in a short time. Possibly an attempt to push people out of a safe place.',
+  new: () => 'Not confirmed yet: sent by a brand-new phone during strict mode. It shows with the note “Not confirmed yet”. Nothing to do, unless you know it is false.',
+  isolated: () => 'Isolated: no other report within 500 km. Often a test or a wrong position.',
+  abroad: () => 'Outside the service area: visible on the live map, but not counted in summaries.',
 };
-const MOD_TAG = { 1: ['Urgent', 'var(--fdo)'], 2: ['À regarder', 'var(--danger)'], 3: ['À regarder', 'var(--danger)'], 4: ['Info', 'var(--info)'], 5: ['Info', 'var(--muted, #888)'] };
+const MOD_TAG = { 1: ['Urgent', 'var(--fdo)'], 2: ['Look at it', 'var(--danger)'], 3: ['Look at it', 'var(--danger)'], 4: ['Info', 'var(--info)'], 5: ['Info', 'var(--muted, #888)'] };
 let modData = [];
 function renderMod() {
   const city = $('#modCity').value, type = $('#modType').value, low = $('#modLow').checked;
@@ -1409,20 +1414,20 @@ function renderMod() {
   const nLow = modData.filter(r => r.low).length;
   $('#modLowN').textContent = nLow ? `(${nLow})` : '';
   $('#modCount').textContent = '(' + modData.filter(r => !r.low).length + ')';
-  if (!list.length) return empty(ul, modData.length ? 'Rien avec ces filtres.' : 'Rien à vérifier.');
+  if (!list.length) return empty(ul, modData.length ? 'Nothing with these filters.' : 'Nothing to review.');
   for (const r of list) {
     const c = CATS[r.cat] || { glyph: '•', label: r.cat };
-    const keep = btn('C’est vrai', 'ghost'), ver = btn('Vérifier'), del = btn('Retirer', 'danger');
+    const keep = btn('It’s true', 'ghost'), ver = btn('Verify'), del = btn('Remove', 'danger');
     keep.onclick = async () => { try { await api(`/api/admin/reports/${r.id}/keep`, { method: 'POST', body: '{}' }); loadMod(); loadBadges(); } catch (e) { alertMsg(e.message); } };
     ver.onclick = async () => { try { await api(`/api/admin/reports/${r.id}/verify`, { method: 'POST', body: '{}' }); loadMod(); loadBadges(); } catch (e) { alertMsg(e.message); } };
-    confirmBtn(del, 'Confirmer', async () => { await api('/api/admin/reports/' + r.id, { method: 'DELETE' }); loadMod(); loadBadges(); });
+    confirmBtn(del, 'Confirm', async () => { await api('/api/admin/reports/' + r.id, { method: 'DELETE' }); loadMod(); loadBadges(); });
     const l = li(`${c.glyph} ${c.label}${r.ver ? ' ✓ ' + r.ver : ''} · ${r.place}`,
-      `signalé il y a ${Math.round((Date.now() - r.t) / 60000)} min · ${r.up + 1} personne(s)${r.note ? ' · « ' + r.note + ' »' : ''}`, keep, ver, del);
+      `reported ${Math.round((Date.now() - r.t) / 60000)} min ago · ${r.up + 1} person(s)${r.note ? ' · “' + r.note + '”' : ''}`, keep, ver, del);
     const [tag, col] = MOD_TAG[r.prio] || MOD_TAG[4];
     const t = document.createElement('b'); t.textContent = tag + ' '; t.style.color = col;
     l.querySelector('b').prepend(t);
     for (const w of r.why) { const p = document.createElement('p'); p.className = 'fine'; p.style.margin = '4px 0 0'; p.textContent = (MOD_WHY[w] || (() => w))(r); l.querySelector('.meta').append(p); }
-    const a = document.createElement('a'); a.href = `https://www.openstreetmap.org/?mlat=${r.lat}&mlon=${r.lng}#map=17/${r.lat}/${r.lng}`; a.target = '_blank'; a.rel = 'noopener'; a.textContent = 'voir sur une carte'; a.style.color = 'var(--accent)';
+    const a = document.createElement('a'); a.href = `https://www.openstreetmap.org/?mlat=${r.lat}&mlon=${r.lng}#map=17/${r.lat}/${r.lng}`; a.target = '_blank'; a.rel = 'noopener'; a.textContent = 'see on a map'; a.style.color = 'var(--accent)';
     l.querySelector('.meta').append(a);
     ul.append(l);
   }
@@ -1448,24 +1453,24 @@ async function loadMobs() {
   $('#mobDate').min = d.today;
   pubPrompt(d.toPublish); $('#mobBadge').textContent = d.toPublish.length || '';
   const ul = $('#mobList'); ul.textContent = '';
-  if (!d.list.length) return empty(ul, 'Aucune journée prévue.');
+  if (!d.list.length) return empty(ul, 'No day planned.');
   for (const m of d.list) {
-    const ed = btn('Modifier', 'ghost'), del = btn('Supprimer', 'danger');
+    const ed = btn('Edit', 'ghost'), del = btn('Delete', 'danger');
     ed.onclick = () => { mobEdit = m.id; $('#mobDate').value = m.date; $('#mobTitle').value = m.title; $('#mobEve').value = m.eve || ''; $('#mobPush').checked = m.push; $('#mobStrict').checked = m.strict;
-      $('#mobSave').textContent = 'Enregistrer'; $('#mobCancel').hidden = false; $('#mobForm').scrollIntoView({ behavior: 'smooth' }); };
-    confirmBtn(del, 'Confirmer', async () => { await api('/api/admin/mobs/' + m.id, { method: 'DELETE' }); loadMobs(); });
+      $('#mobSave').textContent = 'Save'; $('#mobCancel').hidden = false; $('#mobForm').scrollIntoView({ behavior: 'smooth' }); };
+    confirmBtn(del, 'Confirm', async () => { await api('/api/admin/mobs/' + m.id, { method: 'DELETE' }); loadMobs(); });
     const past = m.date < d.today, today = m.date === d.today;
-    const st = [m.push ? (m.eveSent ? 'notification envoyée' : 'notification la veille à 20 h') : 'sans notification',
-      m.strict ? (m.strictSet ? 'mode renforcé lancé' : 'mode renforcé le jour J') : 'sans mode renforcé', past ? (m.published ? 'bilan publié' : 'bilan pas encore publié') : ''].filter(Boolean).join(' · ');
-    ul.append(li((today ? '● Aujourd’hui · ' : '') + dayLong(m.date) + ' · ' + m.title, st, ...(past ? [del] : [ed, del])));
+    const st = [m.push ? (m.eveSent ? 'notification sent' : 'notification the evening before at 8 p.m.') : 'no notification',
+      m.strict ? (m.strictSet ? 'strict mode started' : 'strict mode on the day') : 'no strict mode', past ? (m.published ? 'summary published' : 'summary not published yet') : ''].filter(Boolean).join(' · ');
+    ul.append(li((today ? '● Today · ' : '') + dayLong(m.date) + ' · ' + m.title, st, ...(past ? [del] : [ed, del])));
   }
 }
-const mobReset = () => { mobEdit = null; $('#mobForm').reset(); $('#mobSave').textContent = 'Prévoir la journée'; $('#mobCancel').hidden = true; };
+const mobReset = () => { mobEdit = null; $('#mobForm').reset(); $('#mobSave').textContent = 'Plan the day'; $('#mobCancel').hidden = true; };
 $('#mobCancel').onclick = mobReset;
 $('#mobForm').addEventListener('submit', async e => {
   e.preventDefault();
   const body = { date: $('#mobDate').value, title: $('#mobTitle').value, eve: $('#mobEve').value, push: $('#mobPush').checked, strict: $('#mobStrict').checked };
-  try { await api('/api/admin/mobs' + (mobEdit ? '/' + mobEdit : ''), { method: 'POST', body: JSON.stringify(body) }); alertMsg(mobEdit ? 'Journée modifiée.' : 'Journée prévue.'); mobReset(); loadMobs(); }
+  try { await api('/api/admin/mobs' + (mobEdit ? '/' + mobEdit : ''), { method: 'POST', body: JSON.stringify(body) }); alertMsg(mobEdit ? 'Day updated.' : 'Day planned.'); mobReset(); loadMobs(); }
   catch (err) { alertMsg(err.message); }
 });
 $('#tabMobs').onclick = () => { showTab('Mobs'); loadMobs(); };
@@ -1477,26 +1482,26 @@ async function loadPlaces(search = false) {
   const qs = new URLSearchParams({ q: $('#plQ').value.trim(), kind: $('#plKind').value, filter: $('#plFilter').value });
   let d; try { d = await api('/api/admin/places?' + (search ? qs : '')); } catch (e) { alertMsg(e.message); return; }
   if (!Object.keys(plKinds).length) {
-    d.kinds.forEach(k => { plKinds[k.id] = k; $('#plKind').append(new Option(k.glyph + ' ' + k.label, k.id)); $('#plAddKind').append(new Option(k.glyph + ' ' + k.label, k.id)); });
+    d.kinds.map(tlx).forEach(k => { plKinds[k.id] = k; $('#plKind').append(new Option(k.glyph + ' ' + k.label, k.id)); $('#plAddKind').append(new Option(k.glyph + ' ' + k.label, k.id)); });
   }
   const L0 = d.last;
   const R0 = d.running || d.paused;
-  const GB = n => (n / 1e9).toLocaleString('fr-FR', { maximumFractionDigits: 2 }) + ' Go';
-  const osmStep = R => R.step === 'téléchargement' ? `téléchargement de la copie d’OpenStreetMap${R.parts > 1 ? ` (${R.part} / ${R.parts})` : ''} : ${GB(R.done || 0)}${R.total ? ' / ' + GB(R.total) + ` (${Math.floor((R.done || 0) / R.total * 100)} %)` : ''}`
-    : R.step === 'extraction' ? 'extraction des lieux, des caméras et des contours de communes (quelques minutes, en priorité basse)' : `enregistrement : ${fmtN(R.n || 0)} lieux et caméras${R.communes ? `, ${fmtN(R.communes)} communes` : ''}`;
-  $('#plState').textContent = d.running && R0.src === 'osm' ? `Mise à jour en cours, ${osmStep(R0)}.`
-    : d.paused && R0.src === 'osm' ? 'Mise à jour interrompue (redémarrage du serveur). Elle recommence toute seule dans les minutes qui suivent, ou avec le bouton.'
-    : d.running && R0.src === 'carte' ? `Lecture de la carte du serveur : ${fmtN(R0.done || 0)} / ${R0.total ? fmtN(R0.total) : '?'} morceaux de carte (${R0.total ? Math.floor((R0.done || 0) / R0.total * 100) : 0} %), ${fmtN(R0.n || 0)} lieux trouvés.`
-    : d.running ? `Mise à jour en cours : ${R0.done || 0} / ${R0.total || '?'} zones, ${fmtN(R0.n || 0)} lieux trouvés${R0.errs ? `, ${R0.errs} zone(s) en échec` : ''}.`
-      + (R0.cur ? ` Demande en cours à ${R0.cur.host} depuis ${Math.round((Date.now() - R0.cur.since) / 1000)} s.` : '') + (R0.err ? ` Dernière erreur : ${R0.err}.` : '')
-    : d.paused ? `Mise à jour interrompue à ${R0.done} / ${R0.total} zones (redémarrage du serveur). Elle reprend toute seule dans les minutes qui suivent, ou avec le bouton.` + (R0.err ? ` Dernière erreur : ${R0.err}.` : '')
-    : L0 ? `Dernière mise à jour : ${dayFr(L0.t)} à ${hhmm(L0.t)} · ${fmtN(L0.n)} lieux${L0.src === 'carte' ? ' lus dans la carte du serveur' : L0.src === 'osm' ? ' et caméras, depuis la copie complète d’OpenStreetMap (Geofabrik)' : ''}${L0.communes ? `, ${fmtN(L0.communes)} contours de communes (bilans par commune)` : ''}${L0.errs && L0.src === 'osm' ? ` · échec : ${L0.err}` : L0.errs ? ` · ${L0.errs} zone(s) en échec (${L0.err || 'serveur OpenStreetMap indisponible'}), relance plus tard` : ''}.`
-    : 'Pas encore importés.' + (d.auto ? ' Premier import automatique deux minutes après le démarrage.' : '');
+  const GB = n => (n / 1e9).toLocaleString('en-US', { maximumFractionDigits: 2 }) + ' GB';
+  const osmStep = R => R.step === 'téléchargement' ? `downloading the OpenStreetMap copy${R.parts > 1 ? ` (${R.part} / ${R.parts})` : ''}: ${GB(R.done || 0)}${R.total ? ' / ' + GB(R.total) + ` (${Math.floor((R.done || 0) / R.total * 100)} %)` : ''}`
+    : R.step === 'extraction' ? 'extracting places, cameras and city outlines (a few minutes, at low priority)' : `saving: ${fmtN(R.n || 0)} places and cameras${R.communes ? `, ${fmtN(R.communes)} city outlines` : ''}`;
+  $('#plState').textContent = d.running && R0.src === 'osm' ? `Update in progress, ${osmStep(R0)}.`
+    : d.paused && R0.src === 'osm' ? 'Update interrupted (server restart). It starts again on its own within minutes, or with the button.'
+    : d.running && R0.src === 'carte' ? `Reading the server’s map: ${fmtN(R0.done || 0)} / ${R0.total ? fmtN(R0.total) : '?'} map pieces (${R0.total ? Math.floor((R0.done || 0) / R0.total * 100) : 0}%), ${fmtN(R0.n || 0)} places found.`
+    : d.running ? `Update in progress: ${R0.done || 0} / ${R0.total || '?'} areas, ${fmtN(R0.n || 0)} places found${R0.errs ? `, ${R0.errs} area(s) failed` : ''}.`
+      + (R0.cur ? ` Request to ${R0.cur.host} running for ${Math.round((Date.now() - R0.cur.since) / 1000)} s.` : '') + (R0.err ? ` Last error: ${R0.err}.` : '')
+    : d.paused ? `Update interrupted at ${R0.done} / ${R0.total} areas (server restart). It resumes on its own within minutes, or with the button.` + (R0.err ? ` Last error: ${R0.err}.` : '')
+    : L0 ? `Last update: ${dayFr(L0.t)} at ${hhmm(L0.t)} · ${fmtN(L0.n)} places${L0.src === 'carte' ? ' read from the server’s map' : L0.src === 'osm' ? ' and cameras, from the full OpenStreetMap copy (Geofabrik)' : ''}${L0.communes ? `, ${fmtN(L0.communes)} city outlines (summaries by city)` : ''}${L0.errs && L0.src === 'osm' ? ` · failed: ${L0.err}` : L0.errs ? ` · ${L0.errs} area(s) failed (${L0.err || 'OpenStreetMap server unavailable'}), try again later` : ''}.`
+    : 'Not imported yet.' + (d.auto ? ' First automatic import two minutes after start.' : '');
   $('#plImport').disabled = !!d.running;
-  $('#plImport').textContent = d.paused ? 'Reprendre la mise à jour' : d.source === 'carte' ? 'Relire les lieux dans la carte du serveur' : d.source === 'osm' ? 'Mettre à jour maintenant (téléchargement de plusieurs Go)' : 'Mettre à jour depuis OpenStreetMap';
+  $('#plImport').textContent = d.paused ? 'Resume the update' : d.source === 'carte' ? 'Reread places from the server’s map' : d.source === 'osm' ? 'Update now (several GB download)' : 'Update from OpenStreetMap';
   const bars = $('#plCounts'); bars.textContent = '';
   const max = Math.max(1, ...Object.values(d.counts));
-  for (const k of d.kinds) {
+  for (const k of d.kinds.map(tlx)) {
     const n = d.counts[k.id] || 0, row = document.createElement('div'); row.className = 'bar';
     row.innerHTML = '<span class="lbl"></span><span class="track"><span class="fill"></span></span><span class="n"></span>';
     row.querySelector('.lbl').textContent = k.glyph + ' ' + k.label; row.querySelector('.n').textContent = fmtN(n);
@@ -1508,24 +1513,24 @@ async function loadPlaces(search = false) {
 }
 function renderPlaces(list) {
   const ul = $('#plList'); ul.textContent = '';
-  if (!list.length) return empty(ul, 'Aucun lieu trouvé.');
+  if (!list.length) return empty(ul, 'No place found.');
   for (const x of list) {
     const k = plKinds[x.kind] || { glyph: '📍', label: x.kind };
-    const ed = btn('Corriger', 'ghost'), hide = btn(x.hid ? 'Réafficher' : 'Masquer', x.hid ? '' : 'danger');
+    const ed = btn('Correct', 'ghost'), hide = btn(x.hid ? 'Show again' : 'Hide', x.hid ? '' : 'danger');
     hide.onclick = async () => { try { await api('/api/admin/places/' + x.id, { method: 'POST', body: JSON.stringify({ hid: !x.hid }) }); loadPlaces(true); } catch (e) { alertMsg(e.message); } };
-    const l = li(`${k.glyph} ${x.n || k.label}${x.hid ? ' · masqué' : ''}${x.ed ? ' · corrigé' : ''}`,
-      `${k.label} · ${x.lat.toFixed(4)}, ${x.lng.toFixed(4)}${x.h ? ' · ' + x.h : ''}${x.p ? ' · ' + x.p : ''} · ${x.src === 'osm' ? 'OpenStreetMap ' + x.id : 'ajouté ici'}`, ed, hide);
+    const l = li(`${k.glyph} ${x.n || tl(k.label)}${x.hid ? ' · hidden' : ''}${x.ed ? ' · corrected' : ''}`,
+      `${tl(k.label)} · ${x.lat.toFixed(4)}, ${x.lng.toFixed(4)}${x.h ? ' · ' + x.h : ''}${x.p ? ' · ' + x.p : ''} · ${x.src === 'osm' ? 'OpenStreetMap ' + x.id : 'added here'}`, ed, hide);
     ed.onclick = () => {
       if (l.querySelector('.edit-form')) return;
       const f = document.createElement('form'); f.className = 'edit-form';
       const inp = (lab, val, max) => { const w = document.createElement('label'); w.className = 'fine'; w.textContent = lab; const i = document.createElement('input'); i.value = val || ''; i.maxLength = max; w.append(i); f.append(w); return i; };
       const sel = document.createElement('select'); Object.values(plKinds).forEach(kk => sel.append(new Option(kk.glyph + ' ' + kk.label, kk.id))); sel.value = x.kind; f.append(sel);
-      const n = inp('Nom', x.n, 80), h = inp('Horaires', x.h, 120), p = inp('Téléphone', x.p, 30), pos = inp('Position', x.lat + ', ' + x.lng, 40);
-      const save = btn('Enregistrer'); save.type = 'submit'; f.append(save);
+      const n = inp('Name', x.n, 80), h = inp('Opening hours', x.h, 120), p = inp('Phone', x.p, 30), pos = inp('Position', x.lat + ', ' + x.lng, 40);
+      const save = btn('Save'); save.type = 'submit'; f.append(save);
       f.onsubmit = async e => {
         e.preventDefault();
         const [la, lo] = pos.value.split(',').map(Number);
-        try { await api('/api/admin/places/' + x.id, { method: 'POST', body: JSON.stringify({ kind: sel.value, n: n.value, h: h.value, p: p.value, lat: la, lng: lo }) }); alertMsg('Lieu corrigé.'); loadPlaces(true); }
+        try { await api('/api/admin/places/' + x.id, { method: 'POST', body: JSON.stringify({ kind: sel.value, n: n.value, h: h.value, p: p.value, lat: la, lng: lo }) }); alertMsg('Place corrected.'); loadPlaces(true); }
         catch (err) { alertMsg(err.message); }
       };
       l.append(f); n.focus();
@@ -1534,12 +1539,12 @@ function renderPlaces(list) {
   }
 }
 $('#plSearch').addEventListener('submit', e => { e.preventDefault(); loadPlaces(true); });
-$('#plImport').onclick = async () => { $('#plImport').disabled = true; $('#plState').textContent = 'Lancement…'; try { await api('/api/admin/places/import', { method: 'POST', body: '{}' }); alertMsg('Mise à jour lancée : compter 20 à 40 minutes. Elle reprend toute seule si le serveur redémarre.'); } catch (e) { alertMsg(e.message); } loadPlaces(false); };
+$('#plImport').onclick = async () => { $('#plImport').disabled = true; $('#plState').textContent = 'Starting…'; try { await api('/api/admin/places/import', { method: 'POST', body: '{}' }); alertMsg('Update started: allow 20 to 40 minutes. It resumes on its own if the server restarts.'); } catch (e) { alertMsg(e.message); } loadPlaces(false); };
 $('#plAdd').addEventListener('submit', async e => {
   e.preventDefault();
   const [lat, lng] = $('#plAddPos').value.split(',').map(x => Number(x.trim()));
   try { await api('/api/admin/places', { method: 'POST', body: JSON.stringify({ kind: $('#plAddKind').value, n: $('#plAddName').value, lat, lng, h: $('#plAddHours').value, p: $('#plAddPhone').value }) });
-    $('#plAdd').reset(); alertMsg('Lieu ajouté.'); $('#plFilter').value = 'admin'; loadPlaces(true); }
+    $('#plAdd').reset(); alertMsg('Place added.'); $('#plFilter').value = 'admin'; loadPlaces(true); }
   catch (err) { alertMsg(err.message); }
 });
 $('#tabPlaces').onclick = () => { showTab('Places'); loadPlaces(false); };
@@ -1547,10 +1552,10 @@ $('#tabPlaces').onclick = () => { showTab('Places'); loadPlaces(false); };
 // ---- Réglages ----
 let setData = null;
 async function loadSettings() {
-  try { setData = await api('/api/admin/settings'); } catch (e) { alertMsg(e.message); return; }
+  try { setData = await api('/api/admin/settings'); setData.categories = (setData.categories || []).map(tlx); } catch (e) { alertMsg(e.message); return; }
   const s = setData.settings, df = setData.defaults;
   $('#setBanner').value = s.banner?.text || ''; $('#setFrom').value = s.banner?.from || ''; $('#setTo').value = s.banner?.to || '';
-  $('#setBannerDef').textContent = `Nom par défaut : « ${df.event} ». Sans dates, le bandeau reste affiché jusqu’à ce que tu le vides. Un jour de mobilisation prévue, son titre passe devant.`;
+  $('#setBannerDef').textContent = `Default name: “${df.event}”. Without dates, the banner stays until you clear it. On a planned day of action, its title takes precedence.`;
   $('#setLat').value = s.view ? s.view.lat : ''; $('#setLng').value = s.view ? s.view.lng : ''; $('#setZoom').value = s.view ? s.view.zoom : '';
   $('#setLat').placeholder = df.center[0]; $('#setLng').placeholder = df.center[1]; $('#setZoom').placeholder = df.zoom;
   $('#setRadius').value = s.alertRadius || ''; $('#setRadius').placeholder = df.alertRadius;
@@ -1561,8 +1566,8 @@ async function loadSettings() {
     const on = document.createElement('label'); on.className = 'check';
     const cb = document.createElement('input'); cb.type = 'checkbox'; cb.checked = !c.off; cb.dataset.cat = c.id; cb.className = 'set-on';
     on.append(cb, ' ' + c.glyph + ' ' + c.label);
-    const ttl = document.createElement('input'); ttl.type = 'number'; ttl.min = 5; ttl.max = 1440; ttl.value = c.ttl; ttl.dataset.cat = c.id; ttl.className = 'set-ttl'; ttl.setAttribute('aria-label', 'Durée en minutes : ' + c.label);
-    const base = document.createElement('span'); base.className = 'base'; base.textContent = c.ttl !== c.base ? `min (défaut ${c.base})` : 'min';
+    const ttl = document.createElement('input'); ttl.type = 'number'; ttl.min = 5; ttl.max = 1440; ttl.value = c.ttl; ttl.dataset.cat = c.id; ttl.className = 'set-ttl'; ttl.setAttribute('aria-label', 'Duration in minutes: ' + tl(c.label));
+    const base = document.createElement('span'); base.className = 'base'; base.textContent = c.ttl !== c.base ? `min (default ${c.base})` : 'min';
     box.append(on, ttl, base);
   }
 }
@@ -1576,8 +1581,8 @@ $('#setForm').addEventListener('submit', async e => {
   const body = { cats, alertRadius: num('#setRadius'), nearKm: num('#setNear'), adminLabel: $('#setAdminLabel').value.trim() };
   if ($('#setBanner').value.trim()) body.banner = { text: $('#setBanner').value, from: $('#setFrom').value, to: $('#setTo').value };
   if (num('#setLat') != null && num('#setLng') != null) body.view = { lat: num('#setLat'), lng: num('#setLng'), zoom: num('#setZoom') ?? 12 };
-  if ($('#setTo').value && $('#setFrom').value && $('#setTo').value < $('#setFrom').value) return alertMsg('La date de fin est avant la date de début.');
-  try { await api('/api/admin/settings', { method: 'POST', body: JSON.stringify(body) }); $('#setMsg').textContent = 'Enregistré à ' + hhmm(Date.now()) + '.'; loadSettings(); }
+  if ($('#setTo').value && $('#setFrom').value && $('#setTo').value < $('#setFrom').value) return alertMsg('The end date is before the start date.');
+  try { await api('/api/admin/settings', { method: 'POST', body: JSON.stringify(body) }); $('#setMsg').textContent = 'Saved at ' + hhmm(Date.now()) + '.'; loadSettings(); }
   catch (err) { alertMsg(err.message); }
 });
 $('#tabSettings').onclick = () => { showTab('Settings'); loadSettings(); };
@@ -1599,8 +1604,8 @@ $('#slotForm').addEventListener('submit', async e => {
   e.preventDefault();
   if (!dg) return;
   const from = $('#slotFrom').value, to = $('#slotTo').value, R = Math.min(5000, Math.max(100, +$('#slotR').value || 500));
-  if (to < from) { $('#slotMsg').textContent = 'L’heure de fin est avant l’heure de début.'; return; }
-  $('#slotGo').disabled = true; $('#slotMsg').textContent = 'Recherche du lieu et fabrication de l’image…';
+  if (to < from) { $('#slotMsg').textContent = 'The end time is before the start time.'; return; }
+  $('#slotGo').disabled = true; $('#slotMsg').textContent = 'Finding the place and making the image…';
   try {
     const c = await slotGeocode($('#slotPlace').value);
     c.label = c.name || $('#slotPlace').value.trim();
@@ -1610,8 +1615,8 @@ $('#slotForm').addEventListener('submit', async e => {
     const name = `cortege-${dg.date}-${from.replace(':', 'h')}-${to.replace(':', 'h')}`;
     $('#slotDl').href = $('#slotCanvas').toDataURL('image/png'); $('#slotDl').download = name + '.png';
     $('#slotActions').hidden = false;
-    $('#slotMsg').textContent = `${rows.length} signalement(s) actif(s) sur le créneau, à moins de ${R} m de « ${c.label} ».` + (nTiles ? '' : ' Fond de carte indisponible pour l’instant : réessaie dans un moment.');
-  } catch (err) { $('#slotMsg').textContent = err.message || 'Impossible de fabriquer l’image.'; }
+    $('#slotMsg').textContent = `${rows.length} active report(s) in the time slot, within ${R} m of “${c.label}”.` + (nTiles ? '' : ' Base map unavailable right now: try again in a moment.');
+  } catch (err) { $('#slotMsg').textContent = err.message || 'Couldn’t make the image.'; }
   $('#slotGo').disabled = false;
 });
 $('#slotCsv').onclick = () => {
@@ -1619,7 +1624,7 @@ $('#slotCsv').onclick = () => {
   const iso = t => new Date(t).toLocaleString('sv-SE', { timeZone: window.CDM_TZ || 'America/Chicago' }).slice(0, 16);
   const esc = v => /[;"\n]/.test(String(v)) ? '"' + String(v).replace(/"/g, '""') + '"' : String(v);
   const lines = ['debut;fin;type;famille;latitude;longitude;distance_m;confirmations;plus_la;verifie;devenir',
-    ...slotData.rows.map(r => [iso(r.t), iso(r.end), r.cat.label, SLOT_FAM[r.cat.group] || r.cat.group, r.lat, r.lng, Math.round(r.dist / 10) * 10, r.up, r.dn ?? '', r.v ? 'oui' : 'non', OUTCOME[r.o] || r.o].map(esc).join(';'))];
+    ...slotData.rows.map(r => [iso(r.t), iso(r.end), tl(r.cat.label), tl(SLOT_FAM[r.cat.group] || r.cat.group), r.lat, r.lng, Math.round(r.dist / 10) * 10, r.up, r.dn ?? '', r.v ? 'yes' : 'no', OUTCOME[r.o] || r.o].map(esc).join(';'))];
   const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob(['﻿' + lines.join('\n')], { type: 'text/csv' }));
   a.download = `cortege-${dg.date}-${slotData.from.replace(':', 'h')}-${slotData.to.replace(':', 'h')}.csv`; document.body.append(a); a.click(); a.remove();
 };
