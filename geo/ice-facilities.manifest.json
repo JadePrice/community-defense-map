@@ -12,8 +12,8 @@
   },
   "output": {
     "file": "ice-facilities.csv",
-    "sha256": "a9372d24f0b747b7a90c28548b2987b964166d94bada8160f5d530e87d643982",
-    "rows": 616
+    "sha256": "3a7879703e157cbeafec561165b90261f35ddc2ba3512eab73e54567fff0ca87",
+    "rows": 613
   },
   "types": {
     "(unknown)": 7,
@@ -28,9 +28,9 @@
     "JUVENILE": 6,
     "LOCAL POLICE DEPARTMENT": 4,
     "MOC": 1,
-    "OTHER": 13,
+    "OTHER": 8,
     "SPC": 7,
-    "STAGING": 6,
+    "STAGING": 8,
     "STATE": 1,
     "UNKNOWN": 6,
     "USBP": 1,
@@ -44,7 +44,8 @@
     "processing center from name": 1,
     "youth facility from name": 4,
     "county jail from name": 12,
-    "police from name": 2
+    "police from name": 2,
+    "staging from name": 2
   },
   "excluded": {
     "no coordinates": {
@@ -295,7 +296,7 @@
       ]
     },
     "medical (name)": {
-      "count": 30,
+      "count": 31,
       "codes": [
         "APIBHCA",
         "BAYAMPR",
@@ -316,6 +317,7 @@
         "MHMSATX",
         "MHNHHTX",
         "MHTSATX",
+        "MSTHSTX",
         "OGRMCNY",
         "PRSHANM",
         "QUEMCHI",
@@ -328,8 +330,19 @@
         "VBHOSTX",
         "WMHOSCA"
       ]
+    },
+    "medical (listed code)": {
+      "count": 2,
+      "codes": [
+        "MVPNHPA",
+        "THPSCTX"
+      ]
     }
   },
+  "medical_codes": {
+    "MVPNHPA": "Penn Highlands Clearfield, 809 Turnpike Ave, Clearfield PA: hospital of the Penn Highlands Healthcare system",
+    "THPSCTX": "THOP Sierra Campus, 1625 Medical Center Dr, El Paso TX: The Hospitals of Providence Sierra Campus"
+  },
   "repaired_text": [],
-  "generated": "2026-10-31T18:38:57+00:00"
+  "generated": "2026-10-31T19:07:40+00:00"
 }

@@ -377,12 +377,10 @@ MONTGNY,Montgomery County Jail,200 Clark Drive,Fultonville,NY,12072,Montgomery,4
 MONTGTX,Montgomery County Jail,1 Criminal Justice Dr,Conroe,TX,77301,Montgomery,30.335384,-95.452392,Houston,IGSA,IGSA,Female/Male,Over 72,0,0.0,0
 MPSIPAN,CNMI Department of Corrections,Tekken St,"Susupe, Saipan",MP,96950,Saipan,15.158179,145.707356,San Francisco,USMS IGA,USMS IGA,Female/Male,Over 72,365,16.3,27
 MSF,Miami Staging Facility,33 NE 4th St,Miami,FL,33132,Miami-Dade,25.778461,-80.193132,Miami,STAGING,STAGING,Female/Male,Under 72,312,28.2,221
-MSTHSTX,Methodist Specialty Transplant Hos,8026 Floyd Curl Dr,San Antonio,TX,78229,Bexar,29.513618,-98.576590,San Antonio,OTHER,OTHER,Female/Male,Over 72,14,0.1,1
 MSVPCPA,Moshannon Valley Processing Center,555 Geo Drive,Philipsburg,PA,16866,Clearfield,40.922608,-78.241697,Philadelphia,DIGSA,DIGSA,Female/Male,Over 72,365,1580.5,1773
 MTGHOLD,Montgomery Hold Room,806 Hilbig Road,Conroe,TX,77301,Montgomery,30.337101,-95.442699,Houston,HOLD,OTHER,Female/Male,,365,67.2,221
 MTGPCTX,Montgomery Processing Center,806 Hilbig Road,Conroe,TX,77301,Montgomery,30.337101,-95.442699,Houston,CDF,CDF,Male,Over 72,365,1243.7,1469
 MUSCAIA,Muscatine County Jail,400 Walnut Street,Muscatine,IA,52761,Muscatine,41.424339,-91.044515,St Paul,USMS IGA,USMS IGA,Female/Male,,342,20.1,46
-MVPNHPA,Penn Highlands Clearfield,809 Turnpike Ave,Clearfield,PA,16830,Clearfield,41.033404,-78.449836,Philadelphia,OTHER,OTHER,Female/Male,,23,0.1,1
 NASSAFL,Nassau County Jail,76212 Nicholas Cutinha Rd,Yulee,FL,32097,Nassau,30.622444,-81.635255,Miami,IGSA,IGSA,Female/Male,Under 72,1,0.0,4
 NASSANY,Nassau County Correctional Center,100 Carman Avenue,East Meadow,NY,11554,Nassau,40.735163,-73.552697,New York City,USMS IGA,USMS IGA,Female/Male,Under 72,340,24.7,90
 NASTRNY,Nassau County ICE Intake,100 Carman Avenue,East Meadow,NY,11554,Nassau,40.735163,-73.552697,New York City,UNKNOWN,UNKNOWN,,,208,2.8,30
@@ -467,7 +465,7 @@ RCMHOLD,Richmond Sub-Office Hold,9200 Arboretum Parkway Suite 140,North Chesterf
 RDUHOLD,Raleigh Hold Room,140 Centrewest Court,Cary,NC,27513,Wake,35.819462,-78.805300,Atlanta,HOLD,OTHER,Female/Male,Under 72,342,5.8,21
 REDHOLD,Redding Hold Room,443 Redcliff Drive,Redding,CA,96002,Shasta,40.575007,-122.362611,San Francisco,HOLD,OTHER,Female/Male,,130,0.7,7
 RGRNDTX,Rio Grande Processing Center,1001 San Rio Blvd,Laredo,TX,78046,Webb,27.377719,-99.490080,Harlingen,USMS CDF,USMS CDF,Male,Over 72,365,629.4,680
-RGS,Rio Grande Valley Staging,27991 Buena Vista Blvd,Los Fresnos,TX,78566,Cameron,26.156032,-97.337781,Harlingen,OTHER,OTHER,Female/Male,Under 72,102,1.1,15
+RGS,Rio Grande Valley Staging,27991 Buena Vista Blvd,Los Fresnos,TX,78566,Cameron,26.156032,-97.337781,Harlingen,STAGING,OTHER,Female/Male,Under 72,102,1.1,15
 RICHMVA,Richmond City Jail,1701 Fairfield Way,Richmond,VA,23223,Richmond,37.546854,-77.423004,Washington,IGSA,IGSA,Female/Male,,,,
 RICHOLD,Richland Hold Room,825 Jadwin Avenue Room G165,Richland,WA,99352,Benton,46.277541,-119.275982,Seattle,HOLD,HOLD,,,82,0.3,4
 RMKHOLD,Roanoke Sub-Office Hold Room,103 West Main Street,Salem,VA,24153,Salem,37.292515,-80.061180,Washington,HOLD,OTHER,Female/Male,,175,1.0,6
@@ -530,7 +528,7 @@ STDHOLD,South Texas/Pearsall Hold Room,566 Veterans Dr,Pearsall,TX,78061,Frio,28
 STFRCTX,Dilley Immigration Processing Center,300 El Rancho Way,Dilley,TX,78017,Frio,28.657854,-99.200388,San Antonio,FAMILY,FAMILY,Female/Male,Over 72,365,461.7,1081
 STGENMO,Ste. Genevieve County Detention Center,5 Basler Drive,Sainte Genevieve,MO,63670,Ste. Genevieve,37.966054,-90.055593,Chicago,USMS IGA,USMS IGA,Female/Male,,365,100.4,183
 STJONFL,St. John’s County Jail,3955 Lewis Speedway St.,Saint Augustine,FL,32084,St. Johns,29.940300,-81.338802,Miami,IGSA,IGSA,Female/Male,,12,0.2,23
-STK,Stockton Staging Facility,603 San Juan Avenue,Stockton,CA,95203,San Joaquin,37.953757,-121.321120,San Francisco,OTHER,OTHER,Female/Male,Under 72,302,4.1,32
+STK,Stockton Staging Facility,603 San Juan Avenue,Stockton,CA,95203,San Joaquin,37.953757,-121.321120,San Francisco,STAGING,OTHER,Female/Male,Under 72,302,4.1,32
 STLHOLD,St. Louis Hold Room,1222 Spruce Street Room 100,Saint. Louis,MO,63103,St. Louis,38.624197,-90.200489,Chicago,HOLD,OTHER,Female/Male,Under 72,352,5.8,42
 STLUCFL,St. Lucie County Jail,900 N. Rock Rd,Fort Pierce,FL,34945,St. Lucie,27.453465,-80.409441,Miami,COUNTY,COUNTY,,,82,0.5,11
 STRAFNH,Strafford County Corrections,266 County Farm Road,Dover,NH,03820,Strafford,43.217829,-70.940136,Boston,IGSA,IGSA,Female/Male,Over 72,365,134.7,176
@@ -550,7 +548,6 @@ TELLECO,Teller County Jail,288 Weaverville Road,Divide,CO,80814,Teller,38.943020
 TETONWY,Teton County Detention Center,175 S Willow St,Jackson,WY,83001,Teton,43.477950,-110.759400,Denver,USMS IGA,USMS IGA,Female/Male,Over 72,,,
 TGKJLFL,Turner Guiford Knight (Tgk) Jail,7000 NW 41st St.,Miami,FL,33166,Miami-Dade,25.810298,-80.311420,Miami,IGSA,IGSA,Female/Male,,266,12.0,43
 TGREETX,Tom Green County Jail,4382 N Us Hwy 277,San Angelo,TX,76905,Tom Green,31.497834,-100.366875,Dallas,USMS IGA,USMS IGA,Female/Male,Under 72,302,2.8,15
-THPSCTX,THOP Sierra Campus El Paso,1625 Medical Center Dr,El Paso,TX,79902,El Paso,31.777606,-106.480380,El Paso,OTHER,OTHER,Female/Male,,29,0.1,1
 TITUSTX,Titus County Jail,304 South Van Buren Avenue,Mount Pleasant,TX,75455,Titus,33.154787,-94.970938,Dallas,USMS IGA,USMS IGA,Female/Male,Under 72,131,0.8,6
 TNWESDF,West Tennessee Detention Facility,6299 Finde Naifeh Drive,Mason,TN,38049,Tipton,35.407426,-89.548611,New Orleans,DIGSA,DIGSA,Female/Male,Under 72,181,142.0,479
 TOOELUT,Tooele County Jail,1960 S Main St,Tooele,UT,84074,Tooele,40.493194,-112.332500,Salt Lake City,USMS IGA,USMS IGA,Female/Male,Under 72,303,9.6,25
