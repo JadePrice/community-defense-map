@@ -500,12 +500,15 @@ test('lieux permanents : import OpenStreetMap, fichiers par région, correction 
       const bb = q.match(/\((-?[\d.]+),(-?[\d.]+),(-?[\d.]+),(-?[\d.]+)\)/), inMadison = !!bb && +bb[1] <= 43.07 && +bb[3] >= 43.07 && +bb[2] <= -89.38 && +bb[4] >= -89.38;
       res.writeHead(200, { 'content-type': 'application/json' });
       res.end(JSON.stringify({ elements: inMadison && !fake.done ? (fake.done = true, [
-        { type: 'node', id: 1, lat: 43.0747, lon: -89.3841, tags: { amenity: 'townhall', name: 'Hôtel de ville de Lyon' } },
-        { type: 'way', id: 2, center: { lat: 43.0750, lon: -89.3850 }, tags: { office: 'government', government: 'prefecture', name: 'Préfecture du Rhône' } },
-        { type: 'node', id: 3, lat: 43.07, lon: -89.38, tags: { amenity: 'police', name: 'Gendarmerie de Lyon' } },
-        { type: 'node', id: 4, lat: 43.071, lon: -89.381, tags: { amenity: 'pharmacy', name: 'Pharmacie du Centre', opening_hours: 'Mo-Sa 09:00-19:00', phone: '+33 4 00 00 00 00' } },
+        { type: 'node', id: 1, lat: 43.0747, lon: -89.3841, tags: { amenity: 'townhall', name: 'Madison City Hall' } },
+        { type: 'way', id: 2, center: { lat: 43.0750, lon: -89.3850 }, tags: { office: 'government', government: 'legislative', name: 'Wisconsin State Capitol' } },
+        { type: 'node', id: 3, lat: 43.07, lon: -89.38, tags: { amenity: 'police', name: 'Dane County Sheriff’s Office' } },
+        { type: 'node', id: 4, lat: 43.071, lon: -89.381, tags: { amenity: 'pharmacy', name: 'Corner Pharmacy', opening_hours: 'Mo-Sa 09:00-19:00', phone: '+1 608 555 0100' } },
         { type: 'node', id: 5, lat: 43.072, lon: -89.382, tags: { amenity: 'drinking_water', access: 'private' } },
-        { type: 'node', id: 6, lat: 43.073, lon: -89.383, tags: { amenity: 'hospital', name: 'Hôpital Test', emergency: 'yes' } },
+        { type: 'node', id: 6, lat: 43.073, lon: -89.383, tags: { amenity: 'hospital', name: 'Test Hospital', emergency: 'yes' } },
+        { type: 'way', id: 7, center: { lat: 43.074, lon: -89.384 }, tags: { amenity: 'prison', name: 'Dane County Jail' } },
+        { type: 'node', id: 8, lat: 43.075, lon: -89.385, tags: { office: 'government', name: 'Field Office', operator: 'U.S. Immigration and Customs Enforcement' } },
+        { type: 'node', id: 9, lat: 43.076, lon: -89.386, tags: { man_made: 'surveillance', 'surveillance:type': 'ALPR', manufacturer: 'Flock Safety', operator: 'City of Madison', direction: '90' } },
       ]) : [] }));
     });
   }).listen(0);
@@ -519,10 +522,12 @@ test('lieux permanents : import OpenStreetMap, fichiers par région, correction 
     const A = (p, body, method = 'POST') => fetch(B2 + p, { method, headers: { 'x-admin-key': ADMIN, 'content-type': 'application/json' }, body: body && JSON.stringify(body) }).then(async r => ({ s: r.status, j: await r.json() }));
     assert.equal((await A('/api/admin/places/import', {})).s, 202);
     let st; for (let i = 0; i < 100; i++) { st = (await A('/api/admin/places?q=madison', undefined, 'GET')).j; if (!st.running && st.last) break; await new Promise(r => setTimeout(r, 100)); }
-    assert.equal(st.last.n, 5, 'eau privée ignorée');
-    assert.equal(st.counts.pref, 1); assert.equal(st.counts.gend, 1); assert.equal(st.counts.mairie, 1);
+    assert.equal(st.last.n, 8, 'eau privée ignorée');
+    for (const k of ['mairie', 'pref', 'gend', 'jail', 'cra', 'alpr', 'pharma', 'hopital']) assert.equal(st.counts[k], 1, k);
     const main = JSON.parse(fs.readFileSync(D2 + '/l/l/43_-90.json', 'utf8')).p, street = JSON.parse(fs.readFileSync(D2 + '/l/l/43_-90-s.json', 'utf8')).p;
-    assert.equal(main.length, 4); assert.equal(street.length, 1);
+    assert.equal(main.length, 6); assert.equal(street.length, 1);
+    assert.deepEqual(JSON.parse(fs.readFileSync(D2 + '/l/l/43_-90-a.json', 'utf8')).p, [['n9', 'alpr', 43.076, -89.386, 'City of Madison', 'Flock Safety', 90]], 'plate readers in their own file');
+    assert.ok(!fs.existsSync(D2 + '/l/l/43_-90-c.json'), 'no ordinary camera file');
     assert.equal(street[0][1], 'pharma'); assert.equal(street[0][5], 'Mo-Sa 09:00-19:00');
     assert.equal(main.find(x => x[1] === 'hopital')[7], 1, 'urgences');
     // Correction, masquage, ajout
@@ -538,6 +543,7 @@ test('lieux permanents : import OpenStreetMap, fichiers par région, correction 
     for (let i = 0; i < 100; i++) { st = (await A('/api/admin/places?filter=edited', undefined, 'GET')).j; if (!st.running && st.last.n === 0) break; await new Promise(r => setTimeout(r, 100)); }
     const main3 = JSON.parse(fs.readFileSync(D2 + '/l/l/43_-90.json', 'utf8')).p;
     assert.deepEqual(main3.map(x => x[1]).sort(), ['cra', 'mairie']);
+    assert.ok(!fs.existsSync(D2 + '/l/l/43_-90-a.json'), 'plate reader gone from OpenStreetMap: file removed');
     assert.ok(JSON.parse(fs.readFileSync(D2 + '/l/g.json', 'utf8')).pois);
   } finally { s2.kill(); fake.close(); fs.rmSync(D2, { recursive: true, force: true }); }
 });

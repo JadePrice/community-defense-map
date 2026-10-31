@@ -66,3 +66,17 @@ Urgences : pas indiqué. En cas d’urgence, appelle le 911.	Emergency room: not
 Check for 24-hour pharmacies nearby or call local information.	Check for 24-hour pharmacies nearby or call local information.	Busca farmacias abiertas las 24 horas cerca de ti o llama a información local.	ابحث عن صيدليات تعمل على مدار 24 ساعة بالقرب منك أو اتصل بخدمة الاستعلامات المحلية.
 ex. : Dispersion annoncée place de la Comédie, repli par le boulevard Sarrail	e.g. Dispersal announced at Civic Center Park, regroup on 5th Street	p. ej.: Dispersión anunciada en Civic Center Park, reagruparse en la calle 5	مثال: إعلان تفريق في Civic Center Park، التجمع مجددًا في الشارع الخامس
 ex. : AG à 8 h devant le portail, intersyndicale présente	e.g. Meeting at 8 a.m. at the front gate, unions attending	p. ej.: Asamblea a las 8 a. m. en la entrada principal, con sindicatos	مثال: اجتماع الساعة 8 صباحًا عند البوابة الرئيسية بحضور النقابات
+
+# Lieux : prisons et lecteurs de plaques
+Prison / maison d’arrêt	Jail	Cárcel	سجن
+Lecteur automatique de plaques	License plate reader	Lector automático de placas	قارئ آلي للوحات السيارات
+🛂 Centres de rétention	🛂 Immigration detention centers	🛂 Centros de detención migratoria	🛂 مراكز احتجاز المهاجرين
+🔒 Prisons et maisons d’arrêt	🔒 Jails and prisons	🔒 Cárceles y prisiones	🔒 السجون
+🚘 Lecteurs de plaques	🚘 License plate readers	🚘 Lectores de placas	🚘 قارئات لوحات السيارات
+Photographie les plaques des véhicules qui passent et les enregistre	Photographs and records the plates of passing vehicles	Fotografía y registra las placas de los vehículos que pasan	يصوّر لوحات المركبات المارّة ويسجّلها
+Fabricant : {m}	Manufacturer: {m}	Fabricante: {m}	الشركة المصنّعة: {m}
+Exploité par : {o}	Operated by: {o}	Operado por: {o}	تشغّله: {o}
+Orienté vers {dir}.	Facing {dir}.	Orientado hacia {dir}.	موجّه نحو {dir}.
+Recensement bénévole (OpenStreetMap, projet DeFlock) : il est incomplet. Une route sans lecteur sur la carte n’est pas forcément une route sans lecteur.	Volunteer survey (OpenStreetMap, DeFlock project): it is incomplete. A road without a reader on the map is not necessarily a road without one.	Registro voluntario (OpenStreetMap, proyecto DeFlock): está incompleto. Una calle sin lector en el mapa no es necesariamente una calle sin lector.	إحصاء تطوعي (OpenStreetMap، مشروع DeFlock): وهو غير مكتمل. الطريق الذي لا يظهر عليه قارئ في الخريطة ليس بالضرورة طريقًا بلا قارئ.
+Lecteurs automatiques de plaques d’immatriculation (ALPR), visibles au zoom quartier. Recensement bénévole, il en manque.	Automated license plate readers (ALPR), visible at neighborhood zoom. Volunteer survey, some are missing.	Lectores automáticos de placas (ALPR), visibles con zoom de barrio. Registro voluntario, faltan algunos.	قارئات لوحات السيارات الآلية (ALPR)، تظهر عند تكبير مستوى الحي. إحصاء تطوعي، وبعضها غير موجود.
+Visible au zoom quartier. Violet ; le cône montre la direction de lecture quand elle est connue. Recensement bénévole et incomplet.	Visible at neighborhood zoom. Purple; the cone shows the reading direction when known. Volunteer survey, incomplete.	Visible con zoom de barrio. Morado; el cono muestra la dirección de lectura cuando se conoce. Registro voluntario e incompleto.	يظهر عند تكبير مستوى الحي. بنفسجي؛ يبيّن المخروط اتجاه القراءة عند معرفته. إحصاء تطوعي وغير مكتمل.

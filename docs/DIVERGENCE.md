@@ -75,12 +75,29 @@ Day summaries and admin stories draw a background map from `public/story-map.jso
 
 The admin page and the stories it generates are in English, written directly in the source: `admin.html` sets `data-i18n-lang="en"`, which pins `i18n.js` to English on that page. Values the server stores in French (organizer-log actions, abuse kinds, category and place labels) are not changed; they are translated when displayed, so comparisons in the code still match. The emergency wipe now asks for ERASE (the server also still accepts EFFACER).
 
+## Permanent places (OpenStreetMap import)
+
+The monthly import now downloads one Geofabrik extract per state and territory (51 + Puerto Rico and the U.S. Virgin Islands) instead of the whole U.S. file: each is downloaded, filtered with osmium and deleted before the next, so disk use peaks at the largest state. `GEOFABRIK_URLS` still overrides the list. If one file fails, the others are imported and nothing is deleted that run, so a failed state keeps its existing places instead of losing them. Guam, American Samoa and the Northern Mariana Islands are not in Geofabrik's U.S. folder and are not imported.
+
+Rules (`poiKind()` in `server.js` for the Geofabrik and Overpass sources; `kindOf()` in `tools/pois-worker.js` for the map-file source, which only has names):
+
+| Type | Rule |
+|---|---|
+| Immigration detention (`cra`) | prison or government office whose name or operator matches Immigration and Customs Enforcement, ICE, "processing center", "immigration detention/holding" (French "rétention administrative" kept) |
+| Jail (`jail`, new) | `amenity=prison` not matched above |
+| Government office (`pref`) | `office=government` named "… State Capitol" (French prefectures kept) |
+| County government office (`spref`) | `office=government` named "… County … Government/Administration/Board/Commission" |
+| Sheriff's office (`gend`) | police whose name or operator contains "Sheriff" (French gendarmerie kept) |
+| License plate reader (`alpr`, new) | `man_made=surveillance` + `surveillance:type=ALPR` (DeFlock tagging); manufacturer and operator kept |
+
+Plate readers are published in their own region files (`live/l/<region>-a.json`) and shown from neighborhood zoom (15), with their own layer switch; ordinary cameras stay at street zoom (17). Overpass now also requests all prisons, government offices whose name or operator suggests immigration, capitol or county, and plate readers.
+
 ## Still French or France-specific (not done)
 
 Verified by reading the code:
 
 - **Report category ids** remain the French ones (`crs`, `bac`, `militaires`, `lbd`…). The labels people see are adapted (above); the ids are internal and stored in reports and archives.
-- **Place classification**: the OSM import looks for French tags (`government=prefecture`, gendarmerie names), so "Government office", "County government office", "Sheriff's office" and "Immigration detention center" are only filled by places an admin adds by hand.
+- **Place classification rules are unverified against real U.S. data.** See "Permanent places" above; the rules were written from OpenStreetMap conventions and tested only on fixtures.
 - **"Arrêtés"** (official orders) keep the French workflow: a state or, with `GEO_API`, a city, plus dates and a source link. Labels are adapted; U.S. orders (curfews, emergency declarations, permit denials) fit the shape but nothing more specific has been done.
 - **`docs/INSTALLATION.md` and `docs/FONCTIONNEMENT.md`** are upstream's French docs. Only the PMTiles region path has been updated.
 - **Free-text details in the organizer log** that the server composes (for example "retiré par …") stay in French on the admin page; action names are translated.

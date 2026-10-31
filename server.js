@@ -1763,11 +1763,14 @@ const POI_KINDS = [
   { id: 'police', label: 'Commissariat', glyph: '👮', grp: 'pouvoir' },
   { id: 'gend', label: 'Gendarmerie', glyph: '👮', grp: 'pouvoir' },
   { id: 'tribunal', label: 'Tribunal', glyph: '🔨', grp: 'pouvoir' },
-  { id: 'cra', label: 'Centre de rétention (CRA)', glyph: '🔒', grp: 'pouvoir' },
+  { id: 'cra', label: 'Centre de rétention (CRA)', glyph: '🛂', grp: 'pouvoir' },
+  { id: 'jail', label: 'Prison / maison d’arrêt', glyph: '🔒', grp: 'pouvoir' },
   { id: 'hopital', label: 'Hôpital', glyph: '🏥', grp: 'aide' },
   { id: 'pharma', label: 'Pharmacie', glyph: '💊', grp: 'aide', street: true },
   { id: 'eau', label: 'Eau potable', glyph: '🚰', grp: 'aide', street: true },
   { id: 'cam', label: 'Caméra de surveillance', glyph: '📷', grp: 'surv', cam: true },
+  // Lecteurs automatiques de plaques (ALPR, souvent Flock Safety) : fichier à part (-a), visibles plus tôt que les caméras
+  { id: 'alpr', label: 'Lecteur automatique de plaques', glyph: '🚘', grp: 'surv', cam: true, alpr: true },
 ];
 const POI = Object.fromEntries(POI_KINDS.map(k => [k.id, k]));
 db.exec(`CREATE TABLE IF NOT EXISTS pois(id TEXT PRIMARY KEY, kind TEXT, lat REAL, lng REAL, rg TEXT, data TEXT, src TEXT, hid INTEGER DEFAULT 0, ed INTEGER DEFAULT 0, seen INTEGER);
@@ -1778,17 +1781,25 @@ const OVERPASS_URL = process.env.OVERPASS_URL || 'https://overpass-api.de/api/in
 const PLACES_EVERY = 30 * 24 * 60 * MIN;
 const wait = ms => new Promise(go => setTimeout(go, ms));
 const poiRg = (lat, lng) => `${Math.floor(lat)}_${Math.floor(lng)}`;
+// Immigration detention or enforcement (ICE in the U.S., CRA in France), by name or operator
+const IMMIGRATION_RE = /r[ée]tention administrative|immigration and customs enforcement|\bICE\b|\bprocessing cent(er|re)\b|immigration (detention|holding)/i;
 function poiKind(t) {
-  const name = t.name || '';
+  const name = t.name || '', who = name + ' ' + (t.operator || '');
   // Caméras qui filment la rue (publiques, ou privées tournées vers l'extérieur) ; pas les caméras intérieures ni les vigiles
   if (t.man_made === 'surveillance') {
-    if (t.surveillance === 'indoor' || /^(guard|mobile)$/.test(t['surveillance:type'] || '')) return null;
+    const st = t['surveillance:type'] || '';
+    if (/^alpr$/i.test(st)) return 'alpr'; // License plate readers (tagged by the DeFlock project), indoor or not
+    if (t.surveillance === 'indoor' || /^(guard|mobile)$/.test(st)) return null;
     return 'cam';
   }
-  if (/r[ée]tention administrative/i.test(name)) return 'cra';
+  if ((t.amenity === 'prison' || t.office === 'government') && IMMIGRATION_RE.test(who)) return 'cra';
+  if (t.amenity === 'prison') return 'jail';
   if (t.office === 'government' && t.government === 'prefecture') return /sous[- ]pr[ée]fecture/i.test(name) ? 'spref' : 'pref';
+  // U.S.: state capitol = state government; a county government building = county government office
+  if (t.office === 'government' && /\bstate capitol\b/i.test(name)) return 'pref';
+  if (t.office === 'government' && /\bcounty\b.*\b(government|administration|administrative|board|commission)\b/i.test(name)) return 'spref';
   if (t.amenity === 'townhall') return /^(village_hall|community_centre)$/.test(t['townhall:type'] || '') ? null : 'mairie';
-  if (t.amenity === 'police') return /gendarmerie/i.test(name + ' ' + (t.operator || '') + ' ' + (t['police:FR'] || '')) ? 'gend' : 'police';
+  if (t.amenity === 'police') return /gendarmerie|sheriff/i.test(who + ' ' + (t['police:FR'] || '')) ? 'gend' : 'police';
   if (t.amenity === 'courthouse') return 'tribunal';
   if (t.amenity === 'hospital') return 'hopital';
   if (t.amenity === 'pharmacy') return 'pharma';
@@ -1803,8 +1814,9 @@ function poiData(t, kind) {
   const p = poiStr(t['contact:phone'] || t.phone, 30); if (p && /^[+\d][\d .()-]{5,}$/.test(p)) d.p = p;
   if (kind === 'hopital' && t.emergency === 'yes') d.e = 1;
   if (kind === 'eau' && t.seasonal === 'yes') d.s = 1;
-  if (kind === 'cam') {
+  if (kind === 'cam' || kind === 'alpr') {
     delete d.n; delete d.h; delete d.p;
+    if (kind === 'alpr') { const m = poiStr(t.manufacturer || t.brand, 40); if (m) d.m = m; }
     if (t.surveillance === 'public') d.c = 1; // police, mairie, transports publics
     const o = poiStr(t.operator, 40); if (o) d.o = o;
     const COMPASS = { N: 0, NNE: 22, NE: 45, ENE: 67, E: 90, ESE: 112, SE: 135, SSE: 157, S: 180, SSW: 202, SW: 225, WSW: 247, W: 270, WNW: 292, NW: 315, NNW: 337 };
@@ -1815,17 +1827,20 @@ function poiData(t, kind) {
   }
   return d;
 }
-// Requête Overpass pour un carré : France, Belgique, Suisse, Luxembourg, Monaco (et l'outre-mer, inclus dans la France)
+// Overpass query for one square of the service area
 function overpassQuery(s, w, n, e) {
-  // Simple rectangle, sans filtre par pays (le calcul des frontières rendait chaque requête trop lente pour Overpass) :
-  // seuls les carrés qui contiennent une ville de France, Belgique, Suisse, Luxembourg ou Monaco sont demandés (voir placeChunks)
+  // Simple rectangle, no country filter (computing borders made each request too slow for Overpass):
+  // only squares that contain a listed place are requested (see placeChunks). Cameras other than plate readers are not
+  // requested here (too many for Overpass); they come with the Geofabrik source.
   const b = `(${s},${w},${n},${e})`;
   // Valeurs exactes plutôt qu'une expression régulière : Overpass utilise alors son index, bien plus vite
   return `[out:json][timeout:170];
 (${['townhall', 'police', 'courthouse', 'hospital', 'pharmacy', 'drinking_water'].map(v => `nwr["amenity"="${v}"]${b};`).join('\n ')}
  nwr["office"="government"]["government"="prefecture"]${b};
- nwr["amenity"="prison"]["name"~"tention",i]${b};
- nwr["office"="government"]["name"~"tention",i]${b};);
+ nwr["amenity"="prison"]${b};
+ nwr["office"="government"]["name"~"tention|Immigration|ICE|Capitol|County",i]${b};
+ nwr["office"="government"]["operator"~"Immigration",i]${b};
+ node["man_made"="surveillance"]["surveillance:type"="ALPR"]${b};);
 out center tags qt;`;
 }
 // Plusieurs serveurs Overpass possibles (séparés par des virgules) : si l'un refuse ou ne répond pas, on passe au suivant
@@ -1868,7 +1883,15 @@ let placesRunning = null;
 // ---- Source principale : copie complète d'OpenStreetMap chez Geofabrik (simple fichier, ni API ni quota) ----
 // Une fois par mois : téléchargement (~4,5 Go pour la France), extraction des lieux et des caméras avec osmium,
 // puis suppression du gros fichier. Donne aussi les horaires, téléphones et services d'urgences.
-const GEOFABRIK = (process.env.GEOFABRIK_URLS || 'https://download.geofabrik.de/north-america/us-latest.osm.pbf').split(',').map(x => x.trim()).filter(Boolean);
+// Default: one Geofabrik extract per state and territory, processed one after the other (download, filter, delete),
+// so the disk only ever holds the largest state (California) instead of the whole U.S. file.
+const GEOFABRIK_US = ['alabama', 'alaska', 'arizona', 'arkansas', 'california', 'colorado', 'connecticut', 'delaware', 'district-of-columbia', 'florida',
+  'georgia', 'hawaii', 'idaho', 'illinois', 'indiana', 'iowa', 'kansas', 'kentucky', 'louisiana', 'maine', 'maryland', 'massachusetts', 'michigan',
+  'minnesota', 'mississippi', 'missouri', 'montana', 'nebraska', 'nevada', 'new-hampshire', 'new-jersey', 'new-mexico', 'new-york', 'north-carolina',
+  'north-dakota', 'ohio', 'oklahoma', 'oregon', 'pennsylvania', 'puerto-rico', 'rhode-island', 'south-carolina', 'south-dakota', 'tennessee', 'texas',
+  'us-virgin-islands', 'utah', 'vermont', 'virginia', 'washington', 'west-virginia', 'wisconsin', 'wyoming']
+  .map(s => `https://download.geofabrik.de/north-america/us/${s}-latest.osm.pbf`);
+const GEOFABRIK = process.env.GEOFABRIK_URLS ? process.env.GEOFABRIK_URLS.split(',').map(x => x.trim()).filter(Boolean) : GEOFABRIK_US;
 const hasOsmium = (() => { try { return require('child_process').spawnSync('osmium', ['--version'], { timeout: 5000 }).status === 0; } catch { return false; } })();
 const placesSource = () => process.env.PLACES_SOURCE || (hasOsmium ? 'osm' : PMTILES && fs.existsSync(PMTILES) ? 'carte' : 'overpass');
 function download(url, file, onProgress, hops = 0) {
@@ -1920,6 +1943,7 @@ async function placesImportOsm() {
   try {
     for (const [i, url] of GEOFABRIK.entries()) {
       run.part = i + 1; run.step = 'téléchargement'; run.done = run.total = 0; save(true);
+      try { // one file: a failure is recorded and the next file is processed
       try { const st = fs.statfsSync(dir), free = st.bavail * st.bsize; const need = +(process.env.OSM_MIN_FREE_GB || 6); if (free < need * 1e9) throw new Error(`pas assez de place sur le disque (${(free / 1e9).toFixed(1)} Go libres, il en faut environ ${need})`); } catch (e) { if (/place/.test(e.message)) throw e; }
       console.log(`lieux : téléchargement de ${url}`);
       const src = path.join(dir, 'source.osm.pbf'), flt = path.join(dir, 'lieux.osm.pbf'), out = path.join(dir, 'lieux.geojsonseq');
@@ -1958,12 +1982,20 @@ async function placesImportOsm() {
         if (batch.length >= 2000) { flush(); save(); await new Promise(go => setImmediate(go)); }
       }
       flush(); flushComm();
+      } catch (e) {
+        run.errs++; run.err = `${url.split('/').pop()} : ${e.message}`.slice(0, 200); save(true); clean();
+        console.error(`lieux : ${url} : ${e.message}`);
+      }
     }
-    // Communes : on ne remplace les anciens contours que si l'import en a trouvé
-    if (run.communes) { q('DELETE FROM communes WHERE seen<?').run(t0); commReset(); console.log(`communes : ${run.communes} contours importés`); }
-    // Lieux disparus (et ceux des anciennes sources) : retirés, sauf ceux corrigés ou ajoutés dans l'admin
-    q("DELETE FROM pois WHERE src='osm' AND ed=0 AND seen<?").run(t0);
-    setMeta('poisimp', JSON.stringify({ t: Date.now(), n: run.n, communes: run.communes || 0, errs: 0, err: null, ms: Date.now() - t0, src: 'osm' }));
+    if (run.errs === GEOFABRIK.length) throw new Error(run.err || 'aucun fichier importé');
+    // A file failed: nothing is deleted this time (stale places stay a month rather than a state losing all of its places)
+    if (!run.errs) {
+      // Communes : on ne remplace les anciens contours que si l'import en a trouvé
+      if (run.communes) { q('DELETE FROM communes WHERE seen<?').run(t0); commReset(); console.log(`communes : ${run.communes} contours importés`); }
+      // Lieux disparus (et ceux des anciennes sources) : retirés, sauf ceux corrigés ou ajoutés dans l'admin
+      q("DELETE FROM pois WHERE src='osm' AND ed=0 AND seen<?").run(t0);
+    } else if (run.communes) commReset();
+    setMeta('poisimp', JSON.stringify({ t: Date.now(), n: run.n, communes: run.communes || 0, errs: run.errs, err: run.err, ms: Date.now() - t0, src: 'osm' }));
     q("DELETE FROM meta WHERE k='poisrun'").run();
     await placesPublish();
     console.log(`lieux : ${run.n} lieux et caméras importés en ${Math.round((Date.now() - t0) / 1000)} s`);
@@ -2089,6 +2121,8 @@ async function placesImport(resume = false) {
 const poiRow = x => { const d = JSON.parse(x.data || '{}');
   // Caméra : [id, 'cam', lat, lng, opérateur, publique (1/0), direction en degrés (-1 : inconnue), type (d dôme, f fixe, p mobile)]
   if (x.kind === 'cam') return [x.id, x.kind, x.lat, x.lng, d.o || '', d.c ? 1 : 0, d.dir ?? -1, d.ct || ''];
+  // Plate reader: [id, 'alpr', lat, lng, operator, manufacturer, direction in degrees (-1: unknown)]
+  if (x.kind === 'alpr') return [x.id, x.kind, x.lat, x.lng, d.o || '', d.m || '', d.dir ?? -1];
   const row = [x.id, x.kind, x.lat, x.lng, d.n || '', d.h || '', d.p || '', d.e || d.s || 0];
   while (row.length > 4 && !row[row.length - 1]) row.pop(); return row; };
 // Publie les fichiers de lieux (toutes les régions, ou seulement celles indiquées)
@@ -2097,12 +2131,12 @@ async function placesPublishRun(regions) {
   const dir = path.join(LIVE_DIR, 'l');
   fs.mkdirSync(dir, { recursive: true });
   const rgs = regions ? [...regions] : q('SELECT DISTINCT rg FROM pois').all().map(x => x.rg);
-  const street = new Set(POI_KINDS.filter(k => k.street).map(k => k.id)), cams = new Set(POI_KINDS.filter(k => k.cam).map(k => k.id));
+  const street = new Set(POI_KINDS.filter(k => k.street).map(k => k.id)), cams = new Set(POI_KINDS.filter(k => k.cam && !k.alpr).map(k => k.id)), alpr = new Set(POI_KINDS.filter(k => k.alpr).map(k => k.id));
   const written = new Set();
   for (const rg of rgs) {
     if (!regions) await new Promise(go => setImmediate(go)); // publication complète : on rend la main entre deux zones
     const rows = q('SELECT id, kind, lat, lng, data FROM pois WHERE rg=? AND hid=0').all(rg);
-    for (const [suffix, list] of [['', rows.filter(x => !street.has(x.kind) && !cams.has(x.kind))], ['-s', rows.filter(x => street.has(x.kind))], ['-c', rows.filter(x => cams.has(x.kind))]]) {
+    for (const [suffix, list] of [['', rows.filter(x => !street.has(x.kind) && !cams.has(x.kind) && !alpr.has(x.kind))], ['-s', rows.filter(x => street.has(x.kind))], ['-c', rows.filter(x => cams.has(x.kind))], ['-a', rows.filter(x => alpr.has(x.kind))]]) {
       const f = path.join(dir, rg + suffix + '.json');
       if (list.length) { writeIfChanged(f, JSON.stringify({ p: list.map(poiRow) })); written.add(rg + suffix + '.json'); }
       else try { fs.unlinkSync(f); } catch {}
