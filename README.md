@@ -80,7 +80,7 @@ This is not the default. Deciding it is a policy question for whoever runs the i
 | Data | Source | License |
 |---|---|---|
 | Base map, places, cameras | © OpenStreetMap contributors | ODbL |
-| State outlines (`geo/states.json`) | interim: `tools/us-states.geojson` (provenance unverified); rebuild from Census cartographic boundary files, see [docs/US_GEODATA.md](docs/US_GEODATA.md) | public domain (Census) |
+| State and territory outlines (`geo/states.json`) | U.S. Census Bureau cartographic boundary file `cb_2024_us_state_5m`, simplified; see [docs/US_GEODATA.md](docs/US_GEODATA.md) | public domain |
 | Places of 50,000+ (`places.json`) | GeoNames | CC BY 4.0 |
 | Address search | Nominatim (OSM Foundation), through the server | ODbL, usage policy applies |
 

@@ -572,7 +572,7 @@ test('arrêtés : proposition avec source, validation par l’admin, zone offici
   const m = live.find(o => o.name === 'Madison');
   assert.equal(m.scope, 'commune'); assert.deepEqual(m.b, [43, -89.5, 43.15, -89.25]); assert.equal(m.host, 'cityofmadison.com');
   assert.ok(JSON.parse(fs.readFileSync(DIR + '/l/g.json', 'utf8')).ord, 'empreinte dans g.json');
-  const h = live.find(o => o.name === 'Wisconsin'); assert.equal(h.scope, 'dep'); assert.ok(h.p[0][0].length > 20, 'outline of the state');
+  const h = live.find(o => o.name === 'Wisconsin'); assert.equal(h.scope, 'dep'); assert.ok(h.p.flat(2).length > 20, 'outline of the state');
   assert.equal((await fetch(B + '/api/admin/orders/' + m.id, { method: 'DELETE', headers: { 'x-admin-key': ADMIN, 'content-type': 'application/json' } })).status, 200);
 });
 
