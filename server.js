@@ -1591,6 +1591,14 @@ function tr(lang, s, v) {
   return v ? out.replace(/\{(\w+)\}/g, (m, k) => (k in v ? v[k] : m)) : out;
 }
 const LOCALE = { fr: 'fr-FR', en: 'en-US', es: 'es-US', ar: 'ar-u-nu-latn' };
+// Language of messages the server words itself because they carry a number or a date (the app translates the others):
+// the app's language (X-Lang), else the browser's (Accept-Language), else English
+function reqLang(req) {
+  const x = String(req.headers['x-lang'] || '').slice(0, 2).toLowerCase();
+  if (PUSH_LANGS.includes(x)) return x;
+  for (const p of String(req.headers['accept-language'] || '').split(',')) { const l = p.trim().slice(0, 2).toLowerCase(); if (PUSH_LANGS.includes(l)) return l; }
+  return 'en';
+}
 try { // reprise de l'ancien fichier push.json, une seule fois
   if (fs.existsSync(PUSH_FILE)) {
     const old = JSON.parse(fs.readFileSync(PUSH_FILE, 'utf8'));
@@ -2250,7 +2258,7 @@ setTimeout(maybeImport17, 3000);
 setInterval(maybeImport17, 60_000).unref();
 
 // ---- Agenda : création d'événement (orga = publié tout de suite ; participant·e = proposition à valider) ----
-function createEvent(b, orga, dev, ipH) {
+function createEvent(b, orga, dev, ipH, lang = 'en') {
   const type = Object.hasOwn(EVT, String(b.type)) ? b.type : 'manif';
   const title = clean(b.title, 80), place = clean(b.place, 100), note = clean(b.note, 220);
   const start = Number(b.start), lat = Number(b.lat), lng = Number(b.lng);
@@ -2269,7 +2277,7 @@ function createEvent(b, orga, dev, ipH) {
       if (!allow(dev, ipH, 'report', now)) return [429, { error: 'Trop d’envois d’un coup. Réessaie dans quelques minutes.' }];
       if (q("SELECT COUNT(*) n FROM events WHERE status='pending' AND dev=?").get(dev).n >= 3) return [429, { error: 'Tu as déjà 3 propositions en attente de validation.' }];
       if (q("SELECT COUNT(*) n FROM events WHERE status='pending'").get().n >= 300) return [503, { error: 'Trop de propositions en attente, réessaie plus tard.' }];
-    } else if (!orga.admin && !quota('evt:' + orga.id, ORGA_LIMITS.eventsPerDay, 24 * 60 * MIN, now)) return [429, { error: `${ORGA_LIMITS.eventsPerDay} événements par jour au maximum.` }];
+    } else if (!orga.admin && !quota('evt:' + orga.id, ORGA_LIMITS.eventsPerDay, 24 * 60 * MIN, now)) return [429, { error: tr(lang, '{n} événements par jour au maximum.', { n: ORGA_LIMITS.eventsPerDay }) }];
     const e = { id: crypto.randomBytes(6).toString('base64url'), type, title, place, note, start, lat: round(lat), lng: round(lng),
       route, end: !!(route && b.end), by: orga ? orga.label : 'Proposition de participant·e', oid: orga ? orga.id : null, status: orga && !orga.trial ? 'ok' : 'pending', t: now };
     if (!orga) e.dev = dev;
@@ -2324,24 +2332,25 @@ function geoPoly(g, tol = 0.0004) {
   return { p, b: [Math.min(...lat), Math.min(...lng), Math.max(...lat), Math.max(...lng)] };
 }
 // Contour officiel d'une commune (API Géo de l'État, appelée par le serveur seulement, à la validation)
+const zoneErr = (key, vars) => Object.assign(new Error(key), { vars });
 async function communeZone(dep, name, insee) {
-  if (!GEO_API) throw new Error('city-level zones are not configured on this server (GEO_API); use the whole state');
+  if (!GEO_API) throw zoneErr('les villes ne peuvent pas être choisies sur ce serveur (GEO_API) : choisis l’État entier');
   const f = 'fields=nom,code,codeDepartement,population,contour&format=json';
   let list;
   if (/^\d[\dAB]\d{3}$/.test(insee || '')) list = [await getJson(`${GEO_API}/communes/${insee}?${f}`, 15_000)];
   else list = await getJson(`${GEO_API}/communes?nom=${encodeURIComponent(name)}&codeDepartement=${encodeURIComponent(dep)}&boost=population&limit=10&${f}`, 15_000);
   list = (Array.isArray(list) ? list : []).filter(c => c && c.contour);
   const c = list.find(c => normName(c.nom) === normName(name)) || (insee ? list[0] : null);
-  if (!c) throw new Error(`commune « ${name} » introuvable dans le département ${dep}${list.length ? ` (proches : ${list.slice(0, 3).map(x => x.nom).join(', ')})` : ''}`);
+  if (!c) throw list.length ? zoneErr('ville « {name} » introuvable dans l’État {dep} (proches : {near})', { name, dep, near: list.slice(0, 3).map(x => x.nom).join(', ') }) : zoneErr('ville « {name} » introuvable dans l’État {dep}', { name, dep });
   const z = geoPoly(c.contour);
-  if (!z) throw new Error('contour de la commune illisible');
+  if (!z) throw zoneErr('contour de la ville illisible');
   return { scope: 'commune', name: c.nom, insee: c.code, dep: c.codeDepartement, ...z };
 }
 async function orderZone(o) {
   const d = depOf(o.dep);
-  if (!d) throw new Error('département inconnu');
+  if (!d) throw zoneErr('État inconnu');
   if (o.commune) return communeZone(d.c, o.commune, o.insee);
-  if (!d.p) throw new Error(`pour ${d.n}, indique la commune`);
+  if (!d.p) throw zoneErr('pour {s}, indique la ville', { s: d.n });
   return { scope: 'dep', name: d.n, insee: null, dep: d.c, p: d.p, b: d.b };
 }
 const getOrder = id => { const x = q('SELECT data FROM orders WHERE id=?').get(id); return x ? JSON.parse(x.data) : null; };
@@ -2375,7 +2384,7 @@ function cleanOrder(b) {
   return [{ dep: d.c, commune, insee: /^\d[\dAB]\d{3}$/.test(insee) ? insee : '', start, end, items, src: u.href }, null];
 }
 // Proposition (téléphone) : en attente de validation ; admin : publiée tout de suite (après calcul de la zone)
-async function createOrder(b, { admin = false, dev = null, ipH = null } = {}) {
+async function createOrder(b, { admin = false, dev = null, ipH = null, lang = 'en' } = {}) {
   const [o, err] = cleanOrder(b);
   if (err) return [400, { error: err }];
   const now = Date.now();
@@ -2387,15 +2396,15 @@ async function createOrder(b, { admin = false, dev = null, ipH = null } = {}) {
     saveOrder(p);
     return [201, orderView(p)];
   }
-  let zone; try { zone = await orderZone(o); } catch (e) { return [400, { error: 'Zone : ' + e.message }]; }
+  let zone; try { zone = await orderZone(o); } catch (e) { return [400, { error: tr(lang, 'Zone : {why}', { why: tr(lang, e.message, e.vars) }) }]; }
   const p = { id: crypto.randomBytes(6).toString('base64url'), ...o, zone, status: 'ok', by: 'admin', t: now, ok: now };
   saveOrder(p); orderPushLater(p);
   return [201, orderView(p)];
 }
-async function approveOrder(id) {
+async function approveOrder(id, lang = 'en') {
   const o = getOrder(id);
   if (!o) return [404, { error: 'Introuvable.' }];
-  let zone; try { zone = await orderZone(o); } catch (e) { return [400, { error: 'Zone : ' + e.message }]; }
+  let zone; try { zone = await orderZone(o); } catch (e) { return [400, { error: tr(lang, 'Zone : {why}', { why: tr(lang, e.message, e.vars) }) }]; }
   const p = { ...o, zone, status: 'ok', ok: Date.now() }; delete p.dev;
   saveOrder(p); if (o.status !== 'ok') orderPushLater(p);
   return [200, orderView(p)];
@@ -3422,7 +3431,7 @@ const server = http.createServer(async (req, res) => {
       // --- Arrêtés : propositions à valider, publiés, import d'un bloc préparé ---
       if (req.method === 'GET' && pathname === '/api/admin/orders') return send(res, 200, { orders: ordersAll().map(orderView), kinds: ORDER_KINDS, deps: DEPS.map(d => [d.c, d.n]) });
       if (req.method === 'POST' && pathname === '/api/admin/orders') {
-        const out = await createOrder(await readJson(req, 16384), { admin: true });
+        const out = await createOrder(await readJson(req, 16384), { admin: true, lang: reqLang(req) });
         if (out[0] < 300) orgaLog({ id: 'admin', label: adminLabel() }, 'arrêté publié', { ref: out[1].id, detail: out[1].zone && out[1].zone.name });
         return send(res, ...out);
       }
@@ -3432,12 +3441,12 @@ const server = http.createServer(async (req, res) => {
         if (list && !Array.isArray(list)) list = list.arretes || list.orders || [list];
         if (!Array.isArray(list) || !list.length || list.length > 30) return send(res, 400, { error: 'Le bloc doit contenir entre 1 et 30 arrêtés.' });
         const results = [];
-        for (const x of list) { const [st, out] = await createOrder(x || {}, { admin: true }); results.push(st < 300 ? { ok: true, name: out.zone.name, id: out.id } : { ok: false, error: out.error, name: (x && (x.commune || x.departement || x.dep)) || '?' }); }
+        for (const x of list) { const [st, out] = await createOrder(x || {}, { admin: true, lang: reqLang(req) }); results.push(st < 300 ? { ok: true, name: out.zone.name, id: out.id } : { ok: false, error: out.error, name: (x && (x.commune || x.departement || x.dep)) || '?' }); }
         orgaLog({ id: 'admin', label: adminLabel() }, 'arrêtés importés', { detail: `${results.filter(r => r.ok).length} / ${results.length}` });
         return send(res, 200, { results });
       }
       const ordAct = pathname.match(/^\/api\/admin\/orders\/([\w-]{1,16})(\/approve)?$/);
-      if (ordAct && req.method === 'POST' && ordAct[2]) return send(res, ...await approveOrder(ordAct[1]));
+      if (ordAct && req.method === 'POST' && ordAct[2]) return send(res, ...await approveOrder(ordAct[1], reqLang(req)));
       if (ordAct && req.method === 'DELETE' && !ordAct[2]) return dropOrder(ordAct[1]) ? send(res, 200, { ok: true }) : send(res, 404, { error: 'Introuvable.' });
       // --- Agenda : propositions à valider + événements publiés ---
       if (req.method === 'GET' && pathname === '/api/admin/events') {
@@ -3479,7 +3488,7 @@ const server = http.createServer(async (req, res) => {
       // On garde : les orgas, l'agenda public (sans empreinte), les réglages.
       if (req.method === 'POST' && pathname === '/api/admin/wipe') {
         const b = await readJson(req);
-        if (b.confirm !== 'EFFACER') return send(res, 400, { error: 'Tape EFFACER pour confirmer.' });
+        if (b.confirm !== 'ERASE' && b.confirm !== 'EFFACER') return send(res, 400, { error: 'Tape EFFACER pour confirmer.' }); // ERASE (English UI) or EFFACER (upstream)
         const n = tx(() => {
           const n = q('DELETE FROM reports').run().changes;
           for (const t of ['ann', 'orga_log', 'trash', 'devices', 'rate', 'quota', 'hidden', 'push', 'abuse', 'orga_req']) q('DELETE FROM ' + t).run();
@@ -3499,7 +3508,7 @@ const server = http.createServer(async (req, res) => {
         try { db.exec('PRAGMA wal_checkpoint(TRUNCATE)'); db.exec('VACUUM'); db.exec('PRAGMA wal_checkpoint(TRUNCATE)'); } catch {}
         rebuildAll();
         console.log('effacement d’urgence effectué' + (left.length ? ` (${left.length} fichier(s) d’archive non effacé(s))` : ''));
-        return send(res, left.length ? 500 : 200, { removed: n, rotated, pub: b.pub === true, left: left.length, ...(left.length ? { error: `${left.length} fichier(s) de l’archive n’ont pas pu être effacés : vérifie les droits du dossier.` } : {}) });
+        return send(res, left.length ? 500 : 200, { removed: n, rotated, pub: b.pub === true, left: left.length, ...(left.length ? { error: tr(reqLang(req), '{n} fichier(s) de l’archive n’ont pas pu être effacés : vérifie les droits du dossier.', { n: left.length }) } : {}) });
       }
       // --- Tableau des abus (24 h) et mode manif renforcé ---
       if (req.method === 'GET' && pathname === '/api/admin/abuse') {
@@ -3707,7 +3716,7 @@ const server = http.createServer(async (req, res) => {
       const b = await readJson(req, 16384);
       const orga = req.headers['x-orga-key'] ? orgaOf(req) : null;
       if (req.headers['x-orga-key'] && !orga) return send(res, 403, { error: 'Lien orga invalide ou expiré.' });
-      const out = createEvent(b, orga, deviceHash(req), clientHash(req));
+      const out = createEvent(b, orga, deviceHash(req), clientHash(req), reqLang(req));
       if (orga && out[0] < 300) orgaLog(orga, out[1].status === 'pending' ? 'événement (en attente)' : 'événement', { lat: out[1].lat, lng: out[1].lng, ref: out[1].id, detail: out[1].title });
       return send(res, ...out);
     }
@@ -3818,7 +3827,7 @@ const server = http.createServer(async (req, res) => {
       if (req.method === 'POST' && pathname === '/api/orga/invite') {
         if (orga.trial) return send(res, 400, { error: 'Seules les orgas confirmées peuvent inviter.' });
         const ban = banUntil(orga.id);
-        if (ban) return send(res, 400, { error: 'Invitations suspendues jusqu’au ' + new Date(ban).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' }) + ' (une orga que tu as invitée a été révoquée).' });
+        if (ban) { const l = reqLang(req); return send(res, 400, { error: tr(l, 'Invitations suspendues jusqu’au {d} (une orga que tu as invitée a été révoquée).', { d: new Date(ban).toLocaleDateString(LOCALE[l], { day: 'numeric', month: 'long', timeZone: TIMEZONE }) }) }); }
         const b = await readJson(req);
         const label = String(b.label || '').replace(/[\u0000-\u001f]/g, ' ').trim().slice(0, 60);
         if (label.length < 2) return send(res, 400, { error: 'Donne un nom à l’orga invitée.' });
@@ -3831,7 +3840,7 @@ const server = http.createServer(async (req, res) => {
           list.push(o); writeOrgas(list); return o;
         });
         if (out === 'dup') return send(res, 409, { error: labelClash(label, { sponsor: true }) || 'Une orga porte déjà ce nom.' });
-        if (out === 'quota') return send(res, 429, { error: `${SPONSOR.quota} invitations par semaine au maximum. Réessaie dans quelques jours.` });
+        if (out === 'quota') return send(res, 429, { error: tr(reqLang(req), '{n} invitations par semaine au maximum. Réessaie dans quelques jours.', { n: SPONSOR.quota }) });
         orgaLog(orga, 'invitation (parrainage)', { ref: out.id, detail: out.label });
         return send(res, 201, { id: out.id, label: out.label, invite: token, exp: invite.exp });
       }
@@ -3921,13 +3930,13 @@ const server = http.createServer(async (req, res) => {
         if (orga.trial && b.kind !== 'legal' && b.level === 'urgent')
           return send(res, 400, { error: 'Pendant la période d’essai, les annonces urgentes ne sont pas possibles. Publie-la en « info ».' });
         if (orga.sponsored && b.kind !== 'legal' && q("SELECT COUNT(*) n FROM orga_log WHERE oid=? AND action IN ('annonce', 'annonce (en attente)') AND t>?").get(orga.id, Date.now() - 24 * 60 * 60_000).n >= SPONSOR.annPerDay)
-          return send(res, 400, { error: `Orga parrainée : ${SPONSOR.annPerDay} annonces par jour au maximum jusqu’à ta confirmation.` });
+          return send(res, 400, { error: tr(reqLang(req), 'Orga parrainée : {n} annonces par jour au maximum jusqu’à ta confirmation.', { n: SPONSOR.annPerDay }) });
         if (!orga.admin && !quota('ann:' + orga.id, ORGA_LIMITS.annPerDay, 24 * 60 * MIN))
-          return send(res, 429, { error: `${ORGA_LIMITS.annPerDay} annonces par jour au maximum.` });
+          return send(res, 429, { error: tr(reqLang(req), '{n} annonces par jour au maximum.', { n: ORGA_LIMITS.annPerDay }) });
         // Notifications urgentes : au plus quelques-unes par heure et par orga (une orga piratée ne peut pas inonder les téléphones)
         if (!orga.admin && b.kind !== 'legal' && b.level === 'urgent' && !quota('urg:' + orga.id, ORGA_LIMITS.urgentPerHour, 60 * MIN)) {
           abuseLog('orga en rafale', { ref: orga.id });
-          return send(res, 429, { error: `${ORGA_LIMITS.urgentPerHour} annonces urgentes par heure au maximum. Publie celle-ci en « info ».` });
+          return send(res, 429, { error: tr(reqLang(req), '{n} annonces urgentes par heure au maximum. Publie celle-ci en « info ».', { n: ORGA_LIMITS.urgentPerHour }) });
         }
         // Période d'essai : toute annonce (info ou numéro de legal team) n'est visible qu'après validation par l'admin
         const out = createAnnouncement(b, orga.label, orga.admin, orga.trial, orga.admin ? 'admin' : orga.id);

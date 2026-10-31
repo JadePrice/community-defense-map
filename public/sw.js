@@ -44,7 +44,7 @@ self.addEventListener('push', e => {
     for (const c of await self.clients.matchAll({ type: 'window' })) c.postMessage({ type: 'push-data' });
   }).catch(() => {}) : Promise.resolve();
   e.waitUntil(keep.then(() => self.registration.showNotification(d.title || 'Community Defense Map', {
-    body: d.body || 'Nouvelle annonce urgente', tag: d.tag || 'cortege', renotify: true,
+    body: d.body || 'New urgent announcement', tag: d.tag || 'cortege', renotify: true,
     icon: '/icon-192.png', badge: '/favicon.png', vibrate: Array.isArray(d.vibrate) ? d.vibrate.slice(0, 12) : [300, 100, 300, 100, 300], data: { url: d.url || '/' },
   })));
 });

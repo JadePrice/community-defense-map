@@ -5,13 +5,20 @@
 const SLOT_COL = { fdo: '#e5484d', danger: '#f5a524', soutien: '#30a46c', info: '#8e8cd8' };
 const SLOT_FAM = { fdo: 'Forces de l’ordre', danger: 'Danger', soutien: 'Soutien', info: 'Infos cortège' };
 const TZ = window.CDM_TZ || 'America/Chicago'; // set by /tz.js
+// Text through the app's translations when i18n.js is loaded (French is the key), as-is otherwise
+const _t = (s, v) => window.I18N ? window.I18N.t(s, v) : String(s).replace(/\{(\w+)\}/g, (m, k) => (v && k in v ? v[k] : m));
+const _tn = (n, one, many, v) => window.I18N ? window.I18N.tn(n, one, many, v) : _t(n > 1 ? many : one, { n, ...(v || {}) });
+const LOC = () => (window.I18N && window.I18N.locale) || 'en-US';
+const FR = () => !window.I18N || window.I18N.lang === 'fr';
+// hm: 24-hour "HH:MM", used for comparisons as well as display; hmFr: display in the reader's language
 const hm = t => new Date(t).toLocaleTimeString('fr-FR', { timeZone: TZ, hour: '2-digit', minute: '2-digit' });
-const hmFr = t => hm(t).replace(':', ' h ');
+const hmFr = t => FR() ? hm(t).replace(':', ' h ') : new Date(t).toLocaleTimeString(LOC(), { timeZone: TZ, hour: 'numeric', minute: '2-digit' });
+const hhmmFr = v => FR() ? v.replace(':', ' h ') : new Date('2000-01-01T' + v + ':00Z').toLocaleTimeString(LOC(), { timeZone: 'UTC', hour: 'numeric', minute: '2-digit' });
 async function slotGeocode(q) {
   const m = q.match(/^\s*(-?\d{1,2}\.\d+)\s*[,; ]\s*(-?\d{1,3}\.\d+)\s*$/);
   if (m) return { lat: +m[1], lng: +m[2], name: null };
   const res = await fetch('/api/geocode?q=' + encodeURIComponent(q)); const out = await res.json().catch(() => []);
-  if (!res.ok || !out.length) throw new Error(out.error || 'Lieu introuvable : essaie une autre adresse, ou « latitude, longitude ».');
+  if (!res.ok || !out.length) throw new Error(_t(out.error || 'Lieu introuvable : essaie une autre adresse, ou « latitude, longitude ».'));
   return { lat: out[0].lat, lng: out[0].lng, name: out[0].name };
 }
 // rows : [{ t, end, lat, lng, cat: { label, group }, up, v, status? }] ; garde ceux actifs pendant le créneau, à moins de R m
@@ -55,7 +62,7 @@ async function slotVector(c, mPerPx, W, H) {
   map.remove(); box.remove();
   return out.length ? out : null;
 }
-async function slotDraw(cv, { date, c, R, from, to, rows, brand = {}, more = 'voir le fichier CSV' }) {
+async function slotDraw(cv, { date, c, R, from, to, rows, brand = {}, more = _t('voir le fichier CSV') }) {
   const W = 1600, MH = 1500, TOP = 130, lines = Math.min(rows.length, 24), cols = rows.length > 8 ? 2 : 1;
   const listH = 70 + 34 * (Math.ceil(lines / cols) + 1) + (rows.length > lines ? 34 : 0) + 110;
   cv.width = W; cv.height = TOP + MH + listH;
@@ -89,8 +96,8 @@ async function slotDraw(cv, { date, c, R, from, to, rows, brand = {}, more = 'vo
   const anchor = (p, b) => [Math.min(Math.max(p.x, b.x), b.x + b.w), Math.min(Math.max(p.y, b.y), b.y + b.h)];
   const segHits = (x1, y1, x2, y2, b) => { for (let t = 0.12; t < 0.95; t += 0.08) { const x = x1 + (x2 - x1) * t, y = y1 + (y2 - y1) * t; if (x > b.x - 4 && x < b.x + b.w + 4 && y > b.y - 4 && y < b.y + b.h + 4) return true; } return false; };
   if (useLabels) for (const p of G.sort((a, b) => a.y - b.y)) {
-    p.L1 = p.rows.map(r => `${hmFr(r.t)} · ${r.cat.label}`);
-    p.L2 = p.rows.map(r => `jusqu’à ${hmFr(r.end)}` + (r.up ? ` · ${r.up} confirmation${r.up > 1 ? 's' : ''}` : '') + (r.v ? ' · vérifié' : '') + (r.status ? ' · ' + r.status : ''));
+    p.L1 = p.rows.map(r => `${hmFr(r.t)} · ${_t(r.cat.label)}`);
+    p.L2 = p.rows.map(r => _t('jusqu’à {h}', { h: hmFr(r.end) }) + (r.up ? ' · ' + _tn(r.up, '{n} confirmation', '{n} confirmations') : '') + (r.v ? ' · ' + _t('vérifié') : '') + (r.status ? ' · ' + r.status : ''));
     g.font = '700 23px system-ui, sans-serif'; const w1 = Math.max(...p.L1.map(t => g.measureText(t).width));
     g.font = '500 18px system-ui, sans-serif'; const w2 = Math.max(...p.L2.map(t => g.measureText(t).width));
     const w = Math.max(w1, w2) + 28, h = p.L1.length * 54 + 10;
@@ -132,7 +139,7 @@ async function slotDraw(cv, { date, c, R, from, to, rows, brand = {}, more = 'vo
   g.strokeStyle = '#17121f'; g.lineWidth = 4; g.beginPath(); g.moveTo(sx, sy - 6); g.lineTo(sx, sy); g.lineTo(sx + sl, sy); g.lineTo(sx + sl, sy - 6); g.stroke();
   g.fillStyle = '#17121f'; g.font = '600 20px system-ui, sans-serif'; g.fillText(step >= 1000 ? step / 1000 + ' km' : step + ' m', sx, sy - 12);
   // Titre
-  const day = new Date(date + 'T12:00:00Z').toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+  const day = new Date(date + 'T12:00:00Z').toLocaleDateString(LOC(), { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
   // Logo, site de l'appli et compte Instagram, à droite du titre
   let right = W - 40;
   const logo = await new Promise(ok => { const im = new Image(); im.onload = () => ok(im); im.onerror = () => ok(null); im.src = '/brand/logo.png'; });
@@ -143,31 +150,31 @@ async function slotDraw(cv, { date, c, R, from, to, rows, brand = {}, more = 'vo
   g.textAlign = 'left';
   const maxW = right - 40 - Math.max(g.measureText(location.host).width, 260) - 30;
   const fitTxt = (t, f) => { g.font = f; if (g.measureText(t).width <= maxW) return t; while (t.length > 4 && g.measureText(t + '…').width > maxW) t = t.slice(0, -1); return t + '…'; };
-  g.fillStyle = '#f2f1f4'; g.fillText(fitTxt('Signalements Community Defense Map · ' + day, '800 38px system-ui, sans-serif'), 40, 58);
+  g.fillStyle = '#f2f1f4'; g.fillText(fitTxt(_t('Signalements Community Defense Map · {d}', { d: day }), '800 38px system-ui, sans-serif'), 40, 58);
   g.fillStyle = '#7fe0ef';
-  g.fillText(fitTxt(`Actifs entre ${from.replace(':', ' h ')} et ${to.replace(':', ' h ')} · ${R} m autour de ${c.label}`, '600 24px system-ui, sans-serif'), 40, 100);
+  g.fillText(fitTxt(_t('Actifs entre {a} et {b} · {r} m autour de {p}', { a: hhmmFr(from), b: hhmmFr(to), r: R, p: c.label }), '600 24px system-ui, sans-serif'), 40, 100);
   // Chronologie
   let y = TOP + MH + 52;
-  g.fillStyle = '#f2f1f4'; g.font = '700 26px system-ui, sans-serif'; g.fillText(rows.length ? 'Chronologie (début · type · fin)' : 'Aucun signalement sur ce créneau dans cette zone.', 40, y);
+  g.fillStyle = '#f2f1f4'; g.font = '700 26px system-ui, sans-serif'; g.fillText(_t(rows.length ? 'Chronologie (début · type · fin)' : 'Aucun signalement sur ce créneau dans cette zone.'), 40, y);
   let lx = W - 40; g.font = '600 20px system-ui, sans-serif';
-  for (const f of [...new Set(rows.map(r => r.cat.group))].reverse()) { const t = SLOT_FAM[f] || f, w = g.measureText(t).width; lx -= w; g.fillStyle = '#f2f1f4'; g.fillText(t, lx, y); lx -= 26; g.fillStyle = SLOT_COL[f]; g.beginPath(); g.arc(lx + 10, y - 7, 9, 0, 2 * Math.PI); g.fill(); lx -= 24; }
+  for (const f of [...new Set(rows.map(r => r.cat.group))].reverse()) { const t = _t(SLOT_FAM[f] || f), w = g.measureText(t).width; lx -= w; g.fillStyle = '#f2f1f4'; g.fillText(t, lx, y); lx -= 26; g.fillStyle = SLOT_COL[f]; g.beginPath(); g.arc(lx + 10, y - 7, 9, 0, 2 * Math.PI); g.fill(); lx -= 24; }
   y += 18; g.font = '500 22px system-ui, sans-serif';
   const per = Math.ceil(lines / cols), cw = (W - 80) / cols;
   rows.slice(0, lines).forEach((r, k) => {
     const xx = 40 + Math.floor(k / per) * cw, yy = y + 34 * (k % per + 1);
     const cc = SLOT_COL[r.cat.group] || '#888'; g.beginPath(); g.arc(xx + 9, yy - 8, 8, 0, 2 * Math.PI);
     if (r.status) { g.strokeStyle = cc; g.lineWidth = 3; g.stroke(); } else { g.fillStyle = cc; g.fill(); }
-    g.fillStyle = '#f2f1f4'; g.fillText(`${useLabels ? '' : r.n + '. '}${hmFr(r.t)}  ${r.cat.label}${r.up ? ` (${r.up} conf.)` : ''}${r.v ? ' ✓' : ''}`, xx + 28, yy);
-    if (r.status) { const w0 = g.measureText(`${useLabels ? '' : r.n + '. '}${hmFr(r.t)}  ${r.cat.label}${r.up ? ` (${r.up} conf.)` : ''}${r.v ? ' ✓' : ''}`).width; g.fillStyle = '#f5a524'; g.font = '500 18px system-ui, sans-serif'; g.fillText(' · ' + (cols > 1 ? r.status.replace(/ \(.*\)| par .*/, '') : r.status), xx + 28 + w0, yy); g.font = '500 22px system-ui, sans-serif'; }
+    g.fillStyle = '#f2f1f4'; g.fillText(`${useLabels ? '' : r.n + '. '}${hmFr(r.t)}  ${_t(r.cat.label)}${r.up ? ' ' + _t('({n} conf.)', { n: r.up }) : ''}${r.v ? ' ✓' : ''}`, xx + 28, yy);
+    if (r.status) { const w0 = g.measureText(`${useLabels ? '' : r.n + '. '}${hmFr(r.t)}  ${_t(r.cat.label)}${r.up ? ' ' + _t('({n} conf.)', { n: r.up }) : ''}${r.v ? ' ✓' : ''}`).width; g.fillStyle = '#f5a524'; g.font = '500 18px system-ui, sans-serif'; g.fillText(' · ' + (cols > 1 ? r.statusShort || r.status : r.status), xx + 28 + w0, yy); g.font = '500 22px system-ui, sans-serif'; }
     g.fillStyle = '#a3a1ad'; const e = `→ ${hmFr(r.end)}`; g.fillText(e, xx + cw - 30 - g.measureText(e).width, yy);
   });
   y += 34 * (per + 1);
-  if (rows.length > lines) { g.fillStyle = '#a3a1ad'; g.fillText(`… et ${rows.length - lines} autres (${more})`, 40, y); y += 34; }
+  if (rows.length > lines) { g.fillStyle = '#a3a1ad'; g.fillText(_t('… et {n} autres ({m})', { n: rows.length - lines, m: more }), 40, y); y += 34; }
   g.font = '500 19px system-ui, sans-serif'; g.fillStyle = '#a3a1ad';
-  [`Signalements faits par des participant·es sur l’appli Community Defense Map ; ${rows.some(r => r.v) ? '✓ = vérifié par une orga ; les autres ne sont pas vérifiés' : 'aucun n’a été vérifié par une orga'} : à recouper.`,
-   rows.some(r => r.status) ? 'Rond vide : signalement retiré ou contesté (la mention précise par qui) ; il reste affiché. Positions arrondies à ~100 m. Fin = disparition de la carte.' : 'Positions arrondies à environ 100 m. Fin = moment où le signalement a disparu de la carte.',
-   `Étoile : le lieu demandé ; signalements à moins de ${R} m. Fond de carte © les contributeur·ices d’OpenStreetMap (ODbL)${slotCfg && slotCfg.vector ? ', Protomaps' : ''}.`].forEach((t, i) => g.fillText(t, 40, y + 4 + i * 28));
+  [_t(rows.some(r => r.v) ? 'Signalements faits par des participant·es sur l’appli Community Defense Map ; ✓ = vérifié par une orga ; les autres ne sont pas vérifiés : à recouper.' : 'Signalements faits par des participant·es sur l’appli Community Defense Map ; aucun n’a été vérifié par une orga : à recouper.'),
+   _t(rows.some(r => r.status) ? 'Rond vide : signalement retiré ou contesté (la mention précise par qui) ; il reste affiché. Positions arrondies à ~100 m. Fin = disparition de la carte.' : 'Positions arrondies à environ 100 m. Fin = moment où le signalement a disparu de la carte.'),
+   _t(slotCfg && slotCfg.vector ? 'Étoile : le lieu demandé ; signalements à moins de {r} m. Fond de carte © les contributeur·ices d’OpenStreetMap (ODbL), Protomaps.' : 'Étoile : le lieu demandé ; signalements à moins de {r} m. Fond de carte © les contributeur·ices d’OpenStreetMap (ODbL).', { r: R })].forEach((t, i) => g.fillText(t, 40, y + 4 + i * 28));
   return vec ? vec.length : tiles.length;
 }
-window.cortegeCreneau = { select: slotSelect, parisMs, draw: slotDraw, geocode: slotGeocode, COL: SLOT_COL, FAM: SLOT_FAM, hm };
+window.cortegeCreneau = { select: slotSelect, parisMs, draw: slotDraw, geocode: slotGeocode, COL: SLOT_COL, FAM: SLOT_FAM, hm, T: _t, TN: _tn };
 })();

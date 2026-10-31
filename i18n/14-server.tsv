@@ -1,0 +1,45 @@
+# Messages du serveur (erreurs) : traduits dans l’appli (toast) ou par le serveur (reqLang) quand ils contiennent un nombre
+Invalid phone number.	Invalid phone number.	Número de teléfono no válido.	رقم هاتف غير صالح.
+Donne un titre à la journée (affiché en bandeau).	Give the day a title (shown in the banner).	Ponle un título al día (se muestra en el aviso).	أعطِ اليوم عنوانًا (يظهر في الشريط).
+Temps réel indisponible, interrogation régulière.	Live updates unavailable, checking at regular intervals.	Actualización en vivo no disponible, consulta periódica.	التحديث المباشر غير متاح، يتم التحقق على فترات منتظمة.
+Format refusé.	Format not accepted.	Formato no aceptado.	الصيغة غير مقبولة.
+Bilan non publié.	Summary not published.	Resumen no publicado.	الملخص غير منشور.
+Les points de cette journée ne sont plus disponibles.	The points for this day are no longer available.	Los puntos de este día ya no están disponibles.	نقاط هذا اليوم لم تعد متاحة.
+Points invalides.	Invalid points.	Puntos no válidos.	نقاط غير صالحة.
+Pas de carte hébergée.	No hosted map.	No hay mapa alojado.	لا توجد خريطة مستضافة.
+Trop loin.	Too far.	Demasiado lejos.	بعيد جدًا.
+Trop de demandes.	Too many requests.	Demasiadas solicitudes.	طلبات كثيرة جدًا.
+Pas de chemin trouvé.	No route found.	No se encontró ninguna ruta.	لم يُعثر على مسار.
+Admin désactivé : ajoute ADMIN_KEY dans les variables du serveur.	Admin disabled: add ADMIN_KEY to the server’s variables.	Administración desactivada: añade ADMIN_KEY a las variables del servidor.	الإدارة معطّلة: أضف ADMIN_KEY إلى متغيرات الخادم.
+Clé incorrecte.	Wrong key.	Clave incorrecta.	مفتاح غير صحيح.
+Donne un nom à l’orga (il sera affiché sur ses annonces).	Give the organizer a name (it will be shown on their announcements).	Ponle un nombre al grupo organizador (se mostrará en sus anuncios).	أعطِ الجهة المنظِّمة اسمًا (سيظهر على إعلاناتها).
+Journée introuvable.	Day not found.	Día no encontrado.	لم يُعثر على اليوم.
+Cette date est passée.	This date has passed.	Esta fecha ya pasó.	هذا التاريخ قد مضى.
+Une journée est déjà prévue ce jour-là.	A day is already planned on that date.	Ya hay un día previsto en esa fecha.	هناك يوم مخطط له بالفعل في ذلك التاريخ.
+Import déjà en cours.	Import already running.	Importación ya en curso.	الاستيراد جارٍ بالفعل.
+Lieu introuvable.	Place not found.	Lugar no encontrado.	لم يُعثر على المكان.
+Type de lieu inconnu.	Unknown place type.	Tipo de lugar desconocido.	نوع مكان غير معروف.
+Demande déjà traitée.	Request already handled.	Solicitud ya atendida.	تمت معالجة الطلب بالفعل.
+Ligne introuvable.	Entry not found.	Entrada no encontrada.	لم يُعثر على الإدخال.
+Bloc illisible : colle-le en entier, du premier [ au dernier ].	Unreadable block: paste it whole, from the first [ to the last ].	Bloque ilegible: pégalo completo, desde el primer [ hasta el último ].	كتلة غير مقروءة: الصقها كاملة، من أول [ إلى آخر ].
+Le bloc doit contenir entre 1 et 30 arrêtés.	The block must contain between 1 and 30 orders.	El bloque debe contener entre 1 y 30 órdenes.	يجب أن تحتوي الكتلة على ما بين 1 و30 قرارًا.
+Tape EFFACER pour confirmer.	Type ERASE to confirm.	Escribe ERASE para confirmar.	اكتب ERASE للتأكيد.
+Plus dans la corbeille.	No longer in the trash.	Ya no está en la papelera.	لم يعد في سلة المحذوفات.
+Inconnu.	Unknown.	Desconocido.	غير معروف.
+Digest disabled: set ADMIN_KEY in server environment.	Digest disabled: set ADMIN_KEY in server environment.	Resumen desactivado: define ADMIN_KEY en el entorno del servidor.	الملخص معطّل: عيّن ADMIN_KEY في بيئة الخادم.
+Invalid date.	Invalid date.	Fecha no válida.	تاريخ غير صالح.
+Réservé à l’admin.	Admin only.	Solo para la administración.	للإدارة فقط.
+{n} événements par jour au maximum.	{n} events per day at most.	{n} eventos por día como máximo.	{n} فعاليات في اليوم على الأكثر.
+Zone : {why}	Area: {why}	Zona: {why}	المنطقة: {why}
+{n} fichier(s) de l’archive n’ont pas pu être effacés : vérifie les droits du dossier.	{n} archive file(s) could not be erased: check the folder’s permissions.	No se pudieron borrar {n} archivo(s) del archivo: revisa los permisos de la carpeta.	تعذّر محو {n} ملف (ملفات) من الأرشيف: تحقّق من صلاحيات المجلد.
+Invitations suspendues jusqu’au {d} (une orga que tu as invitée a été révoquée).	Invitations suspended until {d} (an organizer you invited was revoked).	Invitaciones suspendidas hasta el {d} (se revocó a un grupo organizador que invitaste).	الدعوات معلّقة حتى {d} (أُلغيت جهة منظِّمة دعوتها).
+{n} invitations par semaine au maximum. Réessaie dans quelques jours.	{n} invitations per week at most. Try again in a few days.	{n} invitaciones por semana como máximo. Inténtalo en unos días.	{n} دعوات في الأسبوع على الأكثر. حاول مجددًا بعد أيام.
+Orga parrainée : {n} annonces par jour au maximum jusqu’à ta confirmation.	Sponsored organizer: {n} announcements per day at most until you are confirmed.	Grupo organizador patrocinado: {n} anuncios por día como máximo hasta tu confirmación.	جهة منظِّمة برعاية: {n} إعلانات في اليوم على الأكثر حتى تأكيدك.
+{n} annonces par jour au maximum.	{n} announcements per day at most.	{n} anuncios por día como máximo.	{n} إعلانات في اليوم على الأكثر.
+{n} annonces urgentes par heure au maximum. Publie celle-ci en « info ».	{n} urgent announcements per hour at most. Post this one as “info”.	{n} anuncios urgentes por hora como máximo. Publica este como «info».	{n} إعلانات عاجلة في الساعة على الأكثر. انشر هذا كـ«معلومة».
+les villes ne peuvent pas être choisies sur ce serveur (GEO_API) : choisis l’État entier	cities can’t be chosen on this server (GEO_API): choose the whole state	no se pueden elegir ciudades en este servidor (GEO_API): elige el estado completo	لا يمكن اختيار المدن على هذا الخادم (GEO_API): اختر الولاية كاملة
+ville « {name} » introuvable dans l’État {dep} (proches : {near})	city “{name}” not found in state {dep} (nearby: {near})	ciudad «{name}» no encontrada en el estado {dep} (cercanas: {near})	المدينة «{name}» غير موجودة في الولاية {dep} (قريبة: {near})
+ville « {name} » introuvable dans l’État {dep}	city “{name}” not found in state {dep}	ciudad «{name}» no encontrada en el estado {dep}	المدينة «{name}» غير موجودة في الولاية {dep}
+contour de la ville illisible	the city’s outline is unreadable	el contorno de la ciudad es ilegible	حدود المدينة غير مقروءة
+État inconnu	unknown state	estado desconocido	ولاية غير معروفة
+pour {s}, indique la ville	for {s}, give the city	para {s}, indica la ciudad	بالنسبة إلى {s}، حدّد المدينة

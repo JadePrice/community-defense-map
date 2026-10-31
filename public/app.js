@@ -1666,7 +1666,7 @@
   const mine = new Set((() => { try { return JSON.parse(localStorage.getItem('cortege-mine') || '[]'); } catch { return []; } })());
   function mineAdd(id) { mine.add(id); try { localStorage.setItem('cortege-mine', JSON.stringify([...mine].slice(-200))); } catch {} }
   async function orgaFetch(url, opts = {}) {
-    const res = await fetch(url, { ...opts, headers: { 'Content-Type': 'application/json', 'X-Orga-Key': orgaKey(), ...(opts.headers || {}) } });
+    const res = await fetch(url, { ...opts, headers: { 'Content-Type': 'application/json', 'X-Orga-Key': orgaKey(), 'X-Lang': I18N.lang, ...(opts.headers || {}) } });
     const body = await res.json().catch(() => ({}));
     if (res.status === 403) { setOrga(null); try { localStorage.removeItem('cortege-orga'); } catch {} }
     if (!res.ok) throw new Error(body.error || t('Action impossible.'));

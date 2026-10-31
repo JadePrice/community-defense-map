@@ -16,6 +16,8 @@ jobs:
         with:
           node-version: 24
       - name: Vérification de la syntaxe
-        run: node --check server.js && node --check public/app.js && node --check public/sw.js && node --check verifier.js
+        run: for f in server.js verifier.js public/*.js tools/*.js; do node --check "$f" || exit 1; done
+      - name: Traductions à jour
+        run: node tools/i18n-build.js && git diff --exit-code public/lang
       - name: Tests du serveur
         run: node --test test/*.test.js

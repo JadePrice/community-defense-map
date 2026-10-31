@@ -4,13 +4,14 @@
 // Garde-fous : rayon de 2 km et créneau de 6 h au plus, une image à la fois, quelques secondes entre deux images.
 (async () => {
   const $ = s => document.querySelector(s);
-  const C = window.cortegeCreneau;
+  const C = window.cortegeCreneau, T = C.T, TN = C.TN;
+  if (window.I18N) await window.I18N.ready;
   const date = (location.pathname.match(/\/manif\/(\d{4}-\d{2}-\d{2})\//) || [])[1];
   const MAX_R = 2000, MAX_H = 6, GAP = 5000;
-  const msg = t => { $('#msg').textContent = t; };
+  const msg = t => { $('#msg').textContent = T(t); };
   if (!date) return msg('Adresse invalide.');
   $('#back').href = '/manif/' + date;
-  $('#day').textContent = new Date(date + 'T12:00:00Z').toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+  $('#day').textContent = new Date(date + 'T12:00:00Z').toLocaleDateString((window.I18N && window.I18N.locale) || 'en-US', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
 
   let cfg = {}, data;
   try {
@@ -19,8 +20,11 @@
   } catch (e) { return msg(e.message || 'Pas de réseau.'); }
   const cats = Object.fromEntries(data.cats.map(c => [c.id, c]));
   // Devenir du point (8e valeur) : les retirés et contestés restent visibles, avec la mention
+  // Full label, and a short one for the two-column list of the image
   const OUT = ['', 'contesté (« Plus là »)', 'retiré par une orga', 'retiré par l’admin', 'évincé (zone saturée)', 'effacé (purge)', 'retiré', 'retiré'];
-  const rows = data.pts.map(([c, t, e, la, lo, up, v, o]) => ({ cat: cats[c], t: t * 60000, end: e * 60000, lat: la / (data.ps || 1e3), lng: lo / (data.ps || 1e3), up, v, status: OUT[o || 0] || '' })).filter(r => r.cat);
+  const SHORT = ['', 'contesté', 'retiré', 'retiré', 'évincé', 'effacé', 'retiré', 'retiré'];
+  const rows = data.pts.map(([c, t, e, la, lo, up, v, o]) => ({ cat: cats[c], t: t * 60000, end: e * 60000, lat: la / (data.ps || 1e3), lng: lo / (data.ps || 1e3), up, v,
+    status: o ? T(OUT[o] || 'retiré') : '', statusShort: o ? T(SHORT[o] || 'retiré') : '' })).filter(r => r.cat);
   if (!rows.length) return msg('Aucun signalement ce jour-là.');
 
   // Créneau par défaut : l'heure la plus chargée de la journée
@@ -34,8 +38,8 @@
   map.attributionControl.setPrefix(false);
   const raster = () => { document.body.classList.add('raster'); L.tileLayer('/tiles/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">contributeurs OpenStreetMap</a>' }).addTo(map); };
   try {
+    const vlang = (window.I18N && window.I18N.lang === 'fr') ? 'fr' : (window.I18N && window.I18N.lang === 'es') ? 'es' : 'en';
     if (cfg.vector && window.protomapsL && window.cortegeVectorLayer)
-      const vlang = (window.I18N && window.I18N.lang === 'fr') ? 'fr' : (window.I18N && window.I18N.lang === 'es') ? 'es' : 'en';
       window.cortegeVectorLayer(window.protomapsL, { url: cfg.vector.url, lang: vlang, maxDataZoom: cfg.vector.maxzoom, attribution: '© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">contributeurs OpenStreetMap</a> · Protomaps' }).addTo(map);
     else raster();
   } catch { raster(); }
@@ -50,7 +54,7 @@
     const R = +$('#r').value;
     if (ring) ring.setRadius(R);
     const n = place ? C.select(rows, place, R, from, to, date).length : live.length;
-    $('#count').textContent = place ? `${n} signalement${n > 1 ? 's' : ''} dans la zone sur ce créneau.` : `${live.length} signalement${live.length > 1 ? 's' : ''} sur ce créneau. Choisis un lieu sur la carte.`;
+    $('#count').textContent = place ? TN(n, '{n} signalement dans la zone sur ce créneau.', '{n} signalements dans la zone sur ce créneau.') : TN(live.length, '{n} signalement sur ce créneau. Choisis un lieu sur la carte.', '{n} signalements sur ce créneau. Choisis un lieu sur la carte.');
     $('#go').disabled = !place || busy;
   }
   function setPlace(lat, lng, label) {
@@ -81,22 +85,22 @@
     if (!place || busy) return;
     const from = $('#from').value, to = $('#to').value, R = Math.min(MAX_R, +$('#r').value || 500);
     if (span() < 0) return msg('L’heure de fin est avant l’heure de début.');
-    if (span() > MAX_H * 60) return msg(`Créneau de ${MAX_H} h au plus.`);
+    if (span() > MAX_H * 60) return msg(T('Créneau de {h} h au plus.', { h: MAX_H }));
     const wait = last + GAP - Date.now();
-    if (wait > 0) return msg(`Patiente ${Math.ceil(wait / 1000)} s avant la prochaine image.`);
+    if (wait > 0) return msg(T('Patiente {s} s avant la prochaine image.', { s: Math.ceil(wait / 1000) }));
     busy = true; $('#go').disabled = true; msg('Fabrication de l’image…');
     try {
       const sel = C.select(rows, place, R, from, to, date);
-      await C.draw($('#cv'), { date, c: place, R, from, to, rows: sel, brand: cfg.brand || {}, more: 'zoome ou réduis le créneau' });
+      await C.draw($('#cv'), { date, c: place, R, from, to, rows: sel, brand: cfg.brand || {}, more: T('zoome ou réduis le créneau') });
       const blob = await new Promise(ok => $('#cv').toBlob(ok, 'image/png'));
-      const url = URL.createObjectURL(blob), name = `cortege-${date}-${from.replace(':', 'h')}-${to.replace(':', 'h')}.png`;
+      const url = URL.createObjectURL(blob), name = `community-defense-map-${date}-${from.replace(':', 'h')}-${to.replace(':', 'h')}.png`;
       $('#out').src = url; $('#dl').href = url; $('#dl').download = name;
       $('#result').hidden = false;
       const file = new File([blob], name, { type: 'image/png' });
       $('#share').hidden = !(navigator.canShare && navigator.canShare({ files: [file] }));
-      $('#share').onclick = () => navigator.share({ files: [file], title: 'Signalements Community Defense Map' }).catch(() => {});
+      $('#share').onclick = () => navigator.share({ files: [file], title: T('Signalements Community Defense Map') }).catch(() => {});
       $('#result').scrollIntoView({ behavior: 'smooth', block: 'start' });
-      msg(`${sel.length} signalement${sel.length > 1 ? 's' : ''} sur l’image.`);
+      msg(TN(sel.length, '{n} signalement sur l’image.', '{n} signalements sur l’image.'));
     } catch { msg('Impossible de fabriquer l’image. Réessaie.'); }
     last = Date.now(); busy = false; setTimeout(preview, GAP);
   });

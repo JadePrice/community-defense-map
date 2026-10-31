@@ -42,22 +42,23 @@ h1 { font-size: 17mm; line-height: 1.02; font-weight: 900; letter-spacing: -.03e
 <body>
 <div class="ctrl">
   <label>Ville<select id="city"><option value="">Sans numéro de legal team</option></select></label>
-  <label>Ou un autre numéro (facultatif)<input id="extra" maxlength="40" placeholder="ex. : Legal team du cortège 06 00 00 00 00"></label>
+  <label>Ou un autre numéro (facultatif)<input id="extra" maxlength="40" placeholder="ex. : Legal team (555) 555-0100"></label>
   <button type="button" id="print">Imprimer</button>
   <p>Seuls les numéros vérifiés (annuaire) ou publiés par les orgas de la ville apparaissent. Vérifie-les avant d’afficher.</p>
 </div>
 <div class="sheet">
-  <div class="brand"><img src="/brand/logo.png" alt=""><div><b>Community Defense Map</b><span id="by">La carte en direct des manifs</span></div></div>
-  <h1>Vois en direct ce qui se passe dans la manif</h1>
-  <p class="sub">Police, nasses, lacrymo, zones calmes, street medics : les manifestant·es se préviennent entre elles et eux, en temps réel.</p>
+  <div class="brand"><img src="/brand/logo.png" alt=""><div><b>Community Defense Map</b><span id="by">Carte en direct de l’activité policière et de la surveillance</span></div></div>
+  <h1>Vois en direct ce que fait la police autour de toi</h1>
+  <p class="sub">Police, encerclements, gaz lacrymogène, caméras de surveillance, zones calmes, street medics : les gens se préviennent entre eux, en temps réel.</p>
   <div class="mid">
     <div class="qr" id="qr"></div>
     <div><ul><li>Gratuit, sans compte, sans pub</li><li>Ta position reste sur ton téléphone</li><li>Marche même quand le réseau sature</li><li>Les numéros de legal team de ta ville</li></ul>
       <div class="url" id="url"></div></div>
   </div>
-  <div class="legal" id="legal" hidden><h2 id="legalTitle">Legal team</h2><div id="legalList"></div><div class="tip">Note-le au stylo sur ton bras : en garde à vue, ton téléphone te sera retiré.</div></div>
+  <div class="legal" id="legal" hidden><h2 id="legalTitle">Legal team</h2><div id="legalList"></div><div class="tip">Note-le au stylo sur ton bras : si tu es arrêté·e, ton téléphone peut t’être retiré.</div></div>
   <div class="foot"><span>Scanne avec l’appareil photo de ton téléphone</span><span id="handle"></span></div>
 </div>
+<script src="/i18n.js"></script>
 <script src="/vendor/qrcode.js"></script>
 <script src="/affiche.js"></script>
 </body>

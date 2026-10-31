@@ -47,7 +47,7 @@ button:disabled { opacity: .5; cursor: default; }
   <p class="hint">Touche la carte pour choisir le lieu, ou cherche une adresse.</p>
   <form class="card" id="form">
     <div class="row">
-      <label class="grow">Adresse<input id="q" placeholder="ex. : place de la République, Paris" autocomplete="off"></label>
+      <label class="grow">Adresse<input id="q" placeholder="ex. : Civic Center Park, Denver" autocomplete="off"></label>
       <button type="button" class="ghost" id="search">Chercher</button>
     </div>
     <div class="row">
@@ -69,6 +69,7 @@ button:disabled { opacity: .5; cursor: default; }
   <p class="fine">Signalements faits par des participant·es sur Community Defense Map. Ceux qui ont été retirés ou contestés restent affichés, en rond vide, avec la mention. Ils ne sont pas tous vérifiés : à recouper avant de publier. Positions arrondies à environ 100 m. L’image est fabriquée sur ton téléphone ou ton ordinateur. Fond de carte © les contributeur·ices d’OpenStreetMap.</p>
   <canvas id="cv" hidden></canvas>
 </main>
+<script src="/i18n.js"></script>
 <script src="/tz.js"></script>
 <script src="/vendor/leaflet.js"></script>
 <script src="/vendor/protomaps-leaflet.js"></script>
