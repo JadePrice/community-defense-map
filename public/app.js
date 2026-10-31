@@ -57,14 +57,8 @@
     $('#onionCopy').onclick = async () => { try { await navigator.clipboard.writeText('http://' + cfg.onion); toast(t('Adresse .onion copiée')); } catch { toast(cfg.onion); } };
   }
   if (cfg.violenceUrl) document.querySelectorAll('#violenceLink, .violence-inline').forEach(a => (a.href = cfg.violenceUrl));
-  if (cfg.brand) {
-    document.querySelectorAll('.handle').forEach(n => (n.textContent = '@' + cfg.brand.handle));
-    document.querySelectorAll('a[href="https://www.instagram.com/neru/"]').forEach(a => (a.href = cfg.brand.instagram));
-    $('#brandLink').href = cfg.brand.instagram;
-    document.querySelectorAll('a[href="https://ko-fi.com/neru"]').forEach(a => { if (cfg.brand.kofi) a.href = cfg.brand.kofi; else a.hidden = true; });
-    const siteLabel = cfg.brand.site.replace(/^https?:\/\//, '').replace(/\/$/, '');
-    document.querySelectorAll('a[href="https://neru.tv"]').forEach(a => { a.href = cfg.brand.site; if (!a.querySelector('svg')) a.textContent = siteLabel; });
-  }
+  // Donation links stay hidden unless the instance sets BRAND_KOFI
+  if (cfg.brand && cfg.brand.kofi) document.querySelectorAll('[data-brand="kofi"]').forEach(a => { a.href = cfg.brand.kofi; a.target = '_blank'; a.rel = 'noopener noreferrer'; a.hidden = false; });
 
   // Logo absent : on le masque (fait ici et pas dans le HTML, que la politique de sécurité interdit)
   document.querySelectorAll('img[src="/brand/logo.png"]').forEach(img => {
@@ -228,7 +222,7 @@
     const cs = calmSt.get(r.id);
     const cls = ['pin', fresh ? 'fresh' : '', age > ttl * 0.6 ? 'old' : '', r.c ? 'contested' : '', cs ? 'calm-' + cs.lvl : ''].join(' ');
     return L.divIcon({ className: '', iconSize: [40, 40], iconAnchor: [20, 20], popupAnchor: [0, -18],
-      html: r.cat === 'contact' ? `<div class="pin admin live" style="--c:#a191d8"><img src="/brand/logo.png" alt=""></div>`
+      html: r.cat === 'contact' ? `<div class="pin admin live" style="--c:#5bb8ea"><img src="/brand/logo.png" alt=""></div>`
         : `<div class="${cls}${r.ver ? ' ver' : ''}${r.live ? ' live' : ''}" style="--c:${GROUP_COLOR[c.group]}">${c.glyph}</div>` });
   }
   function popup(r) {
@@ -462,7 +456,7 @@
         fix[r.id] = best;
         if (r.cat === 'cortege') {
           const { e, o } = best, pct = Math.round(o.at / o.total * 100);
-          L.polyline(routeSlice(e.route, 0, o.at), { color: '#ec9fa4', weight: 7, opacity: .9, interactive: false }).addTo(flowLayer);
+          L.polyline(routeSlice(e.route, 0, o.at), { color: '#7fe0ef', weight: 7, opacity: .9, interactive: false }).addTo(flowLayer);
           const left = o.total - o.at, sp = mo && mo.kmh > 0.3 ? mo.kmh * 1000 / 60 : null; // mètres par minute
           info(r.id).lines.push(t('Parcours « {title} » : {p} % fait', { title: e.title, p: pct }) + (sp ? ' · ' + t('fin dans environ {d}', { d: mins(left / sp) }) : ''));
           if (me && sp) { const mine = onRoute(e.route, me); if (mine.d <= 200 && mine.at > o.at) info(r.id).lines.push(t('Arrive près de toi dans environ {d}', { d: mins((mine.at - o.at) / sp) })); }
@@ -800,11 +794,11 @@
     if (b === buildSeen || updating) return;
     updating = true;
     navigator.serviceWorker?.getRegistration?.().then(r => r && r.update()).catch(() => {});
-    const bar = el('div', { class: 'update-bar', role: 'status' }, t('Nouvelle version de Cortège'));
+    const bar = el('div', { class: 'update-bar', role: 'status' }, t('Nouvelle version de Community Defense Map'));
     const btn = el('button', {}, t('Mettre à jour'));
     btn.onclick = reloadForUpdate; bar.append(btn); document.body.append(bar);
     // Dès que la personne ne fait rien de particulier (ou passe l'appli en arrière-plan), on met à jour
-    const tryNow = () => { if (document.hidden || !busyNow()) { bar.textContent = t('Mise à jour de Cortège…'); setTimeout(reloadForUpdate, 1200); return true; } return false; };
+    const tryNow = () => { if (document.hidden || !busyNow()) { bar.textContent = t('Mise à jour de Community Defense Map…'); setTimeout(reloadForUpdate, 1200); return true; } return false; };
     if (!tryNow()) { const t = setInterval(() => { if (tryNow()) clearInterval(t); }, 4000); document.addEventListener('visibilitychange', () => { if (document.hidden) reloadForUpdate(); }); }
   }
 
@@ -1555,7 +1549,7 @@
       if (outcome === 'accepted') hideInstall(); else $('#btnInstallTool').hidden = true;
       return;
     }
-    if (inApp) return installHelp(t('Tu es dans le navigateur d’une appli (Instagram, TikTok…), qui ne peut pas installer Cortège. Touche le menu <b>⋯</b> en haut à droite puis <b>Ouvrir dans le navigateur</b>, et recommence depuis là.'));
+    if (inApp) return installHelp(t('Tu es dans le navigateur d’une appli (Instagram, TikTok…), qui ne peut pas installer Community Defense Map. Touche le menu <b>⋯</b> en haut à droite puis <b>Ouvrir dans le navigateur</b>, et recommence depuis là.'));
     if (isIOS) return installHelp(t('Sur iPhone, dans <b>Safari</b> : touche le bouton <b>Partager</b> (le carré avec une flèche vers le haut), puis <b>Sur l’écran d’accueil</b>, puis <b>Ajouter</b>.'));
     installHelp(t('Ouvre le menu de ton navigateur (<b>⋮</b>) puis <b>Installer l’application</b> ou <b>Ajouter à l’écran d’accueil</b>.'));
   }
@@ -1662,11 +1656,11 @@
   }
   $('#btnShare').onclick = openShare;
   $('#shClose').onclick = () => closeSheets();
-  $('#btnNativeShare').onclick = () => navigator.share?.({ title: 'Cortège', text: t('La carte en direct des manifs, par @{h}', { h: cfg.brand?.handle || 'neru' }), url: shareUrl }).catch(() => {});
+  $('#btnNativeShare').onclick = () => navigator.share?.({ title: 'Community Defense Map', text: t('Carte en direct de l’activité policière et de la surveillance'), url: shareUrl }).catch(() => {});
   $('#btnCopyLink').onclick = async () => { try { await navigator.clipboard.writeText(shareUrl); toast('Lien copié'); } catch { toast(shareUrl); } };
 
   // ---- Espace orga / legal team ----
-  // Le lien orga ressemble à https://cortege.neru.tv/?orga=CLÉ : la clé est gardée sur ce téléphone et retirée de l'adresse.
+  // Le lien orga ressemble à https://example.org/?orga=CLÉ : la clé est gardée sur ce téléphone et retirée de l'adresse.
   const orgaKey = () => { try { return localStorage.getItem('cortege-orga') || ''; } catch { return ''; } };
   // Signalements faits par cette orga depuis ce téléphone : elle peut les prolonger ou les corriger
   const mine = new Set((() => { try { return JSON.parse(localStorage.getItem('cortege-mine') || '[]'); } catch { return []; } })());
@@ -1770,7 +1764,7 @@
     $('#inviteOut').hidden = false; $('#inviteOut').scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
   $('#inviteCopy').onclick = async () => { try { await navigator.clipboard.writeText($('#inviteUrl').textContent); toast('Lien copié'); } catch { toast($('#inviteUrl').textContent); } };
-  $('#inviteShare').onclick = () => navigator.share?.({ title: 'Cortège', text: t('Lien à usage unique, à ouvrir sur le bon appareil :'), url: $('#inviteUrl').textContent }).catch(() => {});
+  $('#inviteShare').onclick = () => navigator.share?.({ title: 'Community Defense Map', text: t('Lien à usage unique, à ouvrir sur le bon appareil :'), url: $('#inviteUrl').textContent }).catch(() => {});
   async function renderOrgaExtras() {
     $('#inviteOut').hidden = true;
     let me = orga;
@@ -1995,7 +1989,7 @@
     for (const e of evCache.e.filter(evOnMap)) {
       const ty = EVT[e.type] || { glyph: '📍' };
       if (e.route) {
-        L.polyline(e.route, { color: '#ec9fa4', weight: 5, opacity: .9, dashArray: '10 8', interactive: false }).addTo(evLayer);
+        L.polyline(e.route, { color: '#7fe0ef', weight: 5, opacity: .9, dashArray: '10 8', interactive: false }).addTo(evLayer);
         if (e.end) L.marker(e.route[e.route.length - 1], { icon: L.divIcon({ className: '', iconSize: [30, 30], html: '<div class="ev-end">🏁</div>' }), title: t('Dispersion prévue'), keyboard: false })
           .bindPopup(() => el('div', {}, t('Dispersion prévue : {title}', { title: e.title }))).addTo(evLayer);
       }
@@ -2184,7 +2178,7 @@
   function redrawDraft() {
     drawLayer.clearLayers();
     const r = draft.route, n = r.length;
-    if (n > 1) L.polyline(r, { color: '#ec9fa4', weight: 5, interactive: false }).addTo(drawLayer);
+    if (n > 1) L.polyline(r, { color: '#7fe0ef', weight: 5, interactive: false }).addTo(drawLayer);
     r.forEach((p, i) => L.marker(p, { interactive: false, keyboard: false,
       icon: i === 0 ? L.divIcon({ className: '', iconSize: [38, 38], html: '<div class="ev-pin">📍</div>' }) : L.divIcon({ className: '', iconSize: [14, 14], html: '<div class="draw-pt"></div>' }) }).addTo(drawLayer));
     $('#drawCount').textContent = !n ? t('Aucun point') : n === 1 ? t('Rendez-vous placé') : tn(n - 1, 'Rendez-vous + {n} point de parcours', 'Rendez-vous + {n} points de parcours');
@@ -2249,7 +2243,7 @@
     if (me) { const la = me[0].toFixed(4), lo = me[1].toFixed(4); s += ' ' + t('ici : {url}', { url: `https://www.openstreetmap.org/?mlat=${la}&mlon=${lo}#map=17/${la}/${lo}` }); }
     const legal = nearestLegal();
     s += '. ' + (legal && legal.d < 80000 ? t('Préviens la legal team : {phone} ({name}).', { phone: legal.phone, name: legal.name }) : t('Préviens la legal team de la manif.'));
-    s += ' ' + t('Message envoyé avec Cortège.');
+    s += ' ' + t('Message envoyé avec Community Defense Map.');
     return s;
   }
   function sosLink() {
@@ -2344,7 +2338,7 @@
   $('#btnEmbed').onclick = () => {
     closeReport(); closeSheets();
     const c = map.getCenter(), src = `${location.origin}/embed.html?lat=${c.lat.toFixed(3)}&lng=${c.lng.toFixed(3)}&z=${Math.min(15, Math.max(10, map.getZoom()))}`;
-    $('#embedCode').value = `<iframe src="${src}" width="100%" height="480" style="border:0;border-radius:12px" loading="lazy" title="${t('Carte en direct des manifs (Cortège)')}"></iframe>`;
+    $('#embedCode').value = `<iframe src="${src}" width="100%" height="480" style="border:0;border-radius:12px" loading="lazy" title="${t('Carte en direct des manifs (Community Defense Map)')}"></iframe>`;
     $('#embedOpen').href = src;
     $('#sheetEmbed').hidden = false;
   };
@@ -2621,7 +2615,7 @@
     });
   });
 
-  // Premier lancement : on montre les réflexes (et la carte @neru) une fois
+  // Premier lancement : on montre les réflexes une fois
   try { if (!localStorage.getItem('cortege-seen')) { $('#sheetInfo').hidden = false; localStorage.setItem('cortege-seen', '1'); } } catch {}
 
   // ---- Hors ligne : PWA + pré-chargement des tuiles de la zone ----

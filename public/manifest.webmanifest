@@ -1,7 +1,7 @@
 {
   "name": "Community Defense Map",
   "short_name": "DefMap",
-  "description": "Carte collaborative en temps réel pour se protéger en manifestation.",
+  "description": "Crowd-sourced, real-time map of police activity and surveillance.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#121214",

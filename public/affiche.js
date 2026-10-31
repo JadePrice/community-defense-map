@@ -28,7 +28,7 @@
     if (extra) { const n = document.createElement('div'); n.className = 'who'; n.style.fontSize = '6mm'; n.style.color = '#121214'; n.textContent = extra; list.append(n); }
     $('#legal').hidden = !items.length && !extra;
     $('#legalTitle').textContent = c ? 'Legal team · ' + c.name : 'Legal team';
-    document.title = 'Affiche Cortège' + (c ? ' · ' + c.name : '');
+    document.title = 'Affiche Community Defense Map' + (c ? ' · ' + c.name : '');
   }
   sel.onchange = render; $('#extra').oninput = render; render();
   $('#print').onclick = () => window.print();

@@ -41,11 +41,11 @@
 </div>
 
 <header class="topbar">
-  <a class="brand" id="brandLink" href="https://www.instagram.com/neru/" target="_blank" rel="noopener noreferrer">
+  <a class="brand" id="brandLink" href="/">
     <img class="logo-img" src="/brand/logo.png" alt="" width="38" height="38">
     <span class="logo" aria-hidden="true" hidden></span>
     <div class="brand-txt">
-      <h1 class="name">Community Defense Map <span class="by">based on <b class="handle">Cortège</b></span></h1>
+      <h1 class="name">Community Defense Map</h1>
       <div class="event" id="eventName">—</div>
     </div>
   </a>
@@ -53,7 +53,7 @@
     <span class="orga-chip" id="orgaChip" hidden></span>
     <button class="queue-chip" id="queueChip" hidden>⏳ 0</button>
     <div class="status" id="status" data-state="connecting"><span class="dot"></span><span class="txt">Connexion…</span></div>
-    <a class="kofi-pill" id="btnKofi" href="https://ko-fi.com/neru" target="_blank" rel="noopener noreferrer" aria-label="Soutenir Cortège sur Ko-fi">
+    <a class="kofi-pill" id="btnKofi" data-brand="kofi" hidden href="#" target="_blank" rel="noopener noreferrer" aria-label="Soutenir Community Defense Map sur Ko-fi">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.5-7 10-7 10z"></path></svg>
       <span>Soutenir</span>
     </a>
@@ -173,9 +173,9 @@
   </div>
   <h3 class="menu-group">Sur la carte</h3>
   <button type="button" class="tile wide" id="btnList"><span class="ico" aria-hidden="true">☰</span><span><b>Signalements dans la zone</b><small>La liste, du plus proche au plus loin</small></span></button>
-  <a class="kofi-nudge" href="https://ko-fi.com/neru" target="_blank" rel="noopener noreferrer">
+  <a class="kofi-nudge" data-brand="kofi" hidden href="#" target="_blank" rel="noopener noreferrer">
     <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.5-7 10-7 10z"></path></svg>
-    <span><b>Cortège est gratuit et sans pub.</b> Tes dons servent à l’améliorer.</span>
+    <span><b>Community Defense Map est gratuit et sans pub.</b> Tes dons servent à l’améliorer.</span>
     <span class="kn-go">Ko-fi</span>
   </a>
 </section>
@@ -233,16 +233,10 @@
     <button class="x" id="siClose" aria-label="Fermer">×</button>
   </div>
 
-  <a class="kofi-hero" id="kofiLink" href="https://ko-fi.com/neru" target="_blank" rel="noopener noreferrer">
-    <span class="kh-top"><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.5-7 10-7 10z"></path></svg><b>Soutenir Cortège</b></span>
+  <a class="kofi-hero" id="kofiLink" data-brand="kofi" hidden href="#" target="_blank" rel="noopener noreferrer">
+    <span class="kh-top"><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.5-7 10-7 10z"></path></svg><b>Soutenir Community Defense Map</b></span>
     <span class="kh-txt">Gratuit, sans pub, sans pistage. Tes dons servent à améliorer le projet.</span>
     <span class="kh-btn">Faire un don sur Ko-fi</span>
-  </a>
-
-  <a class="ig-row" id="igLink" href="https://www.instagram.com/neru/" target="_blank" rel="noopener noreferrer">
-    <img class="ig-logo" src="/brand/logo.png" alt="" width="44" height="44">
-    <span class="ig-txt"><b>Suivre <span class="handle">@neru</span> sur Instagram</b><small>Pas un accident. Un système. Une chronique chaque jour.</small></span>
-    <span class="ig-follow">Suivre</span>
   </a>
 
   <button type="button" class="tile wide tile-manif" id="btnManif"><span class="ico" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V4M5 4h11l-2 4 2 4H5"></path></svg></span><span><b>Passer en mode manif</b><small>Carte, Signaler, SOS et legal team. Rien d’autre.</small></span></button>
@@ -259,14 +253,14 @@
   </div>
   <button class="tile wide bell" id="btnNotif" data-on="0"><span class="ico" aria-hidden="true">🔕</span><span><b>Alertes</b><small id="notifSub">Notifications, vibrations et voix</small></span></button>
 
-  <h3 class="menu-group">Faire grandir Cortège</h3>
-  <button class="tile wide" id="btnOrganize"><span class="ico" aria-hidden="true">📣</span><span><b>Organiser une manif</b><small>L’annoncer dans l’agenda de Cortège</small></span></button>
+  <h3 class="menu-group">Faire grandir Community Defense Map</h3>
+  <button class="tile wide" id="btnOrganize"><span class="ico" aria-hidden="true">📣</span><span><b>Organiser une manif</b><small>L’annoncer dans l’agenda de Community Defense Map</small></span></button>
   <div class="tiles">
     <button class="tile" id="btnShare"><span class="ico" aria-hidden="true">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect><path d="M14 14h3v3h-3zM20 14v.01M14 20h.01M17 17h4v4h-4"></path></svg></span><span><b>Partager</b><small>QR code à scanner</small></span></button>
     <a class="tile" href="/affiche.html" id="btnPoster"><span class="ico" aria-hidden="true">🖨</span><span><b>Affiche</b><small>À imprimer pour ta ville</small></span></a>
     <button class="tile" id="btnEmbed"><span class="ico" aria-hidden="true">🧩</span><span><b>Sur ton site</b><small>Intégrer la carte</small></span></button>
-    <a class="tile" id="githubLink" href="https://github.com/n-e-r-u/cortege" target="_blank" rel="noopener noreferrer"><span class="ico" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.69 5.39-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5z"></path></svg></span><span><b>Code ouvert</b><small>Sur GitHub</small></span></a>
+    <a class="tile" id="githubLink" href="https://github.com/JadePrice/community-defense-map" target="_blank" rel="noopener noreferrer"><span class="ico" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.69 5.39-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5z"></path></svg></span><span><b>Code ouvert</b><small>Sur GitHub</small></span></a>
   </div>
   <div class="orga-card" id="orgaRequestCard" hidden>
     <b class="card-title">Legal team, street medics, collectif ?</b>
@@ -283,7 +277,7 @@
     <li class="tip-prefetch"><b>Réseau saturé ?</b> Ouvre l’appli avant le départ et appuie sur « Prêt pour la manif » : la carte de ta zone, les numéros de legal team et l’agenda restent sur ton téléphone.</li>
     <li class="tip-browse" hidden><b>Réseau saturé ?</b> Avant de partir, parcours sur la carte le trajet de la manif : les morceaux de carte affichés restent en mémoire sur ton téléphone.</li>
     <li><b>Note le numéro de ta legal team</b> au stylo sur le bras. Un téléphone se perd ou se confisque.</li>
-    <li id="onionTip" hidden><b>Avec Tor.</b> Cortège a aussi une adresse .onion : ton opérateur ne voit même pas que tu utilises l’appli. Ouvre-la dans Tor Browser (ordinateur ou Android) : <code id="onionAddr"></code> <button type="button" class="link-btn" id="onionCopy">copier</button></li>
+    <li id="onionTip" hidden><b>Avec Tor.</b> Community Defense Map a aussi une adresse .onion : ton opérateur ne voit même pas que tu utilises l’appli. Ouvre-la dans Tor Browser (ordinateur ou Android) : <code id="onionAddr"></code> <button type="button" class="link-btn" id="onionCopy">copier</button></li>
   </ul>
 
   <div class="tiles">
@@ -316,11 +310,10 @@
     <span class="switch-txt"><b>Contraste renforcé</b><span>Textes plus blancs, bordures plus marquées, pour le plein soleil.</span></span>
   </label>
   <button type="button" class="wipe-btn" data-wipe><span class="wipe-fill" aria-hidden="true"></span><span class="wipe-txt"><b>Tout effacer de ce téléphone</b><small>Garde le doigt appuyé 2 secondes</small></span></button>
-  <p class="fine">Efface le contact SOS, la checklist, le point de ralliement, les réglages, la carte gardée hors ligne et l’accès orga, puis ferme Cortège. L’historique du navigateur n’est pas effacé : vide-le aussi depuis ses réglages.</p>
+  <p class="fine">Efface le contact SOS, la checklist, le point de ralliement, les réglages, la carte gardée hors ligne et l’accès orga, puis ferme Community Defense Map. L’historique du navigateur n’est pas effacé : vide-le aussi depuis ses réglages.</p>
   <p class="fine menu-foot"><a class="inline-link" href="/legal.html">Mentions légales, confidentialité et règles d’utilisation</a></p>
   <div class="credit">
-    <span>Cortège est un projet de <a class="handle-link" href="https://www.instagram.com/neru/" target="_blank" rel="noopener noreferrer"><b class="handle">@neru</b></a></span>
-    <a id="siteLink" href="https://neru.tv" target="_blank" rel="noopener noreferrer">neru.tv</a>
+    <span>Logiciel libre (AGPL-3.0), basé sur <a class="handle-link" href="https://github.com/n-e-r-u/cortege" target="_blank" rel="noopener noreferrer">Cortège</a></span>
   </div>
 </section>
 
@@ -330,17 +323,13 @@
     <h2 id="shTitle">Fais scanner ce code</h2>
     <button class="x" id="shClose" aria-label="Fermer">×</button>
   </div>
-  <div class="qr" id="qr" role="img" aria-label="QR code vers l’appli Cortège"></div>
+  <div class="qr" id="qr" role="img" aria-label="QR code vers l’appli Community Defense Map"></div>
   <p class="qr-url" id="qrUrl"></p>
   <div class="row2">
     <button class="secondary" id="btnNativeShare">Partager le lien</button>
     <button class="secondary" id="btnCopyLink">Copier le lien</button>
   </div>
   <p class="fine">Monte la luminosité de ton écran. Le code s’affiche même sans réseau ; la personne en face aura besoin de data pour ouvrir l’appli la première fois.</p>
-  <div class="credit">
-    <span>Cortège est un projet de <a class="handle-link" id="shareIg" href="https://www.instagram.com/neru/" target="_blank" rel="noopener noreferrer"><b class="handle">@neru</b></a></span>
-    <a id="shareSite" href="https://neru.tv" target="_blank" rel="noopener noreferrer">neru.tv</a>
-  </div>
 </section>
 
 <!-- Nouveautés -->
@@ -533,11 +522,7 @@
   </details>
   <p class="fine">General information about U.S. constitutional rights, not legal advice. Laws vary by state and locality. If arrested or detained, speak to a qualified attorney about your specific situation. In an emergency, call 911.</p>
   <button type="button" class="wipe-btn" data-wipe><span class="wipe-fill" aria-hidden="true"></span><span class="wipe-txt"><b>Tout effacer de ce téléphone</b><small>Garde le doigt appuyé 2 secondes</small></span></button>
-  <p class="fine">Efface tout ce que Cortège garde sur ce téléphone, puis ferme l’appli.</p>
-  <div class="credit">
-    <span>Décryptage des luttes chaque jour : <a class="handle-link" href="https://www.instagram.com/neru/" target="_blank" rel="noopener noreferrer"><b class="handle">@neru</b></a></span>
-    <a href="https://neru.tv" target="_blank" rel="noopener noreferrer">neru.tv</a>
-  </div>
+  <p class="fine">Efface tout ce que Community Defense Map garde sur ce téléphone, puis ferme l’appli.</p>
 </section>
 
 <!-- Espace orga -->
@@ -657,7 +642,7 @@
   </label>
   <label class="switch">
     <input type="checkbox" id="optOrd">
-    <span class="switch-txt"><b>Nouveaux arrêtés dans ta zone</b><span>Manif interdite, périmètre interdit, couvre-feu… dès qu’un arrêté de ta zone est ajouté à Cortège.</span></span>
+    <span class="switch-txt"><b>Nouveaux arrêtés dans ta zone</b><span>Manif interdite, périmètre interdit, couvre-feu… dès qu’un arrêté de ta zone est ajouté à Community Defense Map.</span></span>
   </label>
   <div class="push-test" id="pushTestBox" hidden>
     <button type="button" class="secondary" id="btnPushTest">Recevoir une notification de test</button>
@@ -868,7 +853,7 @@
     <button class="x" id="sosClose" aria-label="Fermer">×</button>
   </div>
   <div id="sosSetup">
-    <p class="hint">Choisis la personne à prévenir <b>avant la manif</b>. Son numéro reste sur ton téléphone : Cortège ne le voit jamais.</p>
+    <p class="hint">Choisis la personne à prévenir <b>avant la manif</b>. Son numéro reste sur ton téléphone : Community Defense Map ne le voit jamais.</p>
     <form id="sosForm" class="orga-form">
       <div class="row2">
         <label class="note-label" for="sosName">Prénom ou surnom
@@ -890,7 +875,7 @@
     <textarea id="sosMsg" class="sos-msg" rows="5"></textarea>
     <a class="sos-send" id="sosSms" href="#"><span>Envoyer par SMS à</span> <span id="sosTo"></span></a>
     <button class="secondary" id="sosShare">Envoyer par une autre appli (Signal…)</button>
-    <p class="fine">Le message part de ton téléphone, avec ton forfait : rien ne passe par Cortège. Après une interpellation, ton téléphone peut t’être retiré : envoie-le dès que tu peux, ou demande à quelqu’un de ton groupe de le faire.</p>
+    <p class="fine">Le message part de ton téléphone, avec ton forfait : rien ne passe par Community Defense Map. Après une interpellation, ton téléphone peut t’être retiré : envoie-le dès que tu peux, ou demande à quelqu’un de ton groupe de le faire.</p>
     <button class="ghost" id="sosEdit">Changer de contact</button>
   </div>
 </section>

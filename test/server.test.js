@@ -331,7 +331,7 @@ test('référencement : robots.txt, plan du site, pages d’outils hors des mote
   const sm = await fetch(B + '/sitemap.xml');
   assert.match(sm.headers.get('content-type'), /xml/);
   const xml = await sm.text();
-  for (const u of ['/manif', '/presse', '/legal.html']) assert.ok(xml.includes(u + '</loc>'), u);
+  for (const u of ['/manif', '/legal.html']) assert.ok(xml.includes(u + '</loc>'), u);
   for (const u of ['/admin.html', '/embed.html', '/digest.html']) assert.equal((await fetch(B + u)).headers.get('x-robots-tag'), 'noindex, nofollow', u);
   assert.equal((await fetch(B + '/')).headers.get('x-robots-tag'), null);
   const idx = await fetch(B + '/').then(r => r.text());

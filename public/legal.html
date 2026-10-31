@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="referrer" content="no-referrer">
-<title>Cortège · mentions légales et confidentialité</title>
-<meta name="description" content="Mentions légales de Cortège et ce que le serveur garde ou non : pas de compte, pas de pistage.">
+<title>Community Defense Map · mentions légales et confidentialité</title>
+<meta name="description" content="Mentions légales de Community Defense Map et ce que le serveur garde ou non : pas de compte, pas de pistage.">
 <link rel="icon" href="/favicon.png" type="image/png">
 <style>
 /* Page de lecture : une colonne, sommaire en tête, sections numérotées par la structure du texte. */
 :root {
-  --bg: #121214; --surface: #1c1c20; --line: #34343c; --fg: #f2f1f4; --muted: #a3a1ad; --accent: #ec9fa4;
+  --bg: #121214; --surface: #1c1c20; --line: #34343c; --fg: #f2f1f4; --muted: #a3a1ad; --accent: #7fe0ef;
   --font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   color-scheme: dark;
 }
@@ -58,15 +58,15 @@ th { color: var(--muted); font-weight: 600; font-size: 13px; }
 
   <h2 id="mentions">1. Mentions légales</h2>
   <h3>Éditeur</h3>
-  <p>Cortège is a free, ad-free web application. This is a US-focused fork of the original project. The original was published in France; for US use, please refer to applicable U.S. privacy laws.</p>
+  <p>Community Defense Map is a free, ad-free web application published by the operator of this instance (contact below). It is free software (AGPL-3.0) based on <a href="https://github.com/n-e-r-u/cortege" target="_blank" rel="noopener">Cortège</a>, an independent French project; the authors of Cortège do not run or endorse this service.</p>
   <p>Contact : <span class="contact"><span class="todo">adresse à compléter (variable CONTACT_EMAIL)</span></span></p>
   <h3>Hébergeur</h3>
   <p id="hostInfo">Coordonnées de l’hébergeur : voir la variable HOST_INFO de l’instance.</p>
   <h3>Carte et code</h3>
-  <p id="mapCredit">Fond de carte et recherche de lieux : © les contributeur·ices d’<a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>, données sous licence ODbL. Les lieux permanents (préfectures, mairies, commissariats, tribunaux, hôpitaux, pharmacies, points d’eau) viennent aussi d’OpenStreetMap, mis à jour chaque mois : ils peuvent être incomplets ou dépassés. Le code source de Cortège est libre (licence AGPL-3.0)<span class="source-wrap" hidden> et consultable ici : <a class="source-link" href="#" target="_blank" rel="noopener">code source</a></span>.</p>
+  <p id="mapCredit">Fond de carte et recherche de lieux : © les contributeur·ices d’<a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>, données sous licence ODbL. Les lieux permanents (préfectures, mairies, commissariats, tribunaux, hôpitaux, pharmacies, points d’eau) viennent aussi d’OpenStreetMap, mis à jour chaque mois : ils peuvent être incomplets ou dépassés. Le code source de Community Defense Map est libre (licence AGPL-3.0)<span class="source-wrap" hidden> et consultable ici : <a class="source-link" href="#" target="_blank" rel="noopener">code source</a></span>.</p>
 
   <h2 id="regles">2. Règles d’utilisation</h2>
-  <p>Cortège sert à se protéger collectivement en manifestation. Les signalements sont visibles par tout le monde : chacun·e en est responsable.</p>
+  <p>Community Defense Map sert à se protéger collectivement en manifestation. Les signalements sont visibles par tout le monde : chacun·e en est responsable.</p>
   <div class="box">
     <b>On signale des situations, jamais des personnes.</b>
     <ul>
@@ -80,7 +80,7 @@ th { color: var(--muted); font-weight: 600; font-size: 13px; }
   <p>La fiche « Mes droits » donne des informations générales sur le droit français. Ce n’est pas un conseil juridique : en cas d’interpellation, adresse-toi à un·e avocat·e.</p>
 
   <h2 id="donnees">3. Données personnelles et confidentialité</h2>
-  <p>Cortège a été conçu pour collecter le moins de données possible. <b>Aucun compte, aucun cookie, aucune publicité, aucune mesure d’audience.</b> Responsable du traitement : l’éditeur (voir ci-dessus).</p>
+  <p>Community Defense Map a été conçu pour collecter le moins de données possible. <b>Aucun compte, aucun cookie, aucune publicité, aucune mesure d’audience.</b> Responsable du traitement : l’éditeur (voir ci-dessus).</p>
   <div class="table-wrap">
   <table>
     <thead><tr><th>Donnée</th><th>Ce qui est fait</th><th>Durée</th></tr></thead>
@@ -97,19 +97,19 @@ th { color: var(--muted); font-weight: 600; font-size: 13px; }
       <tr><td>Événements proposés</td><td>Titre, date, lieu, parcours et précision que tu écris, visibles par tout le monde une fois validés. Une empreinte anti-spam de ton téléphone est gardée tant que la proposition attend la validation.</td><td>12 h après le début de l’événement</td></tr>
       <tr><td>Position en direct des orgas</td><td>Seulement pour une orga confirmée qui l’active (street medic, legal team, presse, tête ou queue de cortège) : la position de son téléphone est envoyée toutes les 30 secondes et affichée sur la carte avec le nom de l’orga, arrondie à une dizaine de mètres. Le serveur ne garde que la dernière position, plus, pour la tête et la queue de cortège seulement, le chemin des 30 dernières minutes. Le partage s’arrête à la main, à la fin de la durée choisie, au bout de 4 heures au plus, sans confirmation toutes les 30 minutes, ou dès que le téléphone s’éloigne de plus de 2 km de son point de départ (et du parcours de la manif) : cette position lointaine n’est jamais enregistrée. Le point de départ sert seulement à ce contrôle et n’est jamais publié.</td><td>3 minutes après le dernier envoi</td></tr>
       <tr><td>Arrêtés proposés</td><td>Département, commune, dates, mesures et lien de la source que tu envoies, visibles par tout le monde une fois validés par l’admin. Une empreinte anti-spam de ton téléphone est gardée avec la proposition.</td><td>Jusqu’à la fin de l’arrêté</td></tr>
-      <tr><td>Contact « SOS interpellation »</td><td>Le nom et le numéro de la personne à prévenir restent sur ton téléphone. Le SMS part de ton téléphone, avec ton forfait : il ne passe pas par Cortège.</td><td>Jamais envoyé</td></tr>
-      <tr><td>Recherche de lieux</td><td>Le texte tapé passe par le serveur de Cortège, puis par le service de recherche d’OpenStreetMap (Nominatim), sans ton adresse IP.</td><td>Non conservé</td></tr>
+      <tr><td>Contact « SOS interpellation »</td><td>Le nom et le numéro de la personne à prévenir restent sur ton téléphone. Le SMS part de ton téléphone, avec ton forfait : il ne passe pas par Community Defense Map.</td><td>Jamais envoyé</td></tr>
+      <tr><td>Recherche de lieux</td><td>Le texte tapé passe par le serveur de Community Defense Map, puis par le service de recherche d’OpenStreetMap (Nominatim), sans ton adresse IP.</td><td>Non conservé</td></tr>
       <tr><td>Stockage sur ton téléphone</td><td>Identifiant aléatoire anti-spam, tes propres signalements (pour pouvoir les prolonger ou les corriger), annonces masquées, morceaux de carte déjà affichés, signalements en attente de réseau, réglages (langue, économie de batterie, alerte vocale, lieux affichés, agenda masqué sur la carte), point de rendez-vous, zone et choix des notifications, dernière situation de la carte et derniers signalements reçus par notification (pour l’afficher sans réseau), contact SOS, lien d’accès pour les organisations et, sur le téléphone de l’admin, sa clé d’accès.</td><td>Jusqu’à ce que tu effaces les données du site</td></tr>
       <tr><td>Actions des orgas</td><td>Pour pouvoir corriger un abus, les actions des orgas (vérification, retrait, annonce, événement) sont enregistrées avec l’heure, le nom de l’orga, le type de signalement, une position arrondie à environ 100 m et, pour une annonce ou une précision corrigée, son texte et le numéro publié. Aucune adresse IP. Un point retiré reste restaurable une heure : pendant ce temps, il est gardé en entier, avec les empreintes anti-abus de celles et ceux qui l’ont signalé ou confirmé. Pour les orgas invitées par une autre orga, l’orga marraine voit aussi leurs dernières actions.</td><td>30 jours (1 h pour un point retiré)</td></tr>
       <tr><td>Demandes d’accès orga</td><td>Nom du collectif, ville, rôle, lien public, canal officiel du collectif et message éventuel, envoyés par le formulaire « Devenir orga certifiée ». Ni adresse IP ni identifiant du téléphone n’y sont joints.</td><td>Jusqu’au traitement de la demande, 30 jours au plus</td></tr>
-      <tr id="logsRow"><td>Journaux de l’hébergeur</td><td>Comme tout site, l’hébergeur tient des journaux de connexion techniques (adresse IP, date, page demandée). Cortège ne les exploite pas.</td><td>Selon les obligations légales de l’hébergeur</td></tr>
+      <tr id="logsRow"><td>Journaux de l’hébergeur</td><td>Comme tout site, l’hébergeur tient des journaux de connexion techniques (adresse IP, date, page demandée). Community Defense Map ne les exploite pas.</td><td>Selon les obligations légales de l’hébergeur</td></tr>
     </tbody>
   </table>
   </div>
   <p>Base légale : l’intérêt légitime de fournir un service d’information et de sécurité, et de le protéger contre les abus. Les données ne sont ni vendues ni transmises à des tiers, à l’exception des sous-traitants techniques cités (hébergeur, OpenStreetMap pour la carte, services de notification des navigateurs).</p>
   <p>Ce que cette protection ne couvre pas : l’hébergeur, ou toute personne qui prendrait le contrôle du serveur, peut techniquement lire ce qu’il contient au moment où il le fait (signalements actifs, empreintes du moment, abonnements aux notifications, clés des orgas sous forme chiffrée). L’effacement d’urgence efface tout cela et détruit les clés, mais un effacement logiciel ne touche ni les sauvegardes ou instantanés de l’hébergeur, ni les copies déjà faites ailleurs, ni les traces physiques du disque.</p>
-  <p>En situation sensible, tu peux utiliser Cortège via un VPN ou le navigateur Tor.</p>
-  <p>You have rights under applicable U.S. privacy laws depending on your state. Since Cortège collects minimal data and cannot identify you, most requests cannot be fulfilled by linking data to you. You can write to the address below with questions.</p>
+  <p>En situation sensible, tu peux utiliser Community Defense Map via un VPN ou le navigateur Tor.</p>
+  <p>You have rights under applicable U.S. privacy laws depending on your state. Since Community Defense Map collects minimal data and cannot identify you, most requests cannot be fulfilled by linking data to you. You can write to the address below with questions.</p>
 
   <h2 id="retrait">4. Signaler un contenu, contact</h2>
   <p>Pour signaler un contenu illicite ou contraire aux règles, ou pour toute question, écris à : <span class="contact"><span class="todo">adresse à compléter (variable CONTACT_EMAIL)</span></span>. Indique le type de signalement, le lieu approximatif et l’heure : il sera retiré dans les meilleurs délais.</p>
@@ -124,7 +124,7 @@ fetch('/api/config').then(r => r.json()).then(c => {
     n.textContent = ''; const a = document.createElement('a'); a.href = 'mailto:' + c.contact; a.textContent = c.contact; n.append(a);
   });
   if (c.hostInfo) document.querySelector('#hostInfo').textContent = c.hostInfo;
-  if (c.vector) { const p = document.querySelector('#mapCredit'); p.insertBefore(document.createTextNode('Carte hébergée sur le serveur de Cortège (format Protomaps) : aucune demande ne part chez un fournisseur de carte. '), p.firstChild); }
+  if (c.vector) { const p = document.querySelector('#mapCredit'); p.insertBefore(document.createTextNode('Carte hébergée sur le serveur de Community Defense Map (format Protomaps) : aucune demande ne part chez un fournisseur de carte. '), p.firstChild); }
   if (c.accessLogs === 'none') {
     const row = document.querySelector('#logsRow').children;
     row[0].textContent = 'Journaux de connexion';

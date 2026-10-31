@@ -31,7 +31,7 @@ function slotSelect(rows, c, R, from, to, date) {
 function slotTile(z, x, y) {
   return new Promise(ok => { const im = new Image(); im.onload = () => ok(im); im.onerror = () => ok(null); im.src = `/tiles/${z}/${x}/${y}.png`; });
 }
-// Fond de carte de Cortège (tuiles vectorielles du serveur, même style que l'appli), dessiné hors écran puis recopié
+// Fond de carte de Community Defense Map (tuiles vectorielles du serveur, même style que l'appli), dessiné hors écran puis recopié
 let slotCfg = null;
 async function slotVector(c, mPerPx, W, H) {
   slotCfg = slotCfg || await fetch('/api/config').then(r => r.json()).catch(() => ({}));
@@ -139,12 +139,12 @@ async function slotDraw(cv, { date, c, R, from, to, rows, brand = {}, more = 'vo
   if (logo) { g.drawImage(logo, right - 92, 19, 92, 92); right -= 112; }
   g.textAlign = 'right';
   g.fillStyle = '#f2f1f4'; g.font = '700 26px system-ui, sans-serif'; g.fillText(location.host, right, 58);
-  if (brand.handle) { g.fillStyle = '#ec9fa4'; g.font = '600 24px system-ui, sans-serif'; g.fillText('Instagram @' + brand.handle, right, 98); }
+  if (brand.handle) { g.fillStyle = '#7fe0ef'; g.font = '600 24px system-ui, sans-serif'; g.fillText('Instagram @' + brand.handle, right, 98); }
   g.textAlign = 'left';
   const maxW = right - 40 - Math.max(g.measureText(location.host).width, 260) - 30;
   const fitTxt = (t, f) => { g.font = f; if (g.measureText(t).width <= maxW) return t; while (t.length > 4 && g.measureText(t + '…').width > maxW) t = t.slice(0, -1); return t + '…'; };
-  g.fillStyle = '#f2f1f4'; g.fillText(fitTxt('Signalements Cortège · ' + day, '800 38px system-ui, sans-serif'), 40, 58);
-  g.fillStyle = '#ec9fa4';
+  g.fillStyle = '#f2f1f4'; g.fillText(fitTxt('Signalements Community Defense Map · ' + day, '800 38px system-ui, sans-serif'), 40, 58);
+  g.fillStyle = '#7fe0ef';
   g.fillText(fitTxt(`Actifs entre ${from.replace(':', ' h ')} et ${to.replace(':', ' h ')} · ${R} m autour de ${c.label}`, '600 24px system-ui, sans-serif'), 40, 100);
   // Chronologie
   let y = TOP + MH + 52;
@@ -164,7 +164,7 @@ async function slotDraw(cv, { date, c, R, from, to, rows, brand = {}, more = 'vo
   y += 34 * (per + 1);
   if (rows.length > lines) { g.fillStyle = '#a3a1ad'; g.fillText(`… et ${rows.length - lines} autres (${more})`, 40, y); y += 34; }
   g.font = '500 19px system-ui, sans-serif'; g.fillStyle = '#a3a1ad';
-  [`Signalements faits par des participant·es sur l’appli Cortège ; ${rows.some(r => r.v) ? '✓ = vérifié par une orga ; les autres ne sont pas vérifiés' : 'aucun n’a été vérifié par une orga'} : à recouper.`,
+  [`Signalements faits par des participant·es sur l’appli Community Defense Map ; ${rows.some(r => r.v) ? '✓ = vérifié par une orga ; les autres ne sont pas vérifiés' : 'aucun n’a été vérifié par une orga'} : à recouper.`,
    rows.some(r => r.status) ? 'Rond vide : signalement retiré ou contesté (la mention précise par qui) ; il reste affiché. Positions arrondies à ~100 m. Fin = disparition de la carte.' : 'Positions arrondies à environ 100 m. Fin = moment où le signalement a disparu de la carte.',
    `Étoile : le lieu demandé ; signalements à moins de ${R} m. Fond de carte © les contributeur·ices d’OpenStreetMap (ODbL)${slotCfg && slotCfg.vector ? ', Protomaps' : ''}.`].forEach((t, i) => g.fillText(t, 40, y + 4 + i * 28));
   return vec ? vec.length : tiles.length;

@@ -74,7 +74,7 @@
       const [bx, by, anchor] = ok; placed.push([bx, by, w, h]);
       const tx = anchor === 'start' ? bx + 3 : anchor === 'end' ? bx + w - 3 : bx + w / 2;
       labels.push(`<text x="${tx.toFixed(1)}" y="${(by + fs * 0.92).toFixed(1)}" text-anchor="${anchor}"${o.font ? ` font-family="${o.font}"` : ''} font-weight="800" font-size="${fs}" fill="#f2f1f4" paint-order="stroke" stroke="#121214" stroke-width="${Math.round(fs / 4)}" stroke-linejoin="round">`
-        + `${esc(c.name)} <tspan${o.numFont ? ` font-family="${o.numFont}"` : ''} fill="#ec9fa4">${esc(fmt(c.n))}</tspan></text>`);
+        + `${esc(c.name)} <tspan${o.numFont ? ` font-family="${o.numFont}"` : ''} fill="#7fe0ef">${esc(fmt(c.n))}</tspan></text>`);
     }
     return { dots, labels: labels.join(''), merged: cl.some(c => c.k > 1), count: cl.length };
   }

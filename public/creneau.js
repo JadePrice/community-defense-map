@@ -57,7 +57,7 @@
     place = { lat: Math.round(lat * 1e4) / 1e4, lng: Math.round(lng * 1e4) / 1e4, label: label || `${lat.toFixed(4)}, ${lng.toFixed(4)}` };
     if (!star) {
       star = L.marker([lat, lng], { icon: L.divIcon({ className: '', html: '<div class="star">★</div>', iconSize: [30, 30], iconAnchor: [15, 15] }), keyboard: false }).addTo(map);
-      ring = L.circle([lat, lng], { radius: +$('#r').value, color: '#a191d8', weight: 2, dashArray: '8 6', fill: false, interactive: false }).addTo(map);
+      ring = L.circle([lat, lng], { radius: +$('#r').value, color: '#5bb8ea', weight: 2, dashArray: '8 6', fill: false, interactive: false }).addTo(map);
     } else { star.setLatLng([lat, lng]); ring.setLatLng([lat, lng]); }
     preview();
   }
@@ -94,7 +94,7 @@
       $('#result').hidden = false;
       const file = new File([blob], name, { type: 'image/png' });
       $('#share').hidden = !(navigator.canShare && navigator.canShare({ files: [file] }));
-      $('#share').onclick = () => navigator.share({ files: [file], title: 'Signalements Cortège' }).catch(() => {});
+      $('#share').onclick = () => navigator.share({ files: [file], title: 'Signalements Community Defense Map' }).catch(() => {});
       $('#result').scrollIntoView({ behavior: 'smooth', block: 'start' });
       msg(`${sel.length} signalement${sel.length > 1 ? 's' : ''} sur l’image.`);
     } catch { msg('Impossible de fabriquer l’image. Réessaie.'); }

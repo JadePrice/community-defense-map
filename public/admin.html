@@ -5,14 +5,14 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow">
 <meta name="referrer" content="no-referrer">
-<title>Cortège · admin</title>
+<title>Community Defense Map · admin</title>
 <link rel="icon" href="/favicon.png" type="image/png">
 <style>
 /* Page de lecture : en-tête, chiffres clés, puis détail par catégorie, par heure et par ville. */
 :root {
   --bg: #121214; --surface: #1c1c20; --surface-2: #26262c; --line: #34343c;
-  --fg: #f2f1f4; --muted: #a3a1ad; --accent: #ec9fa4; --accent-fg: #17121f;
-  --brand-grad: linear-gradient(135deg, #ec9fa4, #a191d8 60%, #7d86dc);
+  --fg: #f2f1f4; --muted: #a3a1ad; --accent: #7fe0ef; --accent-fg: #17121f;
+  --brand-grad: linear-gradient(135deg, #7fe0ef, #5bb8ea 60%, #3d8fe0);
   --fdo: #e5484d; --danger: #f5a524; --soutien: #30a46c; --info: #8e8cd8;
   --font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   color-scheme: dark;
@@ -140,7 +140,7 @@ textarea { padding: 10px 12px; border-radius: 10px; border: 1px solid var(--line
 <main>
   <header>
     <img src="/brand/logo.png" alt="">
-    <h1>Administration <small>Cortège par @neru · accès réservé</small></h1>
+    <h1>Administration <small>accès réservé</small></h1>
   </header>
 
   <form class="controls" id="loginForm">
@@ -216,7 +216,7 @@ textarea { padding: 10px 12px; border-radius: 10px; border: 1px solid var(--line
           <label>Date<input type="date" id="mobDate" required></label>
           <label style="flex:1;min-width:220px">Titre (bandeau de la carte)<input id="mobTitle" maxlength="80" placeholder="ex. : Grève et manifs partout en France" required></label>
         </div>
-        <label>Texte de la notification de la veille (facultatif)<input id="mobEve" maxlength="160" placeholder="Par défaut : « Journée de mobilisation … Ouvre Cortège pour voir l’agenda et les numéros utiles. »"></label>
+        <label>Texte de la notification de la veille (facultatif)<input id="mobEve" maxlength="160" placeholder="Par défaut : « Journée de mobilisation … Ouvre Community Defense Map pour voir l’agenda et les numéros utiles. »"></label>
         <div class="controls">
           <label class="check"><input type="checkbox" id="mobPush" checked> Notification la veille à 20 h</label>
           <label class="check"><input type="checkbox" id="mobStrict" checked> Mode renforcé le jour J (7 h → 2 h)</label>
@@ -268,7 +268,7 @@ textarea { padding: 10px 12px; border-radius: 10px; border: 1px solid var(--line
     <form class="panel" id="setForm">
       <section class="card">
         <h2>Ton nom affiché</h2>
-        <div class="controls"><label style="flex:1;min-width:220px">Nom de l’admin sur les annonces, les vérifications et ta position en direct<input id="setAdminLabel" maxlength="40" placeholder="Cortège"></label></div>
+        <div class="controls"><label style="flex:1;min-width:220px">Nom de l’admin sur les annonces, les vérifications et ta position en direct<input id="setAdminLabel" maxlength="40" placeholder="Community Defense Map"></label></div>
         <p class="fine">Les annonces déjà publiées gardent leur nom. Ce nom est réservé : aucune orga ne peut le prendre.</p>
       </section>
       <section class="card">
@@ -995,7 +995,7 @@ $('#copyLink').onclick = async () => {
   catch { const r = document.createRange(); r.selectNodeContents($('#newUrl')); getSelection().removeAllRanges(); getSelection().addRange(r); $('#copyLink').textContent = 'Sélectionné'; }
   setTimeout(() => ($('#copyLink').textContent = 'Copier le lien'), 2000);
 };
-$('#shareLink').onclick = () => navigator.share?.({ title: 'Invitation orga Cortège', text: 'Ton invitation orga Cortège (usage unique, ne la transfère pas) :', url: $('#newUrl').textContent }).catch(() => {});
+$('#shareLink').onclick = () => navigator.share?.({ title: 'Invitation orga Community Defense Map', text: 'Ton invitation orga Community Defense Map (usage unique, ne la transfère pas) :', url: $('#newUrl').textContent }).catch(() => {});
 $('#date').value = new Date().toLocaleDateString('sv-SE', { timeZone: window.CDM_TZ || 'America/Chicago' });
 
 function bar(label, n, max, color, extra) {
@@ -1065,7 +1065,7 @@ function renderDigest() {
   }
   dgLayer.clearLayers();
   for (const r of rows) {
-    const c = cat[r.c], col = getComputedStyle(document.documentElement).getPropertyValue('--' + ({ fdo: 'fdo', danger: 'danger', soutien: 'soutien', info: 'info' })[c.group]).trim() || '#ec9fa4';
+    const c = cat[r.c], col = getComputedStyle(document.documentElement).getPropertyValue('--' + ({ fdo: 'fdo', danger: 'danger', soutien: 'soutien', info: 'info' })[c.group]).trim() || '#7fe0ef';
     L.circleMarker([r.lat, r.lng], { radius: 5 + Math.min(r.up, 6), color: col, weight: REMOVED.has(r.o) ? 1 : 2, dashArray: REMOVED.has(r.o) ? '3 3' : null, fillOpacity: REMOVED.has(r.o) ? .15 : .55 })
       .bindTooltip(`${c.glyph} ${c.label} · ${hhmm(r.t)}${r.e ? '–' + hhmm(r.e) : ''} · ${OUTCOME[r.o] || r.o}${r.up ? ' · confirmé ' + r.up + '×' : ''}`).addTo(dgLayer);
   }
@@ -1164,7 +1164,7 @@ function renderDigest() {
   // Résumé
   const peak = totH.indexOf(Math.max(...totH));
   const lines = [
-    `Mobilisation du ${longDate(d.date)} : ce que les manifestant·es ont signalé sur Cortège`,
+    `Mobilisation du ${longDate(d.date)} : ce que les manifestant·es ont signalé sur Community Defense Map`,
     `• ${rows.length} signalements dans ${cities} ${cities > 1 ? 'villes' : 'ville'}, de ${hhmm(t0)} à ${hhmm(t1)}`,
     ...cats.slice(0, 5).map(([c, list]) => `• ${list.length} × ${cat[c].label.toLowerCase()} (premier à ${hhmm(Math.min(...list.map(r => r.t)))})`),
     `• Pic d’activité entre ${peak} h et ${peak + 1} h`,
@@ -1172,7 +1172,7 @@ function renderDigest() {
     ...mom.slice(0, 4).map(r => `• ${hhmm(r.t)} : ${cat[r.c].label.toLowerCase()} à ${zoneName(r)}`),
     ...(avg ? [`• ${rows.length >= avg ? '+' : ''}${Math.round((rows.length - avg) / avg * 100)} % par rapport à la moyenne des 14 jours précédents`] : []),
     `Signalements de participant·es : ${confirmed} confirmés par d’autres, ${verified} vérifiés par des orgas${removed ? `, ${removed} retirés ou contestés` + ($('#dgAll').checked ? ' (inclus dans les chiffres)' : ' (non comptés)') : ''}.`,
-    `Source : Cortège (${location.host})${brand.handle ? ', par @' + brand.handle : ''}`,
+    `Source : Community Defense Map (${location.host})${brand.handle ? ', par @' + brand.handle : ''}`,
   ];
   $('#summary').textContent = lines.join('\n');
 }
@@ -1378,7 +1378,7 @@ async function loadLive() {
   kv($('#liveSys'), [
     ['Version', d.version], ['En ligne depuis', dur(sy.uptime)],
     ['Charge (1, 5, 15 min)', sy.load.join(' · ') + ` pour ${sy.cpus} cœurs`],
-    ['Mémoire libre', sy.mem ? `${sy.mem.free} % (${fmtN(sy.mem.mb)} Mo)` : '—'], ['Mémoire de Cortège', sy.rss + ' Mo'],
+    ['Mémoire libre', sy.mem ? `${sy.mem.free} % (${fmtN(sy.mem.mb)} Mo)` : '—'], ['Mémoire de Community Defense Map', sy.rss + ' Mo'],
     ['Disque libre', sy.disk ? `${sy.disk.free} % (${String(sy.disk.gb).replace('.', ',')} Go)` : '—'],
     ['Serveur', (d.up != null ? `en marche depuis ${d.up < 3600 ? Math.round(d.up / 60) + ' min' : d.up < 172800 ? Math.round(d.up / 3600) + ' h' : Math.round(d.up / 86400) + ' j'}` : '—')
       + (d.crash && Date.now() - d.crash.t < 7 * 864e5 ? ` · ⚠ dernier plantage le ${dayFr(d.crash.t)} à ${hhmm(d.crash.t)} : ${d.crash.msg}${d.crash.at ? ' (' + d.crash.at + ')' : ''}` : '')],

@@ -1,5 +1,5 @@
 'use strict';
-// Style de la carte vectorielle (protomaps-leaflet) aux couleurs de Cortège : fond sombre mais lisible,
+// Style de la carte vectorielle (protomaps-leaflet) aux couleurs de Community Defense Map : fond sombre mais lisible,
 // rues bien visibles (grands axes teintés de violet), bâtiments, eau et parcs marqués, noms plus grands en Inter.
 // Partagé par l'appli et la carte à intégrer.
 (() => {

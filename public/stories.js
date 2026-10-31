@@ -53,10 +53,10 @@
 .bg { position: absolute; inset: 0; background-size: cover; background-position: center; }
 .shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(18,18,20,.55) 0%, rgba(18,18,20,0) 22%, rgba(18,18,20,0) 45%, rgba(18,18,20,.88) 66%, #121214 100%); }
 .page { position: absolute; inset: 0; padding: 230px 80px 260px; display: flex; flex-direction: column; }
-.kicker { font-size: 30px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: #ec9fa4; }
+.kicker { font-size: 30px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: #7fe0ef; }
 h2 { font-size: 64px; line-height: 1.05; font-weight: 900; letter-spacing: -.02em; margin-top: 14px; }
 .sub { font-size: 34px; line-height: 1.3; color: #c9c7d1; margin-top: 18px; }
-.big { font-weight: 900; font-size: 210px; line-height: .9; letter-spacing: -.04em; color: #ec9fa4; }
+.big { font-weight: 900; font-size: 210px; line-height: .9; letter-spacing: -.04em; color: #7fe0ef; }
 .foot { position: absolute; left: 80px; right: 80px; bottom: 150px; display: flex; align-items: center; justify-content: space-between; font-size: 28px; color: #a3a1ad; }
 .brand { display: flex; align-items: center; gap: 16px; color: #f2f1f4; font-weight: 800; font-size: 30px; }
 .brand img { width: 58px; height: 58px; border-radius: 12px; }
@@ -98,20 +98,20 @@ h2 { font-size: 64px; line-height: 1.05; font-weight: 900; letter-spacing: -.02e
   }
 
   function pages(d, s, a, photos, brand) {
-    const foot = i => `<div class="foot"><span class="brand">${a.logo ? `<img src="${a.logo}"/>` : ''}Cortège${brand ? ' · @' + esc(brand) : ''}</span><span class="num">${i}/7</span></div>`;
+    const foot = i => `<div class="foot"><span class="brand">${a.logo ? `<img src="${a.logo}"/>` : ''}Community Defense Map${brand ? ' · @' + esc(brand) : ''}</span><span class="num">${i}/7</span></div>`;
     const out = [];
     // 1. Couverture
     out.push(`${photos.cover ? `<div class="bg" style="background-image:url(${photos.cover})"></div><div class="shade"></div>` : ''}
 <div class="page" style="justify-content:flex-end"><div class="kicker">${esc(longDay(d.date))}</div>
 <div class="big" style="margin-top:22px">${nf(s.total)}</div><h2 style="margin-top:6px">signalement${s.total > 1 ? 's' : ''}</h2>
-<p class="sub">envoyés par des manifestant·es sur Cortège, dans ${s.city.length} ville${s.city.length > 1 ? 's' : ''}, de ${hh(s.first)} à ${hh(s.last)}.</p></div>${foot(1)}`);
+<p class="sub">envoyés par des manifestant·es sur Community Defense Map, dans ${s.city.length} ville${s.city.length > 1 ? 's' : ''}, de ${hh(s.first)} à ${hh(s.last)}.</p></div>${foot(1)}`);
     // 2. Carte
     const m = a.map, bm = window.BubbleMap.svg(s.city, m, { fontSize: 30, labels: 12, font: 'Inter', numFont: 'Mono', numFmt: nf, esc });
     const dots = bm.dots, labels = [bm.labels];
     out.push(`<div class="page"><div class="kicker">Où ?</div><h2>Signalements par ville</h2>
 <p class="sub">Plus le cercle est grand, plus il y a de signalements. ${s.city.length} ville${s.city.length > 1 ? 's' : ''} en tout${bm.merged ? ', les communes voisines regroupées' : ''}.</p>
 <svg xmlns="http://www.w3.org/2000/svg" width="${m.w}" height="${m.h}" viewBox="0 0 ${m.w} ${m.h}" style="margin-top:34px">
-<defs><linearGradient id="gr" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ec9fa4"/><stop offset="1" stop-color="#7d86dc"/></linearGradient><clipPath id="c"><rect width="${m.w}" height="${m.h}"/></clipPath></defs>
+<defs><linearGradient id="gr" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7fe0ef"/><stop offset="1" stop-color="#3d8fe0"/></linearGradient><clipPath id="c"><rect width="${m.w}" height="${m.h}"/></clipPath></defs>
 <g clip-path="url(#c)">${m.near.map(p => `<path d="${p}" fill="#1c1c20" stroke="#34343c" stroke-width="1.5"/>`).join('')}<path d="${m.fr}" fill="#26262c" stroke="#5a5866" stroke-width="2"/>${dots}${labels.join('')}</g></svg></div>${foot(2)}`);
     // 3. Par type
     const maxC = s.cats[0]?.n || 1, rh = s.cats.length > 16 ? 58 : 66;
@@ -124,13 +124,13 @@ h2 { font-size: 64px; line-height: 1.05; font-weight: 900; letter-spacing: -.02e
     out.push(`<div class="page"><div class="kicker">Quand ?</div><h2>Signalements par heure</h2>
 <p class="sub">Premier à ${hh(s.first)}, dernier à ${hh(s.last)}. Le plus d’envois : entre ${peak} h et ${(peak + 1) % 24} h (${maxH}).</p>
 <div style="display:flex;gap:7px;margin-top:70px;border-bottom:2px solid #5a5866">${s.hours.map((n, i) => `<div style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:${BH}px">
-${i === peak ? `<span class="num" style="font-size:28px;margin-bottom:10px;color:#ec9fa4">${n}</span>` : ''}<div style="width:100%;height:${n / maxH * (BH - 60)}px;min-height:${n ? 3 : 0}px;border-radius:5px 5px 0 0;background:${i === peak ? '#ec9fa4' : '#5b66c4'}"></div></div>`).join('')}</div>
+${i === peak ? `<span class="num" style="font-size:28px;margin-bottom:10px;color:#7fe0ef">${n}</span>` : ''}<div style="width:100%;height:${n / maxH * (BH - 60)}px;min-height:${n ? 3 : 0}px;border-radius:5px 5px 0 0;background:${i === peak ? '#7fe0ef' : '#5b66c4'}"></div></div>`).join('')}</div>
 <div class="num" style="display:flex;gap:7px;margin-top:14px;font-size:24px;color:#a3a1ad">${s.hours.map((_, i) => `<span style="flex:1;text-align:center">${i % 3 === 0 ? i + 'h' : ''}</span>`).join('')}</div></div>${foot(4)}`);
     // 5. Villes
     const top = s.city.slice(0, 12), maxV = top[0]?.n || 1, rest = s.city.slice(12), restN = rest.reduce((t, c) => t + c.n, 0);
     out.push(`<div class="page"><div class="kicker">Dans quelles villes ?</div><h2>Les ${top.length} villes les plus actives</h2>
 <div style="margin-top:40px">${top.map(c => `<div class="row" style="grid-template-columns:420px 1fr 92px;height:74px"><span style="font-size:30px;font-weight:700;line-height:1.1">${esc(c.name)}</span>
-<span class="bar" style="height:32px;background:linear-gradient(90deg,#ec9fa4,#a191d8);width:${Math.max(1.5, c.n / maxV * 100)}%"></span><span class="num" style="font-size:32px;text-align:right">${nf(c.n)}</span></div>`).join('')}</div>
+<span class="bar" style="height:32px;background:linear-gradient(90deg,#7fe0ef,#5bb8ea);width:${Math.max(1.5, c.n / maxV * 100)}%"></span><span class="num" style="font-size:32px;text-align:right">${nf(c.n)}</span></div>`).join('')}</div>
 ${rest.length ? `<p class="sub" style="font-size:30px;margin-top:20px">+ ${rest.length} autre${rest.length > 1 ? 's' : ''} ville${rest.length > 1 ? 's' : ''} : ${nf(restN)} signalement${restN > 1 ? 's' : ''}.</p>` : ''}
 <p class="note">Chaque ville compte aussi les communes voisines de son agglomération.</p></div>${foot(5)}`);
     // 6. Vérification
@@ -142,7 +142,7 @@ ${stat(s.removed, 'signalements retirés de la carte avant leur expiration', '#f
 <p class="note">Les ${nf(s.total)} signalements de cette série incluent les ${nf(s.removed)} retirés.</p></div>${foot(6)}`);
     // 7. Source
     out.push(`${photos.end ? `<div class="bg" style="background-image:url(${photos.end})"></div><div class="shade"></div>` : ''}
-<div class="page" style="justify-content:flex-end"><div class="kicker">Source</div><h2 style="font-size:58px">Cortège, la carte en direct des manifs</h2>
+<div class="page" style="justify-content:flex-end"><div class="kicker">Source</div><h2 style="font-size:58px">Community Defense Map, la carte en direct des manifs</h2>
 <p class="sub">Signalements anonymes envoyés par les manifestant·es. Un signalement n’est pas un fait vérifié : il est confirmé ou contesté par les autres sur place.</p>
 <div class="link">${esc(location.host)}</div></div>${foot(7)}`);
     return out;

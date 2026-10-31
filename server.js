@@ -1,4 +1,4 @@
-// Cortège — serveur, zéro dépendance (Node >= 18).
+// Community Defense Map — serveur, zéro dépendance (Node >= 18).
 // Compatible hébergement mutualisé (cPanel / Passenger, ex. o2switch) :
 //  - l'état est partagé via un petit fichier JSON, car Passenger peut lancer plusieurs
 //    processus et les endormir ; la mémoire seule ne suffit pas ;
@@ -15,7 +15,7 @@ const zlib = require('zlib');
 
 const rawPort = process.env.PORT;
 const PORT = rawPort && !Number.isNaN(Number(rawPort)) ? Number(rawPort) : (rawPort || 8080);
-const EVENT_NAME = process.env.EVENT_NAME || 'Community Defense Map';
+const EVENT_NAME = process.env.EVENT_NAME || 'Police & surveillance, live'; // subtitle under the name; an admin banner replaces it for the day
 const CENTER = (() => { const [a,b]=String(process.env.CENTER||'39.8283,-98.5795').split(',').map(Number); return (Math.abs(a)<=90&&Math.abs(b)<=180&&!Number.isNaN(a)&&!Number.isNaN(b))?[a,b]:[39.8283,-98.5795]; })(); // États-Unis par défaut / US default
 const ZOOM = Number(process.env.ZOOM) || 4;
 // Accès admin ; vide = admin désactivé. Une clé trop courte est refusée (elle se devinerait).
@@ -50,9 +50,9 @@ const VIOLENCE_URL = process.env.VIOLENCE_URL || ''; // empty: the page keeps it
 const CONTACT_EMAIL = process.env.CONTACT_EMAIL || '';
 const HOST_INFO = process.env.HOST_INFO || '';   // ex. « o2switch, 222 boulevard …, 63000 Clermont-Ferrand — 04 … »
 const BRAND = {
-  handle: process.env.BRAND_HANDLE || 'neru',
-  instagram: process.env.BRAND_INSTAGRAM || 'https://www.instagram.com/neru/',
-  site: process.env.BRAND_SITE || 'https://neru.tv',
+  handle: process.env.BRAND_HANDLE || '',
+  instagram: process.env.BRAND_INSTAGRAM || '',
+  site: process.env.BRAND_SITE || '',
   kofi: process.env.BRAND_KOFI || '', // donation link; empty hides the donation buttons (upstream's Ko-fi does not fund this instance)
 };
 
@@ -99,7 +99,7 @@ const EVENT_TYPES = [
   { id: 'ag',            label: 'Assemblée générale',   glyph: '🗣️' },
 ];
 const EVT = Object.fromEntries(EVENT_TYPES.map(e => [e.id, e]));
-// Nom affiché de l'admin (annonces, vérifications, position en direct) : choisi dans les réglages, sinon ADMIN_LABEL, sinon « Cortège »
+// Nom affiché de l'admin (annonces, vérifications, position en direct) : choisi dans les réglages, sinon ADMIN_LABEL, sinon « Community Defense Map »
 const ADMIN_LABEL_ENV = process.env.ADMIN_LABEL || 'Protest map';
 function adminLabel() { return settings().adminLabel || ADMIN_LABEL_ENV; }
 // ---- Noms d'orga : comparés sans accents, majuscules, espaces ni lettres sosies (cyrillique, grec) ----
@@ -355,7 +355,7 @@ function withLock(fn, lockFile = LOCK_FILE) {
 }
 let DatabaseSync;
 try { ({ DatabaseSync } = require('node:sqlite')); }
-catch { console.error('Cortège a besoin de Node 22.13 ou plus récent (module node:sqlite) : choisis Node 24 dans cPanel.'); process.exit(1); }
+catch { console.error('Community Defense Map a besoin de Node 22.13 ou plus récent (module node:sqlite) : choisis Node 24 dans cPanel.'); process.exit(1); }
 const DB_FILE = path.join(DATA_DIR, 'cortege.db');
 const db = new DatabaseSync(DB_FILE);
 // Plusieurs processus démarrent parfois en même temps : on attend que la base soit libre (8 s max par opération).
@@ -776,11 +776,11 @@ const canManage = (orga, x) => !!orga && (orga.admin || (!!x.oid && x.oid === or
 // Empreinte publique de l'auteur (l'appli sait ainsi afficher « retirer » sur ses propres annonces), sans révéler l'identifiant
 const ownerTag = oid => oid ? sha('owner|' + oid).slice(0, 12) : null;
 // Noms interdits : celui de l'admin, les sources importées, les orgas existantes ; pour une orga invitée par parrainage,
-// aussi l'annuaire des legal teams et tout nom qui contient celui de l'admin (« Cortège officiel »…)
+// aussi l'annuaire des legal teams et tout nom qui contient celui de l'admin (« Community Defense Map officiel »…)
 function labelClash(label, { sponsor = false, except = null } = {}) {
   const k = labelKey(label), admin = labelKey(adminLabel());
   if (k.length < 2) return 'Ce nom est trop court.';
-  const reserved = [adminLabel(), ADMIN_LABEL_ENV, 'Cortège', 'admin', 'administration', 'modération', VOTES.label, ...IMPORT_NAMES].map(labelKey);
+  const reserved = [adminLabel(), ADMIN_LABEL_ENV, 'Community Defense Map', 'Cortège', 'admin', 'administration', 'modération', VOTES.label, ...IMPORT_NAMES].map(labelKey);
   if (reserved.includes(k) || (sponsor && (k.includes(admin) || k.includes('cortege')))) return 'Ce nom est réservé.';
   if (readOrgas().some(o => o.id !== except && labelKey(o.label) === k) || ORGAS.some(o => labelKey(o.label) === k)) return 'Une orga porte déjà ce nom.';
   if (sponsor && legalAll().some(e => labelKey(e.name) === k)) return 'Ce nom est celui d’une legal team de l’annuaire : seul·e l’admin peut l’inviter.';
@@ -1228,7 +1228,7 @@ function pubShell(req, { title, desc, body, ld }) {
 <title>${htmlEsc(title)}</title><meta name="description" content="${htmlEsc(desc)}"><link rel="canonical" href="${htmlEsc(here || base + '/')}">${ld ? jsonLd(ld) : ''}
 <meta property="og:title" content="${htmlEsc(title)}"><meta property="og:description" content="${htmlEsc(desc)}"><meta property="og:type" content="article">
 <meta property="og:image" content="${base}/icon-512.png"><meta name="twitter:card" content="summary"><link rel="icon" href="/favicon.png"><style>${PUB_CSS}</style></head>
-<body><main><a class="top" href="/"><img src="/brand/logo.png" alt=""><span><b>Cortège</b><span>La carte en direct des manifs${BRAND.handle ? ' · par @' + htmlEsc(BRAND.handle) : ''}</span></span></a>
+<body><main><a class="top" href="/"><img src="/brand/logo.png" alt=""><span><b>Community Defense Map</b><span>La carte en direct des manifs${BRAND.handle ? ' · par @' + htmlEsc(BRAND.handle) : ''}</span></span></a>
 <nav class="links" aria-label="Pages">${[['/', 'Carte'], ['/agenda', 'Agenda'], ['/arretes', 'Arrêtés'], ['/manif', 'Bilans'], ['/villes', 'Villes'], ['/droits', 'Tes droits'], ['/legal-teams', 'Legal teams']]
   .map(([u, l]) => `<a href="${u}"${here.endsWith(u) && u !== '/' ? ' aria-current="page"' : ''}>${l}</a>`).join('')}</nav>${body}
 <div class="cta"><a class="main" href="/">Ouvrir la carte</a><a href="${htmlEsc(BRAND.instagram || '/')}" rel="noopener">${BRAND.handle ? 'Suivre @' + htmlEsc(BRAND.handle) : 'Suivre le projet'}</a></div>
@@ -1238,7 +1238,7 @@ const GOOGLE_VERIFY = /^google[\w-]{6,60}\.html$/.test(process.env.GOOGLE_SITE_V
 function sitemapXml(req) {
   const base = PUBLIC_URL_REAL(req), day = t => new Date(t).toISOString().slice(0, 10);
   const pubs = q('SELECT date, t FROM pub ORDER BY date DESC').all();
-  const urls = [['/', day(Date.now()), 'always', '1.0'], ['/manif', pubs[0] ? day(pubs[0].t) : null, 'daily', '0.8'], ['/presse', null, 'monthly', '0.6'],
+  const urls = [['/', day(Date.now()), 'always', '1.0'], ['/manif', pubs[0] ? day(pubs[0].t) : null, 'daily', '0.8'], 
     ['/affiche.html', null, 'monthly', '0.4'], ['/legal.html', null, 'yearly', '0.2'], ...pubs.map(x => ['/manif/' + x.date, day(x.t), 'monthly', '0.7']),
     ['/agenda', day(Date.now()), 'daily', '0.8'], ['/arretes', day(Date.now()), 'daily', '0.7'], ['/droits', null, 'monthly', '0.6'], ['/legal-teams', null, 'weekly', '0.6'], ['/villes', null, 'daily', '0.5'],
     ...[...cityIndex().values()].map(c => ['/ville/' + c.slug, null, 'daily', '0.6']),
@@ -1273,11 +1273,11 @@ const momentsHtml = (list, withCity) => `<ul class="tl">${list.map(m => `<li><ti
 function pubPage(req, d) {
   const maxC = d.cats[0].n, maxH = Math.max(...d.hours), peak = d.hours.indexOf(maxH), top = d.cities.slice(0, 12), maxV = top[0].n;
   const day = cap(frDay(d.date)), pages = new Map((d.cityPages || []).map(c => [c.name, c.slug]));
-  const title = `${day} : ${d.total} signalements sur Cortège`;
+  const title = `${day} : ${d.total} signalements sur Community Defense Map`;
   const desc = `${d.total} signalements de manifestant·es dans ${d.cities.length} villes, de ${frHour(d.first)} à ${frHour(d.last)}. Carte, moments clés, parcours des cortèges, arrêtés, données ouvertes.`;
   const cityName = c => pages.has(c) ? `<a href="/manif/${d.date}/${pages.get(c)}">${htmlEsc(c)}</a>` : htmlEsc(c);
   const durs = Object.entries(d.durations || {}).slice(0, 12);
-  const body = `<h1>${htmlEsc(day)}</h1><p class="lead">Ce que les manifestant·es ont signalé sur Cortège.</p>
+  const body = `<h1>${htmlEsc(day)}</h1><p class="lead">Ce que les manifestant·es ont signalé sur Community Defense Map.</p>
 <div class="kpis"><div class="kpi"><b>${d.total}</b><span>signalements</span></div><div class="kpi"><b>${d.cities.length}</b><span>villes</span></div>
 <div class="kpi"><b>${frHour(d.first)}</b><span>premier signalement</span></div><div class="kpi"><b>${frHour(d.last)}</b><span>dernier signalement</span></div></div>
 ${pubRank(d)}
@@ -1301,13 +1301,13 @@ ${d.cats.map(c => `<div class="row"><span>${htmlEsc(c.label)}</span><span class=
 <div class="cta" style="grid-template-columns:1fr"><a class="main" href="/manif/${d.date}/carte">Fabriquer une image d’un créneau</a></div></section>
 ${dataSection(d)}`;
   const ld = { '@context': 'https://schema.org', '@type': 'Dataset', name: title, description: desc, url: PUBLIC_URL_REAL(req) + '/manif/' + d.date, license: 'https://creativecommons.org/licenses/by/4.0/',
-    creator: { '@type': 'Organization', name: 'Cortège' }, temporalCoverage: d.date, spatialCoverage: 'France', isAccessibleForFree: true,
+    creator: { '@type': 'Organization', name: 'Community Defense Map' }, temporalCoverage: d.date, spatialCoverage: 'France', isAccessibleForFree: true,
     distribution: d.pts ? [{ '@type': 'DataDownload', encodingFormat: 'text/csv', contentUrl: PUBLIC_URL_REAL(req) + `/manif/${d.date}/donnees.csv` }] : undefined };
   return pubShell(req, { title, desc, body, ld });
 }
 const dataSection = d => d.pts ? `<section><h2>Données ouvertes</h2><p>Tous les signalements de la journée, un par ligne : type, heures de début et de fin, position (à une dizaine de mètres), commune, confirmations, vérification, devenir.</p>
 <div class="cta" style="grid-template-columns:1fr"><a href="/manif/${d.date}/donnees.csv" download>Télécharger les données (CSV)</a></div>
-<p class="fine">Licence <a href="https://creativecommons.org/licenses/by/4.0/deed.fr" rel="noopener">CC BY 4.0</a> : réutilisation libre en citant « Cortège ». Ce sont des signalements de manifestant·es, confirmés ou contestés sur place, pas des faits établis.</p></section>` : '';
+<p class="fine">Licence <a href="https://creativecommons.org/licenses/by/4.0/deed.fr" rel="noopener">CC BY 4.0</a> : réutilisation libre en citant « Community Defense Map ». Ce sont des signalements de manifestant·es, confirmés ou contestés sur place, pas des faits établis.</p></section>` : '';
 
 // Schéma d'une ville (sans fond de carte) : parcours de la tête et signalements de la journée, avec une échelle
 function citySvg(c, pts, scale) {
@@ -1328,13 +1328,13 @@ function citySvg(c, pts, scale) {
 <g fill="#a3a1ad" font-size="13"><rect x="${W - pad - bw}" y="${H - 14}" width="${bw}" height="3"/><text x="${W - pad}" y="${H - 20}" text-anchor="end">${fmtLen(bar)}</text></g></svg>`;
 }
 function cityDayPage(req, d, c) {
-  const day = frDay(d.date), title = `${c.name}, ${day} : ${c.n} signalements sur Cortège`;
+  const day = frDay(d.date), title = `${c.name}, ${day} : ${c.n} signalements sur Community Defense Map`;
   const desc = `${c.n} signalements de manifestant·es à ${c.name} le ${day}, de ${frHour(c.first)} à ${frHour(c.last)}. Moments clés, durées, parcours du cortège.`;
   const maxH = Math.max(...c.hours), peak = c.hours.indexOf(maxH), maxC = c.cats[0][1];
   const pad = n => String(n).padStart(2, '0'), h0 = zoneHour(c.first) % 24, h1 = zoneHour(c.last) % 24;
   const slot = h1 >= h0 && h1 - h0 < 6 ? `${pad(h0)}:00-${pad(h1)}:59` : `${pad(peak)}:00-${pad(Math.min(23, peak + 2))}:59`;
   const ordersHere = (d.orders || []).filter(o => o.name === c.name || o.scope === 'dep');
-  const body = `<p class="fine"><a href="/manif/${d.date}">← Bilan national du ${htmlEsc(day)}</a></p><h1>${htmlEsc(c.name)}</h1><p class="lead">${htmlEsc(cap(day))} : ce que les manifestant·es ont signalé sur Cortège.</p>
+  const body = `<p class="fine"><a href="/manif/${d.date}">← Bilan national du ${htmlEsc(day)}</a></p><h1>${htmlEsc(c.name)}</h1><p class="lead">${htmlEsc(cap(day))} : ce que les manifestant·es ont signalé sur Community Defense Map.</p>
 <div class="kpis"><div class="kpi"><b>${c.n}</b><span>signalements</span></div><div class="kpi"><b>${frHour(c.first)}</b><span>premier</span></div><div class="kpi"><b>${frHour(c.last)}</b><span>dernier</span></div>
 ${c.march ? `<div class="kpi"><b>${fmtLen(c.march.len)}</b><span>parcourus par la tête du cortège</span></div>` : ''}</div>
 <section><h2>Schéma</h2>${citySvg(c, d.pts, d.ptsS || 1e3)}<p class="fine">${c.march ? 'En rose, le chemin de la tête du cortège. ' : ''}Points : les signalements de la journée à moins de 6 km. Schéma sans fond de carte : pour la vraie carte, fabrique l’image d’un créneau.</p>
@@ -1393,9 +1393,9 @@ function agendaPage(req) {
   const list = upcoming().slice(0, 200), by = new Map();
   for (const e of list) { const c = whereOf(e.lat, e.lng).name; if (!by.has(c)) by.set(c, []); by.get(c).push(e); }
   const cities = [...by].sort((a, b) => a[1][0].start - b[1][0].start);
-  const body = `<h1>Agenda des manifs</h1><p class="lead">Les prochaines manifestations, rassemblements, blocus et assemblées annoncés sur Cortège, ville par ville.</p>
+  const body = `<h1>Agenda des manifs</h1><p class="lead">Les prochaines manifestations, rassemblements, blocus et assemblées annoncés sur Community Defense Map, ville par ville.</p>
 ${cities.length ? cities.map(([c, l]) => `<section><h2>${cityLink(c)}</h2>${eventsHtml(l)}</section>`).join('') : '<p class="fine">Rien d’annoncé pour l’instant. Une orga ou un collectif peut annoncer une manif depuis l’appli (onglet Infos).</p>'}`;
-  return pubShell(req, { title: 'Agenda des manifs en France · Cortège', desc: 'Les prochaines manifs, rassemblements et blocus annoncés en France, ville par ville, sur Cortège, la carte en direct des manifs.', body, ld: eventLd(req, list.slice(0, 60)) });
+  return pubShell(req, { title: 'Agenda des manifs en France · Community Defense Map', desc: 'Les prochaines manifs, rassemblements et blocus annoncés en France, ville par ville, sur Community Defense Map, la carte en direct des manifs.', body, ld: eventLd(req, list.slice(0, 60)) });
 }
 function ordersPage(req) {
   const now = Date.now(), list = ordersLive(now), by = new Map();
@@ -1403,7 +1403,7 @@ function ordersPage(req) {
   const body = `<h1>Arrêtés et interdictions en cours</h1><p class="lead">Manifestations interdites, périmètres, couvre-feux et restrictions de transport, avec la source officielle de chaque mesure.</p>
 ${by.size ? [...by].sort((a, b) => a[0].localeCompare(b[0], 'fr')).map(([dn, l]) => `<section><h2>${htmlEsc(dn)}</h2><ul class="orders">${ordersHtml(l)}</ul></section>`).join('') : '<p class="fine">Aucun arrêté connu en ce moment.</p>'}
 <p class="fine">Une mesure manque ? Propose-la depuis l’appli (onglet Infos, « Tous les arrêtés »), avec le lien de la source : elle est vérifiée avant d’être publiée.</p>`;
-  return pubShell(req, { title: 'Arrêtés anti-manif en cours : interdictions, périmètres, couvre-feux · Cortège', desc: 'Les arrêtés en cours contre les manifestations en France, département par département, avec leurs sources officielles.', body });
+  return pubShell(req, { title: 'Arrêtés anti-manif en cours : interdictions, périmètres, couvre-feux · Community Defense Map', desc: 'Les arrêtés en cours contre les manifestations en France, département par département, avec leurs sources officielles.', body });
 }
 function legalTeamsPage(req) {
   const by = new Map();
@@ -1411,7 +1411,7 @@ function legalTeamsPage(req) {
   const body = `<h1>Legal teams en France</h1><p class="lead">Les numéros des legal teams, ville par ville. Écris le numéro de ta ville au stylo sur ton bras avant la manif : en garde à vue, ton téléphone te sera retiré.</p>
 ${by.size ? [...by].sort((a, b) => a[0].localeCompare(b[0], 'fr')).map(([c, l]) => `<section><h2>${cityLink(c)}</h2>${legalHtml(l)}</section>`).join('') : '<p class="fine">Annuaire en cours de constitution.</p>'}
 <p class="fine">Chaque numéro est vérifié auprès de la source publique du collectif. Une erreur, un numéro qui manque ? Écris via la page <a href="/legal.html#retrait">contact</a>.</p>`;
-  return pubShell(req, { title: 'Legal teams : les numéros, ville par ville · Cortège', desc: 'Annuaire des legal teams en France : le numéro à noter avant une manif, ville par ville.', body });
+  return pubShell(req, { title: 'Legal teams : les numéros, ville par ville · Community Defense Map', desc: 'Annuaire des legal teams en France : le numéro à noter avant une manif, ville par ville.', body });
 }
 // Page « Tes droits » : le contenu de l'onglet Droits de l'appli (une seule source : index.html)
 let rightsCache = null;
@@ -1426,7 +1426,7 @@ function rightsPage(req) {
   }
   const body = `<h1>Tes droits en manif</h1><p class="lead">Sommations, contrôle d’identité, garde à vue, téléphone, attaque d’un groupe fasciste : l’essentiel à savoir avant de partir. Le même contenu est dans l’appli, onglet Droits, même sans réseau.</p>
 <section class="rights">${rightsCache}</section><p class="fine">Trouve le numéro de la legal team de ta ville dans <a href="/legal-teams">l’annuaire</a>.</p>`;
-  return pubShell(req, { title: 'Tes droits en manif : sommations, garde à vue, contrôle d’identité · Cortège', desc: 'Ce qu’il faut savoir avant une manif : sommations, contrôle d’identité, garde à vue, téléphone, attaque fasciste.', body });
+  return pubShell(req, { title: 'Tes droits en manif : sommations, garde à vue, contrôle d’identité · Community Defense Map', desc: 'Ce qu’il faut savoir avant une manif : sommations, contrôle d’identité, garde à vue, téléphone, attaque fasciste.', body });
 }
 // Villes qui ont du contenu (manif à venir, legal team, ou ville d'un bilan publié) : une page chacune
 var cityIdx = { at: 0, map: new Map() }; // var : remis à zéro par saveEvent, saveLegal et la publication d'un bilan
@@ -1451,21 +1451,21 @@ ${orders.length ? `<section><h2>Arrêtés en cours</h2><ul class="orders">${orde
 ${c.legal.length ? `<section><h2>Legal team</h2>${legalHtml(c.legal)}<p class="fine">Note le numéro au stylo sur ton bras avant de partir.</p></section>` : ''}
 ${c.bilans.length ? `<section><h2>Bilans des manifs</h2><ul class="days">${c.bilans.map(b => `<li><a href="/manif/${b.date}${b.page ? '/' + b.page : ''}"><span>${htmlEsc(frDay(b.date))}</span><span>${b.n} signalements</span></a></li>`).join('')}</ul></section>` : ''}
 <div class="cta" style="grid-template-columns:1fr"><a class="main" href="/?at=${c.lat},${c.lng}">Voir la carte en direct à ${htmlEsc(c.name)}</a></div>`;
-  return pubShell(req, { title: `Manifs à ${c.name} : agenda, arrêtés, legal team · Cortège`, desc: `Les prochaines manifs à ${c.name}, les arrêtés en cours, le numéro de la legal team et les bilans des dernières mobilisations.`, body, ld: eventLd(req, c.events) });
+  return pubShell(req, { title: `Manifs à ${c.name} : agenda, arrêtés, legal team · Community Defense Map`, desc: `Les prochaines manifs à ${c.name}, les arrêtés en cours, le numéro de la legal team et les bilans des dernières mobilisations.`, body, ld: eventLd(req, c.events) });
 }
 function citiesPage(req) {
   const list = [...cityIndex().values()].sort((a, b) => a.name.localeCompare(b.name, 'fr'));
   const body = `<h1>Les manifs, ville par ville</h1><p class="lead">Agenda, arrêtés, legal teams et bilans pour chaque ville.</p>
 <section><p>${list.map(c => `<a href="/ville/${c.slug}">${htmlEsc(c.name)}</a>`).join(' · ') || 'Aucune ville pour l’instant.'}</p></section>`;
-  return pubShell(req, { title: 'Les manifs ville par ville · Cortège', desc: 'Agenda des manifs, arrêtés, legal teams et bilans, ville par ville, sur Cortège.', body });
+  return pubShell(req, { title: 'Les manifs ville par ville · Community Defense Map', desc: 'Agenda des manifs, arrêtés, legal teams et bilans, ville par ville, sur Community Defense Map.', body });
 }
 
 function pubIndex(req) {
   const list = q('SELECT date, data FROM pub ORDER BY date DESC').all().map(x => { const d = JSON.parse(x.data); return { date: x.date, total: d.total, cities: d.cities.length }; });
   const next = upcoming().length;
-  const body = `<h1>Bilans des manifs</h1><p class="lead">Ce que les manifestant·es ont signalé sur Cortège, journée par journée.${next ? ` Les prochaines manifs sont dans <a href="/agenda">l’agenda</a>.` : ''}</p>
+  const body = `<h1>Bilans des manifs</h1><p class="lead">Ce que les manifestant·es ont signalé sur Community Defense Map, journée par journée.${next ? ` Les prochaines manifs sont dans <a href="/agenda">l’agenda</a>.` : ''}</p>
 <section><h2>Bilans</h2>${list.length ? `<ul class="days">${list.map(x => `<li><a href="/manif/${x.date}"><span>${htmlEsc(frDay(x.date))}</span><span>${x.total} signalements · ${x.cities} villes</span></a></li>`).join('')}</ul>` : '<p class="fine">Aucun bilan publié pour l’instant.</p>'}</section>`;
-  return pubShell(req, { title: 'Bilans des manifs · Cortège', desc: 'Les bilans des mobilisations signalées sur Cortège, la carte en direct des manifs : chiffres, moments clés, parcours, données ouvertes.', body });
+  return pubShell(req, { title: 'Bilans des manifs · Community Defense Map', desc: 'Les bilans des mobilisations signalées sur Community Defense Map, la carte en direct des manifs : chiffres, moments clés, parcours, données ouvertes.', body });
 }
 function sendPage(res, html) {
   res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'public, max-age=300',
@@ -1719,7 +1719,7 @@ async function pushNear(r) {
   // On réserve l'envoi (plusieurs processus peuvent tourner en même temps)
   const targets = tx(() => cand.filter(s => q('UPDATE push SET last=? WHERE id=? AND (last IS NULL OR last<?)').run(now, s.id, now - NEAR_GAP).changes));
   if (!targets.length) return;
-  const payload = l => JSON.stringify({ title: `${c.glyph} ${tr(l, '{x} près de ta zone', { x: tr(l, c.label) })}`, body: tr(l, 'Signalé à l’instant. Ouvre Cortège pour voir où exactement.'),
+  const payload = l => JSON.stringify({ title: `${c.glyph} ${tr(l, '{x} près de ta zone', { x: tr(l, c.label) })}`, body: tr(l, 'Signalé à l’instant. Ouvre Community Defense Map pour voir où exactement.'),
     tag: 'near-' + r.cat, url: `/?at=${r.lat},${r.lng}`, vibrate: VIBES[r.cat] || [200, 100, 200] });
   await pushSendAll(targets, payload, false, 'danger');
 }
@@ -2121,7 +2121,7 @@ async function mobEve(m) {
   // Le titre et le texte de la journée sont écrits par l'admin (en français) ; le reste suit la langue du téléphone
   const day = l => new Date(zoneMs(m.date, '12:00')).toLocaleDateString(LOCALE[l], { weekday: 'long', day: 'numeric', month: 'long', timeZone: TIMEZONE });
   const payload = l => JSON.stringify({ title: '📣 ' + tr(l, 'Demain : {t}', { t: m.title }),
-    body: m.eve || tr(l, 'Journée de mobilisation {d}. Ouvre Cortège pour voir l’agenda et les numéros utiles.', { d: day(l) }),
+    body: m.eve || tr(l, 'Journée de mobilisation {d}. Ouvre Community Defense Map pour voir l’agenda et les numéros utiles.', { d: day(l) }),
     tag: 'mob-' + m.id, url: '/', vibrate: [300, 100, 300] });
   await pushSendAll(targets, payload, true, 'veille de mobilisation');
 }
@@ -2418,7 +2418,7 @@ async function orderPush(ids) {
     const o = mine[0], k = ORDER_KIND[o.items[0].k] || ORDER_KIND.autre, z = o.zone;
     const when = l => new Date(o.start).toLocaleDateString(LOCALE[l], { weekday: 'long', day: 'numeric', month: 'long', timeZone: TIMEZONE });
     const payload = l => JSON.stringify(mine.length === 1
-      ? { title: `${k.glyph} ${tr(l, k.label)} · ${z.name}`, body: tr(l, 'Nouvel arrêté à partir du {d}. Ouvre Cortège pour voir la zone et la source.', { d: when(l) }),
+      ? { title: `${k.glyph} ${tr(l, k.label)} · ${z.name}`, body: tr(l, 'Nouvel arrêté à partir du {d}. Ouvre Community Defense Map pour voir la zone et la source.', { d: when(l) }),
           tag: 'ord-' + o.id, url: `/?at=${((z.b[0] + z.b[2]) / 2).toFixed(4)},${((z.b[1] + z.b[3]) / 2).toFixed(4)}`, vibrate: [200, 100, 200] }
       : { title: '⛔ ' + tr(l, '{n} nouveaux arrêtés dans ta zone', { n: mine.length }), body: [...new Set(mine.map(x => x.zone.name))].slice(0, 4).join(', '),
           tag: 'ord-' + o.id, url: '/', vibrate: [200, 100, 200] });
@@ -2981,7 +2981,6 @@ const server = http.createServer(async (req, res) => {
 
   try {
     if (req.method === 'GET' && pathname === '/api/stream') return streamOpen(req, res, url);
-    if (req.method === 'GET' && (pathname === '/presse' || pathname === '/presse/')) return serveStatic(req, res, '/presse.html');
     // Référencement : robots.txt, plan du site, et fichier de validation de Google Search Console (GOOGLE_SITE_VERIFICATION=google0123….html)
     // Instance time zone for browser pages that format times (admin, slot maps, stories)
     if (req.method === 'GET' && pathname === '/tz.js')
@@ -3098,7 +3097,7 @@ const server = http.createServer(async (req, res) => {
       if (!row) return send(res, 404, { error: 'Ce téléphone n’est pas abonné sur le serveur. Désactive puis réactive les notifications.' });
       if (!tx(() => bump('ptest:' + deviceHash(req), 'report', 3, Date.now()) && quota('ptestnet:' + clientHash(req), 20, 5 * MIN))) return send(res, 429, { error: 'Trois essais au plus toutes les 5 minutes.' });
       const l = PUSH_LANGS.includes(row.lang) ? row.lang : 'fr';
-      const code = await pushOne(row, JSON.stringify({ title: '🔔 ' + tr(l, 'Test Cortège'), body: tr(l, 'Les notifications marchent : tu seras prévenu·e ici.'), tag: 'test', url: '/',
+      const code = await pushOne(row, JSON.stringify({ title: '🔔 ' + tr(l, 'Test Community Defense Map'), body: tr(l, 'Les notifications marchent : tu seras prévenu·e ici.'), tag: 'test', url: '/',
         vibrate: [200, 100, 200, 100, 600] }), true);
       pushStat('test', [code]);
       if (code === 404 || code === 410) q('DELETE FROM push WHERE id=?').run(row.id);
@@ -4056,4 +4055,4 @@ server.headersTimeout = 20_000;
 server.requestTimeout = 30_000;
 try { migrateOwners(); } catch (e) { console.error('auteurs', e.message); }
 const listenArgs = typeof PORT === 'number' && PORT > 0 && !Number.isNaN(PORT) ? [PORT, process.env.HOST || undefined] : [PORT];
-server.listen(...listenArgs, () => console.log(`Cortège en écoute — ${EVENT_NAME} — données : ${DATA_DIR}`));
+server.listen(...listenArgs, () => console.log(`Community Defense Map en écoute — ${EVENT_NAME} — données : ${DATA_DIR}`));

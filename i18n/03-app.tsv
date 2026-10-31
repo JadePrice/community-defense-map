@@ -32,9 +32,9 @@ Prolonger	Extend	Prolongar	تمديد
 Modifier	Edit	Modificar	تعديل
 Précision (vide = aucune)	Detail (empty = none)	Detalle (vacío = ninguno)	تفصيل (فارغ = لا شيء)
 Réseau faible : mode léger activé (seuls les signalements passent)	Weak network: light mode on (only reports get through)	Red débil: modo ligero activado (solo pasan los avisos)	شبكة ضعيفة: تفعيل الوضع الخفيف (تمر البلاغات فقط)
-Nouvelle version de Cortège	New version of Cortège	Nueva versión de Cortège	إصدار جديد من Cortège
+Nouvelle version de Community Defense Map	New version of Community Defense Map	Nueva versión de Community Defense Map	إصدار جديد من Community Defense Map
 Mettre à jour	Update	Actualizar	تحديث
-Mise à jour de Cortège…	Updating Cortège…	Actualizando Cortège…	جارٍ تحديث Cortège…
+Mise à jour de Community Defense Map…	Updating Community Defense Map…	Actualizando Community Defense Map…	جارٍ تحديث Community Defense Map…
 En pause	Paused	En pausa	متوقف
 En direct · mode léger	Live · light mode	En directo · modo ligero	مباشر · الوضع الخفيف
 En direct	Live	En directo	مباشر
@@ -147,7 +147,7 @@ Merci, signalement prolongé	Thanks, report extended	Gracias, aviso prolongado	�
 Merci, c’est noté	Thanks, noted	Gracias, anotado	شكرًا، تم التسجيل
 {n} personnes	{n} people	{n} personas	{n} أشخاص
 Appli installée sur ton écran d’accueil	App installed on your home screen	App instalada en tu pantalla de inicio	تم تثبيت التطبيق على شاشتك الرئيسية
-Tu es dans le navigateur d’une appli (Instagram, TikTok…), qui ne peut pas installer Cortège. Touche le menu <b>⋯</b> en haut à droite puis <b>Ouvrir dans le navigateur</b>, et recommence depuis là.	You’re in an app’s built-in browser (Instagram, TikTok…), which can’t install Cortège. Tap the <b>⋯</b> menu at the top right, then <b>Open in browser</b>, and start again from there.	Estás en el navegador de una app (Instagram, TikTok…), que no puede instalar Cortège. Toca el menú <b>⋯</b> arriba a la derecha y luego <b>Abrir en el navegador</b>, y vuelve a empezar desde ahí.	أنت داخل متصفح تطبيق (Instagram أو TikTok…) لا يمكنه تثبيت Cortège. المس القائمة <b>⋯</b> في الأعلى ثم <b>فتح في المتصفح</b>، وابدأ من هناك.
+Tu es dans le navigateur d’une appli (Instagram, TikTok…), qui ne peut pas installer Community Defense Map. Touche le menu <b>⋯</b> en haut à droite puis <b>Ouvrir dans le navigateur</b>, et recommence depuis là.	You’re in an app’s built-in browser (Instagram, TikTok…), which can’t install Community Defense Map. Tap the <b>⋯</b> menu at the top right, then <b>Open in browser</b>, and start again from there.	Estás en el navegador de una app (Instagram, TikTok…), que no puede instalar Community Defense Map. Toca el menú <b>⋯</b> arriba a la derecha y luego <b>Abrir en el navegador</b>, y vuelve a empezar desde ahí.	أنت داخل متصفح تطبيق (Instagram أو TikTok…) لا يمكنه تثبيت Community Defense Map. المس القائمة <b>⋯</b> في الأعلى ثم <b>فتح في المتصفح</b>، وابدأ من هناك.
 Sur iPhone, dans <b>Safari</b> : touche le bouton <b>Partager</b> (le carré avec une flèche vers le haut), puis <b>Sur l’écran d’accueil</b>, puis <b>Ajouter</b>.	On iPhone, in <b>Safari</b>: tap the <b>Share</b> button (the square with an arrow pointing up), then <b>Add to Home Screen</b>, then <b>Add</b>.	En iPhone, en <b>Safari</b>: toca el botón <b>Compartir</b> (el cuadrado con una flecha hacia arriba), luego <b>Añadir a pantalla de inicio</b> y después <b>Añadir</b>.	على iPhone، في <b>Safari</b>: المس زر <b>مشاركة</b> (المربع مع سهم للأعلى)، ثم <b>إضافة إلى الشاشة الرئيسية</b>، ثم <b>إضافة</b>.
 Ouvre le menu de ton navigateur (<b>⋮</b>) puis <b>Installer l’application</b> ou <b>Ajouter à l’écran d’accueil</b>.	Open your browser menu (<b>⋮</b>), then <b>Install app</b> or <b>Add to Home screen</b>.	Abre el menú de tu navegador (<b>⋮</b>) y luego <b>Instalar la app</b> o <b>Añadir a la pantalla de inicio</b>.	افتح قائمة المتصفح (<b>⋮</b>) ثم <b>تثبيت التطبيق</b> أو <b>إضافة إلى الشاشة الرئيسية</b>.
 Masquer cette annonce	Hide this announcement	Ocultar este anuncio	إخفاء هذا الإعلان
@@ -168,7 +168,6 @@ Pour la mobilisation · publié {ago}	For the protest · posted {ago}	Para la mo
 Joignable sur Signal	Reachable on Signal	Disponible en Signal	متاح على Signal
 Aucune legal team connue près de toi · la plus proche : {city} ({d})	No known legal team near you · nearest: {city} ({d})	Ningún equipo legal conocido cerca de ti · el más cercano: {city} ({d})	لا فريق قانوني معروف قربك · الأقرب: {city} ({d})
 Autres villes ({n})	Other cities ({n})	Otras ciudades ({n})	مدن أخرى ({n})
-La carte en direct des manifs, par @{h}	The live protest map, by @{h}	El mapa en directo de las manifestaciones, por @{h}	خريطة المظاهرات المباشرة، من @{h}
 Lien copié	Link copied	Enlace copiado	تم نسخ الرابط
 Action impossible.	Action not possible.	Acción imposible.	تعذّر تنفيذ الإجراء.
 ORGA · essai	ORGA · trial	ORGA · prueba	ORGA · تجربة
@@ -276,7 +275,7 @@ Quelqu’un de mon groupe vient d’être interpellé·e ({hour})	Someone in my 
 ici : {url}	here: {url}	aquí: {url}	هنا: {url}
 Préviens la legal team : {phone} ({name}).	Tell the legal team: {phone} ({name}).	Avisa al equipo legal: {phone} ({name}).	أبلغ الفريق القانوني: {phone} ({name}).
 Préviens la legal team de la manif.	Tell the protest’s legal team.	Avisa al equipo legal de la manifestación.	أبلغ الفريق القانوني للمظاهرة.
-Message envoyé avec Cortège.	Message sent with Cortège.	Mensaje enviado con Cortège.	رسالة مرسلة عبر Cortège.
+Message envoyé avec Community Defense Map.	Message sent with Community Defense Map.	Mensaje enviado con Community Defense Map.	رسالة مرسلة عبر Community Defense Map.
 Numéro invalide.	Invalid number.	Número no válido.	رقم غير صالح.
 Impossible d’enregistrer sur ce téléphone.	Can’t save on this phone.	No se puede guardar en este teléfono.	تعذّر الحفظ على هذا الهاتف.
 Contact enregistré sur ce téléphone	Contact saved on this phone	Contacto guardado en este teléfono	حُفظت جهة الاتصال على هذا الهاتف
@@ -285,7 +284,7 @@ Message copié : colle-le dans ta messagerie	Message copied: paste it into your 
 Économie de batterie activée	Battery saver on	Ahorro de batería activado	تم تفعيل توفير البطارية
 Économie de batterie désactivée	Battery saver off	Ahorro de batería desactivado	تم إيقاف توفير البطارية
 Version {v}	Version {v}	Versión {v}	الإصدار {v}
-Carte en direct des manifs (Cortège)	Live protest map (Cortège)	Mapa en directo de las manifestaciones (Cortège)	خريطة المظاهرات المباشرة (Cortège)
+Carte en direct des manifs (Community Defense Map)	Live protest map (Community Defense Map)	Mapa en directo de las manifestaciones (Community Defense Map)	خريطة المظاهرات المباشرة (Community Defense Map)
 Code copié	Code copied	Código copiado	تم نسخ الرمز
 Batterie faible : active l’économie de batterie dans « Plus »	Low battery: turn on battery saver in “More”	Batería baja: activa el ahorro de batería en «Más»	البطارية ضعيفة: فعّل توفير البطارية في «المزيد»
 Activées sur ce téléphone	On for this phone	Activadas en este teléfono	مفعّلة على هذا الهاتف

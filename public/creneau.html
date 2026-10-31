@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Cortège · carte d’un créneau</title>
+<title>Community Defense Map · carte d’un créneau</title>
 <meta name="description" content="Les signalements d’une manif, sur un lieu et une plage horaire, en une image à partager.">
 <link rel="icon" href="/favicon.png">
 <link rel="stylesheet" href="/vendor/leaflet.css">
@@ -14,7 +14,7 @@
 [hidden] { display: none !important; }
 body { margin: 0; background: #121214; color: #f2f1f4; font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; }
 main { max-width: 860px; margin: 0 auto; padding: 20px 16px 60px; display: flex; flex-direction: column; gap: 16px; }
-a { color: #ec9fa4; }
+a { color: #7fe0ef; }
 .back { font-size: 14px; text-decoration: none; }
 h1 { margin: 4px 0 0; font-size: 26px; line-height: 1.2; }
 .lead { margin: 4px 0 0; color: #a3a1ad; }
@@ -24,8 +24,8 @@ h1 { margin: 4px 0 0; font-size: 26px; line-height: 1.2; }
 .row { display: flex; flex-wrap: wrap; gap: 10px; align-items: end; }
 label { display: flex; flex-direction: column; gap: 4px; font-size: 13px; color: #a3a1ad; }
 input, select { height: 44px; padding: 0 12px; border-radius: 10px; border: 1px solid #34343c; background: #121214; color: #f2f1f4; font: inherit; min-width: 0; }
-button, .btn { height: 44px; padding: 0 16px; border-radius: 10px; border: 0; background: linear-gradient(135deg, #ec9fa4, #a191d8 60%, #7d86dc); color: #17121f; font: 800 15px system-ui, sans-serif; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; }
-button.ghost, .btn.ghost { background: transparent; color: #ec9fa4; border: 1px solid #ec9fa4; }
+button, .btn { height: 44px; padding: 0 16px; border-radius: 10px; border: 0; background: linear-gradient(135deg, #7fe0ef, #5bb8ea 60%, #3d8fe0); color: #17121f; font: 800 15px system-ui, sans-serif; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; }
+button.ghost, .btn.ghost { background: transparent; color: #7fe0ef; border: 1px solid #7fe0ef; }
 button:disabled { opacity: .5; cursor: default; }
 .grow { flex: 1; min-width: 180px; }
 #count { font-weight: 700; }
@@ -66,7 +66,7 @@ button:disabled { opacity: .5; cursor: default; }
     <img id="out" alt="Carte des signalements du créneau">
     <div class="row"><a class="btn" id="dl" href="#" download>Télécharger</a><button type="button" class="ghost" id="share" hidden>Partager</button></div>
   </section>
-  <p class="fine">Signalements faits par des participant·es sur Cortège. Ceux qui ont été retirés ou contestés restent affichés, en rond vide, avec la mention. Ils ne sont pas tous vérifiés : à recouper avant de publier. Positions arrondies à environ 100 m. L’image est fabriquée sur ton téléphone ou ton ordinateur. Fond de carte © les contributeur·ices d’OpenStreetMap.</p>
+  <p class="fine">Signalements faits par des participant·es sur Community Defense Map. Ceux qui ont été retirés ou contestés restent affichés, en rond vide, avec la mention. Ils ne sont pas tous vérifiés : à recouper avant de publier. Positions arrondies à environ 100 m. L’image est fabriquée sur ton téléphone ou ton ordinateur. Fond de carte © les contributeur·ices d’OpenStreetMap.</p>
   <canvas id="cv" hidden></canvas>
 </main>
 <script src="/tz.js"></script>

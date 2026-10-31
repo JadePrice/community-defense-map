@@ -9,10 +9,10 @@
   --line: #34343c;
   --fg: #f2f1f4;
   --muted: #a3a1ad;
-  --accent: #ec9fa4;       /* corail du logo NERU */
+  --accent: #7fe0ef;       /* cyan of the Community Defense Map mark */
   --accent-2: #5b66c4;     /* indigo du logo */
   --accent-fg: #17121f;
-  --brand-grad: linear-gradient(135deg, #ec9fa4, #a191d8 60%, #7d86dc);
+  --brand-grad: linear-gradient(135deg, #7fe0ef, #5bb8ea 60%, #3d8fe0);
   --fdo: #e5484d;
   --danger: #f5a524;
   --soutien: #30a46c;
@@ -237,7 +237,7 @@ body.raster .leaflet-tile-pane { filter: invert(1) hue-rotate(180deg) brightness
 .bk-note { display: grid; gap: 4px; font-size: 13px; color: var(--muted); margin: 0 0 8px; }
 .bk-note input { height: 44px; border-radius: 10px; background: var(--surface); color: var(--fg); border: 1px solid var(--line); padding: 0 10px; font-size: 15px; }
 /* Point de l'admin : son logo, bordé du dégradé de la marque */
-.pin.admin { padding: 0; border: 0; background: linear-gradient(135deg, #ec9fa4, #a191d8 60%, #7d86dc); width: 46px; height: 46px; margin: -3px; }
+.pin.admin { padding: 0; border: 0; background: linear-gradient(135deg, #7fe0ef, #5bb8ea 60%, #3d8fe0); width: 46px; height: 46px; margin: -3px; }
 .pin.admin img { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; background: #121214; display: block; }
 .bk-row { display: grid; grid-template-columns: 1.4fr 1fr; gap: 8px; margin: 8px 0; }
 .bk-row label { display: grid; gap: 4px; font-size: 13px; color: var(--muted); }

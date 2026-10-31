@@ -27,7 +27,7 @@
   } else raster();
   const CAT = Object.fromEntries((cfg.categories || []).map(c => [c.id, c]));
   const COL = { fdo: '#e5484d', danger: '#f5a524', soutien: '#30a46c', info: '#8e8cd8' };
-  if (cfg.brand && cfg.brand.handle) $open().textContent = 'Cortège · @' + cfg.brand.handle + ' ↗';
+  if (cfg.brand && cfg.brand.handle) $open().textContent = 'Community Defense Map · @' + cfg.brand.handle + ' ↗';
   function $open() { return document.getElementById('open'); }
   const layer = L.layerGroup().addTo(map), markers = new Map();
   const ago = t => { const m = Math.round((Date.now() - t) / 60000); return m < 1 ? 'à l’instant' : m < 60 ? `il y a ${m} min` : `il y a ${Math.floor(m / 60)} h`; };
