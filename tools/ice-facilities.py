@@ -37,7 +37,9 @@ FILES = {
 # Medical sites (people in custody treated there) are not detention sites: leaving them out avoids a false label
 EXCLUDE_TYPES = {'HOSPITAL', 'MEDICAL'}
 # Hospitals typed OTHER in the dataset: matched to a Medicare facility by the dataset itself, or named as one
-MEDICAL_NAME = re.compile(r'\b(hospital|medical cent(er|re)|health ?care|health system|behavioral health|psychiatric|infirmary)\b', re.I)
+MEDICAL_NAME = re.compile(r'\b(hospital|medical|md cent(er|re)|health ?care|health system|behavioral|psychiatric|infirmary|nursing|rehabilitation|(care|treatment) cent(er|re))\b', re.I)
+# "Institute" is medical only when the name is not a correctional one
+INSTITUTE = re.compile(r'\binstitute\b', re.I); CORRECTIONAL = re.compile(r'correction|penal|detention|jail|prison', re.I)
 GENERIC = ('', 'OTHER', 'UNKNOWN')
 COLUMNS = ['code', 'name', 'address', 'city', 'state', 'zip', 'county', 'lat', 'lng', 'field_office', 'type', 'type_source',
            'gender', 'over_72', 'days_used', 'avg_daily', 'max_daily']
@@ -111,7 +113,7 @@ def main():
     cnt = {r['detention_facility_code']: r for r in counts}
 
     rows, excluded, types = [], {'no coordinates': [], 'medical (type)': [], 'medical (Medicare ID)': [], 'medical (name)': []}, {}
-    derived = {'hold room from code': 0, 'CBP from code': 0, 'BOP from code': 0, 'county jail from name': 0}
+    derived = {'hold room from code': 0, 'CBP from code': 0, 'BOP from code': 0, 'processing center from name': 0, 'youth facility from name': 0, 'county jail from name': 0, 'police from name': 0}
     for r in latest:
         code = clean(r.get('detention_facility_code'))
         lat, lng = r.get('latitude'), r.get('longitude')
@@ -124,12 +126,16 @@ def main():
         name = clean(r.get('name'))
         if typ in EXCLUDE_TYPES: excluded['medical (type)'].append(code); continue
         if typ in GENERIC and h.get('medicare'): excluded['medical (Medicare ID)'].append(code); continue
-        if typ in GENERIC and MEDICAL_NAME.search(name): excluded['medical (name)'].append(code); continue
+        if typ in GENERIC and (MEDICAL_NAME.search(name) or (INSTITUTE.search(name) and not CORRECTIONAL.search(name))):
+            excluded['medical (name)'].append(code); continue
         if typ in GENERIC:
             if code.endswith('HOLD'): typ = 'HOLD'; derived['hold room from code'] += 1
             elif code.startswith('CBP'): typ = 'CBP'; derived['CBP from code'] += 1
             elif code.startswith('BOP'): typ = 'BOP'; derived['BOP from code'] += 1
-            elif re.search(r'\bcounty (jail|detention|correctional)', name, re.I): typ = 'COUNTY'; derived['county jail from name'] += 1
+            elif re.search(r'juvenile|foster|\bLTFC\b', name, re.I): typ = 'JUVENILE'; derived['youth facility from name'] += 1
+            elif re.search(r'service processing cent', name, re.I): typ = 'SPC'; derived['processing center from name'] += 1
+            elif re.search(r'\bcounty (jail|detention|correctional)|sheriff', name, re.I): typ = 'COUNTY'; derived['county jail from name'] += 1
+            elif re.search(r'\bpolice\b|\bPD\b', name): typ = 'LOCAL POLICE DEPARTMENT'; derived['police from name'] += 1
         types[typ or '(unknown)'] = types.get(typ or '(unknown)', 0) + 1
         c = cnt.get(code, {})
         num = lambda v, nd: '' if v is None else (f'{float(v):.{nd}f}' if nd else str(int(v)))
